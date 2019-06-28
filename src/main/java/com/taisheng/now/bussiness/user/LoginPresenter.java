@@ -34,9 +34,9 @@ public class LoginPresenter {
      * 获取验证码
      *
      * @param phone
-     * @param deviceType
+
      */
-    public void getVerifyCode(String phone, int deviceType) {
+    public void getVerifyCode(String phone) {
 //        final LoginView tloginView = loginView.get();
 //
 //        if (tloginView != null) {
@@ -72,6 +72,13 @@ public class LoginPresenter {
     }
 
     /**
+登录
+     *账号密码
+     * /
+     */
+    public void loginUsername(String zhanghao,String password){
+
+    }
 
 
 
@@ -80,10 +87,8 @@ public class LoginPresenter {
      *
      * @param phone      手机号
      * @param verifyCode 验证码
-     * @param deviceType 手机类型
-     * @param deviceId
      */
-    public void login(final String phone, String verifyCode, int deviceType, String deviceId) throws IOException {
+    public void loginPhone(final String phone, String verifyCode) throws IOException {
 //        final LoginView tloginView = loginView.get();
 //        if (tloginView != null) {
 //            tloginView.showDialog();
