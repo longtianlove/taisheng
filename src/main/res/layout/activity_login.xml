@@ -13,14 +13,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="246dp"
-            android:background="@drawable/xml_login_background"
+            android:background="@drawable/login_background"
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
+            <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/login_tv_bg_circle" />
+                android:src="@drawable/icon_app" />
 
             <TextView
                 android:layout_width="wrap_content"
