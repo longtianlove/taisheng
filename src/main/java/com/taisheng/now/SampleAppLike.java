@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.multidex.MultiDex;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.taisheng.now.util.Apputil;
 import com.tencent.bugly.Bugly;
 
@@ -38,7 +39,7 @@ public class SampleAppLike extends DefaultApplicationLike {
 //        WeChatManagerInstance.getInstance().registToWx(mcontext);
 
         if (isMainProcess(getApplication())) {
-//            Fresco.initialize(mcontext);
+            Fresco.initialize(mcontext);
             // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
             // 调试时，将第三个参数改为true
             // 调试时，将第三个参数改为true
