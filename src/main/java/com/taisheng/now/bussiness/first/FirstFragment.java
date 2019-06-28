@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragment;
+import com.taisheng.now.view.banner.BannerViewPager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -30,10 +32,11 @@ import retrofit2.Response;
 
 @SuppressLint("WrongConstant")
 public class FirstFragment extends BaseFragment {
+    TextView tv_location_city;
+    View ll_search;
 
-
-
-
+    private FrameLayout bannerContaner;
+    BannerViewPager bannerViewPager;
 
 
     @Override
@@ -41,7 +44,7 @@ public class FirstFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_first, container, false);
-
+        initView(rootView);
 
 
 
@@ -51,14 +54,21 @@ public class FirstFragment extends BaseFragment {
         return rootView;
     }
 
-    void initData() {
+    void initView(View rootView) {
+        tv_location_city= (TextView) rootView.findViewById(R.id.tv_location_city);
+        ll_search=rootView.findViewById(R.id.ll_search);
 
+        bannerContaner = (FrameLayout)rootView.findViewById(R.id.bannerContaner);
+        bannerContaner.setVisibility(View.GONE);
+        bannerViewPager = new BannerViewPager(mActivity);
 
     }
 
 
+    void initData() {
 
 
+    }
 
 
     public void onDestroy() {

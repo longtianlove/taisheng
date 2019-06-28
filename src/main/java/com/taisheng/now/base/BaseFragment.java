@@ -16,7 +16,7 @@ public class BaseFragment extends Fragment {
 
     public void onAttach(Activity activity) {
 
-        mActivity=  activity;
+        mActivity= activity;
         super.onAttach(mActivity);
     }
 
