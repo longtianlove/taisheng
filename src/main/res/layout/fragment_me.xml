@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:background="@drawable/fragment_me_background"
             android:orientation="vertical">
 
@@ -71,6 +71,7 @@
                         android:layout_height="17dp"
                         android:text="账号：13424940234"
                         android:textColor="#ffffffff"
+                        android:layout_marginTop="9dp"
                         android:textSize="12sp" />
                 </LinearLayout>
 
@@ -194,6 +195,7 @@
 
 
         <LinearLayout
+            android:id="@+id/ll_mypingjia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
@@ -236,6 +238,7 @@
 
 
         <LinearLayout
+            android:id="@+id/ll_tousuzhongxin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
@@ -276,6 +279,7 @@
             android:background="#EEEEEE" />
 
         <LinearLayout
+            android:id="@+id/ll_yijianfankui"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
@@ -316,6 +320,7 @@
             android:background="#EEEEEE" />
 
         <LinearLayout
+            android:id="@+id/ll_aboutus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
@@ -357,6 +362,7 @@
 
 
         <LinearLayout
+            android:id="@+id/ll_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
