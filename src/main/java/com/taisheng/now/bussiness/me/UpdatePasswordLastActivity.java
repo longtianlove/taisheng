@@ -11,7 +11,7 @@ import com.taisheng.now.base.BaseActivity;
  */
 
 public class UpdatePasswordLastActivity extends BaseActivity {
-    View iv_back;
+//    View iv_back;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -20,13 +20,13 @@ public class UpdatePasswordLastActivity extends BaseActivity {
         initView();
     }
     void initView(){
-        iv_back=findViewById(R.id.iv_back);
-        iv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        iv_back=findViewById(R.id.iv_back);
+//        iv_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
     }
 }
