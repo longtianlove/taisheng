@@ -33,7 +33,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     ImageView iv_shoujihao_guanbi;
     EditText et_yanzhengma;
     Button btn_yanzhengma;
-    Button btn_yanzhengma_login;
+    TextView btn_yanzhengma_login;
     TextView tv_zhanghao_change;
 
     //账号
@@ -42,7 +42,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     ImageView iv_zhanghao_guanbi;
     EditText et_password;
     ImageView iv_password_yincang;
-    Button btn_zhanghao_login;
+    TextView btn_zhanghao_login;
     TextView tv_yanzhengma_change;
 
 
@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
         btn_yanzhengma = (Button) findViewById(R.id.btn_yanzhengma);
         btn_yanzhengma.setEnabled(false);
 
-        btn_yanzhengma_login = (Button) findViewById(R.id.btn_yanzhengma_login);
+        btn_yanzhengma_login = (TextView) findViewById(R.id.btn_yanzhengma_login);
         btn_yanzhengma_login.setEnabled(false);
 
         tv_zhanghao_change = (TextView) findViewById(R.id.tv_zhanghao_change);
@@ -96,7 +96,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
 
 
-        btn_zhanghao_login= (Button) findViewById(R.id.btn_zhanghao_login);
+        btn_zhanghao_login= (TextView) findViewById(R.id.btn_zhanghao_login);
         btn_zhanghao_login.setEnabled(false);
         tv_yanzhengma_change= (TextView) findViewById(R.id.tv_yanzhengma_change);
 

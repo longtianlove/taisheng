@@ -8,6 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+
+    <attr name="hasLoadMore" forMymat="boolean" />
     <declare-styleable name="ChinaHrListView">
         <!--是否有加载更多的属性-->
         <attr name="hasLoadMore" />

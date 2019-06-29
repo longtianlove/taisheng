@@ -137,7 +137,7 @@
                 android:layout_marginTop="19dp"
                 />
 
-            <Button
+            <TextView
                 android:id="@+id/btn_zhanghao_login"
                 android:layout_width="match_parent"
                 android:layout_height="39dp"
@@ -147,7 +147,7 @@
                 android:gravity="center"
                 android:text="登录"
                 android:textColor="@color/white"
-                android:textSize="14sp"></Button>
+                android:textSize="14sp"></TextView>
             <TextView
                 android:id="@+id/tv_yanzhengma_change"
                 android:layout_width="wrap_content"
@@ -259,7 +259,7 @@
                 android:layout_marginTop="19dp"
                 />
 
-            <Button
+            <TextView
                 android:id="@+id/btn_yanzhengma_login"
                 android:layout_width="match_parent"
                 android:layout_height="39dp"
@@ -269,7 +269,7 @@
                 android:gravity="center"
                 android:text="登录"
                 android:textColor="@color/white"
-                android:textSize="14sp"></Button>
+                android:textSize="14sp"></TextView>
             <TextView
                 android:id="@+id/tv_zhanghao_change"
                 android:layout_width="wrap_content"
