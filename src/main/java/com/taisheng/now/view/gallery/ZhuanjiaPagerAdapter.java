@@ -13,7 +13,7 @@ import java.util.List;
  * Created by dragon on 2019/6/28.
  */
 
-public class CustomPagerAdapter extends PagerAdapter {
+public class ZhuanjiaPagerAdapter extends PagerAdapter {
     //上下文
     private Context mContext;
     //数据
@@ -26,7 +26,7 @@ public class CustomPagerAdapter extends PagerAdapter {
      * @param context
      * @param list
      */
-    public CustomPagerAdapter(Context context, List<String> list) {
+    public ZhuanjiaPagerAdapter(Context context, List<String> list) {
         mContext = context;
         mData = list;
     }

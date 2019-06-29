@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="17dp"
+    android:paddingLeft="12dp"
+    android:gravity="center_vertical"
+    android:paddingRight="12dp"
+    android:paddingTop="20dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_article"
+        android:layout_width="87dp"
+        android:layout_height="75dp"
+        android:gravity="center"
+        android:scaleType="fitXY"
+        fresco:actualImageScaleType="focusCrop"
+        fresco:fadeDuration="300"
+        fresco:failureImage="@drawable/article_default"
+        fresco:failureImageScaleType="centerInside"
+        fresco:placeholderImage="@drawable/article_default"
+        fresco:placeholderImageScaleType="fitCenter" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="健康美食搭配，助您身心健康"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:gravity="center"
+            android:text="此处是段落文字详情此处是段落文字详情此处是段落文字详情此处是段落文字详情……"
+            android:textColor="#ff666666"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="7dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="食疗养生"
+                android:textColor="#ff529ffb"
+                android:textSize="10sp" />
+            <ImageView
+                android:layout_marginLeft="42dp"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:src="@drawable/icon_time"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2019-10-24 10:29:43"
+                android:textColor="#ff999999"
+                android:layout_marginLeft="2dp"
+                android:textSize="10sp"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

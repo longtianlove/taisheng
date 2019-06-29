@@ -149,7 +149,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
 
     public static int select_index;
 
-    private void showFragment(int index) {
+    public void showFragment(int index) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         hideAllTabIcon(transaction);
         switch (index) {

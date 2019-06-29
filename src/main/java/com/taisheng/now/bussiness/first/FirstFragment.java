@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragment;
+import com.taisheng.now.bussiness.MainActivity;
 import com.taisheng.now.view.banner.BannerViewPager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,6 +39,10 @@ public class FirstFragment extends BaseFragment {
 
     private FrameLayout bannerContaner;
     BannerViewPager bannerViewPager;
+    ViewPager vp_zhuanjia;
+
+    TextView tv_doctor_more;
+TextView tv_secret_more;
 
 
     @Override
@@ -61,6 +67,22 @@ public class FirstFragment extends BaseFragment {
         bannerContaner = (FrameLayout)rootView.findViewById(R.id.bannerContaner);
         bannerContaner.setVisibility(View.GONE);
         bannerViewPager = new BannerViewPager(mActivity);
+
+        vp_zhuanjia= (ViewPager) rootView.findViewById(R.id.vp_zhuanjia);
+        tv_doctor_more= (TextView) rootView.findViewById(R.id.tv_doctor_more);
+        tv_doctor_more.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).showFragment(1);
+            }
+        });
+        tv_secret_more= (TextView) rootView.findViewById(R.id.tv_secret_more);
+        tv_secret_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).showFragment(2);
+            }
+        });
 
     }
 
