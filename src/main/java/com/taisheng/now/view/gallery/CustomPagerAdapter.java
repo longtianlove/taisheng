@@ -51,7 +51,7 @@ public class CustomPagerAdapter extends PagerAdapter {
      */
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View view = View.inflate(mContext, R.layout.item_doctor, null);
+        View view = View.inflate(mContext, R.layout.item_zhuanjia, null);
 
         container.addView(view);
         return view;

@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <declare-styleable name="ChinaHrListView">
+        <!--是否有加载更多的属性-->
+        <attr name="hasLoadMore" />
+    </declare-styleable>
+
 </resources>
