@@ -270,6 +270,7 @@
                 android:text="登录"
                 android:textColor="@color/white"
                 android:textSize="14sp"></TextView>
+
             <TextView
                 android:id="@+id/tv_zhanghao_change"
                 android:layout_width="wrap_content"

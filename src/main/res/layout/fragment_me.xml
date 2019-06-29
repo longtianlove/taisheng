@@ -60,6 +60,7 @@
                     >
 
                     <TextView
+                        android:id="@+id/tv_nickname"
                         android:layout_width="98dp"
                         android:layout_height="23dp"
                         android:text="沉浸深海の鱼"
@@ -67,6 +68,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/tv_zhanghao"
                         android:layout_width="115dp"
                         android:layout_height="17dp"
                         android:text="账号：13424940234"
@@ -81,8 +83,10 @@
                     android:layout_weight="1" />
 
                 <ImageView
-                    android:layout_width="8dp"
-                    android:layout_height="12dp"
+                    android:id="@+id/iv_jiantou"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
                     android:layout_marginRight="12dp"
                     android:src="@drawable/jiantou_white" />
 
