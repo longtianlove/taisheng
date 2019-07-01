@@ -17,7 +17,5 @@ public class BaseActivity extends Activity {
         super.onCreate(savedInstanceState);
 
 
-
-
     }
 }
