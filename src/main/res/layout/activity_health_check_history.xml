@@ -1,30 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android.support.design="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/tools"
     android:background="#fff"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/healthy_history_background"
-       >
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="10dp"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="34dp"
+            android:paddingRight="10dp"
             android:src="@drawable/icon_back_new" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="32"
+                    android:textColor="#ffffffff"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:text="年龄"
+                    android:textColor="#ffffffff"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="89dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#fff" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="168"
+                    android:textColor="#ffffffff"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="身高"
+                    android:textColor="#ffffffff"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="81dp"
+                android:layout_height="171dp"
+                android:layout_weight="1"
+                android:src="@drawable/icon_ren" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="女"
+                    android:textColor="#ffffffff"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:text="性别"
+                    android:textColor="#ffffffff"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="89dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#fff" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="47.1"
+                    android:textColor="#ffffffff"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="体重"
+                    android:textColor="#ffffffff"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
 
-
-    </RelativeLayout>
+    </LinearLayout>
 
 
     <View
@@ -32,17 +144,34 @@
         android:layout_height="1dp"
         android:background="#f8f8f8" />
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f6f6f6">
+        android:background="#f6f6f6"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tl_tab"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="44dp"
+            android:background="#fff"
+            app:tabBackground="#fff"
+            app:tabGravity="GRAVITY_CENTER"
+            app:tabIndicatorColor="#529FFB"
+            app:tabSelectedTextColor="#529FFB"
+            app:tabTextColor="#333333"
+            app:tabIndicatorHeight="1dp">
 
+        </android.support.design.widget.TabLayout>
 
-        </LinearLayout>
-    </ScrollView>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+
+    </LinearLayout>
+
 </LinearLayout>

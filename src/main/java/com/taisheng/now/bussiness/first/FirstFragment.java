@@ -42,7 +42,7 @@ public class FirstFragment extends BaseFragment {
     ViewPager vp_zhuanjia;
 
     TextView tv_doctor_more;
-TextView tv_secret_more;
+    TextView tv_secret_more;
 
 
     @Override
@@ -53,7 +53,6 @@ TextView tv_secret_more;
         initView(rootView);
 
 
-
 //        EventBus.getDefault().register(this);
         initData();
 
@@ -61,26 +60,26 @@ TextView tv_secret_more;
     }
 
     void initView(View rootView) {
-        tv_location_city= (TextView) rootView.findViewById(R.id.tv_location_city);
-        ll_search=rootView.findViewById(R.id.ll_search);
+        tv_location_city = (TextView) rootView.findViewById(R.id.tv_location_city);
+        ll_search = rootView.findViewById(R.id.ll_search);
 
-        bannerContaner = (FrameLayout)rootView.findViewById(R.id.bannerContaner);
+        bannerContaner = (FrameLayout) rootView.findViewById(R.id.bannerContaner);
         bannerContaner.setVisibility(View.GONE);
         bannerViewPager = new BannerViewPager(mActivity);
 
-        vp_zhuanjia= (ViewPager) rootView.findViewById(R.id.vp_zhuanjia);
-        tv_doctor_more= (TextView) rootView.findViewById(R.id.tv_doctor_more);
-        tv_doctor_more.setOnClickListener(new View.OnClickListener(){
+        vp_zhuanjia = (ViewPager) rootView.findViewById(R.id.vp_zhuanjia);
+        tv_doctor_more = (TextView) rootView.findViewById(R.id.tv_doctor_more);
+        tv_doctor_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).showFragment(1);
+                ((MainActivity) getActivity()).showFragment(1);
             }
         });
-        tv_secret_more= (TextView) rootView.findViewById(R.id.tv_secret_more);
+        tv_secret_more = (TextView) rootView.findViewById(R.id.tv_secret_more);
         tv_secret_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).showFragment(2);
+                ((MainActivity) getActivity()).showFragment(2);
             }
         });
 
