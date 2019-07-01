@@ -176,6 +176,14 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
          </activity>
+        <activity
+            android:name="com.taisheng.now.bussiness.doctor.DoctorDetailActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+
+        </activity>
 
     </application>
 
