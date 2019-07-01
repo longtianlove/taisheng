@@ -2,6 +2,9 @@ package com.taisheng.now.base;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Window;
+
+import com.taisheng.now.view.chenjinshi.StatusBarUtil;
 
 
 /**
@@ -12,6 +15,9 @@ public class BaseActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
 
     }
 }
