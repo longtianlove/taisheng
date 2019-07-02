@@ -741,13 +741,13 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 
         @Override
         public void onNetworkQuality(TRTCCloudDef.TRTCQuality localQuality, ArrayList<TRTCCloudDef.TRTCQuality> remoteQuality){
-            TRTCMainActivity activity = mContext.get();
-            if (activity != null) {
-                activity.mVideoViewLayout.updateNetworkQuality(localQuality.userId, localQuality.quality);
-                for (TRTCCloudDef.TRTCQuality qualityInfo: remoteQuality) {
-                    activity.mVideoViewLayout.updateNetworkQuality(qualityInfo.userId, qualityInfo.quality);
-                }
-            }
+//            TRTCMainActivity activity = mContext.get();
+//            if (activity != null) {
+//                activity.mVideoViewLayout.updateNetworkQuality(localQuality.userId, localQuality.quality);
+//                for (TRTCCloudDef.TRTCQuality qualityInfo: remoteQuality) {
+//                    activity.mVideoViewLayout.updateNetworkQuality(qualityInfo.userId, qualityInfo.quality);
+//                }
+//            }
         }
     }
 
