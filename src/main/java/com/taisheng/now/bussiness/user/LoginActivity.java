@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.base.BaseFragmentActivity;
 
 import java.io.IOException;
 
@@ -24,7 +25,7 @@ import java.io.IOException;
  * Created by dragon on 2019/6/27.
  */
 
-public class LoginActivity extends BaseActivity implements LoginView {
+public class LoginActivity extends BaseFragmentActivity implements LoginView {
 
 
     //手机号登录

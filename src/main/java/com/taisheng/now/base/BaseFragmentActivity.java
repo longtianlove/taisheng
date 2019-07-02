@@ -23,6 +23,10 @@ public class BaseFragmentActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        setImageSystemBar();
+    }
+
+    public void setImageSystemBar(){
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 

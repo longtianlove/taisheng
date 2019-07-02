@@ -1,5 +1,6 @@
 package com.taisheng.now.bussiness.doctor;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 
@@ -11,7 +12,7 @@ import com.taisheng.now.view.chenjinshi.StatusBarUtil;
  * Created by dragon on 2019/7/1.
  */
 
-public class DoctorDetailActivity extends BaseActivity {
+public class DoctorDetailActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

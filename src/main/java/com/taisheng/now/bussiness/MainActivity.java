@@ -57,6 +57,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
     private SecretFragment secretFragment;
     private MeFragment meFragment;
 
+    View toolBar;
 
 
 
@@ -102,6 +103,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
         }
 
         iv_tab_first.setSelected(true);
+        toolBar.setVisibility(View.VISIBLE);
 
 //        EventBus.getDefault().register(this);
 
@@ -110,6 +112,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initView() {
+        toolBar=findViewById(R.id.toolBar);
         iv_tab_first= (ImageView) findViewById(R.id.iv_tab_first);
         iv_tab_doctor= (ImageView) findViewById(R.id.iv_tab_doctor);
         iv_tab_secret= (ImageView) findViewById(R.id.iv_tab_secret);
@@ -152,6 +155,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
     public void showFragment(int index) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         hideAllTabIcon(transaction);
+        toolBar.setVisibility(View.VISIBLE);
         switch (index) {
             case 0:
 
@@ -203,7 +207,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
                         .show(meFragment).commit();
                 iv_tab_me.setSelected(true);
                 tv_tab_me.setTextColor(getResources().getColor(R.color.tv_tab_color_select));
-
+                toolBar.setVisibility(View.GONE);
                 break;
         }
     }
