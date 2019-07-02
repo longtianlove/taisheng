@@ -3,4 +3,8 @@
 
 
     <dimen name="dialog_change_avater_margin">22.5dp</dimen>
+
+    <dimen name="icon_width">40dp</dimen>
+    <dimen name="icon_height">40dp</dimen>
+    <dimen name="icon_margin">14dp</dimen>
 </resources>
