@@ -1,11 +1,15 @@
 package com.taisheng.now.bussiness.doctor;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.util.DialogUtil;
+import com.taisheng.now.util.DoubleClickUtil;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
 
 /**
@@ -13,12 +17,15 @@ import com.taisheng.now.view.chenjinshi.StatusBarUtil;
  */
 
 public class DoctorDetailActivity extends Activity {
+
+
+    View ll_zixun;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 
 
         //沉浸式代码配置
@@ -38,5 +45,40 @@ public class DoctorDetailActivity extends Activity {
 
 
         setContentView(R.layout.activity_doctor_detail);
+        initView();
+    }
+
+    void initView() {
+        ll_zixun = findViewById(R.id.ll_zixun);
+        ll_zixun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (DoubleClickUtil.isFastMiniDoubleClick()) {
+                    return;
+                }
+                DialogUtil.showzixunDialog(DoctorDetailActivity.this,
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(DoctorDetailActivity.this, ShipinActivity.class);
+                                startActivity(intent);
+                            }
+                        },
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(DoctorDetailActivity.this, ShipinActivity.class);
+                                startActivity(intent);
+                            }
+                        },
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        }
+                );
+            }
+        });
     }
 }

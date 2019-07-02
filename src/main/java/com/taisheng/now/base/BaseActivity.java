@@ -38,4 +38,23 @@ public class BaseActivity extends Activity {
         super.onStart();
         setSystemBar();
     }
+
+
+
+    @Override
+    protected void onDestroy() {
+//        NotificationCenter.INSTANCE.removeObserver(this);
+        isDestoryed = true;
+        super.onDestroy();
+    }
+    private boolean isDestoryed;
+
+    /**
+     * 是否销毁了
+     *
+     * @return 页面是否销毁掉  bug fixxed with umeng at 5.0.1 by yangwenxin
+     */
+    public boolean isDestroy() {
+        return isDestoryed;
+    }
 }

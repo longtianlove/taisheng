@@ -22,10 +22,11 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
-//        ndk {
-//            // 设置支持的SO库架构
-//            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
-//        }
+
+        ndk {
+            abiFilters "armeabi","armeabi-v7a","arm64-v8a"
+        }
+
     }
     buildTypes {
         release {
@@ -63,6 +64,9 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.12.0'
 
     compile 'com.android.support:design:23.3.0'
+
+
+    compile 'com.tencent.liteav:LiteAVSDK_TRTC:latest.release'
 
 
 
