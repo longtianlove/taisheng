@@ -29,3 +29,4 @@
 -dontwarn com.tencent.tinker.**
 -keep class com.tencent.tinker.** { *; }
  -keep class android.support.**{*;}
+-keep class com.tencent.** { *; }

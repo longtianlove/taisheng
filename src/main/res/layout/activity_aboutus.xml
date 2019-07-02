@@ -82,8 +82,9 @@
             android:layout_marginLeft="13dp"
             android:layout_marginRight="11dp"
             android:layout_marginTop="35dp"
-            android:text="关于产品的描述，比如：产品定位。关于产品的描述，比如：产品定位。关于产品的描述，比如：产品定位。关于产品的描述，比如：产品定位。关于产品的描述，比如：产品定位。关于产品的描述，比如：产品定位。关于产品的描述，比如：产品定位。关于产品的描述，比如：产品定位。"
-            android:textColor="#ff999999"
+            android:gravity="center"
+            android:text="一款面向都市人群提供实时在线的音视频方式进行求医问药、健康咨询和日常保健、调理养生咨询服务的APP"
+              android:textColor="#ff999999"
             android:textSize="12sp" />
     </LinearLayout>
 
