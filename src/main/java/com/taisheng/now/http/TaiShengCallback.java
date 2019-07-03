@@ -31,6 +31,7 @@ public abstract class TaiShengCallback<T extends BaseBean> implements Callback<T
             if (message != null) {
 
                 //如果token过期，直接跳转到登录页面
+                message.parseResult();
 
                 }
 //                //如果宠物不存在了，直接退到添加宠物页面

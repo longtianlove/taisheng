@@ -12,6 +12,7 @@ public class Constants {
 
     //访问成功
     public final static int HTTP_SUCCESS=200;
+    public final static int HTTP_ERROR=500;
 
 
 

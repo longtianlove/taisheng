@@ -1,6 +1,7 @@
 package com.taisheng.now.bussiness.user;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -15,12 +16,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseFragmentActivity;
+import com.taisheng.now.bussiness.MainActivity;
 import com.taisheng.now.bussiness.bean.LoginPostBean;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.SPUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 
@@ -50,10 +57,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
     TextView tv_yanzhengma_change;
 
 
-    public boolean isPhone=true;
-
-
-
+    public boolean isPhone = true;
 
 
     private LoginPresenter loginPresenter;
@@ -67,7 +71,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
         initListener();
         initData();
         loginPresenter = new LoginPresenter(this);
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
     }
 
     void initView() {
@@ -75,7 +79,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
         //手机号登录
         ll_shoujihao = findViewById(R.id.ll_shoujihao);
         ll_shoujihao.setVisibility(View.VISIBLE);
-        isPhone=true;
+        isPhone = true;
 
         et_shoujihao = (EditText) findViewById(R.id.et_shoujihao);
         iv_shoujihao_guanbi = (ImageView) findViewById(R.id.iv_shoujihao_guanbi);
@@ -90,24 +94,23 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
 
         tv_zhanghao_change = (TextView) findViewById(R.id.tv_zhanghao_change);
         //账号
-        ll_zhanghao=findViewById(R.id.ll_zhanghao);
+        ll_zhanghao = findViewById(R.id.ll_zhanghao);
         ll_zhanghao.setVisibility(View.GONE);
 
-        et_zhanghao= (EditText) findViewById(R.id.et_zhanghao);
-        iv_zhanghao_guanbi= (ImageView) findViewById(R.id.iv_zhanghao_guanbi);
+        et_zhanghao = (EditText) findViewById(R.id.et_zhanghao);
+        iv_zhanghao_guanbi = (ImageView) findViewById(R.id.iv_zhanghao_guanbi);
         iv_zhanghao_guanbi.setVisibility(View.GONE);
 
-        et_password= (EditText) findViewById(R.id.et_password);
-        iv_password_yincang= (ImageView) findViewById(R.id.iv_password_yincang);
-        yincang=true;
+        et_password = (EditText) findViewById(R.id.et_password);
+        iv_password_yincang = (ImageView) findViewById(R.id.iv_password_yincang);
+        yincang = true;
         iv_password_yincang.setImageDrawable(getResources().getDrawable(R.drawable.icon_yincang));
         et_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
 
-
-        btn_zhanghao_login= (TextView) findViewById(R.id.btn_zhanghao_login);
+        btn_zhanghao_login = (TextView) findViewById(R.id.btn_zhanghao_login);
         btn_zhanghao_login.setEnabled(false);
-        tv_yanzhengma_change= (TextView) findViewById(R.id.tv_yanzhengma_change);
+        tv_yanzhengma_change = (TextView) findViewById(R.id.tv_yanzhengma_change);
 
     }
 
@@ -124,13 +127,13 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
                 if (s != null && s.length() > 0) {
                     iv_shoujihao_guanbi.setVisibility(View.VISIBLE);
                     btn_yanzhengma_login.setEnabled(true);
-                }else{
+                } else {
                     iv_shoujihao_guanbi.setVisibility(View.GONE);
                     btn_yanzhengma_login.setEnabled(false);
                 }
                 if (s.length() == 11) {
                     btn_yanzhengma.setEnabled(true);
-                }else{
+                } else {
                     btn_yanzhengma.setEnabled(false);
                 }
             }
@@ -156,7 +159,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 6) {
                     btn_yanzhengma_login.setEnabled(true);
-                }else{
+                } else {
                     btn_yanzhengma_login.setEnabled(false);
                 }
             }
@@ -182,23 +185,23 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
                 }
                 String strPhone = et_shoujihao.getText().toString();
                 String verifyCode = et_yanzhengma.getText().toString();
-                LoginPostBean loginPostBean=new LoginPostBean();
-                loginPostBean.loginSign="0";
-                loginPostBean.phoneNumber=strPhone;
-                loginPostBean.captcha=verifyCode;
-                loginPostBean.deviceType="1";
+                LoginPostBean loginPostBean = new LoginPostBean();
+                loginPostBean.loginSign = "0";
+                loginPostBean.phoneNumber = strPhone;
+                loginPostBean.captcha = verifyCode;
+                loginPostBean.deviceType = "1";
 
-                try {
+//                try {
                     loginPresenter.loginPhone(loginPostBean);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
         });
         tv_zhanghao_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isPhone=false;
+                isPhone = false;
                 ll_shoujihao.setVisibility(View.GONE);
                 ll_zhanghao.setVisibility(View.VISIBLE);
             }
@@ -215,7 +218,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
                 if (s != null && s.length() > 0) {
                     iv_zhanghao_guanbi.setVisibility(View.VISIBLE);
                     btn_zhanghao_login.setEnabled(true);
-                }else{
+                } else {
                     iv_zhanghao_guanbi.setVisibility(View.GONE);
                     btn_zhanghao_login.setEnabled(false);
                 }
@@ -255,17 +258,17 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
         iv_password_yincang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(yincang){
-                    yincang=false;
+                if (yincang) {
+                    yincang = false;
                     iv_password_yincang.setImageDrawable(getResources().getDrawable(R.drawable.icon_xianshi));
                     et_password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                }else{
-                    yincang=true;
+                } else {
+                    yincang = true;
                     iv_password_yincang.setImageDrawable(getResources().getDrawable(R.drawable.icon_yincang));
                     et_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
                 }
-                if(et_password.getText().length()>0) {
+                if (et_password.getText().length() > 0) {
                     et_password.setSelection(et_password.getText().length());
                 }
             }
@@ -278,35 +281,36 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
                 }
                 String userName = et_zhanghao.getText().toString();
                 String password = et_password.getText().toString();
-                LoginPostBean loginPostBean=new LoginPostBean();
-                loginPostBean.loginSign="1";
-                loginPostBean.phoneNumber=userName;
-                loginPostBean.password=password;
-                loginPostBean.deviceType="1";
-                try {
+                LoginPostBean loginPostBean = new LoginPostBean();
+                loginPostBean.loginSign = "1";
+                loginPostBean.phoneNumber = userName;
+                loginPostBean.password = password;
+                loginPostBean.deviceType = "1";
+//                try {
                     loginPresenter.loginPhone(loginPostBean);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
         });
         tv_yanzhengma_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isPhone=true;
+                isPhone = true;
                 ll_shoujihao.setVisibility(View.VISIBLE);
                 ll_zhanghao.setVisibility(View.GONE);
             }
         });
 
     }
-    boolean yincang=true;
+
+    boolean yincang = true;
 
     void initData() {
 
     }
 
-    private boolean checkZhanghaoInputs(){
+    private boolean checkZhanghaoInputs() {
         if (TextUtils.isEmpty(et_zhanghao.getText().toString())) {
             Toast.makeText(this, "请输入用户名", Toast.LENGTH_SHORT).show();
             return false;
@@ -317,6 +321,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
         }
         return true;
     }
+
     /**
      * 检查是否输入完全
      *
@@ -345,13 +350,14 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
     }
 
 
-
     @Override
     public void getVerifyNextTime(int nSecond) {
         WaitForNextFetchCode(nSecond);
 
     }
+
     int messageWaitTime;
+
     void WaitForNextFetchCode(int nSecond) {
         messageWaitTime = nSecond;
         btn_yanzhengma.setText(String.valueOf(messageWaitTime) + "S");
@@ -417,6 +423,22 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
     protected void onDestroy() {
         super.onDestroy();
 
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 0)
+    public void next(EventManage.getUserInfoEvent event) {
+        EventBus.getDefault().unregister(this);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+
+        }
+
+        Intent intent = new Intent();
+        intent.setClass(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -12,8 +12,10 @@ import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.bussiness.user.LoginActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.push.XMPushManagerInstance;
 import com.taisheng.now.util.Apputil;
 import com.taisheng.now.util.SPUtil;
+import com.xiaomi.mipush.sdk.MiPushClient;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -53,41 +55,49 @@ public class SplashActivity extends BaseActivity {
                 }
             }, 1000);
         }else{
+            SampleAppLike.mainHandler = new Handler(getMainLooper());
+            SampleAppLike.mainHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
 //            SPUtil.putAPP_VERSION(Apputil.getVersionCode() + "");
 //            EventBus.getDefault().register(this);
 //            //获取基本信息
 //            UserInstance.getInstance().getUserInfo();
+            MiPushClient.registerPush(SampleAppLike.mcontext, XMPushManagerInstance.APP_ID, XMPushManagerInstance.APP_KEY);
+            SPUtil.putAPP_VERSION(Apputil.getVersionCode() + "");
             Intent intent = new Intent();
             intent.setClass(SplashActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }
-
-    }
-
-
-
-    //网络获取用户信息成功
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 0)
-    public void next(EventManage.getUserInfoEvent event) {
-
-        EventBus.getDefault().unregister(this);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-
+    }, 1000);
         }
-        Intent intent = new Intent();
-        intent.setClass(SplashActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
 
     }
+
+
+
+//    //网络获取用户信息成功
+//    @Subscribe(threadMode = ThreadMode.MAIN, priority = 0)
+//    public void next(EventManage.getUserInfoEvent event) {
+//
+//        EventBus.getDefault().unregister(this);
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//
+//        }
+//        Intent intent = new Intent();
+//        intent.setClass(SplashActivity.this, MainActivity.class);
+//        startActivity(intent);
+//        finish();
+//
+//    }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
     }
 }

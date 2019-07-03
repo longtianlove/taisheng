@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 
 import com.taisheng.now.Constants;
+import com.taisheng.now.EventManage;
 import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.bussiness.bean.CaptchaPostBean;
 import com.taisheng.now.bussiness.bean.CaptchaResultBean;
@@ -14,6 +15,8 @@ import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.push.XMPushManagerInstance;
 import com.taisheng.now.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -126,7 +129,7 @@ public class LoginPresenter {
      *
 
      */
-    public void loginPhone(LoginPostBean loginPostBean) throws IOException {
+    public void loginPhone(LoginPostBean loginPostBean){
         final LoginView tloginView = loginView.get();
         if (tloginView != null) {
             tloginView.showDialog();
@@ -138,7 +141,11 @@ public class LoginPresenter {
                         case Constants.HTTP_SUCCESS:
                             //小米push
                             XMPushManagerInstance.getInstance().init();
-                            UserInstance.getInstance().saveUserInfo(message.result.userInfo);
+                            UserInstance.getInstance().saveUserInfo(message.userInfo);
+                            EventBus.getDefault().post(new EventManage.getUserInfoEvent());
+                            break;
+                        case Constants.HTTP_ERROR:
+                            ToastUtil.showTost("系统维护中");
                             break;
                         default:
                             ToastUtil.showTost("网络出错");
