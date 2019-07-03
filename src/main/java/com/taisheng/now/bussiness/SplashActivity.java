@@ -40,7 +40,7 @@ public class SplashActivity extends BaseActivity {
 
     //判断跳转逻辑
     void toWhere() {
-        if(!TextUtils.isEmpty(SPUtil.getUid())){
+        if(TextUtils.isEmpty(SPUtil.getUid())){
             SPUtil.putAPP_VERSION(Apputil.getVersionCode() + "");
             SampleAppLike.mainHandler = new Handler(getMainLooper());
             SampleAppLike.mainHandler.postDelayed(new Runnable() {
@@ -53,10 +53,14 @@ public class SplashActivity extends BaseActivity {
                 }
             }, 1000);
         }else{
-            SPUtil.putAPP_VERSION(Apputil.getVersionCode() + "");
-            EventBus.getDefault().register(this);
-            //获取基本信息
-            UserInstance.getInstance().getUserInfo();
+//            SPUtil.putAPP_VERSION(Apputil.getVersionCode() + "");
+//            EventBus.getDefault().register(this);
+//            //获取基本信息
+//            UserInstance.getInstance().getUserInfo();
+            Intent intent = new Intent();
+            intent.setClass(SplashActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
 
     }

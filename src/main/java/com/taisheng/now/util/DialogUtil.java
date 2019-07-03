@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.view.CustomProgress;
 import com.taisheng.now.view.dialog.ZixunDialog;
 
 
@@ -28,40 +29,40 @@ import com.taisheng.now.view.dialog.ZixunDialog;
  */
 
 public class DialogUtil {
-//    private static CustomProgress mCustomProgress;
-//
-//    /**
-//     * 显示带文本的加载进度对话框
-//     */
-//    public static void showProgress(Context context, String str) {
-//        try {
-//            if ("".equals(str)) {
-//                str = "请稍等";
-//            }
-//            if (mCustomProgress == null) {
-//                mCustomProgress = CustomProgress.show(context, str, false, null);
-//            } else {
-//                mCustomProgress.setMessage(str);
-//                mCustomProgress.show();
-//            }
-//        } catch (Exception e) {
-//
-//        }
-//    }
-//
-//    /**
-//     * 关掉加载进度对话框
-//     */
-//    public static void closeProgress() {
-//        if (mCustomProgress != null && mCustomProgress.isShowing()) {
-//            try {//bug fixxed with umeng at 5.0.1 by long
-//                mCustomProgress.dismiss();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            mCustomProgress = null;
-//        }
-//    }
+    private static CustomProgress mCustomProgress;
+
+    /**
+     * 显示带文本的加载进度对话框
+     */
+    public static void showProgress(Context context, String str) {
+        try {
+            if ("".equals(str)) {
+                str = "请稍等";
+            }
+            if (mCustomProgress == null) {
+                mCustomProgress = CustomProgress.show(context, str, false, null);
+            } else {
+                mCustomProgress.setMessage(str);
+                mCustomProgress.show();
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    /**
+     * 关掉加载进度对话框
+     */
+    public static void closeProgress() {
+        if (mCustomProgress != null && mCustomProgress.isShowing()) {
+            try {//bug fixxed with umeng at 5.0.1 by long
+                mCustomProgress.dismiss();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            mCustomProgress = null;
+        }
+    }
 public static Dialog zixunDialog;
     /**
      * 如果Activity destory了不能运行dialog bug fixxed with umeng at 5.0.1 by long

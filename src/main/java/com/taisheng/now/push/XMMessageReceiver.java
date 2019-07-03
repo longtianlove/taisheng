@@ -5,12 +5,13 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.xiaomaoqiu.now.EventManage;
-import com.xiaomaoqiu.now.PetAppLike;
-import com.xiaomaoqiu.now.bussiness.MainActivity;
-import com.xiaomaoqiu.now.util.Apputil;
-import com.xiaomaoqiu.now.util.DeviceUtils;
-import com.xiaomaoqiu.now.util.LogUtil;
+
+import com.taisheng.now.EventManage;
+import com.taisheng.now.SampleAppLike;
+import com.taisheng.now.bussiness.MainActivity;
+import com.taisheng.now.util.Apputil;
+import com.taisheng.now.util.DeviceUtils;
+import com.taisheng.now.util.LogUtil;
 import com.xiaomi.mipush.sdk.ErrorCode;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.xiaomi.mipush.sdk.MiPushCommandMessage;
@@ -99,9 +100,9 @@ public class XMMessageReceiver extends PushMessageReceiver {
         }
 //        setRedPoint(context);
         try {
-        DeviceUtils.vibrate(PetAppLike.mcontext, 500);             //让手机振动500ms
-        if(DeviceUtils.isScreenLocked(PetAppLike.mcontext))            //判断手机是否处于屏幕关闭状态
-            DeviceUtils.wakeScreen(PetAppLike.mcontext);           //如果处于关闭屏幕状态则唤醒屏幕
+        DeviceUtils.vibrate(SampleAppLike.mcontext, 500);             //让手机振动500ms
+        if(DeviceUtils.isScreenLocked(SampleAppLike.mcontext))            //判断手机是否处于屏幕关闭状态
+            DeviceUtils.wakeScreen(SampleAppLike.mcontext);           //如果处于关闭屏幕状态则唤醒屏幕
         }catch (Exception e){
 
         }
@@ -260,7 +261,7 @@ public class XMMessageReceiver extends PushMessageReceiver {
 
     void messageClick(Context context) {
         //判断app进程是否存活
-        if(Apputil.isAppAlive(context,"com.xiaomaoqiu.pet")){
+        if(Apputil.isAppAlive(context,"com.taisheng.now")){
             //如果存活的话，就直接启动MainActivity，但要考虑一种情况，就是app的进程虽然仍然在
             //但Task栈已经空了，比如用户点击Back键退出应用，但进程还没有被系统回收，如果直接启动
             //DeviceActivity,再按Back键就不会返回MainActivity了。所以在启动
@@ -276,7 +277,7 @@ public class XMMessageReceiver extends PushMessageReceiver {
             //如果app进程已经被杀死，先重新启动app
             Log.i("NotificationReceiver", "the app process is dead");
             Intent launchIntent = context.getPackageManager().
-                    getLaunchIntentForPackage("com.xiaomaoqiu.pet");
+                    getLaunchIntentForPackage("com.taisheng.now");
             launchIntent.setFlags(
                     Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
             context.startActivity(launchIntent);

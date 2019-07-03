@@ -66,6 +66,9 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        //进入主页
+        SPUtil.putHome(true);
         initView();
         if (savedInstanceState != null) {
             firstFragment = (FirstFragment) getSupportFragmentManager().findFragmentByTag(FirstFragment.class.getName());

@@ -21,7 +21,8 @@ import java.util.Set;
 public class SPUtil {
 
 
-
+    //是否进入主页
+    public static final String HOME_PAGE = "home";
     public static final String APP_VERSION = "app_version";
     //uid
     public static final String UID = "uid";
@@ -43,6 +44,25 @@ public class SPUtil {
 
     public static void putAPP_VERSION(String value) {
         putString(APP_VERSION, value);
+    }
+
+
+    /**
+     * 获取
+     *
+     * @return
+     */
+    public static boolean getHomePage() {
+        return getBoolean(HOME_PAGE);
+    }
+
+    /**
+     * 保存
+     *
+     * @return
+     */
+    public static void putHome(boolean isHome) {
+        putBoolean(HOME_PAGE, isHome);
     }
 
 

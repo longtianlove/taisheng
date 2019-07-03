@@ -4,6 +4,17 @@ import android.annotation.SuppressLint;
 import android.widget.Toast;
 
 
+import com.taisheng.now.Constants;
+import com.taisheng.now.SampleAppLike;
+import com.taisheng.now.bussiness.bean.CaptchaPostBean;
+import com.taisheng.now.bussiness.bean.CaptchaResultBean;
+import com.taisheng.now.bussiness.bean.LoginPostBean;
+import com.taisheng.now.bussiness.bean.LoginResultBean;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
+import com.taisheng.now.push.XMPushManagerInstance;
+import com.taisheng.now.util.ToastUtil;
+
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.net.URLEncoder;
@@ -37,10 +48,38 @@ public class LoginPresenter {
 
      */
     public void getVerifyCode(String phone) {
-//        final LoginView tloginView = loginView.get();
+        final LoginView tloginView = loginView.get();
 //
-//        if (tloginView != null) {
-//            tloginView.showDialog();
+        if (tloginView != null) {
+            tloginView.showDialog();
+            CaptchaPostBean bean=new CaptchaPostBean();
+            bean.phoneNumber=phone;
+            ApiUtils.getApiService().appAcquireVerifyCode(bean).enqueue(new TaiShengCallback<CaptchaResultBean>() {
+                @Override
+                public void onSuccess(Response<CaptchaResultBean> response, CaptchaResultBean message) {
+                    switch (message.code) {
+                        case Constants.HTTP_SUCCESS:
+                            if (tloginView != null) {
+                                tloginView.getVerifyNextTime(60);
+                            }
+                            break;
+//                        case EC_FREQ_LIMIT:
+//                            ToastUtil.showTost("发送验证码频率多");
+//                            break;
+                        default:
+                            ToastUtil.showTost("网络出错");
+
+                    }
+                    tloginView.dismissDialog();
+                }
+
+                @Override
+                public void onFail(Call<CaptchaResultBean> call, Throwable t) {
+                    Toast.makeText(SampleAppLike.mcontext, "验证码发送失败", Toast.LENGTH_LONG).show();
+                    tloginView.dismissDialog();
+                }
+            });
+
 //            ApiUtils.getApiService().getVerifyCode(phone, deviceType).enqueue(new XMQCallback<MessageBean>() {
 //                @Override
 //                public void onSuccess(Response<MessageBean> response, MessageBean message) {
@@ -67,7 +106,7 @@ public class LoginPresenter {
 //                    tloginView.dismissDialog();
 //                }
 //            });
-//        }
+        }
 
     }
 
@@ -85,13 +124,39 @@ public class LoginPresenter {
     /**
      * 登录
      *
-     * @param phone      手机号
-     * @param verifyCode 验证码
+
      */
-    public void loginPhone(final String phone, String verifyCode) throws IOException {
-//        final LoginView tloginView = loginView.get();
-//        if (tloginView != null) {
-//            tloginView.showDialog();
+    public void loginPhone(LoginPostBean loginPostBean) throws IOException {
+        final LoginView tloginView = loginView.get();
+        if (tloginView != null) {
+            tloginView.showDialog();
+
+            ApiUtils.getApiService().applogin(loginPostBean).enqueue(new TaiShengCallback<LoginResultBean>() {
+                @Override
+                public void onSuccess(Response<LoginResultBean> response, LoginResultBean message) {
+                    switch (message.code) {
+                        case Constants.HTTP_SUCCESS:
+                            //小米push
+                            XMPushManagerInstance.getInstance().init();
+                            UserInstance.getInstance().saveUserInfo(message.result.userInfo);
+                            break;
+                        default:
+                            ToastUtil.showTost("网络出错");
+
+                    }
+                    if (tloginView != null) {
+                                tloginView.dismissDialog();
+                            }
+                }
+
+                @Override
+                public void onFail(Call<LoginResultBean> call, Throwable t) {
+                    if (tloginView != null) {
+                        tloginView.dismissDialog();
+                    }
+                }
+            });
+
 //            ApiUtils.getApiService().login(phone, verifyCode, deviceType, deviceId, URLEncoder.encode(android.os.Build.MODEL.replaceAll(" ", ""), "UTF-8")).enqueue(new XMQCallback<LoginBean>() {
 //                @Override
 //                public void onSuccess(Response<LoginBean> response, LoginBean message) {
@@ -130,7 +195,7 @@ public class LoginPresenter {
 //
 //                }
 //            });
-//        }
+        }
     }
 
     //退出登录

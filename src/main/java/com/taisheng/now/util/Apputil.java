@@ -22,7 +22,7 @@ import java.util.List;
 public class Apputil {
 
     //SD卡下通用的存储路径：SD卡路径下：Android/data/包名；
-//    public static String sdNormalPath = Environment.getExternalStorageDirectory().getPath() + "/Android/data/" + Apputil.getPackageName(PetAppLike.mcontext);
+    public static String sdNormalPath = Environment.getExternalStorageDirectory().getPath() + "/Android/data/" + Apputil.getPackageName(SampleAppLike.mcontext);
     public static String imei;
 
 

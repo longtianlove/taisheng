@@ -18,6 +18,9 @@ import android.widget.Toast;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseFragmentActivity;
+import com.taisheng.now.bussiness.bean.LoginPostBean;
+import com.taisheng.now.util.DialogUtil;
+import com.taisheng.now.util.SPUtil;
 
 import java.io.IOException;
 
@@ -47,6 +50,9 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
     TextView tv_yanzhengma_change;
 
 
+    public boolean isPhone=true;
+
+
 
 
 
@@ -55,7 +61,8 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //未进入主页
+        SPUtil.putHome(false);
         initView();
         initListener();
         initData();
@@ -68,6 +75,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
         //手机号登录
         ll_shoujihao = findViewById(R.id.ll_shoujihao);
         ll_shoujihao.setVisibility(View.VISIBLE);
+        isPhone=true;
 
         et_shoujihao = (EditText) findViewById(R.id.et_shoujihao);
         iv_shoujihao_guanbi = (ImageView) findViewById(R.id.iv_shoujihao_guanbi);
@@ -174,8 +182,14 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
                 }
                 String strPhone = et_shoujihao.getText().toString();
                 String verifyCode = et_yanzhengma.getText().toString();
+                LoginPostBean loginPostBean=new LoginPostBean();
+                loginPostBean.loginSign="0";
+                loginPostBean.phoneNumber=strPhone;
+                loginPostBean.captcha=verifyCode;
+                loginPostBean.deviceType="1";
+
                 try {
-                    loginPresenter.loginPhone(strPhone, verifyCode);
+                    loginPresenter.loginPhone(loginPostBean);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -184,6 +198,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
         tv_zhanghao_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isPhone=false;
                 ll_shoujihao.setVisibility(View.GONE);
                 ll_zhanghao.setVisibility(View.VISIBLE);
             }
@@ -263,8 +278,13 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
                 }
                 String userName = et_zhanghao.getText().toString();
                 String password = et_password.getText().toString();
+                LoginPostBean loginPostBean=new LoginPostBean();
+                loginPostBean.loginSign="1";
+                loginPostBean.phoneNumber=userName;
+                loginPostBean.password=password;
+                loginPostBean.deviceType="1";
                 try {
-                    loginPresenter.loginPhone(userName, password);
+                    loginPresenter.loginPhone(loginPostBean);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -273,6 +293,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
         tv_yanzhengma_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isPhone=true;
                 ll_shoujihao.setVisibility(View.VISIBLE);
                 ll_zhanghao.setVisibility(View.GONE);
             }
@@ -315,12 +336,12 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
 
     @Override
     public void showDialog() {
-
+        DialogUtil.showProgress(this, "");
     }
 
     @Override
     public void dismissDialog() {
-
+        DialogUtil.closeProgress();
     }
 
 

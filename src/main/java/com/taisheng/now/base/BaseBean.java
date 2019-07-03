@@ -1,5 +1,7 @@
 package com.taisheng.now.base;
 
+import com.taisheng.now.bussiness.bean.UserInfo;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +9,10 @@ import java.io.Serializable;
  */
 
 public class BaseBean implements Serializable{
-    public int status;
+    public boolean success;
+    public String message;
+    public int code;
+//    public Result<T> result;
+    public long timestamp;
 
 }
