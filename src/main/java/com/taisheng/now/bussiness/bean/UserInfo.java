@@ -15,7 +15,7 @@ public class UserInfo {
     public String idcard;
     public String avatar;
     public String birthday;
-    public String sex;
+    public int sex;
     public String age;
     public String height;
     public String weight;

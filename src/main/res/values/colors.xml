@@ -25,4 +25,7 @@
     <color name="colorComBg">#0B1829</color>
 
     <color name="transparent">#00000000</color>
+
+    <color name="bg_shadow">#D8000000</color>
+
 </resources>

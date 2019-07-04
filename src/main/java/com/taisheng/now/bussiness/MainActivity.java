@@ -13,8 +13,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -25,6 +27,7 @@ import com.taisheng.now.bussiness.first.FirstFragment;
 import com.taisheng.now.bussiness.me.MeFragment;
 import com.taisheng.now.bussiness.secret.SecretFragment;
 import com.taisheng.now.util.SPUtil;
+import com.taisheng.now.view.GuideView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -124,6 +127,10 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
         tv_tab_doctor= (TextView) findViewById(R.id.tv_tab_doctor);
         tv_tab_secret= (TextView) findViewById(R.id.tv_tab_secret);
         tv_tab_me= (TextView) findViewById(R.id.tv_tab_me);
+
+
+
+
     }
 
     private void hideAllTabIcon(FragmentTransaction transaction) {

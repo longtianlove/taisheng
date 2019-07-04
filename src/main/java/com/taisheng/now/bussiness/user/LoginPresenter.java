@@ -147,6 +147,15 @@ public class LoginPresenter {
                         case Constants.HTTP_ERROR:
                             ToastUtil.showTost("系统维护中");
                             break;
+                        case Constants.LOGIN_VERIFYCODE_FAIL:
+                            ToastUtil.showTost("验证码错误");
+                            break;
+                        case Constants.LOGIN_USERNAME_NOT_EXISTENCE:
+                            ToastUtil.showTost("账号不存在,请切换手机号登陆");
+                            break;
+                        case Constants.LOGIN_PASSWORD_ERROR:
+                            ToastUtil.showTost("密码错误");
+                            break;
                         default:
                             ToastUtil.showTost("网络出错");
 
@@ -161,6 +170,7 @@ public class LoginPresenter {
                     if (tloginView != null) {
                         tloginView.dismissDialog();
                     }
+                    ToastUtil.showTost("网络出错");
                 }
             });
 

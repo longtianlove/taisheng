@@ -27,6 +27,29 @@ public class SPUtil {
     //uid
     public static final String UID = "uid";
 
+    //是否跳过用户信息
+    public static final String SKIP="skip";
+    //是否引导
+    public static final String GUIDE="guide";
+
+
+    public static boolean getGUIDE() {
+        return getBoolean(GUIDE);
+    }
+
+    public static void putGUIDE(boolean value) {
+        putBoolean(GUIDE, value);
+    }
+
+
+    public static boolean getSKIP() {
+        return getBoolean(SKIP);
+    }
+
+    public static void putSKIP(boolean value) {
+        putBoolean(SKIP, value);
+    }
+
 
     public static String getUid() {
         return getString(UID);

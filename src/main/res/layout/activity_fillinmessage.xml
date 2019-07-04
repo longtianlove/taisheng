@@ -24,10 +24,11 @@
         android:paddingTop="10dp">
 
         <TextView
+            android:id="@+id/tv_skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"
+            android:paddingRight="8dp"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:text="跳过"
@@ -91,6 +92,7 @@
                     android:layout_weight="1" />
 
                 <EditText
+                    android:id="@+id/et_realname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -135,7 +137,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
                     <RadioButton
-                        android:id="@+id/male"
+                        android:id="@+id/rb_male"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
@@ -149,7 +151,7 @@
                         android:paddingRight="5dp"
                         android:text="男" />
                     <RadioButton
-                        android:id="@+id/femle"
+                        android:id="@+id/rb_female"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#999999"
@@ -195,10 +197,12 @@
                     android:layout_weight="1" />
 
                 <EditText
+                    android:id="@+id/et_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="请输入年龄"
+                    android:inputType="number"
                     android:textColorHint="#999999"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -233,6 +237,7 @@
                     android:layout_weight="1" />
 
                 <EditText
+                    android:id="@+id/et_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -270,12 +275,13 @@
                     android:layout_weight="1" />
 
                 <EditText
+                    android:id="@+id/et_height"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="请输入身高"
                     android:textColorHint="#999999"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:textSize="14sp" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -316,12 +322,13 @@
                     android:layout_weight="1" />
 
                 <EditText
+                    android:id="@+id/et_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="请输入体重"
                     android:textColorHint="#999999"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:textSize="14sp" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -342,7 +349,7 @@
 
 
             <TextView
-                android:id="@+id/btn_next"
+                android:id="@+id/tv_next"
                 android:layout_width="match_parent"
                 android:layout_height="39dp"
                 android:layout_marginLeft="37dp"

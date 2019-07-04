@@ -22,12 +22,13 @@ public class LoginResultBean extends BaseBean {
         userInfo.nickName = userInfoObject.getString("nickName");
         userInfo.password = userInfoObject.getString("password");
         userInfo.avatar = userInfoObject.getString("avatar");
-        userInfo.sex = userInfoObject.getString("sex");
+        userInfo.sex = userInfoObject.getInteger("sex");
         userInfo.age = userInfoObject.getString("age");
+        userInfo.phone = userInfoObject.getString("phone");
+        userInfo.realName = userInfoObject.getString("realName");
 
 
-        userInfo.id = userInfoObject.getString("id");
-        userInfo.id = userInfoObject.getString("id");
+
         userInfo.id = userInfoObject.getString("id");
         userInfo.id = userInfoObject.getString("id");
         userInfo.id = userInfoObject.getString("id");
