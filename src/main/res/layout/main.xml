@@ -50,15 +50,15 @@
 
                 <ImageView
                     android:id="@+id/iv_tab_first"
-                    android:layout_width="40dp"
-                    android:layout_height="30dp"
+                    android:layout_width="26dp"
+                    android:layout_height="23dp"
 
                     android:src="@drawable/main_bottombg_first" />
 
                 <TextView
                     android:id="@+id/tv_tab_first"
-                    android:layout_width="48dp"
-                    android:layout_height="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="首页"
                     android:textColor="#ff999999"
@@ -86,8 +86,8 @@
                     android:src="@drawable/main_bottombg_doctor" />
                 <TextView
                     android:id="@+id/tv_tab_doctor"
-                    android:layout_width="48dp"
-                    android:layout_height="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="医师"
                     android:textColor="#ff999999"
                     android:textSize="10sp"
