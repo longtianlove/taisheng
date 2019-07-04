@@ -1,14 +1,23 @@
 package com.taisheng.now.bussiness.me;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.PersistableBundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.view.crop.Crop;
+
+import java.io.File;
+import java.text.DecimalFormat;
 
 /**
  * Created by dragon on 2019/6/29.
@@ -19,7 +28,11 @@ public class MeMessageActivity extends BaseActivity {
     View ll_nickname;
     View ll_bindphone;
     View ll_updatepwd;
-
+    View ll_avatar;
+    SimpleDraweeView sdv_header;
+    private final int REQ_CODE_PHOTO_SOURCE = 6;//选择方式
+    private final int REQ_CODE_GET_PHOTO_FROM_GALLERY = 10;//从相册获取
+    private final int REQ_CODE_GET_PHOTO_FROM_TAKEPHOTO = 11;//拍照完
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +47,14 @@ public class MeMessageActivity extends BaseActivity {
                 finish();
             }
         });
+        ll_avatar=findViewById(R.id.ll_avatar);
+        ll_avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modifyAvatar();
+            }
+        });
+        sdv_header= (SimpleDraweeView) findViewById(R.id.sdv_header);
 
         ll_nickname=findViewById(R.id.ll_nickname);
         ll_nickname.setOnClickListener(new View.OnClickListener() {
@@ -60,4 +81,82 @@ public class MeMessageActivity extends BaseActivity {
             }
         });
     }
+
+
+    public void modifyAvatar() {
+        Intent intent = new Intent(this, SelectAvatarSourceDialog.class);
+        startActivityForResult(intent, REQ_CODE_PHOTO_SOURCE);
+    }
+
+
+
+
+    private void onPhotoSource(int mode) {
+        if (mode == R.id.btn_pick_from_library) {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setDataAndType(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+            startActivityForResult(intent, REQ_CODE_GET_PHOTO_FROM_GALLERY);
+
+        } else if (mode == R.id.btn_take_photo) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment
+                    .getExternalStorageDirectory(), "temp.jpg")));
+            startActivityForResult(intent, REQ_CODE_GET_PHOTO_FROM_TAKEPHOTO);
+        }
+    }
+
+
+    private void beginCrop(Uri source, Bundle bundle) {
+        Uri destination = Uri.fromFile(new File(getCacheDir(), "Bcropped"));
+        Crop.of(source, destination).asSquare().start(this, bundle);
+    }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+
+            case REQ_CODE_PHOTO_SOURCE:
+                if (data != null) {
+                    int mode = data.getIntExtra(SelectAvatarSourceDialog.TAG_MODE, -1);
+                    onPhotoSource(mode);
+                }
+                break;
+            case REQ_CODE_GET_PHOTO_FROM_GALLERY:
+                if (data != null && data.getData() != null) {
+                    Bundle bundle = new Bundle();
+                    // 选择图片后进入裁剪
+                    String path = data.getData().getPath();
+                    Uri source = data.getData();
+                    beginCrop(source, bundle);
+                }
+                break;
+            case REQ_CODE_GET_PHOTO_FROM_TAKEPHOTO:
+                // 判断相机是否有返回
+                File picture = new File(Environment.getExternalStorageDirectory()
+                        + "/temp.jpg");
+                if (!picture.exists()) {
+                    return;
+                }
+                Bundle bundle = new Bundle();
+                // 选择图片后进入裁剪
+                Uri source = Uri.fromFile(picture);
+                beginCrop(source, bundle);
+
+                break;
+
+            case Crop.REQUEST_CROP:
+//                modifyBean.logo_url = PetInfoInstance.getInstance().getPackBean().logo_url;
+                //todo avatar为空
+                Uri uri = Uri.parse(UserInstance.getInstance().userInfo.avatar);
+                if (sdv_header == null) {
+                    return;
+                }
+                sdv_header.setImageURI(uri);
+                break;
+        }
+    }
+
 }

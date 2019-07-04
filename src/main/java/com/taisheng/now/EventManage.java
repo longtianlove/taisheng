@@ -28,4 +28,14 @@ public class EventManage {
 
     }
 
+
+    //上传头像成功
+    public static class uploadImageSuccess {
+        public String path;
+
+        public uploadImageSuccess(String path) {
+            this.path = path;
+        }
+    }
+
 }

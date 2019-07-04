@@ -267,6 +267,17 @@
 
         </activity>
 
+        <activity
+            android:name=".bussiness.me.SelectAvatarSourceDialog"
+            android:theme="@style/MyDialogStyleBottom"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".view.crop.CropImageActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            />
 
         <service android:enabled="true" android:process=":pushservice" android:name="com.xiaomi.push.service.XMPushService"/>
 

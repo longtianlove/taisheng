@@ -1,4 +1,13 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">泰晟健康</string>
     <string name="str_tag_pos">POS</string>
+
+    <string name="crop__done">ACCEPTAR</string>
+    <string name="crop__cancel" tools:ignore="ButtonCase">CANCEL·LAR</string>
+
+
+
+    <!--截图-->
+    <string name="crop__wait">Si us plau esperi…</string>
+    <string name="crop__pick_error">No hi ha imatges disponibles</string>
 </resources>
