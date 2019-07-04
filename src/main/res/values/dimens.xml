@@ -7,4 +7,8 @@
     <dimen name="icon_width">40dp</dimen>
     <dimen name="icon_height">40dp</dimen>
     <dimen name="icon_margin">14dp</dimen>
+    <dimen name="dialog_service_margin">30dp</dimen>
+    <dimen name="self_dialog_service_margin">40dp</dimen>
+    <!--44号字体-->
+    <dimen name="after_word_size">15sp</dimen>
 </resources>

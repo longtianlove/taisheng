@@ -44,6 +44,16 @@ public class HealthFilesFillInMessageActivity extends BaseActivity {
         initView();
     }
     void initView() {
+        tv_next = (TextView) findViewById(R.id.tv_next);
+        tv_next.setEnabled(false);
+        tv_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkInputsToast()) {
+
+                }
+            }
+        });
 
         et_realname = (EditText) findViewById(R.id.et_realname);
         et_realname.addTextChangedListener(new TextWatcher() {
@@ -153,21 +163,32 @@ public class HealthFilesFillInMessageActivity extends BaseActivity {
 
             }
         });
-        tv_next = (TextView) findViewById(R.id.tv_next);
-        tv_next.setEnabled(false);
-        tv_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkInputs()) {
 
-                }
-            }
-        });
 
 
     }
 
     boolean checkInputs() {
+        tv_next.setEnabled(false);
+        if (TextUtils.isEmpty(et_realname.getText())) {
+            return false;
+        }
+        if (TextUtils.isEmpty(et_age.getText())) {
+            return false;
+        }
+        if (TextUtils.isEmpty(et_phone.getText())) {
+            return false;
+        }
+        if (TextUtils.isEmpty(et_height.getText())) {
+            return false;
+        }
+        if (TextUtils.isEmpty(et_weight.getText())) {
+            return false;
+        }
+        tv_next.setEnabled(true);
+        return true;
+    }
+    boolean checkInputsToast() {
         tv_next.setEnabled(false);
         if (TextUtils.isEmpty(et_realname.getText())) {
             ToastUtil.showTost("请输入姓名");

@@ -80,8 +80,8 @@
 
                 <ImageView
                     android:id="@+id/iv_tab_doctor"
-                    android:layout_width="40dp"
-                    android:layout_height="30dp"
+                    android:layout_width="26dp"
+                    android:layout_height="23dp"
 
                     android:src="@drawable/main_bottombg_doctor" />
                 <TextView
@@ -109,8 +109,8 @@
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/iv_tab_secret"
-                    android:layout_width="40dp"
-                    android:layout_height="30dp"
+                    android:layout_width="26dp"
+                    android:layout_height="23dp"
                     android:src="@drawable/main_bottombg_secret" />
                 <TextView
                     android:id="@+id/tv_tab_secret"
@@ -132,8 +132,8 @@
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/iv_tab_me"
-                    android:layout_width="40dp"
-                    android:layout_height="30dp"
+                    android:layout_width="26dp"
+                    android:layout_height="23dp"
                     android:src="@drawable/main_bottombg_me" />
 
                 <TextView

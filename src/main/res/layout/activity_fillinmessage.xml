@@ -204,6 +204,7 @@
                     android:hint="请输入年龄"
                     android:inputType="number"
                     android:textColorHint="#999999"
+                    android:maxLength="2"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -244,6 +245,7 @@
                     android:hint="请输入手机号"
                     android:inputType="phone"
                     android:textColorHint="#999999"
+                    android:maxLength="11"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -355,6 +357,7 @@
                 android:layout_marginLeft="37dp"
                 android:layout_marginRight="35dp"
                 android:layout_marginTop="50dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/xml_login_background"
                 android:enabled="false"
                 android:gravity="center"

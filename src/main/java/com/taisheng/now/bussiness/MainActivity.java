@@ -14,7 +14,9 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ import com.taisheng.now.bussiness.doctor.DoctorFragment;
 import com.taisheng.now.bussiness.first.FirstFragment;
 import com.taisheng.now.bussiness.me.MeFragment;
 import com.taisheng.now.bussiness.secret.SecretFragment;
+import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.SPUtil;
 import com.taisheng.now.view.GuideView;
 
@@ -242,25 +245,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
     }
 
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-//        DialogUtil.showTwoButtonDialog(this, getString(R.string.dialog_exit_app_title), getString(R.string.dialog_exit_app_tab1), getString(R.string.dialog_exit_app_tab2), new View.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                    }
-//                },
-//                new View.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(View v) {
-//                        finish();
-//                    }
-//                }
-//        );
-    }
+
 
 
 
@@ -291,6 +276,67 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
     protected void onDestroy() {
         super.onDestroy();
 //        EventBus.getDefault().unregister(this);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        DialogUtil.showTwoButtonDialog(this, "确定要退出泰晟健康吗？", "取消","退出", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                },
+                new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                }
+        );
+    }
+
+
+
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (isShouldHideInput(v, ev)) {
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+        // 必不可少，否则所有的组件都不会有TouchEvent了
+        if (getWindow().superDispatchTouchEvent(ev)) {
+            return true;
+        }
+        return onTouchEvent(ev);
+    }
+
+    public boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] leftTop = {0, 0};
+            //获取输入框当前的location位置
+            v.getLocationInWindow(leftTop);
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            if (event.getX() > left && event.getX() < right
+                    && event.getY() > top && event.getY() < bottom) {
+                // 点击的是输入框区域，保留点击EditText的事件
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 }
     

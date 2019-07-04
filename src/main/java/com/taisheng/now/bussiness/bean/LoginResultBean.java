@@ -22,7 +22,7 @@ public class LoginResultBean extends BaseBean {
         userInfo.nickName = userInfoObject.getString("nickName");
         userInfo.password = userInfoObject.getString("password");
         userInfo.avatar = userInfoObject.getString("avatar");
-        userInfo.sex = userInfoObject.getInteger("sex");
+        userInfo.sex = userInfoObject.getInteger("sex")==null?-1:userInfoObject.getInteger("sex");
         userInfo.age = userInfoObject.getString("age");
         userInfo.phone = userInfoObject.getString("phone");
         userInfo.realName = userInfoObject.getString("realName");

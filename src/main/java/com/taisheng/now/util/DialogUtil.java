@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.view.AppDialog;
 import com.taisheng.now.view.CustomProgress;
 import com.taisheng.now.view.dialog.ZixunDialog;
 
@@ -145,6 +146,59 @@ public static void showzixunDialog(Context context,final View.OnClickListener sh
 
         }
 
+    }
+
+
+
+
+    /**
+     * 两个按钮弹窗
+     *
+     * @param context
+     * @param messageString
+     * @param cancleText
+     * @param confirmText
+     * @param onCancleClickListener
+     * @param onConfirmClickListener
+     */
+    public static void showTwoButtonDialog(final Context context, String messageString, String cancleText, String confirmText, final View.OnClickListener onCancleClickListener, final View.OnClickListener onConfirmClickListener) {
+        if (!canShowDialog(context)) return;
+//        closeAllDialog();
+        final Dialog dialog = new AppDialog(context, R.layout.dialog_two_button, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, R.style.mystyle, Gravity.CENTER);
+        dialog.getWindow().setWindowAnimations(0);
+        TextView two_button_message = (TextView) dialog.findViewById(R.id.two_button_message);
+        Button two_button_cancle = (Button) dialog.findViewById(R.id.two_button_cancle);
+        Button two_button_confirm = (Button) dialog.findViewById(R.id.two_button_confirm);
+        two_button_cancle.setText(cancleText);
+        two_button_confirm.setText(confirmText);
+        two_button_message.setText(messageString);
+
+        two_button_cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+                if (onCancleClickListener != null) {
+                    onCancleClickListener.onClick(v);
+                }
+            }
+        });
+        two_button_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+                if (onConfirmClickListener != null) {
+                    onConfirmClickListener.onClick(v);
+                }
+            }
+        });
+
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 
 

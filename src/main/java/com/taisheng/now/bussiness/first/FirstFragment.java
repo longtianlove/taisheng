@@ -51,6 +51,14 @@ public class FirstFragment extends BaseFragment {
     TextView tv_secret_more;
 
 
+    View ll_shishizixun;
+    View ll_sushenhufu;
+    View ll_yiliaoyangsheng;
+    View ll_muyingyunyu;
+    View ll_yingjizixun;
+    View ll_jianshenyundong;
+    View ll_yongyaozhidao;
+
     View ll_jiankangceping;
 
 
@@ -65,10 +73,61 @@ public class FirstFragment extends BaseFragment {
 //        EventBus.getDefault().register(this);
         initData();
 
+
         return rootView;
     }
 
     void initView(View rootView) {
+        ll_shishizixun=rootView.findViewById(R.id.ll_shishizixun);
+        ll_shishizixun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).showFragment(1);
+            }
+        });
+        ll_sushenhufu=rootView.findViewById(R.id.ll_sushenhufu);
+        ll_sushenhufu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).showFragment(2);
+            }
+        });
+        ll_yiliaoyangsheng=rootView.findViewById(R.id.ll_yiliaoyangsheng);
+        ll_yiliaoyangsheng.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).showFragment(2);
+            }
+        });
+        ll_muyingyunyu=rootView.findViewById(R.id.ll_muyingyunyu);
+        ll_muyingyunyu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).showFragment(2);
+            }
+        });
+        ll_yingjizixun=rootView.findViewById(R.id.ll_yingjizixun);
+        ll_yingjizixun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO 跳转到视频聊天页面
+            }
+        });
+        ll_jianshenyundong=rootView.findViewById(R.id.ll_jianshenyundong);
+        ll_jianshenyundong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).showFragment(2);
+            }
+        });
+        ll_yongyaozhidao=rootView.findViewById(R.id.ll_yongyaozhidao);
+        ll_yongyaozhidao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).showFragment(2);
+            }
+        });
         ll_jiankangceping=rootView.findViewById(R.id.ll_jiankangceping);
         ll_jiankangceping.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,17 +171,9 @@ public class FirstFragment extends BaseFragment {
             }
         });
 
-    }
 
 
-    void initData() {
 
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         if(!SPUtil.getGUIDE()){
 //文字图片
             final ImageView iv1 = new ImageView(getActivity());
@@ -153,13 +204,25 @@ public class FirstFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     guideView.hide();
-                    //todo 上线删掉
-//                    SPUtil.putGUIDE(true);
+                    SPUtil.putGUIDE(true);
 
                 }
             });
             guideView.show();
         }
+
+    }
+
+
+    void initData() {
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
     }
 
     public void onDestroy() {

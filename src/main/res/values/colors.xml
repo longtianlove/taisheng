@@ -28,4 +28,7 @@
 
     <color name="bg_shadow">#D8000000</color>
 
+    <color name="new_color_word">#141e41</color>
+    <color name="common_button_background">#1E2D53</color>
+
 </resources>
