@@ -44,6 +44,7 @@ public class FirstFragment extends BaseFragment {
 
     private FrameLayout bannerContaner;
     BannerViewPager bannerViewPager;
+    private View bannerView;
     ViewPager vp_zhuanjia;
 
     TextView tv_doctor_more;
@@ -81,8 +82,19 @@ public class FirstFragment extends BaseFragment {
         ll_search = rootView.findViewById(R.id.ll_search);
 
         bannerContaner = (FrameLayout) rootView.findViewById(R.id.bannerContaner);
-        bannerContaner.setVisibility(View.GONE);
+        bannerContaner.setVisibility(View.VISIBLE);
         bannerViewPager = new BannerViewPager(mActivity);
+        bannerViewPager.setLocalPictureIds();
+        bannerViewPager.setmScrollSpeed(500);
+        bannerViewPager.madapter.notifyDataSetChanged();
+        bannerView = bannerViewPager.getContentView();
+        bannerViewPager.setOnItemClickListener(new BannerViewPager.ViewPagerItemListener() {
+                                                   @Override
+                                                   public void onViewPagerItemClick(int i) {
+
+                                                   }
+                                               });
+        bannerContaner.addView(bannerView);
 
         vp_zhuanjia = (ViewPager) rootView.findViewById(R.id.vp_zhuanjia);
         tv_doctor_more = (TextView) rootView.findViewById(R.id.tv_doctor_more);

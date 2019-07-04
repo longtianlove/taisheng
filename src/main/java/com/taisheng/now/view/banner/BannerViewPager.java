@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.R;
 import com.taisheng.now.SampleAppLike;
+import com.taisheng.now.util.DensityUtil;
 import com.taisheng.now.util.ScreenUtil;
 
 
@@ -89,6 +90,16 @@ public class BannerViewPager {
         init();
     }
 
+
+    public void setLocalPictureIds(){
+        msize = 3;
+        mgroup.removeAllViews();
+        if(mimageHandler!=null) {
+            mimageHandler.sendEmptyMessage(ImageHandler.MSG_KEEP_SILENT);//暂停轮播
+        }
+        initLocal();
+    }
+
     void init() {
 
         if (msize > 1) {
@@ -117,7 +128,49 @@ public class BannerViewPager {
             mbannerItems[i].setScaleType(ImageView.ScaleType.FIT_XY);
             Uri uri = Uri.parse(mpictureUrls.get(i));
             mbannerItems[i].setImageURI(uri);
-//            ImageLoader.getInstance().displayImage(mpictureUrls.get(i), mbannerItems[i], BitmapUtil.buildDisplayImageOptions(R.drawable.find_banner_failed, R.drawable.find_banner_failed, R.drawable.find_banner_failed));
+        }
+        madapter = new ViewPagerAdapter(mbannerItems, mpictureUrls, mcontext, mviewPager, mviewPagerItemListener);
+        mviewPager.setAdapter(madapter);
+        madapter.setmScrollSpeed(500);
+        mviewPager.setOnPageChangeListener(mlistener);
+        mimageHandler = new ImageHandler(this, 0);
+        if (msize > 1)
+            mimageHandler.sendEmptyMessageDelayed(ImageHandler.MSG_FIRST, ImageHandler.MSG_DELAY);
+
+        int height = (int) (SCALEH * ScreenUtil.getScreenW(SampleAppLike.mcontext));
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, height);
+        mviewPager.setLayoutParams(layoutParams);
+    }
+
+    void initLocal() {
+
+        if (msize > 1) {
+            mtips = new ImageView[msize];
+            for (int i = 0; i < msize; i++) {
+                ImageView imageView = new ImageView(mcontext);
+                mtips[i] = imageView;
+                if (i == 0) {
+                    mtips[i].setBackgroundResource(R.drawable.banner_indicator_focused);
+                } else {
+                    mtips[i].setBackgroundResource(R.drawable.banner_indicator_unfocused);
+                }
+                final float scale = mcontext.getResources().getDisplayMetrics().density;
+//                int width = (int) (8 * scale + 0.5f);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(DensityUtil.dip2px(mcontext,4), DensityUtil.dip2px(mcontext,3)));
+                layoutParams.leftMargin = 10;
+                layoutParams.rightMargin = 10;
+                layoutParams.bottomMargin = 10;
+                mgroup.addView(imageView, layoutParams);
+            }
+        }
+
+        mbannerItems = new SimpleDraweeView[msize];
+        int[] ids=new int[]{R.drawable.banner1,R.drawable.banner2,R.drawable.banner3};
+        for (int i = 0; i < msize; i++) {
+            mbannerItems[i] = new SimpleDraweeView(mcontext);
+            mbannerItems[i].setScaleType(ImageView.ScaleType.FIT_XY);
+//            Uri uri = Uri.parse(mpictureUrls.get(i));
+            mbannerItems[i].setImageDrawable(mcontext.getResources().getDrawable(ids[i]));
         }
         madapter = new ViewPagerAdapter(mbannerItems, mpictureUrls, mcontext, mviewPager, mviewPagerItemListener);
         mviewPager.setAdapter(madapter);

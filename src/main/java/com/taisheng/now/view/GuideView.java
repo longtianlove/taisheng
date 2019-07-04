@@ -368,7 +368,7 @@ public class GuideView extends RelativeLayout implements ViewTreeObserver.OnGlob
                 guideViewParams.addRule(ALIGN_PARENT_BOTTOM);
                 guideViewParams.setMargins(0, 0, 0, DensityUtil.dip2px(SampleAppLike.mcontext,130));
                 textViewParams.addRule(ALIGN_PARENT_RIGHT);
-                textViewParams.setMargins(0, DensityUtil.dip2px(SampleAppLike.mcontext,178), DensityUtil.dip2px(SampleAppLike.mcontext,86), 0);
+                textViewParams.setMargins(0, DensityUtil.dip2px(SampleAppLike.mcontext,178), DensityUtil.dip2px(SampleAppLike.mcontext,82), 0);
 
                 if (this != null)
                     this.removeAllViews();

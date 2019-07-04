@@ -53,8 +53,6 @@ public class ViewPagerAdapter extends PagerAdapter {
         imageView3.setImageURI(uri1);
         Uri uri2 = Uri.parse(mpictureUrls.get(1));
         imageView4.setImageURI(uri2);
-//        ImageLoader.getInstance().displayImage(mpictureUrls.get(0), imageView3, BitmapUtil.buildDisplayImageOptions(R.drawable.find_banner_failed, R.drawable.find_banner_failed, R.drawable.find_banner_failed));
-//        ImageLoader.getInstance().displayImage(mpictureUrls.get(1), imageView4, BitmapUtil.buildDisplayImageOptions(R.drawable.find_banner_failed, R.drawable.find_banner_failed, R.drawable.find_banner_failed));
         mImageViewsArray.add(imageView3);
         mImageViewsArray.add(imageView4);
     }
