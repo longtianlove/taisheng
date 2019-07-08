@@ -7,10 +7,11 @@ import android.widget.Toast;
 import com.taisheng.now.Constants;
 import com.taisheng.now.EventManage;
 import com.taisheng.now.SampleAppLike;
+import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.CaptchaPostBean;
 import com.taisheng.now.bussiness.bean.CaptchaResultBean;
 import com.taisheng.now.bussiness.bean.LoginPostBean;
-import com.taisheng.now.bussiness.bean.LoginResultBean;
+import com.taisheng.now.bussiness.bean.UserInfo;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.push.XMPushManagerInstance;
@@ -18,9 +19,7 @@ import com.taisheng.now.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.net.URLEncoder;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -57,9 +56,9 @@ public class LoginPresenter {
             tloginView.showDialog();
             CaptchaPostBean bean=new CaptchaPostBean();
             bean.phoneNumber=phone;
-            ApiUtils.getApiService().appAcquireVerifyCode(bean).enqueue(new TaiShengCallback<CaptchaResultBean>() {
+            ApiUtils.getApiService().appAcquireVerifyCode(bean).enqueue(new TaiShengCallback<BaseBean>() {
                 @Override
-                public void onSuccess(Response<CaptchaResultBean> response, CaptchaResultBean message) {
+                public void onSuccess(Response<BaseBean> response, BaseBean message) {
                     switch (message.code) {
                         case Constants.HTTP_SUCCESS:
                             if (tloginView != null) {
@@ -77,7 +76,7 @@ public class LoginPresenter {
                 }
 
                 @Override
-                public void onFail(Call<CaptchaResultBean> call, Throwable t) {
+                public void onFail(Call<BaseBean> call, Throwable t) {
                     Toast.makeText(SampleAppLike.mcontext, "验证码发送失败", Toast.LENGTH_LONG).show();
                     tloginView.dismissDialog();
                 }
@@ -134,14 +133,14 @@ public class LoginPresenter {
         if (tloginView != null) {
             tloginView.showDialog();
 
-            ApiUtils.getApiService().applogin(loginPostBean).enqueue(new TaiShengCallback<LoginResultBean>() {
+            ApiUtils.getApiService().applogin(loginPostBean).enqueue(new TaiShengCallback<BaseBean<UserInfo>>() {
                 @Override
-                public void onSuccess(Response<LoginResultBean> response, LoginResultBean message) {
+                public void onSuccess(Response<BaseBean<UserInfo>> response, BaseBean<UserInfo> message) {
                     switch (message.code) {
                         case Constants.HTTP_SUCCESS:
                             //小米push
                             XMPushManagerInstance.getInstance().init();
-                            UserInstance.getInstance().saveUserInfo(message.userInfo);
+                            UserInstance.getInstance().saveUserInfo(message.result);
                             EventBus.getDefault().post(new EventManage.getUserInfoEvent());
                             break;
                         case Constants.HTTP_ERROR:
@@ -166,7 +165,7 @@ public class LoginPresenter {
                 }
 
                 @Override
-                public void onFail(Call<LoginResultBean> call, Throwable t) {
+                public void onFail(Call<BaseBean<UserInfo>> call, Throwable t) {
                     if (tloginView != null) {
                         tloginView.dismissDialog();
                     }

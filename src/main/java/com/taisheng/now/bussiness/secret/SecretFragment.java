@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.MainActivity;
@@ -153,11 +154,11 @@ View iv_search;
 
 
     SecretTabFragment zhongyitizhiFragment1;
-    SecretTabFragment zhongyitizhiFragment2;
-    SecretTabFragment zhongyitizhiFragment3;
-    SecretTabFragment zhongyitizhiFragment4;
-    SecretTabFragment zhongyitizhiFragment5;
-    SecretTabFragment zhongyitizhiFragment6;
+    SecretTabFragment jichudaixieFragment;
+    SecretTabFragment fukejiankangFragment;
+    SecretTabFragment xinfeigongnengFragment;
+    SecretTabFragment yaojingjianbeiFragment;
+    SecretTabFragment piweiganshen;
     private void initContent(){
         tabIndicators = new ArrayList<>();
         tabIndicators.add("中医体质");
@@ -171,17 +172,27 @@ View iv_search;
 //        }
         tabFragments = new ArrayList<>();
         zhongyitizhiFragment1=new SecretTabFragment();
-        zhongyitizhiFragment2=new SecretTabFragment();
-        zhongyitizhiFragment3=new SecretTabFragment();
-        zhongyitizhiFragment4=new SecretTabFragment();
-        zhongyitizhiFragment5=new SecretTabFragment();
-        zhongyitizhiFragment6=new SecretTabFragment();
+        zhongyitizhiFragment1.typeName=Constants.ZHONGYITIZHI;
+
+        jichudaixieFragment=new SecretTabFragment();
+        jichudaixieFragment.typeName=Constants.JICHUDAIXIE;
+        fukejiankangFragment=new SecretTabFragment();
+        fukejiankangFragment.typeName=Constants.FUKEJIANKANG;
+
+        xinfeigongnengFragment=new SecretTabFragment();
+        xinfeigongnengFragment.typeName=Constants.XINFEIGONGNENG;
+
+        yaojingjianbeiFragment=new SecretTabFragment();
+        yaojingjianbeiFragment.typeName=Constants.YAOJINGJIANBEI;
+        piweiganshen=new SecretTabFragment();
+        piweiganshen.typeName=Constants.PIWEIGANSHEN;
+
         tabFragments.add(zhongyitizhiFragment1);
-        tabFragments.add(zhongyitizhiFragment2);
-        tabFragments.add(zhongyitizhiFragment3);
-        tabFragments.add(zhongyitizhiFragment4);
-        tabFragments.add(zhongyitizhiFragment5);
-        tabFragments.add(zhongyitizhiFragment6);
+        tabFragments.add(jichudaixieFragment);
+        tabFragments.add(fukejiankangFragment);
+        tabFragments.add(xinfeigongnengFragment);
+        tabFragments.add(yaojingjianbeiFragment);
+        tabFragments.add(piweiganshen);
 //        for (String s : tabIndicators) {
 ////            tabFragments.add(TabContentFragment.newInstance(s));
 //        }

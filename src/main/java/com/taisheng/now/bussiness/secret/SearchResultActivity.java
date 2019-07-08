@@ -14,6 +14,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.ArticleBean;
 import com.taisheng.now.bussiness.bean.ArticlePostBean;
 import com.taisheng.now.bussiness.bean.ArticleResultBean;
@@ -59,6 +60,12 @@ public class SearchResultActivity extends BaseActivity {
         lv_articles= (TaishengListView) findViewById(R.id.lv_articles);
         madapter=new ArticleAdapter(this);
         lv_articles.setAdapter(madapter);
+        lv_articles.setOnUpLoadListener(new TaishengListView.OnUpLoadListener() {
+            @Override
+            public void onUpLoad() {
+                getArticles();
+            }
+        });
 
     }
 
@@ -68,7 +75,6 @@ public class SearchResultActivity extends BaseActivity {
         PAGE_NO=1;
         PAGE_SIZE=10;
         bean=new ArticlePostBean();
-
         getArticles();
 
 
@@ -92,19 +98,19 @@ public class SearchResultActivity extends BaseActivity {
         bean.token= UserInstance.getInstance().getToken();
         bean.userId=UserInstance.getInstance().getUid();
         bean.type="";
-        ApiUtils.getApiService().articleList(bean).enqueue(new TaiShengCallback<ArticleResultBean>() {
+        ApiUtils.getApiService().articleList(bean).enqueue(new TaiShengCallback<BaseBean<ArticleResultBean>>() {
             @Override
-            public void onSuccess(Response<ArticleResultBean> response, ArticleResultBean message) {
+            public void onSuccess(Response<BaseBean<ArticleResultBean>> response, BaseBean<ArticleResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
 
-                        if(message.records!=null&&message.records.size()>0) {
+                        if(message.result.records!=null&&message.result.records.size()>0) {
                             //有消息
                             PAGE_NO++;
-                            madapter.mData=message.records;
-                            if(message.records.size()<10){
+                            madapter.mData=message.result.records;
+                            if(message.result.records.size()<10){
                                 lv_articles.setHasLoadMore(false);
-                                lv_articles.setLoadAllViewText("暂时只有这么多消息");
+                                lv_articles.setLoadAllViewText("暂时只有这么多文章");
                                 lv_articles.setLoadAllFooterVisible(true);
                             }else{
                                 lv_articles.setHasLoadMore(true);
@@ -113,7 +119,7 @@ public class SearchResultActivity extends BaseActivity {
                         }else{
                             //没有消息
                             lv_articles.setHasLoadMore(false);
-                            lv_articles.setLoadAllViewText("暂时只有这么多消息");
+                            lv_articles.setLoadAllViewText("暂时只有这么多文章");
                             lv_articles.setLoadAllFooterVisible(true);
                         }
 
@@ -124,7 +130,7 @@ public class SearchResultActivity extends BaseActivity {
             }
 
             @Override
-            public void onFail(Call<ArticleResultBean> call, Throwable t) {
+            public void onFail(Call<BaseBean<ArticleResultBean>> call, Throwable t) {
 
             }
         });
@@ -167,6 +173,7 @@ public class SearchResultActivity extends BaseActivity {
                 util = new Util();
                 LayoutInflater inflater = LayoutInflater.from(mcontext);
                 convertView = inflater.inflate(R.layout.item_article, null);
+                util.ll_all=convertView.findViewById(R.id.ll_all);
                 util.sdv_article= (SimpleDraweeView) convertView.findViewById(R.id.sdv_article);
                 util.tv_title= (TextView) convertView.findViewById(R.id.tv_title);
                 util.tv_content= (TextView) convertView.findViewById(R.id.tv_content);
@@ -178,6 +185,15 @@ public class SearchResultActivity extends BaseActivity {
                 util = (Util) convertView.getTag();
             }
             ArticleBean bean = mData.get(position);
+            util.ll_all.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(SearchResultActivity.this,ArticleContentActivity.class);
+                    intent.putExtra("articleId",bean.id);
+                    startActivity(intent);
+                }
+            });
+
             String temp_url = bean.picUrl;
             if (temp_url == null || "".equals(temp_url)) {
                 util.sdv_article.setBackgroundResource(R.drawable.article_default);
@@ -196,6 +212,7 @@ public class SearchResultActivity extends BaseActivity {
 
 
         class Util {
+            View ll_all;
             SimpleDraweeView sdv_article;
             TextView tv_title;
             TextView tv_content;

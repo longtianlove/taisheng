@@ -12,15 +12,8 @@ import java.util.List;
  * Created by dragon on 2019/7/5.
  */
 
-public class HotResultBean extends BaseBean {
+public class HotResultBean  {
 
     public List<HotSearchBean> list=new ArrayList<>();
-    public void parseResult(){
-        if (result == null) {
-            return;
-        }
 
-       JSONArray articlesJson= result.getJSONArray("list");
-        list=JSON.parseArray(articlesJson.toJSONString(),HotSearchBean.class);
-    }
 }

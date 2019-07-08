@@ -49,7 +49,7 @@ public class SecretSearchActivity extends BaseActivity {
 
     TaishengListView lv_hotsearch;
 
-    ArrayList<String> historysearchlist=new ArrayList<>();
+    ArrayList<String> historysearchlist;
 
     MessageAdapter madapter;//适配器
 
@@ -61,6 +61,7 @@ public class SecretSearchActivity extends BaseActivity {
         setContentView(R.layout.activity_serert_search);
         initView();
     }
+
 
     void initView() {
         et_search = (EditText) findViewById(R.id.et_search);
@@ -88,28 +89,33 @@ public class SecretSearchActivity extends BaseActivity {
                 if (TextUtils.isEmpty(searchString)) {
                     return;
                 }
-                searchKey=searchString;
+                searchKey = searchString;
+                if (historysearchlist == null) {
+                    historysearchlist = new ArrayList<String>();
+                }
 
+                if (historysearchlist.contains(searchString)) {
+                    historysearchlist.remove(searchString);
+                }
+                historysearchlist.add(0, searchString);
+                SPUtil.putHistorySearch(historysearchlist);
+//                ll_history_label.setVisibility(View.VISIBLE);
+//                wl_histroy_search.setVisibility(View.VISIBLE);
+//                wl_histroy_search.setData(historysearchlist, SecretSearchActivity.this, 14, 15, 4, 14, 4, 12, 12, 15, 12);
+//                wl_histroy_search.setMarkClickListener(new WrapLayout.MarkClickListener() {
+//                    @Override
+//                    public void clickMark(int position) {
+//                        ToastUtil.showTost(historysearchlist.get(position));
+//                    }
+//                });
 
-
-                historysearchlist.add(0,searchString);
-                ll_history_label.setVisibility(View.VISIBLE);
-                wl_histroy_search.setVisibility(View.VISIBLE);
-                wl_histroy_search.setData(historysearchlist, SecretSearchActivity.this, 14, 15, 4, 14, 4, 12, 12, 15, 12);
-                wl_histroy_search.setMarkClickListener(new WrapLayout.MarkClickListener() {
-                    @Override
-                    public void clickMark(int position) {
-                        ToastUtil.showTost(historysearchlist.get(position));
-                    }
-                });
-
-                Intent intent=new Intent(SecretSearchActivity.this,SearchResultActivity.class);
-                intent.putExtra("searchkey",searchKey);
+                Intent intent = new Intent(SecretSearchActivity.this, SearchResultActivity.class);
+                intent.putExtra("searchkey", searchKey);
                 startActivity(intent);
 
             }
         });
-        iv_deletehistory=findViewById(R.id.iv_deletehistory);
+        iv_deletehistory = findViewById(R.id.iv_deletehistory);
         iv_deletehistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,21 +127,8 @@ public class SecretSearchActivity extends BaseActivity {
         });
         ll_history_label = findViewById(R.id.ll_history_label);
         wl_histroy_search = (WrapLayout) findViewById(R.id.wl_histroy_search);
-        historysearchlist = SPUtil.getHistorySearch();
-        if (historysearchlist == null || historysearchlist.isEmpty()) {
-            ll_history_label.setVisibility(View.GONE);
-            wl_histroy_search.setVisibility(View.GONE);
-        } else {
-            ll_history_label.setVisibility(View.VISIBLE);
-            wl_histroy_search.setVisibility(View.VISIBLE);
-            wl_histroy_search.setData(historysearchlist, this, 14, 15, 4, 14, 4, 12, 12, 15, 12);
-            wl_histroy_search.setMarkClickListener(new WrapLayout.MarkClickListener() {
-                @Override
-                public void clickMark(int position) {
-                    ToastUtil.showTost(historysearchlist.get(position));
-                }
-            });
-        }
+
+
 
 
         madapter = new MessageAdapter(this);
@@ -145,16 +138,18 @@ public class SecretSearchActivity extends BaseActivity {
         getHot();
     }
 
-    void getHot(){
-        HotPostBean bean=new HotPostBean();
-        bean.userId= UserInstance.getInstance().getUid();
-        bean.token=UserInstance.getInstance().getToken();
-        ApiUtils.getApiService().hotSearchArticle(bean).enqueue(new TaiShengCallback<HotResultBean>() {
+
+
+    void getHot() {
+        HotPostBean bean = new HotPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        ApiUtils.getApiService().hotSearchArticle(bean).enqueue(new TaiShengCallback<BaseBean<HotResultBean>>() {
             @Override
-            public void onSuccess(Response<HotResultBean> response, HotResultBean message) {
+            public void onSuccess(Response<BaseBean<HotResultBean>> response, BaseBean<HotResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-                        madapter.mData=message.list;
+                        madapter.mData = message.result.list;
                         madapter.notifyDataSetChanged();
                         break;
 
@@ -162,11 +157,13 @@ public class SecretSearchActivity extends BaseActivity {
             }
 
             @Override
-            public void onFail(Call<HotResultBean> call, Throwable t) {
+            public void onFail(Call<BaseBean<HotResultBean>> call, Throwable t) {
 
             }
         });
     }
+
+
 
 
     class MessageAdapter extends BaseAdapter {
@@ -221,6 +218,14 @@ public class SecretSearchActivity extends BaseActivity {
                 util.iv_top.setVisibility(View.VISIBLE);
             }
             util.tv_hotsearchtitle.setText(bean.title);
+            util.tv_hotsearchtitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(SecretSearchActivity.this,ArticleContentActivity.class);
+                    intent.putExtra("articleId",bean.id);
+                    startActivity(intent);
+                }
+            });
 
             return convertView;
         }
@@ -230,6 +235,52 @@ public class SecretSearchActivity extends BaseActivity {
             ImageView iv_hot;
             ImageView iv_top;
             TextView tv_hotsearchtitle;
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        historysearchlist = SPUtil.getHistorySearch();
+        if (historysearchlist == null || historysearchlist.isEmpty()) {
+            ll_history_label.setVisibility(View.GONE);
+            wl_histroy_search.setVisibility(View.GONE);
+        } else {
+            ll_history_label.setVisibility(View.VISIBLE);
+            wl_histroy_search.setVisibility(View.VISIBLE);
+            wl_histroy_search.setData(historysearchlist, this, 14, 15, 4, 14, 4, 12, 12, 15, 12);
+            wl_histroy_search.setMarkClickListener(new WrapLayout.MarkClickListener() {
+                @Override
+                public void clickMark(int position) {
+                    String searchString =historysearchlist.get(position);
+                    if (TextUtils.isEmpty(searchString)) {
+                        return;
+                    }
+                    searchKey = searchString;
+                    if (historysearchlist == null) {
+                        historysearchlist = new ArrayList<String>();
+                    }
+
+                    if (historysearchlist.contains(searchString)) {
+                        historysearchlist.remove(searchString);
+                    }
+                    historysearchlist.add(0, searchString);
+                    SPUtil.putHistorySearch(historysearchlist);
+//                ll_history_label.setVisibility(View.VISIBLE);
+//                wl_histroy_search.setVisibility(View.VISIBLE);
+//                wl_histroy_search.setData(historysearchlist, SecretSearchActivity.this, 14, 15, 4, 14, 4, 12, 12, 15, 12);
+//                wl_histroy_search.setMarkClickListener(new WrapLayout.MarkClickListener() {
+//                    @Override
+//                    public void clickMark(int position) {
+//                        ToastUtil.showTost(historysearchlist.get(position));
+//                    }
+//                });
+
+                    Intent intent = new Intent(SecretSearchActivity.this, SearchResultActivity.class);
+                    intent.putExtra("searchkey", searchKey);
+                    startActivity(intent);
+                }
+            });
         }
     }
 }

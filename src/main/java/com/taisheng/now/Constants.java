@@ -21,6 +21,13 @@ public class Constants {
     public final static int MALE=0;
     public final static int FEMALE=1;
 
+    public final static String   ZHONGYITIZHI=   "中医体质";
+    public final static String   JICHUDAIXIE=   "基础代谢";
+    public final static String   FUKEJIANKANG=     "妇科健康";
+    public final static String   XINFEIGONGNENG=    "心肺功能";
+    public final static String   YAOJINGJIANBEI=      "腰颈肩背";
+    public final static String   PIWEIGANSHEN=     "脾胃肝肾" ;
+
 
 
 
@@ -63,7 +70,12 @@ public class Constants {
             /**
              * 文章列表
              */
-            public static final String articleList="app/article/list";
+            public static final String articleList="jeecg-boot/app/article/list";
+
+            /**
+             * 文章详情
+             */
+            public static final String articleQeryById="jeecg-boot/app/article/queryById";
 
         }
 

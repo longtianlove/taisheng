@@ -28,12 +28,12 @@ public abstract class TaiShengCallback<T extends BaseBean> implements Callback<T
     public void onResponse(Call<T> call, Response<T> response) {
         if (response.code() >= 200 && response.code() < 300) {
             T message = response.body();
-            if (message != null) {
-
-                //如果token过期，直接跳转到登录页面
-                message.parseResult();
-
-                }
+//            if (message != null) {
+//
+//                //如果token过期，直接跳转到登录页面
+//                message.parseResult();
+//
+//                }
 //                //如果宠物不存在了，直接退到添加宠物页面
 //                if (EC_PET_NOT_EXIST == ret) {
 //                    MainActivity.getLocationWithOneMinute=false;

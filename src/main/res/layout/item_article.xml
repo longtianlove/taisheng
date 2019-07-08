@@ -7,6 +7,7 @@
     android:paddingBottom="17dp"
     android:paddingLeft="12dp"
     android:gravity="center_vertical"
+    android:id="@+id/ll_all"
     android:paddingRight="12dp"
     android:paddingTop="20dp">
 
@@ -34,8 +35,10 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:gravity="center"
-            android:text="健康美食搭配，助您身心健康"
+            android:maxLines="1"
+            android:text="健康美食搭配，助您身心健康助您身心健康助您身心健康助您身心健康"
             android:textColor="#ff333333"
             android:textSize="14sp" />
 
@@ -45,7 +48,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:gravity="center_vertical"
-            android:text="此处是段落文字详情此处是段落文字详情此处是段落文字详情此处是段落文字详情……"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="此处是段落文字详情此处是段落文字详情此处是段落文字详情此处是段落文字详情段落文字详情此处是段落文字详情段落文字详情此处是段落文字详情段落文字详情此处是段落文字详情段落文字详情此处是段落文字详情"
             android:textColor="#ff666666"
             android:textSize="12sp" />
 
@@ -69,6 +74,7 @@
                 android:layout_marginLeft="42dp"
                 android:layout_width="8dp"
                 android:layout_height="8dp"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/icon_time"
 
                 />

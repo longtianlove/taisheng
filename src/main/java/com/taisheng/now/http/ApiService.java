@@ -3,6 +3,8 @@ package com.taisheng.now.http;
 
 import com.taisheng.now.Constants;
 import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.bean.ArticleContentBean;
+import com.taisheng.now.bussiness.bean.ArticleContentPostBean;
 import com.taisheng.now.bussiness.bean.ArticlePostBean;
 import com.taisheng.now.bussiness.bean.ArticleResultBean;
 import com.taisheng.now.bussiness.bean.CaptchaPostBean;
@@ -10,7 +12,7 @@ import com.taisheng.now.bussiness.bean.CaptchaResultBean;
 import com.taisheng.now.bussiness.bean.HotPostBean;
 import com.taisheng.now.bussiness.bean.HotResultBean;
 import com.taisheng.now.bussiness.bean.LoginPostBean;
-import com.taisheng.now.bussiness.bean.LoginResultBean;
+import com.taisheng.now.bussiness.bean.UserInfo;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -35,18 +37,23 @@ public interface ApiService {
 
     //登录
     @POST(Constants.Url.User.applogin)
-    Call<LoginResultBean> applogin(@Body LoginPostBean loginPostBean);
+    Call<BaseBean<UserInfo>> applogin(@Body LoginPostBean loginPostBean);
 
     //发送验证码
     @POST(Constants.Url.User.appAcquireVerifyCode)
-    Call<CaptchaResultBean> appAcquireVerifyCode(@Body CaptchaPostBean loginPostBean);
+    Call<BaseBean> appAcquireVerifyCode(@Body CaptchaPostBean loginPostBean);
 
     //获取热门文章
     @POST(Constants.Url.Article.hotSearchArticle)
-    Call<HotResultBean> hotSearchArticle(@Body HotPostBean hotPostBean);
+    Call<BaseBean<HotResultBean>> hotSearchArticle(@Body HotPostBean hotPostBean);
 
     //获取文章列表
     @POST(Constants.Url.Article.articleList)
-    Call<ArticleResultBean> articleList(@Body ArticlePostBean articlePostBean);
+    Call<BaseBean<ArticleResultBean>> articleList(@Body ArticlePostBean articlePostBean);
+
+    //获取文章详情
+    @POST(Constants.Url.Article.articleQeryById)
+    Call<BaseBean<ArticleContentBean>> articleQeryById(@Body ArticleContentPostBean articleContentPostBean);
+
 
 }
