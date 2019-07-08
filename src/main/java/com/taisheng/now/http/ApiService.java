@@ -3,16 +3,17 @@ package com.taisheng.now.http;
 
 import com.taisheng.now.Constants;
 import com.taisheng.now.base.BaseBean;
-import com.taisheng.now.bussiness.bean.ArticleContentBean;
-import com.taisheng.now.bussiness.bean.ArticleContentPostBean;
-import com.taisheng.now.bussiness.bean.ArticlePostBean;
-import com.taisheng.now.bussiness.bean.ArticleResultBean;
-import com.taisheng.now.bussiness.bean.CaptchaPostBean;
-import com.taisheng.now.bussiness.bean.CaptchaResultBean;
-import com.taisheng.now.bussiness.bean.HotPostBean;
-import com.taisheng.now.bussiness.bean.HotResultBean;
-import com.taisheng.now.bussiness.bean.LoginPostBean;
-import com.taisheng.now.bussiness.bean.UserInfo;
+import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
+import com.taisheng.now.bussiness.bean.result.ArticleContentBean;
+import com.taisheng.now.bussiness.bean.post.ArticleContentPostBean;
+import com.taisheng.now.bussiness.bean.post.ArticlePostBean;
+import com.taisheng.now.bussiness.bean.result.ArticleResultBean;
+import com.taisheng.now.bussiness.bean.post.CaptchaPostBean;
+import com.taisheng.now.bussiness.bean.post.HotPostBean;
+import com.taisheng.now.bussiness.bean.result.HotResultBean;
+import com.taisheng.now.bussiness.bean.post.LoginPostBean;
+import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
+import com.taisheng.now.bussiness.bean.result.UserInfo;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -55,5 +56,8 @@ public interface ApiService {
     @POST(Constants.Url.Article.articleQeryById)
     Call<BaseBean<ArticleContentBean>> articleQeryById(@Body ArticleContentPostBean articleContentPostBean);
 
+    //获取题目
+    @POST(Constants.Url.CePing.getExtractionSubjectDb)
+    Call<BaseBean<QuestionResultBean>> getExtractionSubjectDb(@Body QuestionPostBean questionPostBean);
 
 }

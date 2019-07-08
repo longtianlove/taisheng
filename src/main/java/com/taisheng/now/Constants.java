@@ -23,7 +23,7 @@ public class Constants {
 
     public final static String   ZHONGYITIZHI=   "中医体质";
     public final static String   JICHUDAIXIE=   "基础代谢";
-    public final static String   FUKEJIANKANG=     "妇科健康";
+    public final static String   FUKEJIANKANG=     "女性健康";
     public final static String   XINFEIGONGNENG=    "心肺功能";
     public final static String   YAOJINGJIANBEI=      "腰颈肩背";
     public final static String   PIWEIGANSHEN=     "脾胃肝肾" ;
@@ -77,6 +77,14 @@ public class Constants {
              */
             public static final String articleQeryById="jeecg-boot/app/article/queryById";
 
+        }
+
+        //测评
+        public static class CePing{
+            /**
+             * 获取测评题目
+             */
+            public static final String getExtractionSubjectDb="jeecg-boot/app/assessment/getExtractionSubjectDb";
         }
 
     }

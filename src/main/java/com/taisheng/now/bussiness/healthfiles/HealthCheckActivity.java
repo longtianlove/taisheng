@@ -23,14 +23,53 @@ public class HealthCheckActivity extends BaseActivity {
     TextView btn_yaojingjianbei;
     TextView btn_piweiganshen;
 
+    View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+
+//            0 其他 1 中医体质测评 2 基础代谢测评 3 基础代谢测评 4 女性健康测评 5 心肺功能测评 6 腰颈肩背测评 7 脾胃肝肾测评
+            String assessmentType = "0";
+            Intent intent = new Intent(HealthCheckActivity.this, HealthQuestionActivity.class);
+            switch (v.getId()) {
+
+                case R.id.btn_zhongyitizhi:
+                    assessmentType="1";
+                    break;
+
+                case R.id.btn_jichudaixie:
+                    assessmentType="2";
+                    break;
+
+                case R.id.btn_fukejiankang:
+                    assessmentType="3";
+                    break;
+
+                case R.id.btn_xinfeigongneng:
+                    assessmentType="4";
+                    break;
+                case R.id.btn_yaojingjianbei:
+                    assessmentType="5";
+                    break;
+                case R.id.btn_piweiganshen:
+                    assessmentType="6";
+                    break;
+            }
+
+            intent.putExtra("assessmentType",assessmentType);
+            startActivity(intent);
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_check);
         initView();
     }
-    void initView(){
-        iv_back=findViewById(R.id.iv_back);
+
+    void initView() {
+        iv_back = findViewById(R.id.iv_back);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,21 +77,27 @@ public class HealthCheckActivity extends BaseActivity {
             }
         });
 
-        tv_checkhistory=findViewById(R.id.tv_checkhistory);
+        tv_checkhistory = findViewById(R.id.tv_checkhistory);
         tv_checkhistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(HealthCheckActivity.this,HealthCheckHistoryActivity.class);
+                Intent intent = new Intent(HealthCheckActivity.this, HealthCheckHistoryActivity.class);
                 startActivity(intent);
             }
         });
 
-        btn_zhongyitizhi= (TextView) findViewById(R.id.btn_zhongyitizhi);
-        btn_jichudaixie= (TextView) findViewById(R.id.btn_jichudaixie);
-        btn_fukejiankang= (TextView) findViewById(R.id.btn_fukejiankang);
-        btn_xinfeigongneng= (TextView) findViewById(R.id.btn_xinfeigongneng);
-        btn_yaojingjianbei= (TextView) findViewById(R.id.btn_yaojingjianbei);
-        btn_piweiganshen= (TextView) findViewById(R.id.btn_piweiganshen);
+        btn_zhongyitizhi = (TextView) findViewById(R.id.btn_zhongyitizhi);
+        btn_zhongyitizhi.setOnClickListener(listener);
+        btn_jichudaixie = (TextView) findViewById(R.id.btn_jichudaixie);
+        btn_jichudaixie.setOnClickListener(listener);
+        btn_fukejiankang = (TextView) findViewById(R.id.btn_fukejiankang);
+        btn_fukejiankang.setOnClickListener(listener);
+        btn_xinfeigongneng = (TextView) findViewById(R.id.btn_xinfeigongneng);
+        btn_xinfeigongneng.setOnClickListener(listener);
+        btn_yaojingjianbei = (TextView) findViewById(R.id.btn_yaojingjianbei);
+        btn_yaojingjianbei.setOnClickListener(listener);
+        btn_piweiganshen = (TextView) findViewById(R.id.btn_piweiganshen);
+        btn_piweiganshen.setOnClickListener(listener);
 
 
     }

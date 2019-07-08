@@ -76,7 +76,7 @@ public class HealthFileSearchActivity extends BaseFragmentActivity {
         tabIndicators = new ArrayList<>();
         tabIndicators.add("中医体质");
         tabIndicators.add("基础代谢");
-        tabIndicators.add("妇科健康");
+        tabIndicators.add("女性健康");
         tabIndicators.add("心肺功能");
         tabIndicators.add("腰颈肩背");
         tabIndicators.add("脾胃肝肾");

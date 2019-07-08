@@ -18,14 +18,13 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
-import com.taisheng.now.bussiness.bean.HotPostBean;
-import com.taisheng.now.bussiness.bean.HotResultBean;
-import com.taisheng.now.bussiness.bean.HotSearchBean;
+import com.taisheng.now.bussiness.bean.post.HotPostBean;
+import com.taisheng.now.bussiness.bean.result.HotResultBean;
+import com.taisheng.now.bussiness.bean.result.HotSearchBean;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.SPUtil;
-import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.WrapLayout;
 

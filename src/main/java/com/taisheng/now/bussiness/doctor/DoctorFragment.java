@@ -7,14 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragment;
-import com.taisheng.now.bussiness.bean.DoctorsBean;
+import com.taisheng.now.bussiness.bean.result.DoctorsBean;
 import com.taisheng.now.view.TaishengListView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;

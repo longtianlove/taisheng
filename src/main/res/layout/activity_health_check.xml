@@ -104,19 +104,7 @@
                 android:layout_marginLeft="63dp"
                 android:layout_marginRight="63dp"
                 android:textSize="20sp"></TextView>
-            <TextView
-                android:id="@+id/btn_fukejiankang"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="18dp"
-                android:background="@drawable/healthcheck_item_background"
-                android:gravity="center"
-                android:text="妇科健康测评"
-                android:textColor="@drawable/healthcheck_item_text_colorback"
-                android:clickable="true"
-                android:layout_marginLeft="63dp"
-                android:layout_marginRight="63dp"
-                android:textSize="20sp"></TextView>
+
             <TextView
                 android:id="@+id/btn_xinfeigongneng"
                 android:layout_width="match_parent"
@@ -151,6 +139,19 @@
                 android:background="@drawable/healthcheck_item_background"
                 android:gravity="center"
                 android:text="脾胃肝肾测评"
+                android:textColor="@drawable/healthcheck_item_text_colorback"
+                android:clickable="true"
+                android:layout_marginLeft="63dp"
+                android:layout_marginRight="63dp"
+                android:textSize="20sp"></TextView>
+            <TextView
+                android:id="@+id/btn_fukejiankang"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/healthcheck_item_background"
+                android:gravity="center"
+                android:text="女性健康测评"
                 android:textColor="@drawable/healthcheck_item_text_colorback"
                 android:clickable="true"
                 android:layout_marginLeft="63dp"

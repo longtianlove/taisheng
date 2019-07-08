@@ -1,7 +1,7 @@
 package com.taisheng.now.bussiness.user;
 
 
-import com.taisheng.now.bussiness.bean.UserInfo;
+import com.taisheng.now.bussiness.bean.result.UserInfo;
 import com.taisheng.now.util.SPUtil;
 
 /**

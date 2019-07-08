@@ -19,10 +19,9 @@ import android.widget.Toast;
 
 import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
-import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseFragmentActivity;
 import com.taisheng.now.bussiness.MainActivity;
-import com.taisheng.now.bussiness.bean.LoginPostBean;
+import com.taisheng.now.bussiness.bean.post.LoginPostBean;
 import com.taisheng.now.bussiness.me.FillInMessageActivity;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.SPUtil;
@@ -30,8 +29,6 @@ import com.taisheng.now.util.SPUtil;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.io.IOException;
 
 /**
  * Created by dragon on 2019/6/27.

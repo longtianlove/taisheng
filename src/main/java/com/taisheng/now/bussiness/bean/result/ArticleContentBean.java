@@ -1,4 +1,4 @@
-package com.taisheng.now.bussiness.bean;
+package com.taisheng.now.bussiness.bean.result;
 
 /**
  * Created by dragon on 2019/7/8.

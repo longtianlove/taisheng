@@ -1,4 +1,4 @@
-package com.taisheng.now.bussiness.bean;
+package com.taisheng.now.bussiness.bean.result;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;

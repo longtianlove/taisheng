@@ -1,4 +1,4 @@
-package com.taisheng.now.bussiness.bean;
+package com.taisheng.now.bussiness.bean.post;
 
 import com.taisheng.now.base.BaseBean;
 

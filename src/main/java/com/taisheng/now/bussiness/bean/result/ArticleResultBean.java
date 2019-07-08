@@ -1,9 +1,6 @@
-package com.taisheng.now.bussiness.bean;
+package com.taisheng.now.bussiness.bean.result;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.bean.result.ArticleBean;
 
 import java.util.ArrayList;
 import java.util.List;

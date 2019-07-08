@@ -43,108 +43,117 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#f8f8f8" />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="15dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="284dp"
-            android:layout_height="7dp"
-            android:layout_marginLeft="8dp"
-            android:background="@drawable/progressbar_background"
-            android:max="20"
-            android:progress="6"
-            android:progressDrawable="@drawable/myprogressbar"
-            android:visibility="visible" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="284dp"
+                android:layout_height="7dp"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/progressbar_background"
+                android:max="20"
+                android:progress="6"
+                android:progressDrawable="@drawable/myprogressbar"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_now_postion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="0dp"
+                android:gravity="center"
+                android:paddingRight="0dp"
+                android:text="06"
+                android:textColor="#ff529ffb"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_all_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:gravity="center"
+                android:paddingLeft="0dp"
+                android:text="/20"
+                android:textColor="#333333"
+                android:textSize="18sp" />
+        </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="0dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="34dp"
             android:gravity="center"
-            android:paddingRight="0dp"
-            android:text="06"
-            android:textColor="#ff529ffb"
+            android:text="当吃完很多肉后，你会(   )"
+            android:textColor="#ff333333"
             android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:gravity="center"
-            android:paddingLeft="0dp"
-            android:text="/20"
-            android:textColor="#333333"
-            android:textSize="18sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="9dp"
+            android:background="#F6F6F6" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="34dp"
-        android:gravity="center"
-        android:text="当吃完很多肉后，你会(   )"
-        android:textColor="#ff333333"
-        android:textSize="18sp" />
-
-    <View
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="9dp"
-        android:background="#F6F6F6" />
-</LinearLayout>
+        android:background="#f6f6f6"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#fff"
         android:orientation="vertical"
         android:paddingLeft="12dp"
-        android:background="#fff"
+        android:layout_marginBottom="20dp"
         android:paddingRight="12dp">
 
         <LinearLayout
+            android:id="@+id/ll_a"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingTop="25dp"
             android:paddingBottom="25dp"
-android:gravity="center_vertical"
-            >
+            android:paddingTop="25dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="A"
-
-                android:gravity="center"
-                android:textSize="12sp"
                 android:background="@drawable/option_background"
-                android:textColor="@color/selector_color"
+
                 android:enabled="false"
-                />
+                android:gravity="center"
+                android:text="A"
+                android:textColor="@color/selector_color"
+                android:textSize="12sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:layout_marginLeft="2dp"
+                android:gravity="center_vertical"
                 android:text="咦？吃了怎么这么不舒服，感到阴郁，发怒，难道肉不适合自己？"
                 android:textColor="#ff666666"
-                android:layout_marginLeft="2dp"
-                android:textSize="15sp"
-                android:gravity="center_vertical"
-                />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <View
@@ -153,33 +162,33 @@ android:gravity="center_vertical"
             android:background="#EEEEEE" />
 
         <LinearLayout
+            android:id="@+id/ll_b"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="25dp"
-            android:paddingBottom="25dp"
             android:gravity="center_vertical"
-            >
+            android:orientation="horizontal"
+            android:paddingBottom="25dp"
+            android:paddingTop="25dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="B"
-
-                android:gravity="center"
-                android:textSize="12sp"
                 android:background="@drawable/option_background"
-                android:textColor="@color/selector_color"
+
                 android:enabled="false"
-                />
+                android:gravity="center"
+                android:text="B"
+                android:textColor="@color/selector_color"
+                android:textSize="12sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:layout_marginLeft="2dp"
+                android:gravity="center_vertical"
                 android:text="没有什么特别的感觉"
                 android:textColor="#ff666666"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="2dp"
-                android:textSize="15sp"
-                />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <View
@@ -188,40 +197,105 @@ android:gravity="center_vertical"
             android:background="#EEEEEE" />
 
         <LinearLayout
+            android:id="@+id/ll_c"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="25dp"
-            android:paddingBottom="25dp"
             android:gravity="center_vertical"
-            >
+            android:orientation="horizontal"
+            android:paddingBottom="25dp"
+            android:paddingTop="25dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="C"
-
-                android:gravity="center"
-                android:textSize="12sp"
                 android:background="@drawable/option_background"
-                android:textColor="@color/selector_color"
+
                 android:enabled="false"
-                />
+                android:gravity="center"
+                android:text="C"
+                android:textColor="@color/selector_color"
+                android:textSize="12sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:layout_marginLeft="2dp"
+                android:gravity="center_vertical"
                 android:text="感觉好极了，尤其是在吃了牛排、汉堡、羊肉等高热量食物以后"
                 android:textColor="#ff666666"
-                android:gravity="center_vertical"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#EEEEEE" />
+
+        <LinearLayout
+            android:id="@+id/ll_d"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="25dp"
+            android:paddingTop="25dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/option_background"
+
+                android:enabled="false"
+                android:gravity="center"
+                android:text="D"
+                android:textColor="@color/selector_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginLeft="2dp"
-                android:textSize="15sp"
-                />
+                android:gravity="center_vertical"
+                android:text="感觉好极了，尤其是在吃了牛排、汉堡、羊肉等高热量食物以后"
+                android:textColor="#ff666666"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#EEEEEE" />
+
+        <LinearLayout
+            android:id="@+id/ll_e"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="25dp"
+            android:paddingTop="25dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/option_background"
+
+                android:enabled="false"
+                android:gravity="center"
+                android:text="E"
+                android:textColor="@color/selector_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="2dp"
+                android:gravity="center_vertical"
+                android:text="感觉好极了，尤其是在吃了牛排、汉堡、羊肉等高热量食物以后"
+                android:textColor="#ff666666"
+                android:textSize="15sp" />
         </LinearLayout>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F6F6F6" />
 
 
+    </ScrollView>
 
 </LinearLayout>
