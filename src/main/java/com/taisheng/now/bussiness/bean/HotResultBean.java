@@ -20,7 +20,7 @@ public class HotResultBean extends BaseBean {
             return;
         }
 
-       JSONObject articlesJson= result.getJSONObject("list");
+       JSONArray articlesJson= result.getJSONArray("list");
         list=JSON.parseArray(articlesJson.toJSONString(),HotSearchBean.class);
     }
 }

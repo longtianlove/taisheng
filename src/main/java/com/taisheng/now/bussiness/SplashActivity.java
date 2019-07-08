@@ -10,6 +10,7 @@ import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
 import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.bussiness.me.FillInMessageActivity;
 import com.taisheng.now.bussiness.user.LoginActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.push.XMPushManagerInstance;
@@ -42,7 +43,7 @@ public class SplashActivity extends BaseActivity {
 
     //判断跳转逻辑
     void toWhere() {
-        if(TextUtils.isEmpty(SPUtil.getUid())){
+        if (TextUtils.isEmpty(SPUtil.getUid())) {
             SPUtil.putAPP_VERSION(Apputil.getVersionCode() + "");
             SampleAppLike.mainHandler = new Handler(getMainLooper());
             SampleAppLike.mainHandler.postDelayed(new Runnable() {
@@ -54,7 +55,7 @@ public class SplashActivity extends BaseActivity {
                     finish();
                 }
             }, 1000);
-        }else{
+        } else {
             SampleAppLike.mainHandler = new Handler(getMainLooper());
             SampleAppLike.mainHandler.postDelayed(new Runnable() {
                 @Override
@@ -63,18 +64,22 @@ public class SplashActivity extends BaseActivity {
 //            EventBus.getDefault().register(this);
 //            //获取基本信息
 //            UserInstance.getInstance().getUserInfo();
-            MiPushClient.registerPush(SampleAppLike.mcontext, XMPushManagerInstance.APP_ID, XMPushManagerInstance.APP_KEY);
-            SPUtil.putAPP_VERSION(Apputil.getVersionCode() + "");
-            Intent intent = new Intent();
-            intent.setClass(SplashActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }, 1000);
+                    MiPushClient.registerPush(SampleAppLike.mcontext, XMPushManagerInstance.APP_ID, XMPushManagerInstance.APP_KEY);
+                    SPUtil.putAPP_VERSION(Apputil.getVersionCode() + "");
+                    Intent intent = new Intent();
+                    //todo 放开注释
+//                    if (UserInstance.getInstance().userInfo.realName == null || TextUtils.isEmpty(UserInstance.getInstance().userInfo.realName)) {
+//                        intent.setClass(SplashActivity.this, FillInMessageActivity.class);
+//                    } else {
+                        intent.setClass(SplashActivity.this, MainActivity.class);
+//                    }
+                    startActivity(intent);
+                    finish();
+                }
+            }, 1000);
         }
 
     }
-
 
 
 //    //网络获取用户信息成功

@@ -5,6 +5,6 @@ package com.taisheng.now.bussiness.bean;
  */
 
 public class HotPostBean {
-    public String id;
+    public String userId;
     public String token;
 }

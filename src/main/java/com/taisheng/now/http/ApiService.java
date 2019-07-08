@@ -3,6 +3,8 @@ package com.taisheng.now.http;
 
 import com.taisheng.now.Constants;
 import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.bean.ArticlePostBean;
+import com.taisheng.now.bussiness.bean.ArticleResultBean;
 import com.taisheng.now.bussiness.bean.CaptchaPostBean;
 import com.taisheng.now.bussiness.bean.CaptchaResultBean;
 import com.taisheng.now.bussiness.bean.HotPostBean;
@@ -41,7 +43,10 @@ public interface ApiService {
 
     //获取热门文章
     @POST(Constants.Url.Article.hotSearchArticle)
-    Call<HotResultBean>  hotSearchArticle(@Body HotPostBean hotPostBean);
+    Call<HotResultBean> hotSearchArticle(@Body HotPostBean hotPostBean);
 
+    //获取文章列表
+    @POST(Constants.Url.Article.articleList)
+    Call<ArticleResultBean> articleList(@Body ArticlePostBean articlePostBean);
 
 }

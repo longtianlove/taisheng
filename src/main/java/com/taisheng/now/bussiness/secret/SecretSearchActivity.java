@@ -1,6 +1,7 @@
 package com.taisheng.now.bussiness.secret;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -52,6 +53,8 @@ public class SecretSearchActivity extends BaseActivity {
 
     MessageAdapter madapter;//适配器
 
+    String searchKey;//搜索关键字
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +88,7 @@ public class SecretSearchActivity extends BaseActivity {
                 if (TextUtils.isEmpty(searchString)) {
                     return;
                 }
-
+                searchKey=searchString;
 
 
 
@@ -99,6 +102,10 @@ public class SecretSearchActivity extends BaseActivity {
                         ToastUtil.showTost(historysearchlist.get(position));
                     }
                 });
+
+                Intent intent=new Intent(SecretSearchActivity.this,SearchResultActivity.class);
+                intent.putExtra("searchkey",searchKey);
+                startActivity(intent);
 
             }
         });
@@ -140,7 +147,7 @@ public class SecretSearchActivity extends BaseActivity {
 
     void getHot(){
         HotPostBean bean=new HotPostBean();
-        bean.id= UserInstance.getInstance().getUid();
+        bean.userId= UserInstance.getInstance().getUid();
         bean.token=UserInstance.getInstance().getToken();
         ApiUtils.getApiService().hotSearchArticle(bean).enqueue(new TaiShengCallback<HotResultBean>() {
             @Override

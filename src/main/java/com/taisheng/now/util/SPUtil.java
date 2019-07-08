@@ -31,6 +31,8 @@ public class SPUtil {
     public static final String APP_VERSION = "app_version";
     //uid
     public static final String UID = "uid";
+    //token
+    public static final String TOKEN="token";
 
     //是否跳过用户信息
     public static final String SKIP = "skip";
@@ -39,6 +41,7 @@ public class SPUtil {
 
     //历史搜索
     public static final String HISTORY_SEARCH = "history_search";
+
 
 
     public static boolean getGUIDE() {
@@ -56,6 +59,13 @@ public class SPUtil {
 
     public static void putSKIP(boolean value) {
         putBoolean(SKIP, value);
+    }
+
+    public static String getToken(){
+        return getString(TOKEN);
+    }
+    public static void putToken(String value){
+        putString(TOKEN,value);
     }
 
 

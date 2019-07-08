@@ -60,6 +60,11 @@ public class Constants {
              */
             public static final String hotSearchArticle="jeecg-boot/app/article/hotSearchArticle";
 
+            /**
+             * 文章列表
+             */
+            public static final String articleList="app/article/list";
+
         }
 
     }

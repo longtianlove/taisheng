@@ -47,5 +47,14 @@
         android:layout_height="1dp"
         android:background="#f8f8f8" />
 
+    <com.taisheng.now.view.TaishengListView
+        android:id="@+id/lv_articles"
 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:listSelector="@android:color/transparent"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:divider="@null"
+        android:background="#fff" />
 </LinearLayout>
