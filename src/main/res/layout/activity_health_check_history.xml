@@ -158,8 +158,9 @@
             android:background="#fff"
             app:tabIndicatorColor="#529FFB"
             app:tabSelectedTextColor="#529FFB"
+            android:textSize="16sp"
             app:tabTextColor="#333333"
-            app:tabIndicatorHeight="1dp">
+            app:tabIndicatorHeight="2dp">
 
         </android.support.design.widget.TabLayout>
 

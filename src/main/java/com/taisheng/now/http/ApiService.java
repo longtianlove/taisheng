@@ -2,8 +2,11 @@ package com.taisheng.now.http;
 
 
 import com.taisheng.now.Constants;
+import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.CaptchaPostBean;
 import com.taisheng.now.bussiness.bean.CaptchaResultBean;
+import com.taisheng.now.bussiness.bean.HotPostBean;
+import com.taisheng.now.bussiness.bean.HotResultBean;
 import com.taisheng.now.bussiness.bean.LoginPostBean;
 import com.taisheng.now.bussiness.bean.LoginResultBean;
 
@@ -27,11 +30,18 @@ public interface ApiService {
 //            @Query("uid") String uid,
 //            @Query("token") String token
 //    );
+
+    //登录
     @POST(Constants.Url.User.applogin)
     Call<LoginResultBean> applogin(@Body LoginPostBean loginPostBean);
 
+    //发送验证码
     @POST(Constants.Url.User.appAcquireVerifyCode)
     Call<CaptchaResultBean> appAcquireVerifyCode(@Body CaptchaPostBean loginPostBean);
+
+    //获取热门文章
+    @POST(Constants.Url.Article.hotSearchArticle)
+    Call<HotResultBean>  hotSearchArticle(@Body HotPostBean hotPostBean);
 
 
 }

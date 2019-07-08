@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.taisheng.now.SampleAppLike;
 
 import java.io.ByteArrayInputStream;
@@ -13,6 +15,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,9 +33,12 @@ public class SPUtil {
     public static final String UID = "uid";
 
     //是否跳过用户信息
-    public static final String SKIP="skip";
+    public static final String SKIP = "skip";
     //是否引导
-    public static final String GUIDE="guide";
+    public static final String GUIDE = "guide";
+
+    //历史搜索
+    public static final String HISTORY_SEARCH = "history_search";
 
 
     public static boolean getGUIDE() {
@@ -60,13 +68,19 @@ public class SPUtil {
     }
 
 
-
     public static String getAPP_VERSION() {
         return getString(APP_VERSION, 0 + "");
     }
 
     public static void putAPP_VERSION(String value) {
         putString(APP_VERSION, value);
+    }
+
+    public static ArrayList<String> getHistorySearch(){
+        return getList(HISTORY_SEARCH);
+    }
+    public static void putHistorySearch(ArrayList<String> history){
+        putList(HISTORY_SEARCH,history);
     }
 
 
@@ -87,10 +101,6 @@ public class SPUtil {
     public static void putHome(boolean isHome) {
         putBoolean(HOME_PAGE, isHome);
     }
-
-
-
-
 
 
     private static SharedPreferences getSP() {
@@ -206,6 +216,20 @@ public class SPUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    private static void putList(String key, ArrayList list) {
+        Gson gson = new Gson();
+        String data = gson.toJson(list);
+        putString(key, data);
+    }
+    private static ArrayList getList(String key){
+        String data = getString(key, "");
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<String>>() {
+        }.getType();
+        return gson.fromJson(data, listType);
     }
 
 

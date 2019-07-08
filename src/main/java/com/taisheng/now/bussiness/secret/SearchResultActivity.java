@@ -1,4 +1,4 @@
-package com.taisheng.now.bussiness.me;
+package com.taisheng.now.bussiness.secret;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,12 +10,12 @@ import com.taisheng.now.base.BaseActivity;
  * Created by dragon on 2019/6/28.
  */
 
-public class AboutUsActivity extends BaseActivity {
+public class SearchResultActivity extends BaseActivity {
     View iv_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_aboutus);
+        setContentView(R.layout.activity_searchresult);
         initView();
     }
     void initView(){

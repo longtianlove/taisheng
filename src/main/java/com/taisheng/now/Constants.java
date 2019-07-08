@@ -52,6 +52,16 @@ public class Constants {
              */
             public static final String applogin="jeecg-boot/app/login/applogin";
         }
+
+        //文章
+        public static class Article{
+            /**
+             * 获取热门文章
+             */
+            public static final String hotSearchArticle="jeecg-boot/app/article/hotSearchArticle";
+
+        }
+
     }
 
 

@@ -75,6 +75,49 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <service android:enabled="true" android:process=":pushservice" android:name="com.xiaomi.push.service.XMPushService"/>
+
+        <service android:name="com.xiaomi.push.service.XMJobService" android:enabled="true" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE" android:process=":pushservice" /> <!--注：此service必须在3.0.1版本以后（包括3.0.1版本）加入-->
+
+        <service android:enabled="true" android:exported="true" android:name="com.xiaomi.mipush.sdk.PushMessageHandler" />
+
+        <service android:enabled="true" android:name="com.xiaomi.mipush.sdk.MessageHandleService" /> <!--注：此service必须在2.2.5版本以后（包括2.2.5版本）加入--> <receiver android:exported="true" android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver" >
+
+        <intent-filter>
+
+            <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+
+        </intent-filter>
+
+    </receiver>
+
+        <receiver android:exported="false" android:process=":pushservice" android:name="com.xiaomi.push.service.receivers.PingReceiver" >
+
+            <intent-filter>
+
+                <action android:name="com.xiaomi.push.PING_TIMER" />
+
+            </intent-filter>
+
+        </receiver>
+        <receiver
+            android:exported="true"
+            android:name="com.taisheng.now.push.XMMessageReceiver">
+            <!--这里com.xiaomi.mipushdemo.DemoMessageRreceiver改成app中定义的完整类名-->
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.ERROR" />
+            </intent-filter>
+        </receiver>
+
+
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
@@ -111,7 +154,7 @@
             android:hardwareAccelerated="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar">
+            android:theme="@style/Theme.AppCompat">
 
         </activity>
 
@@ -278,49 +321,20 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             />
+        <activity
+            android:name=".bussiness.secret.SecretSearchActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
-        <service android:enabled="true" android:process=":pushservice" android:name="com.xiaomi.push.service.XMPushService"/>
+        </activity>
+        <activity
+            android:name=".bussiness.secret.SearchResultActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
-        <service android:name="com.xiaomi.push.service.XMJobService" android:enabled="true" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE" android:process=":pushservice" /> <!--注：此service必须在3.0.1版本以后（包括3.0.1版本）加入-->
-
-        <service android:enabled="true" android:exported="true" android:name="com.xiaomi.mipush.sdk.PushMessageHandler" />
-
-        <service android:enabled="true" android:name="com.xiaomi.mipush.sdk.MessageHandleService" /> <!--注：此service必须在2.2.5版本以后（包括2.2.5版本）加入--> <receiver android:exported="true" android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver" >
-
-        <intent-filter>
-
-            <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-
-            <category android:name="android.intent.category.DEFAULT" />
-
-        </intent-filter>
-
-    </receiver>
-
-        <receiver android:exported="false" android:process=":pushservice" android:name="com.xiaomi.push.service.receivers.PingReceiver" >
-
-            <intent-filter>
-
-                <action android:name="com.xiaomi.push.PING_TIMER" />
-
-            </intent-filter>
-
-        </receiver>
-        <receiver
-            android:exported="true"
-            android:name="com.taisheng.now.push.XMMessageReceiver">
-            <!--这里com.xiaomi.mipushdemo.DemoMessageRreceiver改成app中定义的完整类名-->
-            <intent-filter>
-                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.xiaomi.mipush.ERROR" />
-            </intent-filter>
-        </receiver>
-
+        </activity>
     </application>
 
 </manifest>

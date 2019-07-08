@@ -10,12 +10,15 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseFragmentActivity;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +71,61 @@ public class HealthCheckHistoryActivity extends BaseFragmentActivity {
 //        tl_tab.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.white));
 //        ViewCompat.setElevation(tl_tab, 10);
         tl_tab.setupWithViewPager(vp_content);
+        changeTabIndicatorWidth(tl_tab,15);
+    }
+    /**
+     * 改变tablayout指示器的宽度
+     *
+     * @param tabLayout
+     * @param margin
+     */
+    public void changeTabIndicatorWidth(final TabLayout tabLayout, final int margin) {
+        tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Field mTabStripField = tabLayout.getClass().getDeclaredField("mTabStrip");
+                    mTabStripField.setAccessible(true);
+
+                    LinearLayout mTabStrip = (LinearLayout) mTabStripField.get(tabLayout);
+
+                    int dp10 = margin == 0 ? 50 : margin;
+
+                    for (int i = 0; i < mTabStrip.getChildCount(); i++) {
+                        View tabView = mTabStrip.getChildAt(i);
+
+                        Field mTextViewField = tabView.getClass().getDeclaredField("mTextView");
+                        mTextViewField.setAccessible(true);
+
+                        TextView mTextView = (TextView) mTextViewField.get(tabView);
+
+                        tabView.setPadding(0, 0, 0, 0);
+
+                        int width = 0;
+                        width = mTextView.getWidth();
+                        if (width == 0) {
+                            mTextView.measure(0, 0);
+                            width = mTextView.getMeasuredWidth();
+                        }
+
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
+                        params.width = width;
+                        params.leftMargin = dp10;
+                        params.rightMargin = dp10;
+                        tabView.setLayoutParams(params);
+
+                        tabView.invalidate();
+                    }
+
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
     ZhongyitizhiFragment zhongyitizhiFragment1;
     ZhongyitizhiFragment zhongyitizhiFragment2;

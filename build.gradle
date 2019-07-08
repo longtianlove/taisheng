@@ -67,4 +67,6 @@ dependencies {
     compile 'com.tencent.liteav:LiteAVSDK_TRTC:latest.release'
     //小米推送
     compile files('libs/MiPush_SDK_Client_3_6_18.jar')
+    //首先引入gson库
+    compile 'com.google.code.gson:gson:2.8.1'
 }
