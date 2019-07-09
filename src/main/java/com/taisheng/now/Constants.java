@@ -7,29 +7,26 @@ package com.taisheng.now;
 public class Constants {
 
     public final static String DEFAULT_TAG = "taisheng";
-    public final static String  BUGLY_APP_ID="24b876d82d";
+    public final static String BUGLY_APP_ID = "24b876d82d";
 
 
     //访问成功
-    public final static int HTTP_SUCCESS=200;
-    public final static int HTTP_ERROR=500;
-    public final static int LOGIN_VERIFYCODE_FAIL=104;//验证码不正确，请重新输入
-    public final static int LOGIN_USERNAME_NOT_EXISTENCE=102;//账号不存在,请切换手机号登陆！
-    public final static int LOGIN_PASSWORD_ERROR=101;//密码错误
+    public final static int HTTP_SUCCESS = 200;
+    public final static int HTTP_ERROR = 500;
+    public final static int LOGIN_VERIFYCODE_FAIL = 104;//验证码不正确，请重新输入
+    public final static int LOGIN_USERNAME_NOT_EXISTENCE = 102;//账号不存在,请切换手机号登陆！
+    public final static int LOGIN_PASSWORD_ERROR = 101;//密码错误
 
     //男女0是男，1是女
-    public final static int MALE=0;
-    public final static int FEMALE=1;
+    public final static int MALE = 0;
+    public final static int FEMALE = 1;
 
-    public final static String   ZHONGYITIZHI=   "中医体质";
-    public final static String   JICHUDAIXIE=   "基础代谢";
-    public final static String   FUKEJIANKANG=     "女性健康";
-    public final static String   XINFEIGONGNENG=    "心肺功能";
-    public final static String   YAOJINGJIANBEI=      "腰颈肩背";
-    public final static String   PIWEIGANSHEN=     "脾胃肝肾" ;
-
-
-
+    public final static String ZHONGYITIZHI = "中医体质";
+    public final static String JICHUDAIXIE = "基础代谢";
+    public final static String FUKEJIANKANG = "女性健康";
+    public final static String XINFEIGONGNENG = "心肺功能";
+    public final static String YAOJINGJIANBEI = "腰颈肩背";
+    public final static String PIWEIGANSHEN = "脾胃肝肾";
 
 
     public static class Url {
@@ -56,51 +53,54 @@ public class Constants {
             public static final String appAcquireVerifyCode = "jeecg-boot/app/sms/appAcquireVerifyCode";
 
             /**
-             * 	手机APP登录
+             * 手机APP登录
              */
-            public static final String applogin="jeecg-boot/app/login/applogin";
+            public static final String applogin = "jeecg-boot/app/login/applogin";
 
             /**
              * 上传头像
              */
-            public static final String uploadImage="jeecg-boot/sys/common/uploadImage";
+            public static final String uploadImage = "jeecg-boot/sys/common/uploadImage";
         }
 
         //文章
-        public static class Article{
+        public static class Article {
             /**
              * 获取热门文章
              */
-            public static final String hotSearchArticle="jeecg-boot/app/article/hotSearchArticle";
+            public static final String hotSearchArticle = "jeecg-boot/app/article/hotSearchArticle";
 
             /**
              * 文章列表
              */
-            public static final String articleList="jeecg-boot/app/article/list";
+            public static final String articleList = "jeecg-boot/app/article/list";
 
             /**
              * 文章详情
              */
-            public static final String articleQeryById="jeecg-boot/app/article/queryById";
+            public static final String articleQeryById = "jeecg-boot/app/article/queryById";
             /**
              * 首页热度文章
              */
-            public static final String hotArticleList="jeecg-boot/app/article/index/hotArticleList";
+            public static final String hotArticleList = "jeecg-boot/app/article/index/hotArticleList";
 
         }
 
         //测评
-        public static class CePing{
+        public static class CePing {
             /**
              * 获取测评题目
              */
-            public static final String getExtractionSubjectDb="jeecg-boot/app/assessment/getExtractionSubjectDb";
+            public static final String getExtractionSubjectDb = "jeecg-boot/app/assessment/getExtractionSubjectDb";
         }
 
+        /**
+         * 投诉中心
+         */
+
+        public static final String feedback = "jeecg-boot/app/feedback/add";
+
     }
-
-
-
 
 
 }

@@ -37,8 +37,8 @@ public class UserInstance {
             userInstance.userInfo.id = SPUtil.getUid();
             userInstance.userInfo.token = SPUtil.getToken();
             userInstance.userInfo.nickName = SPUtil.getNickname();
-            userInstance.userInfo.phone=SPUtil.getPhone();
-            userInstance.userInfo.userName=SPUtil.getZhanghao();
+            userInstance.userInfo.phone = SPUtil.getPhone();
+            userInstance.userInfo.userName = SPUtil.getZhanghao();
 
         }
         return userInstance;
@@ -120,11 +120,11 @@ public class UserInstance {
         SPUtil.putUid("");
         this.userInfo.token = "";
         SPUtil.putToken("");
-        this.userInfo.nickName="";
+        this.userInfo.nickName = "";
         SPUtil.putNickname("");
-        this.userInfo.phone="";
+        this.userInfo.phone = "";
         SPUtil.putPhone("");
-        this.userInfo.userName="";
+        this.userInfo.userName = "";
         SPUtil.putZhanghao("");
 
 
@@ -148,13 +148,15 @@ public class UserInstance {
         return userInfo.token;
     }
 
-    public String getNickname(){
+    public String getNickname() {
         return userInfo.nickName;
     }
-    public String getPhone(){
+
+    public String getPhone() {
         return userInfo.phone;
     }
-    public String getZhanghao(){
+
+    public String getZhanghao() {
         return userInfo.userName;
     }
 

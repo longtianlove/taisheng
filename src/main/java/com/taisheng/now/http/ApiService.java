@@ -4,6 +4,7 @@ package com.taisheng.now.http;
 import com.taisheng.now.Constants;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
+import com.taisheng.now.bussiness.bean.post.FeedbackPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.bussiness.bean.result.ArticleContentBean;
@@ -67,5 +68,9 @@ public interface ApiService {
     Call<BaseBean<PictureBean>> uploadLogo(
             @Part MultipartBody.Part file
     );
+
+    //反馈
+    @POST(Constants.Url.feedback)
+    Call<BaseBean> feedback(@Body FeedbackPostBean bean);
 
 }

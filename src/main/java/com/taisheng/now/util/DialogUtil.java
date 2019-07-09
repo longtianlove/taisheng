@@ -64,7 +64,9 @@ public class DialogUtil {
             mCustomProgress = null;
         }
     }
-public static Dialog zixunDialog;
+
+    public static Dialog zixunDialog;
+
     /**
      * 如果Activity destory了不能运行dialog bug fixxed with umeng at 5.0.1 by long
      *
@@ -83,57 +85,59 @@ public static Dialog zixunDialog;
     }
 
     public static View ll_shipin, ll_yuyin, ll_quxiao;
+    //咨询弹窗
+    public static void showzixunDialog(Context context, final View.OnClickListener shipinlistener, final View.OnClickListener yunyinlistener, final View.OnClickListener quxiaolistener) {
+        if (!canShowDialog(context)) return;
+        closeAllDialog();
+        if (zixunDialog == null) {
+            zixunDialog = new ZixunDialog(context);
+            ll_shipin = zixunDialog.findViewById(R.id.ll_shipin);
+            ll_shipin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (zixunDialog.isShowing()) {
+                        zixunDialog.dismiss();
+                    }
+                    if (shipinlistener != null) {
+                        shipinlistener.onClick(v);
+                    }
 
-//咨询弹窗
-public static void showzixunDialog(Context context,final View.OnClickListener shipinlistener,final View.OnClickListener yunyinlistener,final View.OnClickListener quxiaolistener) {
-    if (!canShowDialog(context)) return;
-    closeAllDialog();
-    if (zixunDialog == null) {
-        zixunDialog = new ZixunDialog(context);
-        ll_shipin = zixunDialog.findViewById(R.id.ll_shipin);
-        ll_shipin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (zixunDialog.isShowing()) {
-                    zixunDialog.dismiss();
                 }
-                if (shipinlistener != null) {
-                    shipinlistener.onClick(v);
-                }
+            });
+            ll_yuyin = zixunDialog.findViewById(R.id.ll_yuyin);
+            ll_yuyin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (zixunDialog.isShowing()) {
+                        zixunDialog.dismiss();
+                    }
+                    if (yunyinlistener != null) {
+                        yunyinlistener.onClick(v);
+                    }
 
-            }
-        });
-        ll_yuyin = zixunDialog.findViewById(R.id.ll_yuyin);
-        ll_yuyin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (zixunDialog.isShowing()) {
-                    zixunDialog.dismiss();
                 }
-                if (yunyinlistener != null) {
-                    yunyinlistener.onClick(v);
-                }
+            });
+            ll_quxiao = zixunDialog.findViewById(R.id.ll_quxiao);
+            ll_quxiao.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (zixunDialog.isShowing()) {
+                        zixunDialog.dismiss();
+                    }
+                    if (quxiaolistener != null) {
+                        quxiaolistener.onClick(v);
+                    }
 
-            }
-        });
-        ll_quxiao = zixunDialog.findViewById(R.id.ll_quxiao);
-        ll_quxiao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (zixunDialog.isShowing()) {
-                    zixunDialog.dismiss();
                 }
-                if (quxiaolistener != null) {
-                    quxiaolistener.onClick(v);
-                }
-
-            }
-        });
-        zixunDialog.setCancelable(true);
-        zixunDialog.setCanceledOnTouchOutside(true);
+            });
+            zixunDialog.setCancelable(true);
+            zixunDialog.setCanceledOnTouchOutside(true);
+        }
+        zixunDialog.show();
     }
-    zixunDialog.show();
-}
+
+
+
 
     //关闭所有弹窗
     public static void closeAllDialog() {
@@ -147,8 +151,6 @@ public static void showzixunDialog(Context context,final View.OnClickListener sh
         }
 
     }
-
-
 
 
     /**
@@ -200,8 +202,6 @@ public static void showzixunDialog(Context context,final View.OnClickListener sh
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }
-
-
 
 
 }

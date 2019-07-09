@@ -36,8 +36,8 @@ public class FillInMessageActivity extends BaseActivity {
     int sex;
     EditText et_age;
     EditText et_phone;
-    EditText et_height;
-    EditText et_weight;
+//    EditText et_height;
+//    EditText et_weight;
     TextView tv_next;
 
     @Override
@@ -143,40 +143,40 @@ public class FillInMessageActivity extends BaseActivity {
             et_phone.setText(UserInstance.getInstance().userInfo.phone);
         }
 
-        et_height = (EditText) findViewById(R.id.et_height);
-        et_height.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkInputs();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        et_weight = (EditText) findViewById(R.id.et_weight);
-        et_weight.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkInputs();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        et_height = (EditText) findViewById(R.id.et_height);
+//        et_height.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                checkInputs();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
+//        et_weight = (EditText) findViewById(R.id.et_weight);
+//        et_weight.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                checkInputs();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
 
 
@@ -192,12 +192,12 @@ public class FillInMessageActivity extends BaseActivity {
         if (TextUtils.isEmpty(et_phone.getText())) {
             return false;
         }
-        if (TextUtils.isEmpty(et_height.getText())) {
-            return false;
-        }
-        if (TextUtils.isEmpty(et_weight.getText())) {
-            return false;
-        }
+//        if (TextUtils.isEmpty(et_height.getText())) {
+//            return false;
+//        }
+//        if (TextUtils.isEmpty(et_weight.getText())) {
+//            return false;
+//        }
         tv_next.setEnabled(true);
         return true;
     }
@@ -215,14 +215,14 @@ public class FillInMessageActivity extends BaseActivity {
             ToastUtil.showTost("请输入手机号");
             return false;
         }
-        if (TextUtils.isEmpty(et_height.getText())) {
-            ToastUtil.showTost("请输入身高");
-            return false;
-        }
-        if (TextUtils.isEmpty(et_weight.getText())) {
-            ToastUtil.showTost("请输入体重");
-            return false;
-        }
+//        if (TextUtils.isEmpty(et_height.getText())) {
+//            ToastUtil.showTost("请输入身高");
+//            return false;
+//        }
+//        if (TextUtils.isEmpty(et_weight.getText())) {
+//            ToastUtil.showTost("请输入体重");
+//            return false;
+//        }
         tv_next.setEnabled(true);
         return true;
     }
