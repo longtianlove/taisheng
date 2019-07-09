@@ -56,12 +56,14 @@
             android:layout_marginRight="12dp"
             android:layout_marginTop="15dp"
             android:gravity="center_vertical"
+            android:weightSum="1"
             android:orientation="horizontal">
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="284dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="7dp"
                 android:layout_marginLeft="8dp"
                 android:background="@drawable/progressbar_background"
@@ -147,6 +149,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_a"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginLeft="2dp"
@@ -182,6 +185,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_b"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginLeft="2dp"
@@ -217,6 +221,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_c"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginLeft="2dp"
@@ -251,6 +256,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_d"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginLeft="2dp"
@@ -285,6 +291,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_e"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginLeft="2dp"
