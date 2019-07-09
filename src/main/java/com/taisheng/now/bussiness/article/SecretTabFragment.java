@@ -1,4 +1,4 @@
-package com.taisheng.now.bussiness.secret;
+package com.taisheng.now.bussiness.article;
 
 import android.content.Context;
 import android.content.Intent;

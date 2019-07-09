@@ -123,6 +123,7 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/tv_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="沉浸深海の鱼"
@@ -149,6 +150,7 @@
 
 
         <LinearLayout
+            android:id="@+id/ll_zhanghao"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
@@ -172,13 +174,19 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/tv_zhanghao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="13424949234"
-                android:textColor="#ff999999"
+                android:textColor="#ff333333"
                 android:textSize="14sp"
                 android:gravity="center"
                 />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:src="@drawable/icon_youjiantou" />
         </LinearLayout>
 
         <View
@@ -204,7 +212,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="绑定手机号"
+                android:text="手机号"
                 android:textColor="#ff333333"
                 android:textSize="14sp"
                 />
@@ -213,6 +221,15 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1" />
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13424949234"
+                android:textColor="#ff999999"
+                android:textSize="14sp"
+                android:gravity="center"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -221,12 +238,14 @@
                 android:textColor="#ff52a0fb"
                 android:textSize="14sp"
                 android:gravity="center"
+                android:visibility="gone"
                 />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="9dp"
+                android:visibility="gone"
                 android:src="@drawable/icon_youjiantou" />
         </LinearLayout>
 

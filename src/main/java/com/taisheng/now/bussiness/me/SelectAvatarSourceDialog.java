@@ -33,7 +33,7 @@ public class SelectAvatarSourceDialog extends Activity implements View.OnClickLi
         //获取到LayoutParams
         WindowManager.LayoutParams dialog_window_attributes = dialog_window.getAttributes();
         int margin=getResources().getDimensionPixelSize(R.dimen.dialog_change_avater_margin)*2;
-        dialog_window_attributes.width= DensityUtil.getScreenWidth(this)-margin;
+        dialog_window_attributes.width= DensityUtil.getScreenWidth(this);
         dialog_window_attributes.gravity= Gravity.BOTTOM;
         dialog_window.setAttributes(dialog_window_attributes);
     }

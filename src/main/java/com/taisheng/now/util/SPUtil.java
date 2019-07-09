@@ -33,6 +33,12 @@ public class SPUtil {
     public static final String UID = "uid";
     //token
     public static final String TOKEN="token";
+    //nickname
+    public static final String NICKNAME="nickname";
+    //手机号
+    public static final String PHONE="phone";
+    //账号
+    public static final String ZHANGHAO="zhanghao";
 
     //是否跳过用户信息
     public static final String SKIP = "skip";
@@ -68,7 +74,25 @@ public class SPUtil {
         putString(TOKEN,value);
     }
 
+    public static String getNickname(){
+        return getString(NICKNAME);
+    }
+    public static void putNickname(String value){
+        putString(NICKNAME,value);
+    }
 
+    public static String getPhone(){
+        return getString(PHONE);
+    }
+    public static void putPhone(String value){
+        putString(PHONE,value);
+    }
+    public static String getZhanghao(){
+        return getString(ZHANGHAO);
+    }
+    public static void putZhanghao(String value){
+        putString(ZHANGHAO,value);
+    }
     public static String getUid() {
         return getString(UID);
     }

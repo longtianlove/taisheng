@@ -3,22 +3,16 @@ package com.taisheng.now.bussiness;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -27,22 +21,9 @@ import com.taisheng.now.base.BaseFragmentActivity;
 import com.taisheng.now.bussiness.doctor.DoctorFragment;
 import com.taisheng.now.bussiness.first.FirstFragment;
 import com.taisheng.now.bussiness.me.MeFragment;
-import com.taisheng.now.bussiness.secret.SecretFragment;
+import com.taisheng.now.bussiness.article.SecretFragment;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.SPUtil;
-import com.taisheng.now.view.GuideView;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 @SuppressLint("WrongConstant")
 public class MainActivity extends BaseFragmentActivity implements View.OnClickListener {
@@ -180,6 +161,10 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
                 iv_tab_first.setSelected(true);
                 tv_tab_first.setTextColor(getResources().getColor(R.color.tv_tab_color_select));
 
+
+
+
+
 //                getLocationWithOneMinute = false;
                 select_index = 0;
                 break;
@@ -262,6 +247,8 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
     @Override
     protected void onResume() {
         super.onResume();
+
+
 
     }
 

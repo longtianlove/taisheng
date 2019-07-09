@@ -59,6 +59,11 @@ public class Constants {
              * 	手机APP登录
              */
             public static final String applogin="jeecg-boot/app/login/applogin";
+
+            /**
+             * 上传头像
+             */
+            public static final String uploadImage="jeecg-boot/sys/common/uploadImage";
         }
 
         //文章

@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 
@@ -26,11 +26,9 @@ import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.MainActivity;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
-import com.taisheng.now.bussiness.bean.result.ArticleResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorBean;
 import com.taisheng.now.bussiness.healthfiles.HealthCheckActivity;
-import com.taisheng.now.bussiness.secret.ArticleContentActivity;
-import com.taisheng.now.bussiness.secret.SearchResultActivity;
+import com.taisheng.now.bussiness.article.ArticleContentActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
@@ -39,19 +37,11 @@ import com.taisheng.now.util.SPUtil;
 import com.taisheng.now.view.DoctorLabelWrapLayout;
 import com.taisheng.now.view.GuideView;
 import com.taisheng.now.view.ScoreStar;
-import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.WithScrolleViewListView;
 import com.taisheng.now.view.banner.BannerViewPager;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -66,6 +56,8 @@ public class FirstFragment extends BaseFragment {
     TextView tv_location_city;
     View ll_search;
 
+
+    public ScrollView scl_bag;
     private FrameLayout bannerContaner;
     BannerViewPager bannerViewPager;
     private View bannerView;
@@ -106,6 +98,7 @@ public class FirstFragment extends BaseFragment {
     }
 
     void initView(View rootView) {
+        scl_bag= (ScrollView) rootView.findViewById(R.id.scl_bag);
         ll_shishizixun = rootView.findViewById(R.id.ll_shishizixun);
         ll_shishizixun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -298,6 +291,19 @@ public class FirstFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+//        scl_bag.fullScroll(View.FOCUS_UP);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+//        if(!hidden){
+//            scl_bag.fullScroll(View.FOCUS_UP);
+//        }
+    }
 
     /**
      * Created by louisgeek on 2016/3/23.
@@ -316,21 +322,21 @@ public class FirstFragment extends BaseFragment {
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
-            return view==object;
+            return view == object;
         }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             // return super.instantiateItem(container, position);
-            DoctorBean view=doctors.get(position);
-           View allView= mActivity.getLayoutInflater().inflate(R.layout.item_zhuanjia,container);
+            DoctorBean view = doctors.get(position);
+            View allView = mActivity.getLayoutInflater().inflate(R.layout.item_zhuanjia, container);
 //            container.addView(view);
-            SimpleDraweeView sdv_header= (SimpleDraweeView) allView.findViewById(R.id.sdv_header);
-            TextView tv_doctor_name= (TextView) allView.findViewById(R.id.tv_doctor_name);
-            TextView tv_workage= (TextView) allView.findViewById(R.id.tv_workage);
-            DoctorLabelWrapLayout dlwl_doctor_label= (DoctorLabelWrapLayout) allView.findViewById(R.id.dlwl_doctor_label);
-            ScoreStar scorestar= (ScoreStar) allView.findViewById(R.id.scorestar);
-            return  view;
+            SimpleDraweeView sdv_header = (SimpleDraweeView) allView.findViewById(R.id.sdv_header);
+            TextView tv_doctor_name = (TextView) allView.findViewById(R.id.tv_doctor_name);
+            TextView tv_workage = (TextView) allView.findViewById(R.id.tv_workage);
+            DoctorLabelWrapLayout dlwl_doctor_label = (DoctorLabelWrapLayout) allView.findViewById(R.id.dlwl_doctor_label);
+            ScoreStar scorestar = (ScoreStar) allView.findViewById(R.id.scorestar);
+            return view;
         }
 
         @Override
@@ -342,7 +348,7 @@ public class FirstFragment extends BaseFragment {
         @Override
         public CharSequence getPageTitle(int position) {
             //return super.getPageTitle(position);
-            return "标题"+position;
+            return "标题" + position;
         }
     }
 

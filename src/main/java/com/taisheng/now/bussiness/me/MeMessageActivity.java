@@ -9,8 +9,10 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -26,60 +28,81 @@ import java.text.DecimalFormat;
 public class MeMessageActivity extends BaseActivity {
     ImageView iv_back;
     View ll_nickname;
+    View ll_zhanghao;
     View ll_bindphone;
     View ll_updatepwd;
     View ll_avatar;
+
+    TextView tv_nickname;
+    TextView tv_zhanghao;
+    TextView tv_phone;
     SimpleDraweeView sdv_header;
     private final int REQ_CODE_PHOTO_SOURCE = 6;//选择方式
     private final int REQ_CODE_GET_PHOTO_FROM_GALLERY = 10;//从相册获取
     private final int REQ_CODE_GET_PHOTO_FROM_TAKEPHOTO = 11;//拍照完
+
     @Override
-    public void onCreate( Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memessage);
         initView();
     }
-    void initView(){
-        iv_back= (ImageView) findViewById(R.id.iv_back);
+
+    void initView() {
+        iv_back = (ImageView) findViewById(R.id.iv_back);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        ll_avatar=findViewById(R.id.ll_avatar);
+        ll_avatar = findViewById(R.id.ll_avatar);
         ll_avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 modifyAvatar();
             }
         });
-        sdv_header= (SimpleDraweeView) findViewById(R.id.sdv_header);
+        sdv_header = (SimpleDraweeView) findViewById(R.id.sdv_header);
 
-        ll_nickname=findViewById(R.id.ll_nickname);
+        ll_nickname = findViewById(R.id.ll_nickname);
         ll_nickname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MeMessageActivity.this,UpdateNickActivity.class);
+                Intent intent = new Intent(MeMessageActivity.this, UpdateNickActivity.class);
                 startActivity(intent);
             }
         });
-        ll_bindphone=findViewById(R.id.ll_bindphone);
+        ll_zhanghao = findViewById(R.id.ll_zhanghao);
+        ll_zhanghao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo  修改账号
+            }
+        });
+        ll_bindphone = findViewById(R.id.ll_bindphone);
         ll_bindphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MeMessageActivity.this,BindPhoneActivity.class);
-                startActivity(intent);
+//                Intent intent=new Intent(MeMessageActivity.this,BindPhoneActivity.class);
+//                startActivity(intent);
             }
         });
-        ll_updatepwd=findViewById(R.id.ll_updatepwd);
+        ll_updatepwd = findViewById(R.id.ll_updatepwd);
         ll_updatepwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MeMessageActivity.this,UpdatePasswordFirstActivity.class);
+                Intent intent = new Intent(MeMessageActivity.this, UpdatePasswordFirstActivity.class);
                 startActivity(intent);
             }
         });
+
+        tv_nickname = (TextView) findViewById(R.id.tv_nickname);
+        tv_nickname.setText(UserInstance.getInstance().getNickname());
+        tv_zhanghao = (TextView) findViewById(R.id.tv_zhanghao);
+        tv_zhanghao.setText(UserInstance.getInstance().getZhanghao());
+        tv_phone = (TextView) findViewById(R.id.tv_phone);
+        tv_phone.setText(UserInstance.getInstance().getPhone());
     }
 
 
@@ -87,8 +110,6 @@ public class MeMessageActivity extends BaseActivity {
         Intent intent = new Intent(this, SelectAvatarSourceDialog.class);
         startActivityForResult(intent, REQ_CODE_PHOTO_SOURCE);
     }
-
-
 
 
     private void onPhotoSource(int mode) {
@@ -111,7 +132,6 @@ public class MeMessageActivity extends BaseActivity {
         Uri destination = Uri.fromFile(new File(getCacheDir(), "Bcropped"));
         Crop.of(source, destination).asSquare().start(this, bundle);
     }
-
 
 
     @Override
@@ -150,7 +170,7 @@ public class MeMessageActivity extends BaseActivity {
             case Crop.REQUEST_CROP:
 //                modifyBean.logo_url = PetInfoInstance.getInstance().getPackBean().logo_url;
                 //todo avatar为空
-                Uri uri = Uri.parse(UserInstance.getInstance().userInfo.avatar);
+                Uri uri = Uri.parse(Constants.Url.Host + UserInstance.getInstance().userInfo.avatar);
                 if (sdv_header == null) {
                     return;
                 }

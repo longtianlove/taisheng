@@ -322,21 +322,21 @@
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".bussiness.secret.SecretSearchActivity"
+            android:name=".bussiness.article.SecretSearchActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
         </activity>
         <activity
-        android:name=".bussiness.secret.SearchResultActivity"
+        android:name=".bussiness.article.SearchResultActivity"
         android:configChanges="keyboardHidden|orientation"
         android:screenOrientation="portrait"
         android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
     </activity>
         <activity
-            android:name=".bussiness.secret.ArticleContentActivity"
+            android:name=".bussiness.article.ArticleContentActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">

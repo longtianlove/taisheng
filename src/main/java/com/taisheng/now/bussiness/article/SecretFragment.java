@@ -1,4 +1,4 @@
-package com.taisheng.now.bussiness.secret;
+package com.taisheng.now.bussiness.article;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -19,11 +19,7 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.MainActivity;
-import com.taisheng.now.bussiness.healthfiles.HealthCheckHistoryActivity;
-import com.taisheng.now.bussiness.healthfiles.ZhongyitizhiFragment;
 import com.taisheng.now.util.DensityUtil;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

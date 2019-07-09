@@ -14,31 +14,24 @@ import com.taisheng.now.bussiness.bean.post.CaptchaPostBean;
 import com.taisheng.now.bussiness.bean.post.HotPostBean;
 import com.taisheng.now.bussiness.bean.result.HotResultBean;
 import com.taisheng.now.bussiness.bean.post.LoginPostBean;
+import com.taisheng.now.bussiness.bean.result.PictureBean;
 import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
 import com.taisheng.now.bussiness.bean.result.UserInfo;
 
 import java.util.ArrayList;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 /**
  * Created by long
  */
 public interface ApiService {
-    //    /**
-//     * 获取用户基本信息
-//     *
-//     * @param uid
-//     * @param token
-//     * @return
-//     */
-//    @GET(Constants.Url.User.get_user_info)
-//    Call<UserBean> getUserInfo(
-//            @Query("uid") String uid,
-//            @Query("token") String token
-//    );
 
     //登录
     @POST(Constants.Url.User.applogin)
@@ -67,5 +60,12 @@ public interface ApiService {
     //首页热度文章
     @POST(Constants.Url.Article.hotArticleList)
     Call<BaseBean<ArrayList<ArticleBean>>> hotArticleList(@Body BasePostBean postBean);
+
+    //上传头像
+    @Multipart
+    @POST(Constants.Url.User.uploadImage)
+    Call<BaseBean<PictureBean>> uploadLogo(
+            @Part MultipartBody.Part file
+    );
 
 }
