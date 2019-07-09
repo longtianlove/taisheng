@@ -19,6 +19,7 @@ import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 
 import java.util.List;
+import java.util.logging.Handler;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -35,6 +36,11 @@ public class HealthQuestionActivity extends BaseActivity {
     TextView tv_question;
 
     View ll_a;
+    TextView tv_a_label;
+    TextView tv_b_label;
+    TextView tv_c_label;
+    TextView tv_d_label;
+    TextView tv_e_label;
     TextView tv_a;
     View ll_b;
     TextView tv_b;
@@ -72,6 +78,11 @@ public class HealthQuestionActivity extends BaseActivity {
         ll_a = findViewById(R.id.ll_a);
         ll_a.setOnClickListener(listener);
         tv_a = (TextView) findViewById(R.id.tv_a);
+        tv_a_label= (TextView) findViewById(R.id.tv_a_label);
+        tv_b_label= (TextView) findViewById(R.id.tv_b_label);
+        tv_c_label= (TextView) findViewById(R.id.tv_c_label);
+        tv_d_label= (TextView) findViewById(R.id.tv_d_label);
+        tv_e_label= (TextView) findViewById(R.id.tv_e_label);
         ll_b = findViewById(R.id.ll_b);
         ll_b.setOnClickListener(listener);
         tv_b = (TextView) findViewById(R.id.tv_b);
@@ -86,6 +97,8 @@ public class HealthQuestionActivity extends BaseActivity {
         tv_e = (TextView) findViewById(R.id.tv_e);
     }
 
+    android.os.Handler handler=new android.os.Handler();
+
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -99,38 +112,44 @@ public class HealthQuestionActivity extends BaseActivity {
             String result="";
             switch (v.getId()) {
                 case R.id.ll_a:
-                    tv_a.setEnabled(true);
+                    tv_a_label.setEnabled(true);
                     result=assessmentOptionsList.get(0).id;
                     break;
                 case R.id.ll_b:
-                    tv_b.setEnabled(true);
+                    tv_b_label.setEnabled(true);
                     result=assessmentOptionsList.get(1).id;
                     break;
                 case R.id.ll_c:
-                    tv_c.setEnabled(true);
+                    tv_c_label.setEnabled(true);
                     result=assessmentOptionsList.get(2).id;
 
                     break;
                 case R.id.ll_d:
-                    tv_d.setEnabled(true);
+                    tv_d_label.setEnabled(true);
                     result=assessmentOptionsList.get(3).id;
 
                     break;
                 case R.id.ll_e:
-                    tv_e.setEnabled(true);
+                    tv_e_label.setEnabled(true);
                     result=assessmentOptionsList.get(4).id;
                     break;
             }
             answersResult=answersResult+result+",";
 
-            position++;
-            if (position < records.size()) {
-                updateView();
-            } else {
-                //todo 提交答案跳转页面
-                answersResult=answersResult.substring(0,answersResult.length()-1);
-                answersResult=answersResult+"]";
-            }
+
+            handler.postDelayed(new Runnable(){
+                public void run() {
+                    position++;
+                    if (position < records.size()) {
+                        updateView();
+                    } else {
+                        //todo 提交答案跳转页面
+                        answersResult=answersResult.substring(0,answersResult.length()-1);
+                        answersResult=answersResult+"]";
+                    }
+                }
+            }, 1000);   //1秒
+
         }
     };
 
@@ -149,7 +168,7 @@ public class HealthQuestionActivity extends BaseActivity {
         bean.token = UserInstance.getInstance().getToken();
         bean.assessmentType = assessmentType;
         bean.subjectdbType = subjectdbType;
-        bean.sign = "";
+//        bean.sign = null;
         ApiUtils.getApiService().getExtractionSubjectDb(bean).enqueue(new TaiShengCallback<BaseBean<QuestionResultBean>>() {
             @Override
             public void onSuccess(Response<BaseBean<QuestionResultBean>> response, BaseBean<QuestionResultBean> message) {
@@ -173,28 +192,35 @@ public class HealthQuestionActivity extends BaseActivity {
     int position = 0;
 
     void updateView() {
+
         question = records.get(position);
         updatePosition(position);
         updateAnswer();
     }
 
     void updatePosition(int i) {
-        progressBar.setProgress((i * 100) / allBean.size);
-        if (i < 10) {
-            tv_now_postion.setText("0" + i);
-        } else {
-            tv_now_postion.setText(i);
+        progressBar.setProgress((i * 100) / records.size());
+        i++;
+        if(records.size()>10){
+            if (i < 10) {
+                tv_now_postion.setText("0" + i);
+            } else {
+                tv_now_postion.setText(""+i);
+            }
+        }else{
+            tv_now_postion.setText(""+i);
         }
-        tv_all_size.setText("/" + allBean.size);
+
+        tv_all_size.setText("/" + records.size());
         tv_question.setText(question.name);
     }
 
     void updateAnswer() {
-        tv_a.setEnabled(false);
-        tv_b.setEnabled(false);
-        tv_c.setEnabled(false);
-        tv_d.setEnabled(false);
-        tv_e.setEnabled(false);
+        tv_a_label.setEnabled(false);
+        tv_b_label.setEnabled(false);
+        tv_c_label.setEnabled(false);
+        tv_d_label.setEnabled(false);
+        tv_e_label.setEnabled(false);
         switch (question.assessmentOptionsList.size()) {
             case 1:
                 ll_a.setVisibility(View.VISIBLE);

@@ -21,12 +21,11 @@ public class Constants {
     public final static int MALE = 0;
     public final static int FEMALE = 1;
 
-    public final static String ZHONGYITIZHI = "中医体质";
-    public final static String JICHUDAIXIE = "基础代谢";
-    public final static String FUKEJIANKANG = "女性健康";
-    public final static String XINFEIGONGNENG = "心肺功能";
-    public final static String YAOJINGJIANBEI = "腰颈肩背";
-    public final static String PIWEIGANSHEN = "脾胃肝肾";
+    public final static String SUSHENHUFU = "塑身护肤";
+    public final static String JIANSHENYUNDONG = "健身运动";
+    public final static String SHILIAOYANGSHENG = "食疗养生";
+    public final static String YONGYAOZHIDAO = "用药指导";
+    public final static String MUYINGYUNYU = "母婴孕育";
 
 
     public static class Url {
@@ -83,6 +82,15 @@ public class Constants {
              * 首页热度文章
              */
             public static final String hotArticleList = "jeecg-boot/app/article/index/hotArticleList";
+
+        }
+
+        //医生
+        public static class Doctor {
+            /**
+             * 获取推荐医生
+             */
+            public static final String recommendList = "jeecg-boot/app/doctor/recommendList";
 
         }
 

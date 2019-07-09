@@ -62,6 +62,8 @@ public interface ApiService {
     @POST(Constants.Url.Article.hotArticleList)
     Call<BaseBean<ArrayList<ArticleBean>>> hotArticleList(@Body BasePostBean postBean);
 
+
+
     //上传头像
     @Multipart
     @POST(Constants.Url.User.uploadImage)

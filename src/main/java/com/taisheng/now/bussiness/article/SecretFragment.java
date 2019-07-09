@@ -34,11 +34,13 @@ import java.util.List;
 public class SecretFragment extends BaseFragment {
 
 View iv_search;
-    TabLayout tl_tab;
+    public TabLayout tl_tab;
     ViewPager vp_content;
     private List<String> tabIndicators;
     private List<Fragment> tabFragments;
     private ContentPagerAdapter contentAdapter;
+
+    public int selectTab=0;
 
 
     @Override
@@ -88,6 +90,8 @@ View iv_search;
 //        ViewCompat.setElevation(tl_tab, 10);
         tl_tab.setupWithViewPager(vp_content);
         changeTabIndicatorWidth(tl_tab,15);
+
+        tl_tab.getTabAt(selectTab).select();
 
     }
 
@@ -154,41 +158,41 @@ View iv_search;
     SecretTabFragment fukejiankangFragment;
     SecretTabFragment xinfeigongnengFragment;
     SecretTabFragment yaojingjianbeiFragment;
-    SecretTabFragment piweiganshen;
+//    SecretTabFragment piweiganshen;
     private void initContent(){
         tabIndicators = new ArrayList<>();
-        tabIndicators.add("中医体质");
-        tabIndicators.add("基础代谢");
-        tabIndicators.add("女性健康");
-        tabIndicators.add("心肺功能");
-        tabIndicators.add("腰颈肩背");
-        tabIndicators.add("脾胃肝肾");
+        tabIndicators.add(Constants.SUSHENHUFU);
+        tabIndicators.add(Constants.JIANSHENYUNDONG);
+        tabIndicators.add(Constants.SHILIAOYANGSHENG);
+        tabIndicators.add(Constants.YONGYAOZHIDAO);
+        tabIndicators.add(Constants.MUYINGYUNYU);
+//        tabIndicators.add("脾胃肝肾");
 //        for (int i = 0; i < 3; i++) {
 //            tabIndicators.add("Tab " + i);
 //        }
         tabFragments = new ArrayList<>();
         zhongyitizhiFragment1=new SecretTabFragment();
-        zhongyitizhiFragment1.typeName=Constants.ZHONGYITIZHI;
+        zhongyitizhiFragment1.typeName=Constants.SUSHENHUFU;
 
         jichudaixieFragment=new SecretTabFragment();
-        jichudaixieFragment.typeName=Constants.JICHUDAIXIE;
+        jichudaixieFragment.typeName=Constants.JIANSHENYUNDONG;
         fukejiankangFragment=new SecretTabFragment();
-        fukejiankangFragment.typeName=Constants.FUKEJIANKANG;
+        fukejiankangFragment.typeName=Constants.SHILIAOYANGSHENG;
 
         xinfeigongnengFragment=new SecretTabFragment();
-        xinfeigongnengFragment.typeName=Constants.XINFEIGONGNENG;
+        xinfeigongnengFragment.typeName=Constants.YONGYAOZHIDAO;
 
         yaojingjianbeiFragment=new SecretTabFragment();
-        yaojingjianbeiFragment.typeName=Constants.YAOJINGJIANBEI;
-        piweiganshen=new SecretTabFragment();
-        piweiganshen.typeName=Constants.PIWEIGANSHEN;
+        yaojingjianbeiFragment.typeName=Constants.MUYINGYUNYU;
+//        piweiganshen=new SecretTabFragment();
+//        piweiganshen.typeName=Constants.PIWEIGANSHEN;
 
         tabFragments.add(zhongyitizhiFragment1);
         tabFragments.add(jichudaixieFragment);
         tabFragments.add(fukejiankangFragment);
         tabFragments.add(xinfeigongnengFragment);
         tabFragments.add(yaojingjianbeiFragment);
-        tabFragments.add(piweiganshen);
+//        tabFragments.add(piweiganshen);
 //        for (String s : tabIndicators) {
 ////            tabFragments.add(TabContentFragment.newInstance(s));
 //        }

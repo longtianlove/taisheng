@@ -138,6 +138,7 @@
             android:paddingTop="25dp">
 
             <TextView
+                android:id="@+id/tv_a_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/option_background"
@@ -174,6 +175,7 @@
             android:paddingTop="25dp">
 
             <TextView
+                android:id="@+id/tv_b_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/option_background"
@@ -210,6 +212,7 @@
             android:paddingTop="25dp">
 
             <TextView
+                android:id="@+id/tv_c_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/option_background"
@@ -245,6 +248,7 @@
             android:paddingTop="25dp">
 
             <TextView
+                android:id="@+id/tv_d_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/option_background"
@@ -280,6 +284,7 @@
             android:paddingTop="25dp">
 
             <TextView
+                android:id="@+id/tv_e_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/option_background"

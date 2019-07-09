@@ -111,14 +111,23 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).showFragment(2);
+                ((MainActivity) getActivity()).secretFragment.selectTab=0;
+                if(((MainActivity) getActivity()).secretFragment.tl_tab!=null) {
+                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(0).select();
+                }
             }
         });
         ll_yiliaoyangsheng = rootView.findViewById(R.id.ll_yiliaoyangsheng);
         ll_yiliaoyangsheng.setOnClickListener(new View.OnClickListener() {
 
+
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).showFragment(2);
+                ((MainActivity) getActivity()).secretFragment.selectTab=2;
+                if(((MainActivity) getActivity()).secretFragment.tl_tab!=null) {
+                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(2).select();
+                }
             }
         });
         ll_muyingyunyu = rootView.findViewById(R.id.ll_muyingyunyu);
@@ -126,6 +135,10 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).showFragment(2);
+                ((MainActivity) getActivity()).secretFragment.selectTab=4;
+                if(((MainActivity) getActivity()).secretFragment.tl_tab!=null) {
+                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(4).select();
+                }
             }
         });
         ll_yingjizixun = rootView.findViewById(R.id.ll_yingjizixun);
@@ -140,6 +153,10 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).showFragment(2);
+                ((MainActivity) getActivity()).secretFragment.selectTab=1;
+                if(((MainActivity) getActivity()).secretFragment.tl_tab!=null) {
+                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(1).select();
+                }
             }
         });
         ll_yongyaozhidao = rootView.findViewById(R.id.ll_yongyaozhidao);
@@ -147,6 +164,9 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).showFragment(2);
+                if(((MainActivity) getActivity()).secretFragment.tl_tab!=null) {
+                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(3).select();
+                }
             }
         });
         ll_jiankangceping = rootView.findViewById(R.id.ll_jiankangceping);

@@ -41,7 +41,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
 
     private FirstFragment firstFragment;
     private DoctorFragment doctorFragment;
-    private SecretFragment secretFragment;
+    public SecretFragment secretFragment;
     private MeFragment meFragment;
 
     View toolBar;
