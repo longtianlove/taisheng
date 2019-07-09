@@ -18,7 +18,7 @@ import com.taisheng.now.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WrapLayout extends ViewGroup {
+public class DoctorLabelWrapLayout extends ViewGroup {
     private static final String TAG = "WrapLayout";
     /**
      * TextView的style
@@ -31,15 +31,15 @@ public class WrapLayout extends ViewGroup {
     private int style=0;
     private View btn;
 
-    public WrapLayout(Context context) {
+    public DoctorLabelWrapLayout(Context context) {
         super(context);
     }
 
-    public WrapLayout(Context context, AttributeSet attrs) {
+    public DoctorLabelWrapLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public WrapLayout(Context context, AttributeSet attrs, int defStyle) {
+    public DoctorLabelWrapLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -86,7 +86,7 @@ public class WrapLayout extends ViewGroup {
                 ((TextView) btn).setGravity(Gravity.CENTER);
                 ((TextView) btn).setText(text);
                 ((TextView) btn).setTextSize(textSize);
-                ((TextView) btn).setBackground(getResources().getDrawable(R.drawable.search_history_bg));
+                ((TextView) btn).setBackground(getResources().getDrawable(R.drawable.doctorlabel_bg));
             }else if (style == BUTTON_STYLE){
                 btn = new Button(context);
                 ((Button) btn).setGravity(Gravity.CENTER);

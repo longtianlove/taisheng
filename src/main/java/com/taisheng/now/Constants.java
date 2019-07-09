@@ -36,7 +36,8 @@ public class Constants {
         //        public static String Host = "http://47.93.249.1:9100/";
 //        public static String File_Host="http://47.93.249.1:9700/";
 //        public static String Host = "http://120.24.152.121:9100/";
-        public static String Host = "http://192.168.1.18:8080/";
+//        public static String Host = "http://192.168.1.18:8080/";
+        public static String Host = "http://192.168.1.8:8888/";
 //        public static String Host = "http://39.108.247.58:9100/";
         //        public static String File_Host = "http://120.24.152.121:9700/";
 
@@ -76,6 +77,10 @@ public class Constants {
              * 文章详情
              */
             public static final String articleQeryById="jeecg-boot/app/article/queryById";
+            /**
+             * 首页热度文章
+             */
+            public static final String hotArticleList="jeecg-boot/app/article/index/hotArticleList";
 
         }
 

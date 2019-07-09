@@ -33,46 +33,53 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_doctor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="王晓逸"
             android:textColor="#ff444444"
             android:textSize="14sp" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
+            android:layout_marginRight="0dp"
             android:gravity="center"
-            android:text="资深医生"
+            android:layout_marginLeft="7dp"
+            android:text="从业"
             android:textColor="#ff333333"
-            android:textSize="14sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_workage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="#529FFB"
+            android:textSize="12sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="擅长领域：健身运动"
+            android:layout_marginLeft="0dp"
+            android:gravity="center"
+            android:text="年"
             android:textColor="#ff333333"
             android:textSize="12sp" />
 
     </LinearLayout>
+
+    <com.taisheng.now.view.DoctorLabelWrapLayout
+        android:id="@+id/dlwl_doctor_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"></com.taisheng.now.view.DoctorLabelWrapLayout>
 
     <com.taisheng.now.view.ScoreStar
         android:id="@+id/scorestar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:orientation="horizontal" />
 

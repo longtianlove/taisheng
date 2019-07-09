@@ -247,7 +247,7 @@ public class SecretSearchActivity extends BaseActivity {
         } else {
             ll_history_label.setVisibility(View.VISIBLE);
             wl_histroy_search.setVisibility(View.VISIBLE);
-            wl_histroy_search.setData(historysearchlist, this, 14, 15, 4, 14, 4, 12, 12, 15, 12);
+            wl_histroy_search.setData(historysearchlist, this, 14, 15, 4, 14, 4, 24, 12, 24, 12);
             wl_histroy_search.setMarkClickListener(new WrapLayout.MarkClickListener() {
                 @Override
                 public void clickMark(int position) {

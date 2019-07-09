@@ -10,7 +10,7 @@ import android.widget.BaseAdapter;
 
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragment;
-import com.taisheng.now.bussiness.bean.result.DoctorsBean;
+import com.taisheng.now.bussiness.bean.result.DoctorBean;
 import com.taisheng.now.view.TaishengListView;
 
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class DoctorFragment extends BaseFragment {
 
         public Context mcontext;
 
-        List<DoctorsBean> mData = new ArrayList<DoctorsBean>();
+        List<DoctorBean> mData = new ArrayList<DoctorBean>();
 
         public DoctorAdapter(Context context) {
         this.mcontext = context;
@@ -91,7 +91,7 @@ public class DoctorFragment extends BaseFragment {
         } else {
             util = (Util) convertView.getTag();
         }
-            DoctorsBean bean = mData.get(position);
+            DoctorBean bean = mData.get(position);
 
 
         return convertView;

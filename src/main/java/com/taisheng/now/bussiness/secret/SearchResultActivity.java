@@ -21,6 +21,7 @@ import com.taisheng.now.bussiness.bean.result.ArticleResultBean;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
+import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.view.TaishengListView;
 
 import java.util.ArrayList;
@@ -96,16 +97,18 @@ public class SearchResultActivity extends BaseActivity {
         bean.token= UserInstance.getInstance().getToken();
         bean.userId=UserInstance.getInstance().getUid();
         bean.type="";
+        DialogUtil.showProgress(this, "");
         ApiUtils.getApiService().articleList(bean).enqueue(new TaiShengCallback<BaseBean<ArticleResultBean>>() {
             @Override
             public void onSuccess(Response<BaseBean<ArticleResultBean>> response, BaseBean<ArticleResultBean> message) {
+                DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
 
                         if(message.result.records!=null&&message.result.records.size()>0) {
                             //有消息
                             PAGE_NO++;
-                            madapter.mData=message.result.records;
+                            madapter.mData.addAll(message.result.records);
                             if(message.result.records.size()<10){
                                 lv_articles.setHasLoadMore(false);
                                 lv_articles.setLoadAllViewText("暂时只有这么多文章");
@@ -129,7 +132,7 @@ public class SearchResultActivity extends BaseActivity {
 
             @Override
             public void onFail(Call<BaseBean<ArticleResultBean>> call, Throwable t) {
-
+                DialogUtil.closeProgress();
             }
         });
     }

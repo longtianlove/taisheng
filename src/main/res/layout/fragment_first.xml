@@ -300,7 +300,7 @@
                     android:layout_height="25dp"
                     android:layout_marginLeft="4dp"
                     android:gravity="center"
-                    android:text="专家推荐"
+                    android:text="医师推荐"
                     android:textColor="#ff333333"
                     android:textSize="18sp" />
 
@@ -380,15 +380,18 @@
                 android:layout_height="1dp"
                 android:background="#fafcfe" />
 
-            <com.taisheng.now.view.TaishengListView
+            <com.taisheng.now.view.WithScrolleViewListView
                 android:id="@+id/lv_articles"
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:listSelector="@android:color/transparent"
                 android:footerDividersEnabled="false"
                 android:headerDividersEnabled="false"
-                android:divider="@null"
+                android:divider="#EEEEEE"
+                android:dividerHeight="1dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_marginBottom="15dp"
                 android:background="#fff" />
 
         </LinearLayout>

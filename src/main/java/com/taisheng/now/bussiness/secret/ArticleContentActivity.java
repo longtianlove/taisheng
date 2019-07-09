@@ -24,6 +24,8 @@ import retrofit2.Response;
 
 public class ArticleContentActivity extends BaseActivity {
 
+
+    View iv_back;
     TextView tv_content;
     View ll_collect;
     TextView tv_collect;
@@ -40,6 +42,13 @@ public class ArticleContentActivity extends BaseActivity {
     }
 
     void initView() {
+        iv_back=findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         tv_content = (TextView) findViewById(R.id.tv_content);
 
         ll_collect=findViewById(R.id.ll_collect);
@@ -49,7 +58,7 @@ public class ArticleContentActivity extends BaseActivity {
                 if("YES".equals(collectionFlag)){
                     collectionFlag="NO";
                     tv_collect.setEnabled(false);
-                    tv_collect_label.setText(" 收藏");
+                    tv_collect_label.setText("  收藏");
                 }else{
                     collectionFlag="YES";
                     tv_collect.setEnabled(true);
@@ -87,7 +96,7 @@ public class ArticleContentActivity extends BaseActivity {
                             tv_collect_label.setText("已收藏");
                         }else{
                             tv_collect.setEnabled(false);
-                            tv_collect_label.setText("收藏该文章");
+                            tv_collect_label.setText("  收藏");
                         }
                         tv_typename.setText(message.result.typeName);
                         tv_time.setText(message.result.createTime);

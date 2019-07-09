@@ -5,10 +5,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingBottom="17dp"
-    android:paddingLeft="12dp"
     android:gravity="center_vertical"
     android:id="@+id/ll_all"
-    android:paddingRight="12dp"
     android:paddingTop="20dp">
 
     <com.facebook.drawee.view.SimpleDraweeView

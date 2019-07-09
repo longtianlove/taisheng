@@ -3,7 +3,9 @@ package com.taisheng.now.http;
 
 import com.taisheng.now.Constants;
 import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.bean.post.BasePostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
+import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.bussiness.bean.result.ArticleContentBean;
 import com.taisheng.now.bussiness.bean.post.ArticleContentPostBean;
 import com.taisheng.now.bussiness.bean.post.ArticlePostBean;
@@ -14,6 +16,8 @@ import com.taisheng.now.bussiness.bean.result.HotResultBean;
 import com.taisheng.now.bussiness.bean.post.LoginPostBean;
 import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
 import com.taisheng.now.bussiness.bean.result.UserInfo;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -59,5 +63,9 @@ public interface ApiService {
     //获取题目
     @POST(Constants.Url.CePing.getExtractionSubjectDb)
     Call<BaseBean<QuestionResultBean>> getExtractionSubjectDb(@Body QuestionPostBean questionPostBean);
+
+    //首页热度文章
+    @POST(Constants.Url.Article.hotArticleList)
+    Call<BaseBean<ArrayList<ArticleBean>>> hotArticleList(@Body BasePostBean postBean);
 
 }
