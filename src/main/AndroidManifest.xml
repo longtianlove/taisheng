@@ -317,6 +317,13 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
         </activity>
+        <activity
+            android:name=".bussiness.healthfiles.HealthCheckResultActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+
+        </activity>
 
         <activity
             android:name=".bussiness.me.SelectAvatarSourceDialog"

@@ -11,6 +11,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -47,7 +48,7 @@ public class DialogUtil {
                 mCustomProgress.show();
             }
         } catch (Exception e) {
-
+            Log.e("showProgress", e.getMessage());
         }
     }
 
@@ -85,6 +86,7 @@ public class DialogUtil {
     }
 
     public static View ll_shipin, ll_yuyin, ll_quxiao;
+
     //咨询弹窗
     public static void showzixunDialog(Context context, final View.OnClickListener shipinlistener, final View.OnClickListener yunyinlistener, final View.OnClickListener quxiaolistener) {
         if (!canShowDialog(context)) return;
@@ -135,8 +137,6 @@ public class DialogUtil {
         }
         zixunDialog.show();
     }
-
-
 
 
     //关闭所有弹窗

@@ -3,9 +3,11 @@ package com.taisheng.now.http;
 
 import com.taisheng.now.Constants;
 import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.bean.post.AnswerPostBean;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
 import com.taisheng.now.bussiness.bean.post.FeedbackPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
+import com.taisheng.now.bussiness.bean.result.AnswerResultBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.bussiness.bean.result.ArticleContentBean;
 import com.taisheng.now.bussiness.bean.post.ArticleContentPostBean;
@@ -57,6 +59,10 @@ public interface ApiService {
     //获取题目
     @POST(Constants.Url.CePing.getExtractionSubjectDb)
     Call<BaseBean<QuestionResultBean>> getExtractionSubjectDb(@Body QuestionPostBean questionPostBean);
+
+    //提交答题结果
+    @POST(Constants.Url.CePing.saveAnswer)
+    Call<BaseBean<AnswerResultBean>> saveAnswer(@Body AnswerPostBean bean);
 
     //首页热度文章
     @POST(Constants.Url.Article.hotArticleList)

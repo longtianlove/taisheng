@@ -100,6 +100,10 @@ public class Constants {
              * 获取测评题目
              */
             public static final String getExtractionSubjectDb = "jeecg-boot/app/assessment/getExtractionSubjectDb";
+            /**
+             * 提交答题结果
+             */
+            public static final String saveAnswer = "jeecg-boot/app/assessment/saveAnswer";
         }
 
         /**

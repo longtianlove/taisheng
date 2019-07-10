@@ -10,13 +10,16 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.bean.post.AnswerPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
+import com.taisheng.now.bussiness.bean.result.AnswerResultBean;
 import com.taisheng.now.bussiness.bean.result.AssessmentOptionsList;
 import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
 import com.taisheng.now.bussiness.bean.result.Records;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
+import com.taisheng.now.util.DialogUtil;
 
 import java.util.List;
 import java.util.logging.Handler;
@@ -78,11 +81,11 @@ public class HealthQuestionActivity extends BaseActivity {
         ll_a = findViewById(R.id.ll_a);
         ll_a.setOnClickListener(listener);
         tv_a = (TextView) findViewById(R.id.tv_a);
-        tv_a_label= (TextView) findViewById(R.id.tv_a_label);
-        tv_b_label= (TextView) findViewById(R.id.tv_b_label);
-        tv_c_label= (TextView) findViewById(R.id.tv_c_label);
-        tv_d_label= (TextView) findViewById(R.id.tv_d_label);
-        tv_e_label= (TextView) findViewById(R.id.tv_e_label);
+        tv_a_label = (TextView) findViewById(R.id.tv_a_label);
+        tv_b_label = (TextView) findViewById(R.id.tv_b_label);
+        tv_c_label = (TextView) findViewById(R.id.tv_c_label);
+        tv_d_label = (TextView) findViewById(R.id.tv_d_label);
+        tv_e_label = (TextView) findViewById(R.id.tv_e_label);
         ll_b = findViewById(R.id.ll_b);
         ll_b.setOnClickListener(listener);
         tv_b = (TextView) findViewById(R.id.tv_b);
@@ -97,71 +100,98 @@ public class HealthQuestionActivity extends BaseActivity {
         tv_e = (TextView) findViewById(R.id.tv_e);
     }
 
-    android.os.Handler handler=new android.os.Handler();
+    android.os.Handler handler = new android.os.Handler();
 
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(question==null){
+            if (question == null) {
                 return;
             }
-            List<AssessmentOptionsList> assessmentOptionsList=question.assessmentOptionsList;
-            if(assessmentOptionsList==null||assessmentOptionsList.size()<=0){
+            List<AssessmentOptionsList> assessmentOptionsList = question.assessmentOptionsList;
+            if (assessmentOptionsList == null || assessmentOptionsList.size() <= 0) {
                 return;
             }
-            String result="";
+            String result = "";
             switch (v.getId()) {
                 case R.id.ll_a:
                     tv_a_label.setEnabled(true);
-                    result=assessmentOptionsList.get(0).id;
+                    result = assessmentOptionsList.get(0).id;
                     break;
                 case R.id.ll_b:
                     tv_b_label.setEnabled(true);
-                    result=assessmentOptionsList.get(1).id;
+                    result = assessmentOptionsList.get(1).id;
                     break;
                 case R.id.ll_c:
                     tv_c_label.setEnabled(true);
-                    result=assessmentOptionsList.get(2).id;
+                    result = assessmentOptionsList.get(2).id;
 
                     break;
                 case R.id.ll_d:
                     tv_d_label.setEnabled(true);
-                    result=assessmentOptionsList.get(3).id;
+                    result = assessmentOptionsList.get(3).id;
 
                     break;
                 case R.id.ll_e:
                     tv_e_label.setEnabled(true);
-                    result=assessmentOptionsList.get(4).id;
+                    result = assessmentOptionsList.get(4).id;
                     break;
             }
-            answersResult=answersResult+result+",";
-
-
-            handler.postDelayed(new Runnable(){
+            answersResult = answersResult + result + ",";
+            position++;
+            DialogUtil.showProgress(HealthQuestionActivity.this, "");
+            handler.postDelayed(new Runnable() {
                 public void run() {
-                    position++;
                     if (position < records.size()) {
                         updateView();
-                    } else {
-                        //todo 提交答案跳转页面
-                        answersResult=answersResult.substring(0,answersResult.length()-1);
-                        answersResult=answersResult+"]";
+                        DialogUtil.closeProgress();
                     }
                 }
             }, 1000);   //1秒
 
+            if (position < records.size()) {
+
+            } else {
+                //todo 提交答案跳转页面
+                answersResult = answersResult.substring(0, answersResult.length() - 1);
+                AnswerPostBean bean = new AnswerPostBean();
+                bean.userId = UserInstance.getInstance().getUid();
+                bean.token = UserInstance.getInstance().getToken();
+                bean.ids = answersResult;
+                ApiUtils.getApiService().saveAnswer(bean).enqueue(new TaiShengCallback<BaseBean<AnswerResultBean>>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean<AnswerResultBean>> response, BaseBean<AnswerResultBean> message) {
+                        DialogUtil.closeProgress();
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+                                Intent intent = new Intent(HealthQuestionActivity.this, HealthCheckResultActivity.class);
+                                intent.putExtra("completeBatch", message.result.completeBatch);
+                                intent.putExtra("remarks", message.result.remarks);
+                                intent.putExtra("score", message.result.score);
+                                startActivity(intent);
+                                finish();
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean<AnswerResultBean>> call, Throwable t) {
+                        DialogUtil.closeProgress();
+                    }
+                });
+            }
         }
     };
 
     String assessmentType;
     String subjectdbType;
-    String answersResult = "[";//答案结果
+    String answersResult;//答案结果
 
     void initData() {
         Intent intent = getIntent();
         assessmentType = intent.getStringExtra("assessmentType");
         subjectdbType = "1";
-        answersResult = "[";
+        answersResult = "";
         position = 0;
         QuestionPostBean bean = new QuestionPostBean();
         bean.userId = UserInstance.getInstance().getUid();
@@ -176,7 +206,14 @@ public class HealthQuestionActivity extends BaseActivity {
                     case Constants.HTTP_SUCCESS:
                         allBean = message.result;
                         records = allBean.records;
-                        updateView();
+
+
+                        if (position < records.size()) {
+                            updateView();
+                        } else {
+
+                        }
+
                         break;
                 }
             }
@@ -199,16 +236,16 @@ public class HealthQuestionActivity extends BaseActivity {
     }
 
     void updatePosition(int i) {
-        progressBar.setProgress((i * 100) / records.size());
         i++;
-        if(records.size()>10){
+        progressBar.setProgress((i * 100) / records.size());
+        if (records.size() > 10) {
             if (i < 10) {
                 tv_now_postion.setText("0" + i);
             } else {
-                tv_now_postion.setText(""+i);
+                tv_now_postion.setText("" + i);
             }
-        }else{
-            tv_now_postion.setText(""+i);
+        } else {
+            tv_now_postion.setText("" + i);
         }
 
         tv_all_size.setText("/" + records.size());
