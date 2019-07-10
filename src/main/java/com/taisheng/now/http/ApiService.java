@@ -7,6 +7,7 @@ import com.taisheng.now.bussiness.bean.post.AnswerPostBean;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
 import com.taisheng.now.bussiness.bean.post.FeedbackPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
+import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
 import com.taisheng.now.bussiness.bean.result.AnswerResultBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.bussiness.bean.result.ArticleContentBean;
@@ -15,6 +16,7 @@ import com.taisheng.now.bussiness.bean.post.ArticlePostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleResultBean;
 import com.taisheng.now.bussiness.bean.post.CaptchaPostBean;
 import com.taisheng.now.bussiness.bean.post.HotPostBean;
+import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
 import com.taisheng.now.bussiness.bean.result.HotResultBean;
 import com.taisheng.now.bussiness.bean.post.LoginPostBean;
 import com.taisheng.now.bussiness.bean.result.PictureBean;
@@ -68,6 +70,14 @@ public interface ApiService {
     @POST(Constants.Url.Article.hotArticleList)
     Call<BaseBean<ArrayList<ArticleBean>>> hotArticleList(@Body BasePostBean postBean);
 
+
+    //获取推荐医生
+    @POST(Constants.Url.Doctor.recommendList)
+    Call<BaseBean<DoctorsResultBean>> recommendList(@Body RecommendDoctorPostBean postBean);
+
+    //获取所有医生
+    @POST(Constants.Url.Doctor.doctorslist)
+    Call<BaseBean<DoctorsResultBean>> doctorslist(@Body RecommendDoctorPostBean bean);
 
 
     //上传头像

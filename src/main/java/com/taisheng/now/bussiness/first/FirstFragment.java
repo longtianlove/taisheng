@@ -3,16 +3,19 @@ package com.taisheng.now.bussiness.first;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -25,8 +28,11 @@ import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.MainActivity;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
+import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.bussiness.bean.result.DoctorBean;
+import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
+import com.taisheng.now.bussiness.doctor.DoctorDetailActivity;
 import com.taisheng.now.bussiness.healthfiles.HealthCheckActivity;
 import com.taisheng.now.bussiness.article.ArticleContentActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -36,11 +42,16 @@ import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.SPUtil;
 import com.taisheng.now.view.DoctorLabelWrapLayout;
 import com.taisheng.now.view.GuideView;
+import com.taisheng.now.view.HorizontalListView;
 import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.WithScrolleViewListView;
 import com.taisheng.now.view.banner.BannerViewPager;
 
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -62,6 +73,11 @@ public class FirstFragment extends BaseFragment {
     BannerViewPager bannerViewPager;
     private View bannerView;
     ViewPager vp_zhuanjia;
+    DoctorPagerAdapter doctorPagerAdapter;
+
+
+    HorizontalListView hl_zhuanjia;
+    HorizontalListViewAdapter horizontalListViewAdapter;
 
     TextView tv_doctor_more;
     TextView tv_secret_more;
@@ -98,7 +114,7 @@ public class FirstFragment extends BaseFragment {
     }
 
     void initView(View rootView) {
-        scl_bag= (ScrollView) rootView.findViewById(R.id.scl_bag);
+        scl_bag = (ScrollView) rootView.findViewById(R.id.scl_bag);
         ll_shishizixun = rootView.findViewById(R.id.ll_shishizixun);
         ll_shishizixun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,8 +127,8 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).showFragment(2);
-                ((MainActivity) getActivity()).secretFragment.selectTab=0;
-                if(((MainActivity) getActivity()).secretFragment.tl_tab!=null) {
+                ((MainActivity) getActivity()).secretFragment.selectTab = 0;
+                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
                     ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(0).select();
                 }
             }
@@ -124,8 +140,8 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).showFragment(2);
-                ((MainActivity) getActivity()).secretFragment.selectTab=2;
-                if(((MainActivity) getActivity()).secretFragment.tl_tab!=null) {
+                ((MainActivity) getActivity()).secretFragment.selectTab = 2;
+                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
                     ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(2).select();
                 }
             }
@@ -135,8 +151,8 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).showFragment(2);
-                ((MainActivity) getActivity()).secretFragment.selectTab=4;
-                if(((MainActivity) getActivity()).secretFragment.tl_tab!=null) {
+                ((MainActivity) getActivity()).secretFragment.selectTab = 4;
+                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
                     ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(4).select();
                 }
             }
@@ -153,8 +169,8 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).showFragment(2);
-                ((MainActivity) getActivity()).secretFragment.selectTab=1;
-                if(((MainActivity) getActivity()).secretFragment.tl_tab!=null) {
+                ((MainActivity) getActivity()).secretFragment.selectTab = 1;
+                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
                     ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(1).select();
                 }
             }
@@ -164,7 +180,7 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).showFragment(2);
-                if(((MainActivity) getActivity()).secretFragment.tl_tab!=null) {
+                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
                     ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(3).select();
                 }
             }
@@ -197,6 +213,15 @@ public class FirstFragment extends BaseFragment {
         bannerContaner.addView(bannerView);
 
         vp_zhuanjia = (ViewPager) rootView.findViewById(R.id.vp_zhuanjia);
+        doctorPagerAdapter = new DoctorPagerAdapter();
+        vp_zhuanjia.setAdapter(doctorPagerAdapter);
+
+
+        hl_zhuanjia = (HorizontalListView) rootView.findViewById(R.id.hl_zhuanjia);
+        horizontalListViewAdapter = new HorizontalListViewAdapter();
+        hl_zhuanjia.setAdapter(horizontalListViewAdapter);
+
+
         tv_doctor_more = (TextView) rootView.findViewById(R.id.tv_doctor_more);
         tv_doctor_more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,8 +280,212 @@ public class FirstFragment extends BaseFragment {
 
 
     void initData() {
+
+        getRecommendDoctors();
         getHotArticle();
 
+    }
+
+    void getRecommendDoctors() {
+        RecommendDoctorPostBean bean = new RecommendDoctorPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.pageNo = 1;
+        bean.pageSize = 5;
+        DialogUtil.showProgress(mActivity, "");
+        ApiUtils.getApiService().recommendList(bean).enqueue(new TaiShengCallback<BaseBean<DoctorsResultBean>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<DoctorsResultBean>> response, BaseBean<DoctorsResultBean> message) {
+                DialogUtil.closeProgress();
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        horizontalListViewAdapter.doctors = message.result.records;
+                        horizontalListViewAdapter.notifyDataSetChanged();
+                        break;
+                }
+
+
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<DoctorsResultBean>> call, Throwable t) {
+                DialogUtil.closeProgress();
+            }
+        });
+    }
+
+
+    public class HorizontalListViewAdapter extends BaseAdapter {
+        public List<DoctorBean> doctors;
+
+
+        @Override
+        public int getCount() {
+            if (doctors == null) {
+                return 0;
+            } else {
+                return doctors.size();
+            }
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return doctors.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            Util util = null;
+            // 中间变量
+            final int flag = position;
+            if (convertView == null) {
+                util = new Util();
+                LayoutInflater inflater = LayoutInflater.from(mActivity);
+                convertView = inflater.inflate(R.layout.item_zhuanjia, null);
+                util.ll_all = convertView.findViewById(R.id.ll_all);
+
+                util.sdv_header = (SimpleDraweeView) convertView.findViewById(R.id.sdv_header);
+                util.tv_doctor_name = (TextView) convertView.findViewById(R.id.tv_doctor_name);
+                util.tv_workage = (TextView) convertView.findViewById(R.id.tv_workage);
+                util.dlwl_doctor_label = (DoctorLabelWrapLayout) convertView.findViewById(R.id.dlwl_doctor_label);
+                util.scorestar = (ScoreStar) convertView.findViewById(R.id.scorestar);
+                util.view_label=convertView.findViewById(R.id.view_label);
+                convertView.setTag(util);
+            } else {
+                util = (Util) convertView.getTag();
+            }
+            DoctorBean bean = doctors.get(position);
+            if(position==(doctors.size()-1)){
+                util.view_label.setVisibility(View.GONE);
+            }else{
+                util.view_label.setVisibility(View.VISIBLE);
+
+            }
+            util.ll_all.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(mActivity, DoctorDetailActivity.class);
+                    intent.putExtra("id",bean.id);
+                    startActivity(intent);
+                }
+            });
+            Uri uri = Uri.parse(bean.avatar);
+            util.sdv_header.setImageURI(uri);
+            util.tv_doctor_name.setText(bean.nickName);
+
+
+            util.tv_workage.setText(getWorkYear(bean.fromMedicineTime));
+            if (bean.goodDiseases != null) {
+                String[] doctorlabel = bean.goodDiseases.split(",");
+                util.dlwl_doctor_label.setData(doctorlabel, mActivity, 10, 5, 1, 5, 1, 4, 0, 4, 0);
+
+            }
+
+            if (bean.score != null) {
+                util.scorestar.setScore(bean.score);
+            }
+
+            return convertView;
+        }
+
+        String getWorkYear(String fromMedicineTime) {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            ParsePosition pos = new ParsePosition(0);
+            Date strtodate = null;
+            try {
+                strtodate = formatter.parse(fromMedicineTime);
+                Date currentTime = new Date();
+                return currentTime.getYear() - strtodate.getYear() <= 0 ? "1" : currentTime.getYear() - strtodate.getYear() + "";
+
+            } catch (Exception e) {
+                Log.e("firstfragment-getwork",e.getMessage());
+                return "1";
+            }
+
+
+        }
+
+        class Util {
+            View ll_all;
+            SimpleDraweeView sdv_header;
+            TextView tv_doctor_name;
+            TextView tv_workage;
+            DoctorLabelWrapLayout dlwl_doctor_label;
+            ScoreStar scorestar;
+            View view_label;
+
+        }
+
+    }
+
+    public class DoctorPagerAdapter extends PagerAdapter {
+        public List<DoctorBean> doctors;
+
+        public DoctorPagerAdapter() {
+
+        }
+
+        @Override
+        public int getCount() {
+
+            if (doctors == null) {
+                return 0;
+            } else {
+                return doctors.size();
+            }
+        }
+
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            // return super.instantiateItem(container, position);
+            DoctorBean bean = doctors.get(position);
+            View allView = mActivity.getLayoutInflater().inflate(R.layout.item_zhuanjia, null);
+//            container.addView(view);
+            SimpleDraweeView sdv_header = (SimpleDraweeView) allView.findViewById(R.id.sdv_header);
+            Uri uri = Uri.parse(bean.avatar);
+            sdv_header.setImageURI(uri);
+
+            TextView tv_doctor_name = (TextView) allView.findViewById(R.id.tv_doctor_name);
+            tv_doctor_name.setText(bean.nickName);
+            TextView tv_workage = (TextView) allView.findViewById(R.id.tv_workage);
+            tv_workage.setText(bean.fromMedicineTime);
+            DoctorLabelWrapLayout dlwl_doctor_label = (DoctorLabelWrapLayout) allView.findViewById(R.id.dlwl_doctor_label);
+            if (bean.goodDiseases != null) {
+                String[] doctorlabel = bean.goodDiseases.split(",");
+                dlwl_doctor_label.setData(doctorlabel, mActivity, 10, 5, 1, 5, 1, 4, 0, 4, 0);
+
+            }
+            ScoreStar scorestar = (ScoreStar) allView.findViewById(R.id.scorestar);
+            if (bean.score != null) {
+                scorestar.setScore(bean.score);
+            }
+            container.addView(allView);
+            return allView;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            //super.destroyItem(container, position, object);
+//            container.removeView(views.get(position));
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            //return super.getPageTitle(position);
+            return "标题" + position;
+        }
     }
 
     void getHotArticle() {
@@ -304,74 +533,6 @@ public class FirstFragment extends BaseFragment {
             }
         });
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-//        scl_bag.fullScroll(View.FOCUS_UP);
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-//        if(!hidden){
-//            scl_bag.fullScroll(View.FOCUS_UP);
-//        }
-    }
-
-    /**
-     * Created by louisgeek on 2016/3/23.
-     */
-    public class MyPagerAdapter extends PagerAdapter {
-        private List<DoctorBean> doctors;
-
-        public MyPagerAdapter(List<DoctorBean> doctors) {
-            this.doctors = doctors;
-        }
-
-        @Override
-        public int getCount() {
-            return doctors.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            // return super.instantiateItem(container, position);
-            DoctorBean view = doctors.get(position);
-            View allView = mActivity.getLayoutInflater().inflate(R.layout.item_zhuanjia, container);
-//            container.addView(view);
-            SimpleDraweeView sdv_header = (SimpleDraweeView) allView.findViewById(R.id.sdv_header);
-            TextView tv_doctor_name = (TextView) allView.findViewById(R.id.tv_doctor_name);
-            TextView tv_workage = (TextView) allView.findViewById(R.id.tv_workage);
-            DoctorLabelWrapLayout dlwl_doctor_label = (DoctorLabelWrapLayout) allView.findViewById(R.id.dlwl_doctor_label);
-            ScoreStar scorestar = (ScoreStar) allView.findViewById(R.id.scorestar);
-            return view;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            //super.destroyItem(container, position, object);
-//            container.removeView(views.get(position));
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            //return super.getPageTitle(position);
-            return "标题" + position;
-        }
-    }
-
 
     class ArticleAdapter extends BaseAdapter {
 

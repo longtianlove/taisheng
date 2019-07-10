@@ -42,13 +42,13 @@ public class ScoreStar extends LinearLayout {
         btn_star3 = (Button) rootView.findViewById(R.id.btn_star3);
         btn_star4 = (Button) rootView.findViewById(R.id.btn_star4);
         btn_star5 = (Button) rootView.findViewById(R.id.btn_star5);
-        setScore(0);
+        setScore("0");
     }
 
 
-    public void setScore(float score) {
-
-        int score_int = (int) Math.floor(score);
+    public void setScore(String score) {
+        float d= Float.parseFloat(score);
+        int score_int = (int) Math.floor(d);
         tv_score.setText(score + "");
         btn_star1.setEnabled(false);
         btn_star2.setEnabled(false);
@@ -78,6 +78,13 @@ public class ScoreStar extends LinearLayout {
                 btn_star4.setEnabled(true);
                 break;
             case 5:
+                btn_star1.setEnabled(true);
+                btn_star2.setEnabled(true);
+                btn_star3.setEnabled(true);
+                btn_star4.setEnabled(true);
+                btn_star5.setEnabled(true);
+                break;
+            default:
                 btn_star1.setEnabled(true);
                 btn_star2.setEnabled(true);
                 btn_star3.setEnabled(true);

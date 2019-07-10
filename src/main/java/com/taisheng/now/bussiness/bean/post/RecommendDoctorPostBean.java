@@ -1,11 +1,10 @@
 package com.taisheng.now.bussiness.bean.post;
 
 /**
- * Created by dragon on 2019/7/9.
+ * Created by dragon on 2019/7/10.
  */
 
-public class RecommendDoctorBean extends BasePostBean {
-
+public class RecommendDoctorPostBean extends BasePostBean {
     public int pageNo;
     public int pageSize;
     public String nickName;

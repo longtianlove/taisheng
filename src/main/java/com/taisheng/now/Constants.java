@@ -91,6 +91,10 @@ public class Constants {
              * 获取推荐医生
              */
             public static final String recommendList = "jeecg-boot/app/doctor/recommendList";
+            /**
+             * 获取所有医生
+             */
+            public static final String doctorslist="jeecg-boot/app/doctor/list";
 
         }
 

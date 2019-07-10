@@ -6,6 +6,7 @@ package com.taisheng.now.view;
  */
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -86,12 +87,14 @@ public class DoctorLabelWrapLayout extends ViewGroup {
                 ((TextView) btn).setGravity(Gravity.CENTER);
                 ((TextView) btn).setText(text);
                 ((TextView) btn).setTextSize(textSize);
+                ((TextView)btn).setTextColor(Color.parseColor("#ff529ffb"));
                 ((TextView) btn).setBackground(getResources().getDrawable(R.drawable.doctorlabel_bg));
             }else if (style == BUTTON_STYLE){
                 btn = new Button(context);
                 ((Button) btn).setGravity(Gravity.CENTER);
                 ((Button) btn).setText(text);
                 ((Button) btn).setTextSize(textSize);
+                ((Button)btn).setTextColor(Color.parseColor("#ff529ffb"));
             }
             btn.setClickable(true);
 

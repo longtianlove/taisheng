@@ -39,7 +39,7 @@ public class DialogUtil {
     public static void showProgress(Context context, String str) {
         try {
             if ("".equals(str)) {
-                str = "请稍等";
+                str = "";
             }
             if (mCustomProgress == null) {
                 mCustomProgress = CustomProgress.show(context, str, false, null);
