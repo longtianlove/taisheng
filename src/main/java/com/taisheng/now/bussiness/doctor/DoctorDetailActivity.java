@@ -1,24 +1,48 @@
 package com.taisheng.now.bussiness.doctor;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.BaseAdapter;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.article.ArticleContentActivity;
+import com.taisheng.now.bussiness.article.SearchResultActivity;
+import com.taisheng.now.bussiness.bean.post.DoctorCommentPostBean;
+import com.taisheng.now.bussiness.bean.result.ArticleBean;
+import com.taisheng.now.bussiness.bean.result.DoctorCommentBean;
+import com.taisheng.now.bussiness.bean.result.DoctorCommentResultBean;
+import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.shipin.TRTCGetUserIDAndUserSig;
 import com.taisheng.now.shipin.TRTCMainActivity;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.DoubleClickUtil;
+import com.taisheng.now.view.StarGrade;
+import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
 import com.tencent.trtc.TRTCCloudDef;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by dragon on 2019/7/1.
@@ -27,17 +51,14 @@ import java.util.ArrayList;
 public class DoctorDetailActivity extends Activity {
 
 
-    private TRTCGetUserIDAndUserSig mUserInfoLoader;
-
     View ll_zixun;
-
+    TaishengListView lv_comments;
+    DoctorCommentAdapter madapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-
         //沉浸式代码配置
         //当FitsSystemWindows设置 true 时，会在屏幕最上方预留出状态栏高度的 padding
         StatusBarUtil.setRootViewFitsSystemWindows(this, true);
@@ -52,17 +73,27 @@ public class DoctorDetailActivity extends Activity {
         }
         //用来设置整体下移，状态栏沉浸
         StatusBarUtil.setRootViewFitsSystemWindows(this, false);
-
-
         setContentView(R.layout.activity_doctor_detail);
+
+
         initView();
 
-        // 如果配置有config文件，则从config文件中选择userId
-        mUserInfoLoader = new TRTCGetUserIDAndUserSig(this);
 
+        initData();
     }
 
     void initView() {
+        lv_comments = (TaishengListView) findViewById(R.id.lv_comments);
+        madapter=new DoctorCommentAdapter(this);
+        lv_comments.setAdapter(madapter);
+        lv_comments.setOnUpLoadListener(new TaishengListView.OnUpLoadListener() {
+            @Override
+            public void onUpLoad() {
+                getDoctorComment();
+            }
+        });
+
+
         ll_zixun = findViewById(R.id.ll_zixun);
         ll_zixun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,15 +105,16 @@ public class DoctorDetailActivity extends Activity {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                onJoinRoom(999,"Android_trtc_01");
+                                //todo 修改用户名和房间号
+                                onJoinRoom(113355, "Android_trtc_04");
 
                             }
                         },
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(DoctorDetailActivity.this, TRTCMainActivity.class);
-                                startActivity(intent);
+                                //todo 修改用户名和房间号
+                                onJoinRoom(113355, "Android_trtc_04");
                             }
                         },
                         new View.OnClickListener() {
@@ -99,99 +131,198 @@ public class DoctorDetailActivity extends Activity {
 
 
 
+    void initData() {
+        Intent intent = getIntent();
+        doctorId = intent.getStringExtra("id");
+        PAGE_NO=1;
+        PAGE_SIZE=10;
+        bean=new DoctorCommentPostBean();
+        getDoctorComment();
+    }
+
+    DoctorCommentPostBean bean;
+    String doctorId;
+    int PAGE_NO=1;
+    int PAGE_SIZE=10;
+
+    void getDoctorComment(){
+        bean.pageNo=PAGE_NO;
+        bean.pageSize=PAGE_SIZE;
+        bean.token= UserInstance.getInstance().getToken();
+        bean.userId=UserInstance.getInstance().getUid();
+        bean.doctorId=doctorId;
+        DialogUtil.showProgress(this, "");
+        ApiUtils.getApiService().doctorScoreList(bean).enqueue(new TaiShengCallback<BaseBean<DoctorCommentResultBean>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<DoctorCommentResultBean>> response, BaseBean<DoctorCommentResultBean> message) {
+                DialogUtil.closeProgress();
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+
+                        if(message.result.records!=null&&message.result.records.size()>0) {
+                            //有消息
+                            PAGE_NO++;
+                            madapter.mData.addAll(message.result.records);
+                            if(message.result.records.size()<10){
+                                lv_comments.setHasLoadMore(false);
+                                lv_comments.setLoadAllViewText("暂时只有这么多评论");
+                                lv_comments.setLoadAllFooterVisible(true);
+                            }else{
+                                lv_comments.setHasLoadMore(true);
+                            }
+                            madapter.notifyDataSetChanged();
+                        }else{
+                            //没有消息
+                            lv_comments.setHasLoadMore(false);
+                            lv_comments.setLoadAllViewText("暂时只有这么多评论");
+                            lv_comments.setLoadAllFooterVisible(true);
+                        }
+
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<DoctorCommentResultBean>> call, Throwable t) {
+                DialogUtil.closeProgress();
+
+            }
+        });
+    }
+
+
+    class DoctorCommentAdapter extends BaseAdapter {
+
+        public Context mcontext;
+
+        List<DoctorCommentBean> mData = new ArrayList<DoctorCommentBean>();
+
+        public DoctorCommentAdapter(Context context) {
+            this.mcontext = context;
+        }
+
+        @Override
+        public int getCount() {
+            return mData.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mData.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // 声明内部类
+            Util util = null;
+            // 中间变量
+            final int flag = position;
+            if (convertView == null) {
+                util = new Util();
+                LayoutInflater inflater = LayoutInflater.from(mcontext);
+                convertView = inflater.inflate(R.layout.item_comment, null);
+                util.sdv_header = (SimpleDraweeView) convertView.findViewById(R.id.sdv_header);
+                util.tv_nickname = (TextView) convertView.findViewById(R.id.tv_nickname);
+                util.tv_createTime = (TextView) convertView.findViewById(R.id.tv_createTime);
+                util.starGrade = (StarGrade) convertView.findViewById(R.id.starGrade);
+                util.tv_content = (TextView) convertView.findViewById(R.id.tv_content);
+//                util.tv_createtime= (TextView) convertView.findViewById(R.id.tv_createtime);
+
+                convertView.setTag(util);
+            } else {
+                util = (Util) convertView.getTag();
+            }
+            DoctorCommentBean bean = mData.get(position);
+
+
+            String temp_url = Constants.Url.Host + bean.avatar;
+            if (bean.avatar == null || "".equals(bean.avatar)) {
+                //todo 默认头像
+                util.sdv_header.setBackgroundResource(R.drawable.article_default);
+
+            } else {
+                Uri uri = Uri.parse(temp_url);
+                util.sdv_header.setImageURI(uri);
+            }
+            util.tv_nickname.setText(bean.nickName);
+            util.tv_createTime.setText(bean.createTime);
+            util.starGrade.setScore(bean.consultationScore);
+            util.tv_content.setText(bean.content);
+            return convertView;
+        }
+
+
+        class Util {
+            SimpleDraweeView sdv_header;
+            TextView tv_nickname;
+            TextView tv_createTime;
+
+            com.taisheng.now.view.StarGrade starGrade;
+            TextView tv_content;
+
+        }
+    }
 
 
     /**
-     *  Function: 读取用户输入，并创建（或加入）音视频房间
-     *
-     *  此段示例代码最主要的作用是组装 TRTC SDK 进房所需的 TRTCParams
-     *
-     *  TRTCParams.sdkAppId => 可以在腾讯云实时音视频控制台（https://console.cloud.tencent.com/rav）获取
-     *  TRTCParams.userId   => 此处即用户输入的用户名，它是一个字符串
-     *  TRTCParams.roomId   => 此处即用户输入的音视频房间号，比如 125
-     *  TRTCParams.userSig  => 此处示例代码展示了两种获取 usersig 的方式，一种是从【控制台】获取，一种是从【服务器】获取
-     *
+     * Function: 读取用户输入，并创建（或加入）音视频房间
+     * <p>
+     * 此段示例代码最主要的作用是组装 TRTC SDK 进房所需的 TRTCParams
+     * <p>
+     * TRTCParams.sdkAppId => 可以在腾讯云实时音视频控制台（https://console.cloud.tencent.com/rav）获取
+     * TRTCParams.userId   => 此处即用户输入的用户名，它是一个字符串
+     * TRTCParams.roomId   => 此处即用户输入的音视频房间号，比如 125
+     * TRTCParams.userSig  => 此处示例代码展示了两种获取 usersig 的方式，一种是从【控制台】获取，一种是从【服务器】获取
+     * <p>
      * （1）控制台获取：可以获得几组已经生成好的 userid 和 usersig，他们会被放在一个 json 格式的配置文件中，仅适合调试使用
      * （2）服务器获取：直接在服务器端用我们提供的源代码，根据 userid 实时计算 usersig，这种方式安全可靠，适合线上使用
-     *
-     *  参考文档：https://cloud.tencent.com/document/product/647/17275
+     * <p>
+     * 参考文档：https://cloud.tencent.com/document/product/647/17275
      */
     private String mUserId = "";
-    private String mUserSig= "";
+    private String mUserSig = "";
+
     private void onJoinRoom(final int roomId, final String userId) {
         final Intent intent = new Intent(DoctorDetailActivity.this, TRTCMainActivity.class);
 
         intent.putExtra("roomId", roomId);
         intent.putExtra("userId", userId);
+        intent.putExtra("AppScene", TRTCCloudDef.TRTC_APP_SCENE_VIDEOCALL);
 
-//        RadioButton rbLive = (RadioButton) findViewById(R.id.rb_live);
-//        if (rbLive.isChecked()) {
-//            intent.putExtra("AppScene", TRTCCloudDef.TRTC_APP_SCENE_LIVE);
-//            RadioButton rbAnchor = (RadioButton) findViewById(R.id.rb_anchor);
-//            if (rbAnchor.isChecked())  {
-//                intent.putExtra("role", TRTCCloudDef.TRTCRoleAnchor);
-//            } else {
-//                intent.putExtra("role", TRTCCloudDef.TRTCRoleAudience);
-//            }
-//        } else {
-            intent.putExtra("AppScene", TRTCCloudDef.TRTC_APP_SCENE_VIDEOCALL);
-//        }
-
-
-//        boolean isCustomVideoCapture = ((RadioButton)findViewById(R.id.rb_video_file)).isChecked();
-//        if (TextUtils.isEmpty(mVideoFile)) isCustomVideoCapture = false;
-//        intent.putExtra("customVideoCapture", isCustomVideoCapture);
-//        intent.putExtra("videoFile", mVideoFile);
-
-//        int sdkAppId = mUserInfoLoader.getSdkAppIdFromConfig();
-//        if (sdkAppId > 0) {
-//            //（1） 从控制台获取的 json 文件中，简单获取几组已经提前计算好的 userid 和 usersig
-//            ArrayList<String> userIdList = mUserInfoLoader.getUserIdFromConfig();
-//            ArrayList<String> userSigList = mUserInfoLoader.getUserSigFromConfig();
-//            int position = userIdList.indexOf(userId);
-//            String userSig = "";
-//            if (userSigList != null && userSigList.size() > position) {
-//                userSig = userSigList.get(position);
-//            }
-//            intent.putExtra("sdkAppId", sdkAppId);
-//            intent.putExtra("userSig", userSig);
-//            startActivity(intent);
-//        } else {
-            //appId 可以在腾讯云实时音视频控制台（https://console.cloud.tencent.com/rav）获取
-            int sdkAppId = 1400224786;
-//            if(!TextUtils.isEmpty(mUserId) && mUserId.equalsIgnoreCase(userId) && !TextUtils.isEmpty(mUserSig)) {
-//                intent.putExtra("sdkAppId", sdkAppId);
-//                intent.putExtra("userSig", mUserSig);
-////                saveUserInfo(String.valueOf(roomId), userId, mUserSig);
-//                startActivity(intent);
-//            } else {
-                //（2） 通过 http 协议向一台服务器获取 userid 对应的 usersig
         //todo 需要修改
-                final int finalSdkAppId = 1400224786;
+        int finalSdkAppId = 1400227841;
         intent.putExtra("sdkAppId", finalSdkAppId);
-        intent.putExtra("userSig", "eJxlj0FPgzAAhe-8CsLZaNtR2Ew8YOMMhA1wG1ovDYOyVbfSlMo2jf9dxSWS*K7fl-fyPizbtp1lvLgsyrJ5k4aZk*KOfW07wLn4g0qJihWGjXT1D-KjEpqzojZc9xBijBEAQ0dUXBpRi7MRyEo3341Gm5IBOBDb6pX1a79NLgAIuf7YGypi08PZ3YqEGVEiTmiZxdm*S0S9G*cNToNH7cqnnSbP-lWeovi9QLeT8BBuVsmaHFxC85d72k3nx5rT6XI2X-vbaBGRaPsQRMZrM5pCejOYNGLPz9c8OPE9CNCAdly3opG9gADEEI3ATxzr0-oClrRghg__");
+        intent.putExtra("userSig", "eJxlj11PgzAARd-5FYRXjfYDVmbiA5Lqlm1mAiPqS4O0QMUV7CqbGP*7iksk8b6ek3tzPyzbtp1kGZ9led68KcPMeysc*8J2gHP6B9tWcpYZhjX-B8WhlVqwrDBCDxB6nocAGDuSC2VkIY9GoLhuvhuNNjkD7kjc8ZoNa79NLgAIEd*FY0WWA1zRTTi-eZl2NHrF3WQe0mR2HUN4fts-rmYBT6l37y9wlWi33-P0OZA0OCwUqTfpA7jbNoWp1*RkXy6n-MrE1ZMKItpXIkQR0QkuL0eTRm7F8doEEexjn4xoJ-RONmoQEIAeRBj8xLE*rS9DC2A5");
         startActivity(intent);
-                mUserInfoLoader.getUserSigFromServer(sdkAppId, roomId, userId, "12345678", new TRTCGetUserIDAndUserSig.IGetUserSigListener() {
-                    @Override
-                    public void onComplete(String userSig, String errMsg) {
-                        if (!TextUtils.isEmpty(userSig)) {
-                            intent.putExtra("sdkAppId", finalSdkAppId);
-                            intent.putExtra("userSig", userSig);
-//                            saveUserInfo(String.valueOf(roomId), userId, userSig);
-                            startActivity(intent);
-                        } else {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(DoctorDetailActivity.this, "从服务器获取userSig失败", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    }
-                });
 
-        }
+
+//                mUserInfoLoader.getUserSigFromServer(finalSdkAppId, roomId, userId, "12345678", new TRTCGetUserIDAndUserSig.IGetUserSigListener() {
+//                    @Override
+//                    public void onComplete(String userSig, String errMsg) {
+//                        if (!TextUtils.isEmpty(userSig)) {
+//                            intent.putExtra("sdkAppId", finalSdkAppId);
+//                            intent.putExtra("userSig", userSig);
+////                            saveUserInfo(String.valueOf(roomId), userId, userSig);
+//                            startActivity(intent);
+//                        } else {
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    Toast.makeText(DoctorDetailActivity.this, "从服务器获取userSig失败", Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+//                        }
+//                    }
+//                });
+
     }
+}
 
 
 

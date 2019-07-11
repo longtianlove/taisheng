@@ -69,4 +69,6 @@ dependencies {
     compile files('libs/MiPush_SDK_Client_3_6_18.jar')
     //首先引入gson库
     compile 'com.google.code.gson:gson:2.8.1'
+
+    compile 'com.android.support:recyclerview-v7:24.2.1'
 }

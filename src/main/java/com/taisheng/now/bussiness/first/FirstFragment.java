@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +42,7 @@ import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.SPUtil;
+import com.taisheng.now.view.DividerItemDecoration;
 import com.taisheng.now.view.DoctorLabelWrapLayout;
 import com.taisheng.now.view.GuideView;
 import com.taisheng.now.view.HorizontalListView;
@@ -72,12 +75,13 @@ public class FirstFragment extends BaseFragment {
     private FrameLayout bannerContaner;
     BannerViewPager bannerViewPager;
     private View bannerView;
-    ViewPager vp_zhuanjia;
-    DoctorPagerAdapter doctorPagerAdapter;
 
 
-    HorizontalListView hl_zhuanjia;
-    HorizontalListViewAdapter horizontalListViewAdapter;
+
+
+//    HorizontalListViewAdapter horizontalListViewAdapter;
+
+    ZhuanjiaAdapter zhuanjiaAdapter;
 
     TextView tv_doctor_more;
     TextView tv_secret_more;
@@ -212,14 +216,24 @@ public class FirstFragment extends BaseFragment {
         });
         bannerContaner.addView(bannerView);
 
-        vp_zhuanjia = (ViewPager) rootView.findViewById(R.id.vp_zhuanjia);
-        doctorPagerAdapter = new DoctorPagerAdapter();
-        vp_zhuanjia.setAdapter(doctorPagerAdapter);
 
 
-        hl_zhuanjia = (HorizontalListView) rootView.findViewById(R.id.hl_zhuanjia);
-        horizontalListViewAdapter = new HorizontalListViewAdapter();
-        hl_zhuanjia.setAdapter(horizontalListViewAdapter);
+
+//        hl_zhuanjia = (HorizontalListView) rootView.findViewById(R.id.hl_zhuanjia);
+//        horizontalListViewAdapter = new HorizontalListViewAdapter();
+//        hl_zhuanjia.setAdapter(horizontalListViewAdapter);
+
+        RecyclerView recyclerView = (RecyclerView)rootView.findViewById(R.id.rv_zhuanjia);
+
+        LinearLayoutManager layout = new LinearLayoutManager(mActivity);
+        layout.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
+        recyclerView.setLayoutManager(layout);
+//        //添加Android自带的分割线
+//        recyclerView.addItemDecoration(new DividerItemDecoration());
+
+        zhuanjiaAdapter = new ZhuanjiaAdapter();
+        recyclerView.setAdapter(zhuanjiaAdapter);
+
 
 
         tv_doctor_more = (TextView) rootView.findViewById(R.id.tv_doctor_more);
@@ -299,8 +313,8 @@ public class FirstFragment extends BaseFragment {
                 DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-                        horizontalListViewAdapter.doctors = message.result.records;
-                        horizontalListViewAdapter.notifyDataSetChanged();
+                        zhuanjiaAdapter.doctors = message.result.records;
+                        zhuanjiaAdapter.notifyDataSetChanged();
                         break;
                 }
 
@@ -315,51 +329,20 @@ public class FirstFragment extends BaseFragment {
     }
 
 
-    public class HorizontalListViewAdapter extends BaseAdapter {
+    public class ZhuanjiaAdapter extends RecyclerView.Adapter<ZhuanjiaAdapter.ViewHolder>{
+
         public List<DoctorBean> doctors;
 
-
         @Override
-        public int getCount() {
-            if (doctors == null) {
-                return 0;
-            } else {
-                return doctors.size();
-            }
+        public ZhuanjiaAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_zhuanjia,parent,false);
+            ViewHolder holder = new ViewHolder(view);
+            return holder;
+
         }
 
         @Override
-        public Object getItem(int position) {
-            return doctors.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            Util util = null;
-            // 中间变量
-            final int flag = position;
-            if (convertView == null) {
-                util = new Util();
-                LayoutInflater inflater = LayoutInflater.from(mActivity);
-                convertView = inflater.inflate(R.layout.item_zhuanjia, null);
-                util.ll_all = convertView.findViewById(R.id.ll_all);
-
-                util.sdv_header = (SimpleDraweeView) convertView.findViewById(R.id.sdv_header);
-                util.tv_doctor_name = (TextView) convertView.findViewById(R.id.tv_doctor_name);
-                util.tv_workage = (TextView) convertView.findViewById(R.id.tv_workage);
-                util.dlwl_doctor_label = (DoctorLabelWrapLayout) convertView.findViewById(R.id.dlwl_doctor_label);
-                util.scorestar = (ScoreStar) convertView.findViewById(R.id.scorestar);
-                util.view_label=convertView.findViewById(R.id.view_label);
-                convertView.setTag(util);
-            } else {
-                util = (Util) convertView.getTag();
-            }
+        public void onBindViewHolder(ZhuanjiaAdapter.ViewHolder util, int position) {
             DoctorBean bean = doctors.get(position);
             if(position==(doctors.size()-1)){
                 util.view_label.setVisibility(View.GONE);
@@ -390,9 +373,8 @@ public class FirstFragment extends BaseFragment {
             if (bean.score != null) {
                 util.scorestar.setScore(bean.score);
             }
-
-            return convertView;
         }
+
 
         String getWorkYear(String fromMedicineTime) {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -411,29 +393,8 @@ public class FirstFragment extends BaseFragment {
 
         }
 
-        class Util {
-            View ll_all;
-            SimpleDraweeView sdv_header;
-            TextView tv_doctor_name;
-            TextView tv_workage;
-            DoctorLabelWrapLayout dlwl_doctor_label;
-            ScoreStar scorestar;
-            View view_label;
-
-        }
-
-    }
-
-    public class DoctorPagerAdapter extends PagerAdapter {
-        public List<DoctorBean> doctors;
-
-        public DoctorPagerAdapter() {
-
-        }
-
         @Override
-        public int getCount() {
-
+        public int getItemCount() {
             if (doctors == null) {
                 return 0;
             } else {
@@ -441,52 +402,139 @@ public class FirstFragment extends BaseFragment {
             }
         }
 
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            // return super.instantiateItem(container, position);
-            DoctorBean bean = doctors.get(position);
-            View allView = mActivity.getLayoutInflater().inflate(R.layout.item_zhuanjia, null);
-//            container.addView(view);
-            SimpleDraweeView sdv_header = (SimpleDraweeView) allView.findViewById(R.id.sdv_header);
-            Uri uri = Uri.parse(bean.avatar);
-            sdv_header.setImageURI(uri);
-
-            TextView tv_doctor_name = (TextView) allView.findViewById(R.id.tv_doctor_name);
-            tv_doctor_name.setText(bean.nickName);
-            TextView tv_workage = (TextView) allView.findViewById(R.id.tv_workage);
-            tv_workage.setText(bean.fromMedicineTime);
-            DoctorLabelWrapLayout dlwl_doctor_label = (DoctorLabelWrapLayout) allView.findViewById(R.id.dlwl_doctor_label);
-            if (bean.goodDiseases != null) {
-                String[] doctorlabel = bean.goodDiseases.split(",");
-                dlwl_doctor_label.setData(doctorlabel, mActivity, 10, 5, 1, 5, 1, 4, 0, 4, 0);
-
+        class  ViewHolder extends RecyclerView.ViewHolder{
+            View ll_all;
+            SimpleDraweeView sdv_header;
+            TextView tv_doctor_name;
+            TextView tv_workage;
+            DoctorLabelWrapLayout dlwl_doctor_label;
+            ScoreStar scorestar;
+            View view_label;
+            public ViewHolder(View view) {
+                super(view);
+                ll_all = view.findViewById(R.id.ll_all);
+                sdv_header = (SimpleDraweeView) view.findViewById(R.id.sdv_header);
+                tv_doctor_name = (TextView) view.findViewById(R.id.tv_doctor_name);
+                tv_workage = (TextView) view.findViewById(R.id.tv_workage);
+                dlwl_doctor_label = (DoctorLabelWrapLayout) view.findViewById(R.id.dlwl_doctor_label);
+                scorestar = (ScoreStar) view.findViewById(R.id.scorestar);
+                view_label=view.findViewById(R.id.view_label);
             }
-            ScoreStar scorestar = (ScoreStar) allView.findViewById(R.id.scorestar);
-            if (bean.score != null) {
-                scorestar.setScore(bean.score);
-            }
-            container.addView(allView);
-            return allView;
         }
 
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            //super.destroyItem(container, position, object);
-//            container.removeView(views.get(position));
-        }
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-            //return super.getPageTitle(position);
-            return "标题" + position;
-        }
     }
+
+//    public class HorizontalListViewAdapter extends BaseAdapter {
+//        public List<DoctorBean> doctors;
+//
+//
+//        @Override
+//        public int getCount() {
+//            if (doctors == null) {
+//                return 0;
+//            } else {
+//                return doctors.size();
+//            }
+//        }
+//
+//        @Override
+//        public Object getItem(int position) {
+//            return doctors.get(position);
+//        }
+//
+//        @Override
+//        public long getItemId(int position) {
+//            return position;
+//        }
+//
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//
+//            Util util = null;
+//            // 中间变量
+//            final int flag = position;
+//            if (convertView == null) {
+//                util = new Util();
+//                LayoutInflater inflater = LayoutInflater.from(mActivity);
+//                convertView = inflater.inflate(R.layout.item_zhuanjia, null);
+//                util.ll_all = convertView.findViewById(R.id.ll_all);
+//
+//                util.sdv_header = (SimpleDraweeView) convertView.findViewById(R.id.sdv_header);
+//                util.tv_doctor_name = (TextView) convertView.findViewById(R.id.tv_doctor_name);
+//                util.tv_workage = (TextView) convertView.findViewById(R.id.tv_workage);
+//                util.dlwl_doctor_label = (DoctorLabelWrapLayout) convertView.findViewById(R.id.dlwl_doctor_label);
+//                util.scorestar = (ScoreStar) convertView.findViewById(R.id.scorestar);
+//                util.view_label=convertView.findViewById(R.id.view_label);
+//                convertView.setTag(util);
+//            } else {
+//                util = (Util) convertView.getTag();
+//            }
+//            DoctorBean bean = doctors.get(position);
+//            if(position==(doctors.size()-1)){
+//                util.view_label.setVisibility(View.GONE);
+//            }else{
+//                util.view_label.setVisibility(View.VISIBLE);
+//
+//            }
+//            util.ll_all.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent=new Intent(mActivity, DoctorDetailActivity.class);
+//                    intent.putExtra("id",bean.id);
+//                    startActivity(intent);
+//                }
+//            });
+//            Uri uri = Uri.parse(bean.avatar);
+//            util.sdv_header.setImageURI(uri);
+//            util.tv_doctor_name.setText(bean.nickName);
+//
+//
+//            util.tv_workage.setText(getWorkYear(bean.fromMedicineTime));
+//            if (bean.goodDiseases != null) {
+//                String[] doctorlabel = bean.goodDiseases.split(",");
+//                util.dlwl_doctor_label.setData(doctorlabel, mActivity, 10, 5, 1, 5, 1, 4, 0, 4, 0);
+//
+//            }
+//
+//            if (bean.score != null) {
+//                util.scorestar.setScore(bean.score);
+//            }
+//
+//            return convertView;
+//        }
+//
+//        String getWorkYear(String fromMedicineTime) {
+//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+////            ParsePosition pos = new ParsePosition(0);
+//            Date strtodate = null;
+//            try {
+//                strtodate = formatter.parse(fromMedicineTime);
+//                Date currentTime = new Date();
+//                return currentTime.getYear() - strtodate.getYear() <= 0 ? "1" : currentTime.getYear() - strtodate.getYear() + "";
+//
+//            } catch (Exception e) {
+//                Log.e("firstfragment-getwork",e.getMessage());
+//                return "1";
+//            }
+//
+//
+//        }
+//
+//        class Util {
+//            View ll_all;
+//            SimpleDraweeView sdv_header;
+//            TextView tv_doctor_name;
+//            TextView tv_workage;
+//            DoctorLabelWrapLayout dlwl_doctor_label;
+//            ScoreStar scorestar;
+//            View view_label;
+//
+//        }
+//
+//    }
+
+
 
     void getHotArticle() {
 

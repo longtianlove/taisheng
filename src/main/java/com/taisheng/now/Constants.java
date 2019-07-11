@@ -95,6 +95,16 @@ public class Constants {
              * 获取所有医生
              */
             public static final String doctorslist="jeecg-boot/app/doctor/list";
+            /**
+             * 获取医生评价
+             */
+            public static final String doctorScoreList="jeecg-boot/app/score/doctorScore/scoreList";
+
+
+            /**
+             * 给医生评分
+             */
+            public static final String doctorScore="jeecg-boot/app/score/doctorScore/add";
 
         }
 

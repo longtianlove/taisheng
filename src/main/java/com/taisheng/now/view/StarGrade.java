@@ -49,6 +49,7 @@ public class StarGrade extends LinearLayout {
     public void setScore(float score) {
 
         int score_int = (int) Math.floor(score);
+        //todo 设置"不错"还是
         tv_score.setText(score + "");
         btn_star1.setEnabled(false);
         btn_star2.setEnabled(false);
@@ -78,6 +79,13 @@ public class StarGrade extends LinearLayout {
                 btn_star4.setEnabled(true);
                 break;
             case 5:
+                btn_star1.setEnabled(true);
+                btn_star2.setEnabled(true);
+                btn_star3.setEnabled(true);
+                btn_star4.setEnabled(true);
+                btn_star5.setEnabled(true);
+                break;
+            default:
                 btn_star1.setEnabled(true);
                 btn_star2.setEnabled(true);
                 btn_star3.setEnabled(true);

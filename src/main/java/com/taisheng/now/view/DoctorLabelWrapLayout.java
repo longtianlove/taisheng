@@ -108,6 +108,9 @@ public class DoctorLabelWrapLayout extends ViewGroup {
             btn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(markClickListener==null){
+                        return;
+                    }
                     markClickListener.clickMark(finalI);
                 }
             });

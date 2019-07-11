@@ -31,8 +31,6 @@ public class WithListViewScrollView extends ScrollView {
     }
 
 
-    private float mDownPosX = 0;
-    private float mDownPosY = 0;
 
 
 

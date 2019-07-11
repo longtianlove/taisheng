@@ -357,6 +357,20 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
         </activity>
+        <activity
+            android:name=".bussiness.doctor.DoctorCommentActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+
+        </activity>
+        <activity
+            android:name=".bussiness.doctor.DoctorCommentSuccessActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+
+        </activity>
     </application>
 
 </manifest>
