@@ -15,12 +15,22 @@ import android.widget.TextView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.MainActivity;
+import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
+import com.taisheng.now.bussiness.bean.result.UserInfo;
 import com.taisheng.now.bussiness.user.LoginActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.SPUtil;
 import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
+
+import org.w3c.dom.Text;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by dragon on 2019/7/1.
@@ -36,7 +46,7 @@ public class FillInMessageActivity extends BaseActivity {
     int sex;
     EditText et_age;
     EditText et_phone;
-//    EditText et_height;
+    //    EditText et_height;
 //    EditText et_weight;
     TextView tv_next;
 
@@ -45,7 +55,10 @@ public class FillInMessageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fillinmessage);
         initView();
+
+        initData();
     }
+
 
     void initView() {
         tv_next = (TextView) findViewById(R.id.tv_next);
@@ -55,6 +68,8 @@ public class FillInMessageActivity extends BaseActivity {
             public void onClick(View v) {
                 if (checkInputsToast()) {
 //todo 更新用户基本信息
+                    modifyuser();
+
                 }
             }
         });
@@ -179,8 +194,60 @@ public class FillInMessageActivity extends BaseActivity {
 //        });
 
 
+    }
+
+    void initData() {
+
 
     }
+
+    void modifyuser() {
+        UserInfoPostBean bean = new UserInfoPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.sysUser = new UserInfo();
+        bean.sysUser.id = UserInstance.getInstance().getUid();
+        bean.sysUser.token = UserInstance.getInstance().getToken();
+
+        bean.sysUser.age = et_age.getText().toString();
+        bean.sysUser.phone = et_phone.getText().toString();
+        bean.sysUser.realName = et_realname.getText().toString();
+        bean.sysUser.sex = sex;
+
+        ApiUtils.getApiService().modifyuser(bean).enqueue(new TaiShengCallback<BaseBean>() {
+            @Override
+            public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        UserInstance.getInstance().userInfo.age = bean.sysUser.age;
+                        SPUtil.putAge(UserInstance.getInstance().userInfo.age);
+                        UserInstance.getInstance().userInfo.phone = bean.sysUser.phone;
+                        SPUtil.putPhone(UserInstance.getInstance().userInfo.phone);
+                        UserInstance.getInstance().userInfo.realName = bean.sysUser.realName;
+                        SPUtil.putRealname(UserInstance.getInstance().userInfo.realName);
+                        UserInstance.getInstance().userInfo.sex = bean.sysUser.sex;
+                        SPUtil.putSex(UserInstance.getInstance().userInfo.sex);
+                        Intent intent;
+                        if (TextUtils.isEmpty(SPUtil.getHEIGHT())) {
+                            intent = new Intent(FillInMessageActivity.this, FillInMessageSecondActivity.class);
+                        } else {
+                            intent = new Intent(FillInMessageActivity.this, MainActivity.class);
+                        }
+                        startActivity(intent);
+                        finish();
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean> call, Throwable t) {
+
+            }
+        });
+
+    }
+
     boolean checkInputs() {
         tv_next.setEnabled(false);
         if (TextUtils.isEmpty(et_realname.getText())) {
@@ -201,6 +268,7 @@ public class FillInMessageActivity extends BaseActivity {
         tv_next.setEnabled(true);
         return true;
     }
+
     boolean checkInputsToast() {
         tv_next.setEnabled(false);
         if (TextUtils.isEmpty(et_realname.getText())) {

@@ -284,14 +284,7 @@
             android:windowSoftInputMode="stateHidden|adjustResize">
 
         </activity>
-        <activity
-            android:name="com.taisheng.now.bussiness.doctor.ShipinActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
-        </activity>
         <activity
             android:name="com.taisheng.now.shipin.TRTCMainActivity"
             android:configChanges="keyboardHidden|orientation"

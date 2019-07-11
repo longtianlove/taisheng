@@ -152,7 +152,6 @@ public class HealthQuestionActivity extends BaseActivity {
             if (position < records.size()) {
 
             } else {
-                //todo 提交答案跳转页面
                 answersResult = answersResult.substring(0, answersResult.length() - 1);
                 AnswerPostBean bean = new AnswerPostBean();
                 bean.userId = UserInstance.getInstance().getUid();
@@ -208,6 +207,9 @@ public class HealthQuestionActivity extends BaseActivity {
                         records = allBean.records;
 
 
+                        if (records == null || records.size() == 0) {
+                            //todo 数据为空
+                        }
                         if (position < records.size()) {
                             updateView();
                         } else {

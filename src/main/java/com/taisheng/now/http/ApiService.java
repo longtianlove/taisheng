@@ -14,6 +14,7 @@ import com.taisheng.now.bussiness.bean.post.GuanzhuPostBean;
 import com.taisheng.now.bussiness.bean.post.HealthCheckListPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
+import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
 import com.taisheng.now.bussiness.bean.result.AnswerResultBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.bussiness.bean.result.ArticleContentBean;
@@ -57,8 +58,16 @@ public interface ApiService {
     @POST(Constants.Url.User.appAcquireVerifyCode)
     Call<BaseBean> appAcquireVerifyCode(@Body CaptchaPostBean loginPostBean);
 
+    /**
+     * 更新用户信息
+     */
+    @POST(Constants.Url.User.modifyuser)
+    Call<BaseBean> modifyuser(@Body UserInfoPostBean bean);
+
+
     //获取热门文章
     @POST(Constants.Url.Article.hotSearchArticle)
+
     Call<BaseBean<HotResultBean>> hotSearchArticle(@Body HotPostBean hotPostBean);
 
     //获取文章列表

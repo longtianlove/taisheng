@@ -39,6 +39,10 @@ public class UserInstance {
             userInstance.userInfo.nickName = SPUtil.getNickname();
             userInstance.userInfo.phone = SPUtil.getPhone();
             userInstance.userInfo.userName = SPUtil.getZhanghao();
+            userInstance.userInfo.realName = SPUtil.getRealname();
+            userInstance.userInfo.age = SPUtil.getAge();
+            userInstance.userInfo.sex = SPUtil.getSex();
+            userInstance.userInfo.height = SPUtil.getHEIGHT();
 
         }
         return userInstance;
@@ -126,6 +130,14 @@ public class UserInstance {
         SPUtil.putPhone("");
         this.userInfo.userName = "";
         SPUtil.putZhanghao("");
+        this.userInfo.realName = "";
+        SPUtil.putRealname("");
+        this.userInfo.age = "";
+        SPUtil.putAge("");
+        this.userInfo.sex = 0;
+        SPUtil.putSex(0);
+        this.userInfo.height = "";
+        SPUtil.putHEIGHT("");
 
 
     }
@@ -137,7 +149,10 @@ public class UserInstance {
         SPUtil.putNickname(userInfo.nickName);
         SPUtil.putPhone(userInfo.phone);
         SPUtil.putZhanghao(userInfo.userName);
-
+        SPUtil.putRealname(userInfo.realName);
+        SPUtil.putAge(userInfo.age);
+        SPUtil.putSex(userInfo.sex);
+        SPUtil.putHEIGHT(userInfo.height);
     }
 
     public String getUid() {
@@ -158,6 +173,18 @@ public class UserInstance {
 
     public String getZhanghao() {
         return userInfo.userName;
+    }
+
+    public String getRealname() {
+        return userInfo.realName;
+    }
+
+    public String getAge() {
+        return userInfo.age;
+    }
+
+    public String getHeight() {
+        return userInfo.height;
     }
 
 }

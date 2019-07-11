@@ -60,6 +60,11 @@ public class Constants {
              * 上传头像
              */
             public static final String uploadImage = "jeecg-boot/sys/common/uploadImage";
+
+            /**
+             * 更新用户信息
+             */
+            public static final String modifyuser = "jeecg-boot/app/user/modifyuser";
         }
 
         //文章
@@ -87,6 +92,8 @@ public class Constants {
 
         //医生
         public static class Doctor {
+
+
             /**
              * 获取推荐医生
              */
@@ -118,6 +125,7 @@ public class Constants {
             public static final String collectionaddOrRemove = "jeecg-boot/app/collection/addOrRemove";
 
         }
+
 
         //测评
         public static class CePing {

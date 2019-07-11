@@ -11,6 +11,7 @@ import com.taisheng.now.R;
 import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.bussiness.me.FillInMessageActivity;
+import com.taisheng.now.bussiness.me.FillInMessageSecondActivity;
 import com.taisheng.now.bussiness.user.LoginActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.push.XMPushManagerInstance;
@@ -21,6 +22,7 @@ import com.xiaomi.mipush.sdk.MiPushClient;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.w3c.dom.Text;
 
 
 /**
@@ -51,6 +53,40 @@ public class SplashActivity extends BaseActivity {
                 public void run() {
                     Intent intent = new Intent();
                     intent.setClass(SplashActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }, 1000);
+        } else if(TextUtils.isEmpty(SPUtil.getRealname())){
+            SampleAppLike.mainHandler = new Handler(getMainLooper());
+            SampleAppLike.mainHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+//            SPUtil.putAPP_VERSION(Apputil.getVersionCode() + "");
+//            EventBus.getDefault().register(this);
+//            //获取基本信息
+//            UserInstance.getInstance().getUserInfo();
+                    MiPushClient.registerPush(SampleAppLike.mcontext, XMPushManagerInstance.APP_ID, XMPushManagerInstance.APP_KEY);
+                    SPUtil.putAPP_VERSION(Apputil.getVersionCode() + "");
+                    Intent intent = new Intent();
+                    intent.setClass(SplashActivity.this, FillInMessageActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }, 1000);
+        }else if(TextUtils.isEmpty(SPUtil.getHEIGHT())){
+            SampleAppLike.mainHandler = new Handler(getMainLooper());
+            SampleAppLike.mainHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+//            SPUtil.putAPP_VERSION(Apputil.getVersionCode() + "");
+//            EventBus.getDefault().register(this);
+//            //获取基本信息
+//            UserInstance.getInstance().getUserInfo();
+                    MiPushClient.registerPush(SampleAppLike.mcontext, XMPushManagerInstance.APP_ID, XMPushManagerInstance.APP_KEY);
+                    SPUtil.putAPP_VERSION(Apputil.getVersionCode() + "");
+                    Intent intent = new Intent();
+                    intent.setClass(SplashActivity.this, FillInMessageSecondActivity.class);
                     startActivity(intent);
                     finish();
                 }

@@ -32,13 +32,21 @@ public class SPUtil {
     //uid
     public static final String UID = "uid";
     //token
-    public static final String TOKEN="token";
+    public static final String TOKEN = "token";
+    //realname
+    public static final String REALNAME = "realname";
+    //年龄
+    public static final String AGE = "age";
+    //性别
+    public static final String SEX = "sex";
+    //身高
+    public static final String HEIGHT = "height";
     //nickname
-    public static final String NICKNAME="nickname";
+    public static final String NICKNAME = "nickname";
     //手机号
-    public static final String PHONE="phone";
+    public static final String PHONE = "phone";
     //账号
-    public static final String ZHANGHAO="zhanghao";
+    public static final String ZHANGHAO = "zhanghao";
 
     //是否跳过用户信息
     public static final String SKIP = "skip";
@@ -47,7 +55,6 @@ public class SPUtil {
 
     //历史搜索
     public static final String HISTORY_SEARCH = "history_search";
-
 
 
     public static boolean getGUIDE() {
@@ -67,32 +74,70 @@ public class SPUtil {
         putBoolean(SKIP, value);
     }
 
-    public static String getToken(){
+    public static String getToken() {
         return getString(TOKEN);
     }
-    public static void putToken(String value){
-        putString(TOKEN,value);
+
+    public static void putToken(String value) {
+        putString(TOKEN, value);
     }
 
-    public static String getNickname(){
+    public static String getNickname() {
         return getString(NICKNAME);
     }
-    public static void putNickname(String value){
-        putString(NICKNAME,value);
+
+    public static void putNickname(String value) {
+        putString(NICKNAME, value);
     }
 
-    public static String getPhone(){
+    public static String getRealname() {
+        return getString(REALNAME);
+    }
+
+    public static void putRealname(String value) {
+        putString(REALNAME, value);
+    }
+
+    public static String getAge() {
+        return getString(AGE);
+    }
+
+    public static void putAge(String age) {
+        putString(AGE, age);
+    }
+
+    public static int getSex() {
+        return getInt(SEX);
+    }
+
+    public static void putSex(int sex) {
+        putInt(SEX, sex);
+    }
+
+    public static String getHEIGHT() {
+        return getString(HEIGHT);
+    }
+
+    public static void putHEIGHT(String value) {
+        putString(HEIGHT, value);
+    }
+
+    public static String getPhone() {
         return getString(PHONE);
     }
-    public static void putPhone(String value){
-        putString(PHONE,value);
+
+    public static void putPhone(String value) {
+        putString(PHONE, value);
     }
-    public static String getZhanghao(){
+
+    public static String getZhanghao() {
         return getString(ZHANGHAO);
     }
-    public static void putZhanghao(String value){
-        putString(ZHANGHAO,value);
+
+    public static void putZhanghao(String value) {
+        putString(ZHANGHAO, value);
     }
+
     public static String getUid() {
         return getString(UID);
     }
@@ -110,11 +155,12 @@ public class SPUtil {
         putString(APP_VERSION, value);
     }
 
-    public static ArrayList<String> getHistorySearch(){
+    public static ArrayList<String> getHistorySearch() {
         return getList(HISTORY_SEARCH);
     }
-    public static void putHistorySearch(ArrayList<String> history){
-        putList(HISTORY_SEARCH,history);
+
+    public static void putHistorySearch(ArrayList<String> history) {
+        putList(HISTORY_SEARCH, history);
     }
 
 
@@ -258,7 +304,8 @@ public class SPUtil {
         String data = gson.toJson(list);
         putString(key, data);
     }
-    private static ArrayList getList(String key){
+
+    private static ArrayList getList(String key) {
         String data = getString(key, "");
         Gson gson = new Gson();
         Type listType = new TypeToken<List<String>>() {
