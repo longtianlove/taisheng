@@ -2,6 +2,7 @@ package com.taisheng.now.bussiness.article;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import com.taisheng.now.bussiness.bean.post.ArticleContentPostBean;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
+import com.zzhoujay.richtext.RichText;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -90,6 +92,10 @@ public class ArticleContentActivity extends BaseActivity {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         tv_content.setText(message.result.content);
+                        if(message.result.content!=null) {
+                            tv_content.setMovementMethod(LinkMovementMethod.getInstance());
+                            RichText.fromHtml(message.result.content).into(tv_content);
+                        }
                         collectionFlag=message.result.collectionFlag;
                         if("YES".equals(message.result.collectionFlag)){
                             tv_collect.setEnabled(true);

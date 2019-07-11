@@ -10,6 +10,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ import com.taisheng.now.view.HorizontalListView;
 import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.WithScrolleViewListView;
 import com.taisheng.now.view.banner.BannerViewPager;
+import com.zzhoujay.richtext.RichText;
 
 import java.text.ParseException;
 import java.text.ParsePosition;
@@ -653,7 +655,21 @@ public class FirstFragment extends BaseFragment {
                 util.sdv_article.setImageURI(uri);
             }
             util.tv_title.setText(bean.title);
-            util.tv_content.setText(bean.content);
+//            util.tv_content.setText(bean.content);
+            if(bean.content!=null) {
+                util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
+                RichText.fromHtml(bean.content).into(util.tv_content);
+                util.tv_content.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mActivity, ArticleContentActivity.class);
+                        intent.putExtra("articleId", bean.id);
+                        startActivity(intent);
+                    }
+                });
+            }
+
+
             util.tv_typename.setText(bean.typeName);
             util.tv_createtime.setText(bean.createTime);
 

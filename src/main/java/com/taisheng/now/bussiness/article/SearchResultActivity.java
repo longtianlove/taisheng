@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.view.TaishengListView;
+import com.zzhoujay.richtext.RichText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -204,7 +206,13 @@ public class SearchResultActivity extends BaseActivity {
                 util.sdv_article.setImageURI(uri);
             }
             util.tv_title.setText(bean.title);
-            util.tv_content.setText(bean.content);
+            if(bean.content!=null) {
+                util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
+                RichText.fromHtml(bean.content).into(util.tv_content);
+                Intent intent = new Intent(SearchResultActivity.this, ArticleContentActivity.class);
+                intent.putExtra("articleId", bean.id);
+                startActivity(intent);
+            }
             util.tv_typename.setText(bean.typeName);
             util.tv_createtime.setText(bean.createTime);
 
