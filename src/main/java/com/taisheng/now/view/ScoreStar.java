@@ -47,6 +47,9 @@ public class ScoreStar extends LinearLayout {
 
 
     public void setScore(String score) {
+        if(score==null){
+            return;
+        }
         float d= Float.parseFloat(score);
         int score_int = (int) Math.floor(d);
         tv_score.setText(score + "");

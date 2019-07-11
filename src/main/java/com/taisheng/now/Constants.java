@@ -94,17 +94,28 @@ public class Constants {
             /**
              * 获取所有医生
              */
-            public static final String doctorslist="jeecg-boot/app/doctor/list";
+            public static final String doctorslist = "jeecg-boot/app/doctor/list";
             /**
              * 获取医生评价
              */
-            public static final String doctorScoreList="jeecg-boot/app/score/doctorScore/scoreList";
+            public static final String doctorScoreList = "jeecg-boot/app/score/doctorScore/scoreList";
 
 
             /**
              * 给医生评分
              */
-            public static final String doctorScore="jeecg-boot/app/score/doctorScore/add";
+            public static final String doctorScore = "jeecg-boot/app/score/doctorScore/add";
+
+            //统计被评价总数
+            public static final String getBeCommentedNum = "jeecg-boot/app/doctor/getBeCommentedNum";
+
+            //文章被/医生关注（收藏）总数
+            public static final String getBeDoctorAttentionNum = "jeecg-boot/app/doctor/getBeDoctorAttentionNum";
+            //医生服务总数
+            public static final String getDoctorServerNum = "jeecg-boot/app/doctor/getDoctorServerNum";
+
+            //收藏/取消收藏
+            public static final String collectionaddOrRemove = "jeecg-boot/app/collection/addOrRemove";
 
         }
 

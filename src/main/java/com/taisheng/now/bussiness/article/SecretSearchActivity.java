@@ -148,6 +148,9 @@ public class SecretSearchActivity extends BaseActivity {
             public void onSuccess(Response<BaseBean<HotResultBean>> response, BaseBean<HotResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
+                        if(message.result==null){
+                            return;
+                        }
                         madapter.mData = message.result.list;
                         madapter.notifyDataSetChanged();
                         break;

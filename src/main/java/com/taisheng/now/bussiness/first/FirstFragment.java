@@ -354,7 +354,13 @@ public class FirstFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(mActivity, DoctorDetailActivity.class);
-                    intent.putExtra("id",bean.id);
+                    intent.putExtra("id", bean.id);
+                    intent.putExtra("nickName",bean.nickName);
+                    intent.putExtra("title",bean.title);
+                    intent.putExtra("fromMedicineTime",bean.fromMedicineTime);
+                    intent.putExtra("jobIntroduction",bean.jobIntroduction);
+                    intent.putExtra("score",bean.score);
+                    intent.putExtra("goodDiseases",bean.goodDiseases);
                     startActivity(intent);
                 }
             });

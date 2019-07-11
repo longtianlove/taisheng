@@ -61,24 +61,32 @@ public class StarGrade extends LinearLayout {
 
                 break;
             case 1:
+                tv_score.setText("非常差");
                 btn_star1.setEnabled(true);
                 break;
             case 2:
+                tv_score.setText("差");
+
                 btn_star1.setEnabled(true);
                 btn_star2.setEnabled(true);
                 break;
             case 3:
+                tv_score.setText("一般");
                 btn_star1.setEnabled(true);
                 btn_star2.setEnabled(true);
                 btn_star3.setEnabled(true);
                 break;
             case 4:
+                tv_score.setText("好");
+
                 btn_star1.setEnabled(true);
                 btn_star2.setEnabled(true);
                 btn_star3.setEnabled(true);
                 btn_star4.setEnabled(true);
                 break;
             case 5:
+                tv_score.setText("非常好");
+
                 btn_star1.setEnabled(true);
                 btn_star2.setEnabled(true);
                 btn_star3.setEnabled(true);
@@ -86,6 +94,7 @@ public class StarGrade extends LinearLayout {
                 btn_star5.setEnabled(true);
                 break;
             default:
+                tv_score.setText("非常好");
                 btn_star1.setEnabled(true);
                 btn_star2.setEnabled(true);
                 btn_star3.setEnabled(true);

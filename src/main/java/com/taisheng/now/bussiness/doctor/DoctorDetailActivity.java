@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,23 +23,33 @@ import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.article.ArticleContentActivity;
 import com.taisheng.now.bussiness.article.SearchResultActivity;
+import com.taisheng.now.bussiness.bean.post.CollectPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorCommentPostBean;
+import com.taisheng.now.bussiness.bean.post.DoctorNumberPostBean;
+import com.taisheng.now.bussiness.bean.post.GuanzhuPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
+import com.taisheng.now.bussiness.bean.result.CollectResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentResultBean;
+import com.taisheng.now.bussiness.bean.result.DoctorNumberResultBean;
 import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.http.ApiService;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.shipin.TRTCGetUserIDAndUserSig;
 import com.taisheng.now.shipin.TRTCMainActivity;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.DoubleClickUtil;
+import com.taisheng.now.view.DoctorLabelWrapLayout;
+import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.StarGrade;
 import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
 import com.tencent.trtc.TRTCCloudDef;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -50,10 +61,30 @@ import retrofit2.Response;
 
 public class DoctorDetailActivity extends Activity {
 
+    View iv_back;
 
+    TextView tv_doctor_name;
+    TextView tv_title;
+    TextView tv_workage;
+    ScoreStar scorestar;
+    TextView tv_jobintroduce;
+    DoctorLabelWrapLayout dlwl_doctor_label;
+
+
+    TextView tv_servicenumber;
+    TextView tv_comment;
+    TextView tv_guanzu;
+
+
+    TextView tv_comment2;
+
+    View ll_collect;
+    TextView tv_collect_label;
+    TextView tv_collect_show;
     View ll_zixun;
     TaishengListView lv_comments;
     DoctorCommentAdapter madapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,8 +114,31 @@ public class DoctorDetailActivity extends Activity {
     }
 
     void initView() {
+        iv_back = findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+        tv_doctor_name = (TextView) findViewById(R.id.tv_doctor_name);
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_workage = (TextView) findViewById(R.id.tv_workage);
+        scorestar = (ScoreStar) findViewById(R.id.scorestar);
+
+        tv_jobintroduce = (TextView) findViewById(R.id.tv_jobintroduce);
+        dlwl_doctor_label = (DoctorLabelWrapLayout) findViewById(R.id.dlwl_doctor_label);
+
+        tv_servicenumber = (TextView) findViewById(R.id.tv_servicenumber);
+        tv_comment = (TextView) findViewById(R.id.tv_comment);
+        tv_guanzu = (TextView) findViewById(R.id.tv_guanzu);
+        tv_comment2 = (TextView) findViewById(R.id.tv_comment2);
+
         lv_comments = (TaishengListView) findViewById(R.id.lv_comments);
-        madapter=new DoctorCommentAdapter(this);
+        madapter = new DoctorCommentAdapter(this);
         lv_comments.setAdapter(madapter);
         lv_comments.setOnUpLoadListener(new TaishengListView.OnUpLoadListener() {
             @Override
@@ -94,6 +148,44 @@ public class DoctorDetailActivity extends Activity {
         });
 
 
+        ll_collect = findViewById(R.id.ll_collect);
+        ll_collect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (DoubleClickUtil.isFastMiniDoubleClick()) {
+                    return;
+                }
+                CollectPostBean bean = new CollectPostBean();
+                bean.userId = UserInstance.getInstance().getUid();
+                bean.token = UserInstance.getInstance().getToken();
+                bean.collectionType = "1";
+                bean.dataId = doctorId;
+                ApiUtils.getApiService().collectionaddOrRemove(bean).enqueue(new TaiShengCallback<BaseBean<CollectResultBean>>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean<CollectResultBean>> response, BaseBean<CollectResultBean> message) {
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+                                String resultFeedback = message.result.resultFeedback;
+                                if ("0".equals(resultFeedback)) {
+                                    tv_collect_label.setEnabled(false);
+                                    tv_collect_show.setText("收藏");
+                                } else {
+                                    tv_collect_label.setEnabled(true);
+                                    tv_collect_show.setText("已收藏");
+                                }
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean<CollectResultBean>> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+        tv_collect_label = (TextView) findViewById(R.id.tv_collect_label);
+        tv_collect_show = (TextView) findViewById(R.id.tv_collect_show);
         ll_zixun = findViewById(R.id.ll_zixun);
         ll_zixun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,28 +221,135 @@ public class DoctorDetailActivity extends Activity {
     }
 
 
-
-
     void initData() {
         Intent intent = getIntent();
         doctorId = intent.getStringExtra("id");
-        PAGE_NO=1;
-        PAGE_SIZE=10;
-        bean=new DoctorCommentPostBean();
+        String nickName = intent.getStringExtra("nickName");
+        tv_doctor_name.setText(nickName);
+        String title = intent.getStringExtra("title");
+        tv_title.setText(title);
+        String fromMedicineTime = intent.getStringExtra("fromMedicineTime");
+        tv_workage.setText(getWorkYear(fromMedicineTime));
+        String jobIntroduction = intent.getStringExtra("jobIntroduction");
+        tv_jobintroduce.setText(jobIntroduction);
+
+        String goodDiseases = intent.getStringExtra("goodDiseases");
+        if (goodDiseases != null) {
+            String[] doctorlabel = goodDiseases.split(",");
+            dlwl_doctor_label.setData(doctorlabel, DoctorDetailActivity.this, 10, 5, 1, 5, 1, 4, 0, 4, 0);
+        }
+        String score = intent.getStringExtra("score");
+        scorestar.setScore(score);
+
+
+        PAGE_NO = 1;
+        PAGE_SIZE = 10;
+        bean = new DoctorCommentPostBean();
         getDoctorComment();
+        getServiceNumber();
+        getBeCommentedNum();
+        getBeDoctorAttentionNum();
+    }
+
+    String getWorkYear(String fromMedicineTime) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            ParsePosition pos = new ParsePosition(0);
+        Date strtodate = null;
+        try {
+            strtodate = formatter.parse(fromMedicineTime);
+            Date currentTime = new Date();
+            return currentTime.getYear() - strtodate.getYear() <= 0 ? "1" : currentTime.getYear() - strtodate.getYear() + "";
+
+        } catch (Exception e) {
+            Log.e("firstfragment-getwork", e.getMessage());
+            return "1";
+        }
+
+
+    }
+
+
+    void getServiceNumber() {
+        DoctorNumberPostBean bean = new DoctorNumberPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.id = doctorId;
+        ApiUtils.getApiService().getDoctorServerNum(bean).enqueue(new TaiShengCallback<BaseBean<DoctorNumberResultBean>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<DoctorNumberResultBean>> response, BaseBean<DoctorNumberResultBean> message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        tv_servicenumber.setText(message.result.countNum + "");
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<DoctorNumberResultBean>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    void getBeCommentedNum() {
+        DoctorNumberPostBean bean = new DoctorNumberPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.id = doctorId;
+        ApiUtils.getApiService().getBeCommentedNum(bean).enqueue(new TaiShengCallback<BaseBean<DoctorNumberResultBean>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<DoctorNumberResultBean>> response, BaseBean<DoctorNumberResultBean> message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        tv_comment.setText(message.result.countNum + "");
+                        tv_comment2.setText(message.result.countNum + "");
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<DoctorNumberResultBean>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    void getBeDoctorAttentionNum() {
+        GuanzhuPostBean bean = new GuanzhuPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.dataId = doctorId;
+        bean.collectionType = "1";
+        ApiUtils.getApiService().getBeDoctorAttentionNum(bean).enqueue(new TaiShengCallback<BaseBean<DoctorNumberResultBean>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<DoctorNumberResultBean>> response, BaseBean<DoctorNumberResultBean> message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        tv_guanzu.setText(message.result.countNum + "");
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<DoctorNumberResultBean>> call, Throwable t) {
+
+            }
+        });
+
     }
 
     DoctorCommentPostBean bean;
     String doctorId;
-    int PAGE_NO=1;
-    int PAGE_SIZE=10;
+    int PAGE_NO = 1;
+    int PAGE_SIZE = 10;
 
-    void getDoctorComment(){
-        bean.pageNo=PAGE_NO;
-        bean.pageSize=PAGE_SIZE;
-        bean.token= UserInstance.getInstance().getToken();
-        bean.userId=UserInstance.getInstance().getUid();
-        bean.doctorId=doctorId;
+
+    void getDoctorComment() {
+        bean.pageNo = PAGE_NO;
+        bean.pageSize = PAGE_SIZE;
+        bean.token = UserInstance.getInstance().getToken();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.doctorId = doctorId;
         DialogUtil.showProgress(this, "");
         ApiUtils.getApiService().doctorScoreList(bean).enqueue(new TaiShengCallback<BaseBean<DoctorCommentResultBean>>() {
             @Override
@@ -159,19 +358,22 @@ public class DoctorDetailActivity extends Activity {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
 
-                        if(message.result.records!=null&&message.result.records.size()>0) {
+                        if (message.result == null) {
+                            return;
+                        }
+                        if (message.result.records != null && message.result.records.size() > 0) {
                             //有消息
                             PAGE_NO++;
                             madapter.mData.addAll(message.result.records);
-                            if(message.result.records.size()<10){
+                            if (message.result.records.size() < 10) {
                                 lv_comments.setHasLoadMore(false);
                                 lv_comments.setLoadAllViewText("暂时只有这么多评论");
                                 lv_comments.setLoadAllFooterVisible(true);
-                            }else{
+                            } else {
                                 lv_comments.setHasLoadMore(true);
                             }
                             madapter.notifyDataSetChanged();
-                        }else{
+                        } else {
                             //没有消息
                             lv_comments.setHasLoadMore(false);
                             lv_comments.setLoadAllViewText("暂时只有这么多评论");

@@ -13,7 +13,9 @@
 
         <com.taisheng.now.view.WithListViewScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -114,6 +116,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_servicenumber"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -139,6 +142,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_comment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -164,6 +168,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_guanzu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -231,6 +236,7 @@
                         android:background="#EEEEEE" />
 
                     <TextView
+                        android:id="@+id/tv_jobintroduce"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="9dp"
@@ -284,7 +290,7 @@
                         android:id="@+id/dlwl_doctor_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginLeft="12dp"
                         android:gravity="center"></com.taisheng.now.view.DoctorLabelWrapLayout>
 
                 </LinearLayout>
@@ -336,6 +342,7 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_comment2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="3000"
@@ -355,14 +362,16 @@
                 <com.taisheng.now.view.TaishengListView
                     android:id="@+id/lv_comments"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:listSelector="@android:color/transparent"
                     android:footerDividersEnabled="false"
                     android:headerDividersEnabled="false"
                     android:divider="#EEEEEE"
                     android:dividerHeight="1dp"
-                    android:paddingLeft="21dp"
-                    android:paddingRight="21dp"
+                    android:paddingLeft="9dp"
+
+                    android:scrollbars="none"
+                    android:layout_marginBottom="10dp"
                     android:background="#fff" />
 
             </LinearLayout>
@@ -377,6 +386,7 @@
             android:weightSum="3">
 
             <LinearLayout
+                android:id="@+id/ll_collect"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -385,12 +395,14 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_collect_label"
                     android:layout_width="16dp"
                     android:layout_height="15dp"
                     android:background="@drawable/shoucang_backgrounnd"
                     android:enabled="false"></TextView>
 
                 <TextView
+                    android:id="@+id/tv_collect_show"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
