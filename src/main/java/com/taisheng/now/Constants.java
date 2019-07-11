@@ -65,6 +65,10 @@ public class Constants {
              * 更新用户信息
              */
             public static final String modifyuser = "jeecg-boot/app/user/modifyuser";
+            /**
+             * 更新档案信息
+             */
+            public static final String addOrUpdateHealth="jeecg-boot/app/user/addHealth";
         }
 
         //文章

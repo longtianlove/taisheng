@@ -67,9 +67,7 @@ public class FillInMessageActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (checkInputsToast()) {
-//todo 更新用户基本信息
                     modifyuser();
-
                 }
             }
         });
@@ -158,40 +156,7 @@ public class FillInMessageActivity extends BaseActivity {
             et_phone.setText(UserInstance.getInstance().userInfo.phone);
         }
 
-//        et_height = (EditText) findViewById(R.id.et_height);
-//        et_height.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                checkInputs();
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-//        et_weight = (EditText) findViewById(R.id.et_weight);
-//        et_weight.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                checkInputs();
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
+
 
 
     }

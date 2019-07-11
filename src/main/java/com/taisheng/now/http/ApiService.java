@@ -12,6 +12,7 @@ import com.taisheng.now.bussiness.bean.post.DoctorScorePostBean;
 import com.taisheng.now.bussiness.bean.post.FeedbackPostBean;
 import com.taisheng.now.bussiness.bean.post.GuanzhuPostBean;
 import com.taisheng.now.bussiness.bean.post.HealthCheckListPostBean;
+import com.taisheng.now.bussiness.bean.post.HealthInfoPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
 import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
@@ -64,10 +65,16 @@ public interface ApiService {
     @POST(Constants.Url.User.modifyuser)
     Call<BaseBean> modifyuser(@Body UserInfoPostBean bean);
 
+    /**
+     * 更新档案信息
+  \
+     */
+    @POST(Constants.Url.User.addOrUpdateHealth)
+    Call<BaseBean> addOrUpdateHealth(@Body HealthInfoPostBean bean);
+
 
     //获取热门文章
     @POST(Constants.Url.Article.hotSearchArticle)
-
     Call<BaseBean<HotResultBean>> hotSearchArticle(@Body HotPostBean hotPostBean);
 
     //获取文章列表

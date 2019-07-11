@@ -21,8 +21,10 @@ import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragmentActivity;
 import com.taisheng.now.bussiness.MainActivity;
+import com.taisheng.now.bussiness.SplashActivity;
 import com.taisheng.now.bussiness.bean.post.LoginPostBean;
 import com.taisheng.now.bussiness.me.FillInMessageActivity;
+import com.taisheng.now.bussiness.me.FillInMessageSecondActivity;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.SPUtil;
 
@@ -440,7 +442,9 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
             intent.setClass(LoginActivity.this, MainActivity.class);
         }else if(UserInstance.getInstance().userInfo.realName==null||TextUtils.isEmpty(UserInstance.getInstance().userInfo.realName)){
             intent.setClass(LoginActivity.this, FillInMessageActivity.class);
-        }else{
+        }else if(TextUtils.isEmpty(SPUtil.getHEIGHT())){
+            intent.setClass(LoginActivity.this, FillInMessageSecondActivity.class);
+        } else{
             intent.setClass(LoginActivity.this, MainActivity.class);
         }
         startActivity(intent);
