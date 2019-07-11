@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseFragmentActivity;
+import com.taisheng.now.util.DensityUtil;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
 
 import java.lang.reflect.Field;
@@ -72,7 +73,63 @@ public class HealthCheckHistoryActivity extends BaseFragmentActivity {
 //        ViewCompat.setElevation(tl_tab, 10);
         tl_tab.setupWithViewPager(vp_content);
         changeTabIndicatorWidth(tl_tab,15);
+        reflex(tl_tab);
     }
+
+
+
+    public void reflex(final TabLayout tabLayout){
+        //了解源码得知 线的宽度是根据 tabView的宽度来设置的
+        tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //拿到tabLayout的mTabStrip属性
+                    LinearLayout mTabStrip = (LinearLayout) tabLayout.getChildAt(0);
+
+                    int dp25 = DensityUtil.dip2px(tabLayout.getContext(), 25);
+
+                    for (int i = 0; i < mTabStrip.getChildCount(); i++) {
+                        View tabView = mTabStrip.getChildAt(i);
+
+                        //拿到tabView的mTextView属性  tab的字数不固定一定用反射取mTextView
+                        Field mTextViewField = tabView.getClass().getDeclaredField("mTextView");
+                        mTextViewField.setAccessible(true);
+
+                        TextView mTextView = (TextView) mTextViewField.get(tabView);
+
+                        tabView.setPadding(0, 0, 0, 0);
+
+                        //因为我想要的效果是   字多宽线就多宽，所以测量mTextView的宽度
+                        int width = 0;
+                        width = mTextView.getWidth();
+                        if (width == 0) {
+                            mTextView.measure(0, 0);
+                            width = mTextView.getMeasuredWidth();
+                        }
+
+                        //设置tab左右间距为10dp  注意这里不能使用Padding 因为源码中线的宽度是根据 tabView的宽度来设置的
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
+                        params.width = width ;
+                        params.leftMargin = dp25;
+                        params.rightMargin = dp25;
+                        tabView.setLayoutParams(params);
+
+                        tabView.invalidate();
+                    }
+
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+
+
     /**
      * 改变tablayout指示器的宽度
      *
@@ -130,18 +187,14 @@ public class HealthCheckHistoryActivity extends BaseFragmentActivity {
     ZhongyitizhiFragment zhongyitizhiFragment1;
     ZhongyitizhiFragment zhongyitizhiFragment2;
     ZhongyitizhiFragment zhongyitizhiFragment3;
-    ZhongyitizhiFragment zhongyitizhiFragment4;
-    ZhongyitizhiFragment zhongyitizhiFragment5;
-    ZhongyitizhiFragment zhongyitizhiFragment6;
+
 
     private void initContent(){
         tabIndicators = new ArrayList<>();
         tabIndicators.add("中医体质");
         tabIndicators.add("基础代谢");
         tabIndicators.add("女性健康");
-        tabIndicators.add("心肺功能");
-        tabIndicators.add("腰颈肩背");
-        tabIndicators.add("脾胃肝肾");
+
 //        for (int i = 0; i < 3; i++) {
 //            tabIndicators.add("Tab " + i);
 //        }
@@ -149,15 +202,11 @@ public class HealthCheckHistoryActivity extends BaseFragmentActivity {
         zhongyitizhiFragment1=new ZhongyitizhiFragment();
         zhongyitizhiFragment2=new ZhongyitizhiFragment();
         zhongyitizhiFragment3=new ZhongyitizhiFragment();
-        zhongyitizhiFragment4=new ZhongyitizhiFragment();
-        zhongyitizhiFragment5=new ZhongyitizhiFragment();
-        zhongyitizhiFragment6=new ZhongyitizhiFragment();
+
         tabFragments.add(zhongyitizhiFragment1);
         tabFragments.add(zhongyitizhiFragment2);
         tabFragments.add(zhongyitizhiFragment3);
-        tabFragments.add(zhongyitizhiFragment4);
-        tabFragments.add(zhongyitizhiFragment5);
-        tabFragments.add(zhongyitizhiFragment6);
+
 //        for (String s : tabIndicators) {
 ////            tabFragments.add(TabContentFragment.newInstance(s));
 //        }
@@ -186,5 +235,6 @@ public class HealthCheckHistoryActivity extends BaseFragmentActivity {
         public CharSequence getPageTitle(int position) {
             return tabIndicators.get(position);
         }
+
     }
 }

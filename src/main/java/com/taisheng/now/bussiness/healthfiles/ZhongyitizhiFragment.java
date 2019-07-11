@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragment;
+import com.taisheng.now.view.TaishengListView;
 
 /**
  * Created by dragon on 2019/7/1.
  */
 
 public class ZhongyitizhiFragment extends BaseFragment {
+    TaishengListView lv_history;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -23,6 +25,6 @@ public class ZhongyitizhiFragment extends BaseFragment {
         return rootView;
     }
     void initView(View rootView){
-
+        lv_history= (TaishengListView) rootView.findViewById(R.id.lv_history);
     }
 }

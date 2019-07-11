@@ -19,11 +19,11 @@ public class HealthCheckResultActivity extends BaseActivity {
 
     TextView tv_completeBatch;
 
-    ProgressBar progressBar;
-
     TextView tv_remarks;
 
-    ImageView iv_xinqing;
+    View ll_zixun;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,39 +41,29 @@ public class HealthCheckResultActivity extends BaseActivity {
         });
 
         tv_completeBatch= (TextView) findViewById(R.id.tv_completeBatch);
-        progressBar= (ProgressBar) findViewById(R.id.progressBar);
         tv_remarks= (TextView) findViewById(R.id.tv_remarks);
-        iv_xinqing= (ImageView) findViewById(R.id.iv_xinqing);
+
+        ll_zixun=findViewById(R.id.ll_zixun);
+
+        ll_zixun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     void initData(){
         Intent intent=getIntent();
         String completeBatch=intent.getStringExtra("completeBatch");
         String remarks=intent.getStringExtra("remarks");
-        int score=intent.getIntExtra("score",0);
+//        int score=intent.getIntExtra("score",0);
 
         tv_completeBatch.setText(completeBatch);
         tv_remarks.setText(remarks);
 
-        if(score<=40){
-            iv_xinqing.setImageDrawable(getResources().getDrawable(R.drawable.check_result_ku));
-        }else{
-            iv_xinqing.setImageDrawable(getResources().getDrawable(R.drawable.check_result_weixiao));
-        }
 
-        progressBar.setProgress(score);
-        if(score<=20){
-            progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.myprogressbar20));
-        }else if(score<=40){
-            progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.myprogressbar40));
-        }else if(score<=60){
-            progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.myprogressbar60));
-        }else if(score<=80){
-            progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.myprogressbar80));
-        }else{
-            progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.myprogressbar100));
-
-        }
 
     }
 }

@@ -45,15 +45,6 @@ public class HealthCheckActivity extends BaseActivity {
                     assessmentType="3";
                     break;
 
-                case R.id.btn_xinfeigongneng:
-                    assessmentType="4";
-                    break;
-                case R.id.btn_yaojingjianbei:
-                    assessmentType="5";
-                    break;
-                case R.id.btn_piweiganshen:
-                    assessmentType="6";
-                    break;
             }
 
             intent.putExtra("assessmentType",assessmentType);
@@ -92,12 +83,7 @@ public class HealthCheckActivity extends BaseActivity {
         btn_jichudaixie.setOnClickListener(listener);
         btn_fukejiankang = (TextView) findViewById(R.id.btn_fukejiankang);
         btn_fukejiankang.setOnClickListener(listener);
-        btn_xinfeigongneng = (TextView) findViewById(R.id.btn_xinfeigongneng);
-        btn_xinfeigongneng.setOnClickListener(listener);
-        btn_yaojingjianbei = (TextView) findViewById(R.id.btn_yaojingjianbei);
-        btn_yaojingjianbei.setOnClickListener(listener);
-        btn_piweiganshen = (TextView) findViewById(R.id.btn_piweiganshen);
-        btn_piweiganshen.setOnClickListener(listener);
+
 
 
     }
