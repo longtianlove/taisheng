@@ -36,6 +36,7 @@ public class HealthCheckHistoryActivity extends BaseFragmentActivity {
     private List<String> tabIndicators;
     private List<Fragment> tabFragments;
     private ContentPagerAdapter contentAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +45,9 @@ public class HealthCheckHistoryActivity extends BaseFragmentActivity {
 
         initView();
     }
-    void initView(){
-        iv_back=findViewById(R.id.iv_back);
+
+    void initView() {
+        iv_back = findViewById(R.id.iv_back);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,17 +55,16 @@ public class HealthCheckHistoryActivity extends BaseFragmentActivity {
             }
         });
 
-
-        tl_tab= (TabLayout) findViewById(R.id.tl_tab);
-        vp_content= (ViewPager) findViewById(R.id.vp_content);
+//todo 更新个人信息
+        tl_tab = (TabLayout) findViewById(R.id.tl_tab);
+        vp_content = (ViewPager) findViewById(R.id.vp_content);
         initContent();
         initTab();
 
 
-
-
     }
-    private void initTab(){
+
+    private void initTab() {
         tl_tab.setTabMode(TabLayout.MODE_SCROLLABLE);
         tl_tab.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.SelectedTabIndicatorColor));
         tl_tab.setTabTextColors(ContextCompat.getColor(this, R.color.UnSelectedTextColor), ContextCompat.getColor(this, R.color.SelectedTextColor));
@@ -72,13 +73,12 @@ public class HealthCheckHistoryActivity extends BaseFragmentActivity {
 //        tl_tab.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.white));
 //        ViewCompat.setElevation(tl_tab, 10);
         tl_tab.setupWithViewPager(vp_content);
-        changeTabIndicatorWidth(tl_tab,15);
+        changeTabIndicatorWidth(tl_tab, 15);
         reflex(tl_tab);
     }
 
 
-
-    public void reflex(final TabLayout tabLayout){
+    public void reflex(final TabLayout tabLayout) {
         //了解源码得知 线的宽度是根据 tabView的宽度来设置的
         tabLayout.post(new Runnable() {
             @Override
@@ -110,7 +110,7 @@ public class HealthCheckHistoryActivity extends BaseFragmentActivity {
 
                         //设置tab左右间距为10dp  注意这里不能使用Padding 因为源码中线的宽度是根据 tabView的宽度来设置的
                         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
-                        params.width = width ;
+                        params.width = width;
                         params.leftMargin = dp25;
                         params.rightMargin = dp25;
                         tabView.setLayoutParams(params);
@@ -127,7 +127,6 @@ public class HealthCheckHistoryActivity extends BaseFragmentActivity {
         });
 
     }
-
 
 
     /**
@@ -184,12 +183,13 @@ public class HealthCheckHistoryActivity extends BaseFragmentActivity {
             }
         });
     }
+
     ZhongyitizhiFragment zhongyitizhiFragment1;
     ZhongyitizhiFragment zhongyitizhiFragment2;
     ZhongyitizhiFragment zhongyitizhiFragment3;
 
 
-    private void initContent(){
+    private void initContent() {
         tabIndicators = new ArrayList<>();
         tabIndicators.add("中医体质");
         tabIndicators.add("基础代谢");
@@ -199,9 +199,12 @@ public class HealthCheckHistoryActivity extends BaseFragmentActivity {
 //            tabIndicators.add("Tab " + i);
 //        }
         tabFragments = new ArrayList<>();
-        zhongyitizhiFragment1=new ZhongyitizhiFragment();
-        zhongyitizhiFragment2=new ZhongyitizhiFragment();
-        zhongyitizhiFragment3=new ZhongyitizhiFragment();
+        zhongyitizhiFragment1 = new ZhongyitizhiFragment();
+        zhongyitizhiFragment1.assessmentType = "1";
+        zhongyitizhiFragment2 = new ZhongyitizhiFragment();
+        zhongyitizhiFragment2.assessmentType = "2";
+        zhongyitizhiFragment3 = new ZhongyitizhiFragment();
+        zhongyitizhiFragment3.assessmentType = "3";
 
         tabFragments.add(zhongyitizhiFragment1);
         tabFragments.add(zhongyitizhiFragment2);

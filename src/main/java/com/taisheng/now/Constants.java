@@ -129,6 +129,12 @@ public class Constants {
              * 提交答题结果
              */
             public static final String saveAnswer = "jeecg-boot/app/assessment/saveAnswer";
+
+            /**
+             * 测评历史
+             */
+            public static final String answerRecordList = "jeecg-boot/app/assessment/answerRecordList";
+
         }
 
         /**

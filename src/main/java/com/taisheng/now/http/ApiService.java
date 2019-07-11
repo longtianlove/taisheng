@@ -11,6 +11,7 @@ import com.taisheng.now.bussiness.bean.post.DoctorNumberPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorScorePostBean;
 import com.taisheng.now.bussiness.bean.post.FeedbackPostBean;
 import com.taisheng.now.bussiness.bean.post.GuanzhuPostBean;
+import com.taisheng.now.bussiness.bean.post.HealthCheckListPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
 import com.taisheng.now.bussiness.bean.result.AnswerResultBean;
@@ -21,6 +22,7 @@ import com.taisheng.now.bussiness.bean.post.ArticlePostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleResultBean;
 import com.taisheng.now.bussiness.bean.post.CaptchaPostBean;
 import com.taisheng.now.bussiness.bean.post.HotPostBean;
+import com.taisheng.now.bussiness.bean.result.CheckHistoryResultBean;
 import com.taisheng.now.bussiness.bean.result.CollectResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentResultBean;
@@ -74,6 +76,12 @@ public interface ApiService {
     //提交答题结果
     @POST(Constants.Url.CePing.saveAnswer)
     Call<BaseBean<AnswerResultBean>> saveAnswer(@Body AnswerPostBean bean);
+
+    /**
+     * 测评历史
+     */
+    @POST(Constants.Url.CePing.answerRecordList)
+    Call<BaseBean<CheckHistoryResultBean>> answerRecordList(@Body HealthCheckListPostBean bean);
 
     //首页热度文章
     @POST(Constants.Url.Article.hotArticleList)
