@@ -40,25 +40,25 @@ public class LocationHelper {
 
             @Override
             public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
-                // TODO Auto-generated method stub
+                //  Auto-generated method stub
 
             }
 
             @Override
             public void onProviderEnabled(String arg0) {
-                // TODO Auto-generated method stub
+                // Auto-generated method stub
 
             }
 
             @Override
             public void onProviderDisabled(String arg0) {
-                // TODO Auto-generated method stub
+                // Auto-generated method stub
 
             }
 
             @Override
             public void onLocationChanged(Location arg0) {
-                // TODO Auto-generated method stub
+                // Auto-generated method stub
                 // 更新当前经纬度
             }
         };
@@ -155,7 +155,7 @@ public class LocationHelper {
 
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            // Auto-generated catch block
             Toast.makeText(context, "报错", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
@@ -207,7 +207,7 @@ public class LocationHelper {
 
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            // Auto-generated catch block
             Toast.makeText(context, "报错", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }

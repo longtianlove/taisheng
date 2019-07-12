@@ -57,7 +57,7 @@ public class SplashActivity extends BaseActivity {
                     finish();
                 }
             }, 1000);
-        } else if(TextUtils.isEmpty(SPUtil.getRealname())){
+        } else if (TextUtils.isEmpty(SPUtil.getRealname())) {
             SampleAppLike.mainHandler = new Handler(getMainLooper());
             SampleAppLike.mainHandler.postDelayed(new Runnable() {
                 @Override
@@ -74,7 +74,7 @@ public class SplashActivity extends BaseActivity {
                     finish();
                 }
             }, 1000);
-        }else if(TextUtils.isEmpty(SPUtil.getHEIGHT())){
+        } else if (TextUtils.isEmpty(SPUtil.getHEIGHT())) {
             SampleAppLike.mainHandler = new Handler(getMainLooper());
             SampleAppLike.mainHandler.postDelayed(new Runnable() {
                 @Override
@@ -96,19 +96,11 @@ public class SplashActivity extends BaseActivity {
             SampleAppLike.mainHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//            SPUtil.putAPP_VERSION(Apputil.getVersionCode() + "");
-//            EventBus.getDefault().register(this);
-//            //获取基本信息
-//            UserInstance.getInstance().getUserInfo();
+
                     MiPushClient.registerPush(SampleAppLike.mcontext, XMPushManagerInstance.APP_ID, XMPushManagerInstance.APP_KEY);
                     SPUtil.putAPP_VERSION(Apputil.getVersionCode() + "");
                     Intent intent = new Intent();
-                    //todo 放开注释
-//                    if (UserInstance.getInstance().userInfo.realName == null || TextUtils.isEmpty(UserInstance.getInstance().userInfo.realName)) {
-//                        intent.setClass(SplashActivity.this, FillInMessageActivity.class);
-//                    } else {
-                        intent.setClass(SplashActivity.this, MainActivity.class);
-//                    }
+                    intent.setClass(SplashActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }

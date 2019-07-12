@@ -113,7 +113,7 @@ public class MovieVideoFrameReader extends Thread {
     /**
      * Plays the video track from a movie file to a Surface.
      * <p>
-     * TODO: needs more advanced shuttle controls (pause/resume, skip)
+     *  needs more advanced shuttle controls (pause/resume, skip)
      */
     static private class MoviePlayer {
         private static final String TAG = "MoviePlayer";
@@ -157,7 +157,7 @@ public class MovieVideoFrameReader extends Thread {
             /**
              * Called immediately after the frame render call returns.  The frame may not have
              * actually been rendered yet.
-             * TODO: is this actually useful?
+             *  is this actually useful?
              */
             void postRender();
 
@@ -184,7 +184,7 @@ public class MovieVideoFrameReader extends Thread {
             mFrameCallback = frameCallback;
 
             // Pop the file open and pull out the video characteristics.
-            // TODO: consider leaving the extractor open.  Should be able to just seek back to
+            //  consider leaving the extractor open.  Should be able to just seek back to
             //       the start after each iteration of play.  Need to rearrange the API a bit --
             //       currently play() is taking an all-in-one open+work+release approach.
             MediaExtractor extractor = null;

@@ -436,7 +436,7 @@ public class DoctorDetailActivity extends Activity {
 
             String temp_url = Constants.Url.Host + bean.avatar;
             if (bean.avatar == null || "".equals(bean.avatar)) {
-                //todo 默认头像
+                //todo 默认头像评论人员
                 util.sdv_header.setBackgroundResource(R.drawable.article_default);
 
             } else {
