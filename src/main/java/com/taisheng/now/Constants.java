@@ -10,7 +10,7 @@ public class Constants {
     public final static String BUGLY_APP_ID = "24b876d82d";
     //todo 需要修改
     //腾讯视频appid
-    public final static int SDKAPPID=1400227841;
+    public final static int SDKAPPID = 1400227841;
 
 
     //访问成功
@@ -71,11 +71,11 @@ public class Constants {
             /**
              * 更新档案信息
              */
-            public static final String addOrUpdateHealth="jeecg-boot/app/user/addOrUpdateHealth";
+            public static final String addOrUpdateHealth = "jeecg-boot/app/user/addOrUpdateHealth";
             /**
              * 更新密码
              */
-            public static final String modifypassword="jeecg-boot/app/user/modifypassword";
+            public static final String modifypassword = "jeecg-boot/app/user/modifypassword";
         }
 
         //文章
@@ -136,7 +136,10 @@ public class Constants {
             public static final String collectionaddOrRemove = "jeecg-boot/app/collection/addOrRemove";
 
             //收藏管理
-            public static final String collectionlist="jeecg-boot/app/collection/list";
+            public static final String collectionlist = "jeecg-boot/app/collection/list";
+
+            //咨询记录
+            public static final String consultList = "jeecg-boot/app/consult/consultList";
 
         }
 

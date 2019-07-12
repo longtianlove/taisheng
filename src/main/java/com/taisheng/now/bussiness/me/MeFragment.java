@@ -96,7 +96,8 @@ public class MeFragment extends BaseFragment {
         ll_zixunjilu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo 咨询记录
+                Intent intent = new Intent(mActivity, ZixunjiluActivity.class);
+                startActivity(intent);
             }
         });
 
