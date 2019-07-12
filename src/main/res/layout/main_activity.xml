@@ -15,13 +15,14 @@
             android:layout_height="match_parent" />
 
         <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/ll_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:fitsSystemWindows="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
+
             <ImageButton
                 android:id="@+id/rtc_double_room_back_button"
                 android:layout_width="40dp"
@@ -52,8 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="15dp"
-            android:visibility="gone"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/iv_show_mode"
@@ -170,10 +171,10 @@
             android:id="@+id/layoutFaceBeauty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:layout_above="@id/ll_control"
+            android:layout_gravity="bottom"
             android:clickable="true"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </RelativeLayout>
 
@@ -182,29 +183,29 @@
         android:id="@+id/layout_linkmic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/transparent"
         android:clickable="true"
-        android:visibility="gone"
-        android:background="@android:color/transparent">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:clickable="true"
             android:background="@drawable/shape_round_corner_trtc"
-            android:layout_gravity="center">
+            android:clickable="true"
+            android:orientation="vertical"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:textSize="20dp"
                 android:clickable="true"
-                android:text="跨房通话"/>
+                android:text="跨房通话"
+                android:textSize="20dp" />
 
             <EditText
                 android:id="@+id/edit_room_id"
@@ -213,9 +214,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
+                android:hint="请输入目标房间号"
                 android:singleLine="true"
-                android:textSize="15dp"
-                android:hint="请输入目标房间号"/>
+                android:textSize="15dp" />
 
             <EditText
                 android:id="@+id/edit_user_id"
@@ -224,40 +225,43 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
+                android:hint="请输入目标用户ID"
                 android:singleLine="true"
-                android:textSize="15dp"
-                android:hint="请输入目标用户ID"/>
+                android:textSize="15dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
                     <Button
                         android:id="@+id/btn_confirm"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:textSize="16dp"
-                        android:text="确定"/>
+                        android:text="确定"
+                        android:textSize="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
                     <Button
                         android:id="@+id/btn_cancel"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:textSize="16dp"
-                        android:text="取消"/>
+                        android:text="取消"
+                        android:textSize="16dp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -269,16 +273,16 @@
         android:id="@+id/layout_linkmic_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/transparent"
         android:clickable="true"
-        android:visibility="gone"
-        android:background="@android:color/transparent">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/imageview_linkmic_loading"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:clickable="true"/>
+            android:clickable="true" />
 
     </FrameLayout>
 
@@ -287,9 +291,103 @@
         android:id="@+id/fl_chat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/transparent"
         android:clickable="true"
-        android:visibility="gone"
-        android:background="@android:color/transparent">
+        android:visibility="visible">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/chat_default_avatar" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="傅明云 医师"
+                        android:textColor="#ffffffff"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="正在等待医师接受邀请…"
+                        android:textColor="#ffffffff"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/chat_changesound" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:text="切到语音咨询"
+                        android:textColor="#ffffffff"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="23dp"
+                    android:src="@drawable/chat_exitroom" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center"
+                    android:text="取消"
+                    android:textColor="#ffffffff"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
     </FrameLayout>
 </FrameLayout>
