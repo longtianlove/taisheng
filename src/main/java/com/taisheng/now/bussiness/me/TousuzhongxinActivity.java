@@ -68,14 +68,15 @@ public class TousuzhongxinActivity extends BaseActivity {
                 bean.remark="";
                 bean.doctorId="";
                 bean.feedbackContent=feedbackContent;
-                bean.feedbackType="2";
+                bean.feedbackType="1";
                 bean.feedbackTitle="";
                 ApiUtils.getApiService().feedback(bean).enqueue(new TaiShengCallback<BaseBean>() {
                     @Override
                     public void onSuccess(Response<BaseBean> response, BaseBean message) {
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
-                                ToastUtil.showTost("反馈成功");
+                                ToastUtil.showTost("投诉成功");
+                                finish();
                                 break;
                         }
 
