@@ -10,6 +10,7 @@ import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.CaptchaPostBean;
 import com.taisheng.now.bussiness.bean.post.LoginPostBean;
+import com.taisheng.now.bussiness.bean.result.LoginResultBean;
 import com.taisheng.now.bussiness.bean.result.UserInfo;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
@@ -46,15 +47,14 @@ public class LoginPresenter {
      * 获取验证码
      *
      * @param phone
-
      */
     public void getVerifyCode(String phone) {
         final LoginView tloginView = loginView.get();
 //
         if (tloginView != null) {
             tloginView.showDialog();
-            CaptchaPostBean bean=new CaptchaPostBean();
-            bean.phoneNumber=phone;
+            CaptchaPostBean bean = new CaptchaPostBean();
+            bean.phoneNumber = phone;
             ApiUtils.getApiService().appAcquireVerifyCode(bean).enqueue(new TaiShengCallback<BaseBean>() {
                 @Override
                 public void onSuccess(Response<BaseBean> response, BaseBean message) {
@@ -112,34 +112,32 @@ public class LoginPresenter {
     }
 
     /**
-登录
-     *账号密码
+     * 登录
+     * 账号密码
      * /
      */
-    public void loginUsername(String zhanghao,String password){
+    public void loginUsername(String zhanghao, String password) {
 
     }
 
 
-
     /**
      * 登录
-     *
-
      */
-    public void loginPhone(LoginPostBean loginPostBean){
+    public void loginPhone(LoginPostBean loginPostBean) {
         final LoginView tloginView = loginView.get();
         if (tloginView != null) {
             tloginView.showDialog();
 
-            ApiUtils.getApiService().applogin(loginPostBean).enqueue(new TaiShengCallback<BaseBean<UserInfo>>() {
+            ApiUtils.getApiService().applogin(loginPostBean).enqueue(new TaiShengCallback<BaseBean<LoginResultBean>>() {
                 @Override
-                public void onSuccess(Response<BaseBean<UserInfo>> response, BaseBean<UserInfo> message) {
+                public void onSuccess(Response<BaseBean<LoginResultBean>> response, BaseBean<LoginResultBean> message) {
                     switch (message.code) {
                         case Constants.HTTP_SUCCESS:
                             //小米push
                             XMPushManagerInstance.getInstance().init();
-                            UserInstance.getInstance().saveUserInfo(message.result);
+                            UserInstance.getInstance().saveUserInfo(message.result.sysUser);
+                            UserInstance.getInstance().saveHealInfo(message.result.userHealth);
                             EventBus.getDefault().post(new EventManage.getUserInfoEvent());
                             break;
                         case Constants.HTTP_ERROR:
@@ -159,12 +157,12 @@ public class LoginPresenter {
 
                     }
                     if (tloginView != null) {
-                                tloginView.dismissDialog();
-                            }
+                        tloginView.dismissDialog();
+                    }
                 }
 
                 @Override
-                public void onFail(Call<BaseBean<UserInfo>> call, Throwable t) {
+                public void onFail(Call<BaseBean<LoginResultBean>> call, Throwable t) {
                     if (tloginView != null) {
                         tloginView.dismissDialog();
                     }

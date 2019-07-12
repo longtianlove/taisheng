@@ -30,15 +30,26 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.taisheng.now.Constants;
 import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
+import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.MainActivity;
+import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
+import com.taisheng.now.bussiness.bean.result.UserInfo;
+import com.taisheng.now.bussiness.me.FillInMessageActivity;
+import com.taisheng.now.bussiness.me.FillInMessageSecondActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.Apputil;
 import com.taisheng.now.util.DialogUtil;
+import com.taisheng.now.util.SPUtil;
 import com.taisheng.now.util.ToastUtil;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -56,6 +67,9 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /*
  * Modified from original in AOSP.
@@ -95,7 +109,53 @@ public class CropImageActivity extends MonitoredActivity implements CropImageVie
 
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 0)
     public void upLoadSucess(EventManage.uploadImageSuccess event) {
-        finish();
+
+
+        UserInfoPostBean bean = new UserInfoPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.sysUser = new UserInfo();
+        bean.sysUser.id = UserInstance.getInstance().getUid();
+        bean.sysUser.token = UserInstance.getInstance().getToken();
+
+        bean.sysUser.age = UserInstance.getInstance().userInfo.age;
+        bean.sysUser.phone = UserInstance.getInstance().userInfo.phone;
+        bean.sysUser.realName = UserInstance.getInstance().userInfo.realName;
+        bean.sysUser.sex = UserInstance.getInstance().userInfo.sex;
+        bean.sysUser.nickName=UserInstance.getInstance().userInfo.nickName;
+        bean.sysUser.userName=UserInstance.getInstance().userInfo.userName;
+        bean.sysUser.avatar = event.path;
+
+        ApiUtils.getApiService().modifyuser(bean).enqueue(new TaiShengCallback<BaseBean>() {
+            @Override
+            public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        UserInstance.getInstance().userInfo.age = bean.sysUser.age;
+                        SPUtil.putAge(UserInstance.getInstance().userInfo.age);
+                        UserInstance.getInstance().userInfo.phone = bean.sysUser.phone;
+                        SPUtil.putPhone(UserInstance.getInstance().userInfo.phone);
+                        UserInstance.getInstance().userInfo.realName = bean.sysUser.realName;
+                        SPUtil.putRealname(UserInstance.getInstance().userInfo.realName);
+                        UserInstance.getInstance().userInfo.sex = bean.sysUser.sex;
+                        SPUtil.putSex(UserInstance.getInstance().userInfo.sex);
+                        UserInstance.getInstance().userInfo.avatar = bean.sysUser.avatar;
+                        SPUtil.putAVATAR(bean.sysUser.avatar);
+                        UserInstance.getInstance().userInfo.nickName=bean.sysUser.nickName;
+                        SPUtil.putNickname(bean.sysUser.nickName);
+                        finish();
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean> call, Throwable t) {
+
+            }
+        });
+
+
     }
 
 
@@ -148,7 +208,7 @@ public class CropImageActivity extends MonitoredActivity implements CropImageVie
             public void onClick(View v) {
                 try {
                     onSaveClicked();
-                }catch (Exception e){
+                } catch (Exception e) {
                     finish();
                 }
             }

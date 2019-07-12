@@ -2,6 +2,7 @@ package com.taisheng.now.bussiness.me;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -67,14 +69,10 @@ public class MeFragment extends BaseFragment {
         sdv_header.setOnClickListener(toMeMessageActivityListener);
         tv_nickname= (TextView) rootView.findViewById(R.id.tv_nickname);
         tv_nickname.setOnClickListener(toMeMessageActivityListener);
-        if(!TextUtils.isEmpty(UserInstance.getInstance().userInfo.nickName)){
-            tv_nickname.setText(UserInstance.getInstance().userInfo.nickName);
-        }
+
         tv_zhanghao= (TextView) rootView.findViewById(R.id.tv_zhanghao);
         tv_zhanghao.setOnClickListener(toMeMessageActivityListener);
-        if(!TextUtils.isEmpty(UserInstance.getInstance().userInfo.userName)){
-            tv_zhanghao.setText(UserInstance.getInstance().userInfo.userName);
-        }
+
         iv_jiantou= (ImageView) rootView.findViewById(R.id.iv_jiantou);
         iv_jiantou.setOnClickListener(toMeMessageActivityListener);
 
@@ -130,6 +128,20 @@ public class MeFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (UserInstance.getInstance().userInfo.avatar != null) {
+            Uri uri = Uri.parse(Constants.Url.Host+UserInstance.getInstance().userInfo.avatar);
+            sdv_header.setImageURI(uri);
+        }
+        if(!TextUtils.isEmpty(UserInstance.getInstance().userInfo.nickName)){
+            tv_nickname.setText(UserInstance.getInstance().userInfo.nickName);
+        }
+        if(!TextUtils.isEmpty(UserInstance.getInstance().userInfo.userName)){
+            tv_zhanghao.setText(UserInstance.getInstance().userInfo.userName);
+        }
+    }
 
     public void onDestroy() {
         super.onDestroy();

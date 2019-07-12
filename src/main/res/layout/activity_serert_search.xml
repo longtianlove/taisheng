@@ -143,6 +143,7 @@
         android:layout_marginLeft="12dp"
         android:background="#fff"
         android:divider="@null"
+        android:scrollbars="none"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
         android:listSelector="@android:color/transparent" />

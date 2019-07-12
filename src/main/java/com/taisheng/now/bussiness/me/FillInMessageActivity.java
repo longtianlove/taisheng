@@ -192,6 +192,9 @@ public class FillInMessageActivity extends BaseActivity {
                         SPUtil.putRealname(UserInstance.getInstance().userInfo.realName);
                         UserInstance.getInstance().userInfo.sex = bean.sysUser.sex;
                         SPUtil.putSex(UserInstance.getInstance().userInfo.sex);
+                        //todo 获取账号和nickname
+//                        UserInstance.getInstance().userInfo.nickName=message.sysUser.nickName;
+//                        SPUtil.putNickname(bean.sysUser.nickName);
                         Intent intent;
                         if (TextUtils.isEmpty(SPUtil.getHEIGHT())) {
                             intent = new Intent(FillInMessageActivity.this, FillInMessageSecondActivity.class);

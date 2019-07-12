@@ -13,13 +13,17 @@ import com.taisheng.now.base.BaseActivity;
 public class UpdatePasswordLastActivity extends BaseActivity {
 //    View iv_back;
 
+
+    View tv_back_memessage;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_updatepwd_last);
         initView();
     }
-    void initView(){
+
+    void initView() {
 //        iv_back=findViewById(R.id.iv_back);
 //        iv_back.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -27,6 +31,13 @@ public class UpdatePasswordLastActivity extends BaseActivity {
 //                finish();
 //            }
 //        });
+        tv_back_memessage = findViewById(R.id.tv_back_memessage);
+        tv_back_memessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 }

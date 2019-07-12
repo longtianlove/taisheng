@@ -2,7 +2,9 @@ package com.taisheng.now.bussiness.user;
 
 
 import com.taisheng.now.Constants;
+import com.taisheng.now.EventManage;
 import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.bean.post.HealthInfo;
 import com.taisheng.now.bussiness.bean.result.PictureBean;
 import com.taisheng.now.bussiness.bean.result.UserInfo;
 import com.taisheng.now.http.ApiUtils;
@@ -42,7 +44,13 @@ public class UserInstance {
             userInstance.userInfo.realName = SPUtil.getRealname();
             userInstance.userInfo.age = SPUtil.getAge();
             userInstance.userInfo.sex = SPUtil.getSex();
-            userInstance.userInfo.height = SPUtil.getHEIGHT();
+            userInstance.userInfo.avatar=SPUtil.getAVATAR();
+
+
+            userInstance.healthInfo=new HealthInfo();
+            userInstance.healthInfo.bloodType=SPUtil.getBLOODTYPE();
+            userInstance.healthInfo.height = SPUtil.getHEIGHT();
+            userInstance.healthInfo.weight=SPUtil.getWEIGHT();
 
         }
         return userInstance;
@@ -54,6 +62,7 @@ public class UserInstance {
 //    public String token;
 
     public UserInfo userInfo;
+    public HealthInfo healthInfo;
 
 
 //    //获取用户基本信息
@@ -98,6 +107,9 @@ public class UserInstance {
                                                                       switch (message.code) {
                                                                           case Constants.HTTP_SUCCESS:
                                                                               String path = message.result.path;
+                                                                              UserInstance.getInstance().userInfo.avatar =path;
+                                                                              SPUtil.putAVATAR( UserInstance.getInstance().userInfo.avatar);
+                                                                              EventBus.getDefault().post(new EventManage.uploadImageSuccess(path));
                                                                               break;
                                                                       }
 
@@ -136,8 +148,16 @@ public class UserInstance {
         SPUtil.putAge("");
         this.userInfo.sex = 0;
         SPUtil.putSex(0);
-        this.userInfo.height = "";
+        this.healthInfo.height = "";
         SPUtil.putHEIGHT("");
+        userInfo.avatar="";
+        SPUtil.putAVATAR("");
+
+        this.healthInfo.bloodType="";
+        SPUtil.putBLOODTYPE("");
+        this.healthInfo.weight="";
+        SPUtil.putWEIGHT("");
+
 
 
     }
@@ -147,12 +167,23 @@ public class UserInstance {
         SPUtil.putUid(userInfo.id);
         SPUtil.putToken(userInfo.token);
         SPUtil.putNickname(userInfo.nickName);
+        SPUtil.putZhanghao(userInfo.userName);
         SPUtil.putPhone(userInfo.phone);
         SPUtil.putZhanghao(userInfo.userName);
         SPUtil.putRealname(userInfo.realName);
         SPUtil.putAge(userInfo.age);
         SPUtil.putSex(userInfo.sex);
-        SPUtil.putHEIGHT(userInfo.height);
+
+        SPUtil.putAVATAR(userInfo.avatar);
+    }
+    public void saveHealInfo(HealthInfo healthInfo){
+
+        this.healthInfo=healthInfo;
+        SPUtil.putHEIGHT(healthInfo.height);
+        SPUtil.putWEIGHT(healthInfo.weight);
+        SPUtil.putBLOODTYPE(healthInfo.bloodType);
+
+        //todo 随后写过敏史
     }
 
     public String getUid() {
@@ -184,7 +215,7 @@ public class UserInstance {
     }
 
     public String getHeight() {
-        return userInfo.height;
+        return healthInfo.height;
     }
 
 }

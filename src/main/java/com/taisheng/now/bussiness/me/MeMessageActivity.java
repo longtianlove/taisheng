@@ -65,6 +65,10 @@ public class MeMessageActivity extends BaseActivity {
         });
         sdv_header = (SimpleDraweeView) findViewById(R.id.sdv_header);
 
+
+
+
+
         ll_nickname = findViewById(R.id.ll_nickname);
         ll_nickname.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,11 +102,11 @@ public class MeMessageActivity extends BaseActivity {
         });
 
         tv_nickname = (TextView) findViewById(R.id.tv_nickname);
-        tv_nickname.setText(UserInstance.getInstance().getNickname());
+
         tv_zhanghao = (TextView) findViewById(R.id.tv_zhanghao);
-        tv_zhanghao.setText(UserInstance.getInstance().getZhanghao());
+
         tv_phone = (TextView) findViewById(R.id.tv_phone);
-        tv_phone.setText(UserInstance.getInstance().getPhone());
+
     }
 
 
@@ -127,6 +131,18 @@ public class MeMessageActivity extends BaseActivity {
         }
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (UserInstance.getInstance().userInfo.avatar != null) {
+            Uri uri = Uri.parse(Constants.Url.Host+UserInstance.getInstance().userInfo.avatar);
+            sdv_header.setImageURI(uri);
+        }
+        tv_nickname.setText(UserInstance.getInstance().getNickname());
+        tv_zhanghao.setText(UserInstance.getInstance().getZhanghao());
+        tv_phone.setText(UserInstance.getInstance().getPhone());
+    }
 
     private void beginCrop(Uri source, Bundle bundle) {
         Uri destination = Uri.fromFile(new File(getCacheDir(), "Bcropped"));
@@ -170,7 +186,7 @@ public class MeMessageActivity extends BaseActivity {
             case Crop.REQUEST_CROP:
 //                modifyBean.logo_url = PetInfoInstance.getInstance().getPackBean().logo_url;
                 //todo avatar为空
-                Uri uri = Uri.parse(Constants.Url.Host + UserInstance.getInstance().userInfo.avatar);
+                Uri uri = Uri.parse(Constants.Url.Host+UserInstance.getInstance().userInfo.avatar);
                 if (sdv_header == null) {
                     return;
                 }

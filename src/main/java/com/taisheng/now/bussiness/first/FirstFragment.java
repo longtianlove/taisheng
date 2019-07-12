@@ -99,6 +99,8 @@ public class FirstFragment extends BaseFragment {
 
     View ll_jiankangceping;
 
+    GuideView guideView;
+
 
     com.taisheng.now.view.WithScrolleViewListView lv_articles;
     ArticleAdapter madapter;
@@ -268,7 +270,7 @@ public class FirstFragment extends BaseFragment {
             RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             iv2.setLayoutParams(params2);
 
-            GuideView guideView = GuideView.Builder
+            guideView = GuideView.Builder
                     .newInstance(getActivity())
                     .setTargetView(ll_jiankangceping) //设置目标view
                     .setTextGuideView(iv1)   //设置文字图片
@@ -281,6 +283,14 @@ public class FirstFragment extends BaseFragment {
                     .setBgColor(getResources().getColor(R.color.bg_shadow))  //背景颜色
 
                     .build();
+
+            guideView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    guideView.hide();
+                    SPUtil.putGUIDE(true);
+                }
+            });
             iv2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

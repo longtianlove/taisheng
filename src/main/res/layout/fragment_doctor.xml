@@ -85,6 +85,7 @@
         android:layout_marginRight="12dp"
         android:layout_marginBottom="12dp"
         android:divider="#fff"
+        android:scrollbars="none"
         android:dividerHeight="1dp"
         android:background="#fff" />
 

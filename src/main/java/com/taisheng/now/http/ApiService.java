@@ -15,6 +15,7 @@ import com.taisheng.now.bussiness.bean.post.HealthCheckListPostBean;
 import com.taisheng.now.bussiness.bean.post.HealthInfoPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
+import com.taisheng.now.bussiness.bean.post.UpdatePswPostBean;
 import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
 import com.taisheng.now.bussiness.bean.result.AnswerResultBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
@@ -32,6 +33,7 @@ import com.taisheng.now.bussiness.bean.result.DoctorNumberResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
 import com.taisheng.now.bussiness.bean.result.HotResultBean;
 import com.taisheng.now.bussiness.bean.post.LoginPostBean;
+import com.taisheng.now.bussiness.bean.result.LoginResultBean;
 import com.taisheng.now.bussiness.bean.result.PictureBean;
 import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
 import com.taisheng.now.bussiness.bean.result.UserInfo;
@@ -53,7 +55,7 @@ public interface ApiService {
 
     //登录
     @POST(Constants.Url.User.applogin)
-    Call<BaseBean<UserInfo>> applogin(@Body LoginPostBean loginPostBean);
+    Call<BaseBean<LoginResultBean>> applogin(@Body LoginPostBean loginPostBean);
 
     //发送验证码
     @POST(Constants.Url.User.appAcquireVerifyCode)
@@ -67,10 +69,16 @@ public interface ApiService {
 
     /**
      * 更新档案信息
-  \
+     * \
      */
     @POST(Constants.Url.User.addOrUpdateHealth)
     Call<BaseBean> addOrUpdateHealth(@Body HealthInfoPostBean bean);
+
+    /**
+     * 更新密码
+     */
+    @POST(Constants.Url.User.modifypassword)
+    Call<BaseBean> modifypasswrod(@Body UpdatePswPostBean bean);
 
 
     //获取热门文章

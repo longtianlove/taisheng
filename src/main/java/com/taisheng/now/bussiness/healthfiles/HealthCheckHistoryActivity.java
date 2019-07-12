@@ -13,11 +13,15 @@ import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseFragmentActivity;
+import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.util.DensityUtil;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
+
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -29,9 +33,13 @@ import java.util.List;
 
 public class HealthCheckHistoryActivity extends BaseFragmentActivity {
     View iv_back;
-
+    TextView tv_age;
+    TextView tv_height;
+    TextView tv_sex;
+    TextView tv_weight;
 
     TabLayout tl_tab;
+
     ViewPager vp_content;
     private List<String> tabIndicators;
     private List<Fragment> tabFragments;
@@ -56,6 +64,18 @@ public class HealthCheckHistoryActivity extends BaseFragmentActivity {
         });
 
 //todo 更新个人信息
+        tv_age = (TextView) findViewById(R.id.tv_age);
+        tv_age.setText(UserInstance.getInstance().getAge());
+        tv_height = (TextView) findViewById(R.id.tv_height);
+        tv_height.setText(UserInstance.getInstance().getHeight());
+        tv_sex = (TextView) findViewById(R.id.tv_sex);
+        if (Constants.FEMALE == UserInstance.getInstance().userInfo.sex) {
+            tv_sex.setText("女");
+        } else {
+            tv_sex.setText("男");
+        }
+        tv_weight = (TextView) findViewById(R.id.tv_weight);
+        tv_weight.setText(UserInstance.getInstance().healthInfo.weight);
         tl_tab = (TabLayout) findViewById(R.id.tl_tab);
         vp_content = (ViewPager) findViewById(R.id.vp_content);
         initContent();

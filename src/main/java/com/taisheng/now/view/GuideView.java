@@ -36,7 +36,7 @@ public class GuideView extends RelativeLayout implements ViewTreeObserver.OnGlob
     private static final String SHOW_GUIDE_PREFIX = "show_guide";
     private int offsetX, offsetY;
     private int radius;
-    private View targetView;
+    public View targetView;
     private View textGuideView;
     private View customGuideView;
     private Paint mCirclePaint;

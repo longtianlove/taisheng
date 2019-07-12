@@ -27,7 +27,7 @@ import retrofit2.Response;
  * Created by dragon on 2019/6/28.
  */
 
-public class UpdateNickActivity extends BaseActivity {
+public class UpdateZhanghaoActivity extends BaseActivity {
     View iv_back;
     EditText et_nickname;
     ImageView iv_nickname_guanbi;
@@ -35,7 +35,7 @@ public class UpdateNickActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_updatenickname);
+        setContentView(R.layout.activity_updatezhanghao);
         initView();
     }
     void initView(){
@@ -62,8 +62,9 @@ public class UpdateNickActivity extends BaseActivity {
                 bean.sysUser.realName = UserInstance.getInstance().userInfo.realName;
                 bean.sysUser.sex = UserInstance.getInstance().userInfo.sex;
                 bean.sysUser.avatar = UserInstance.getInstance().userInfo.avatar;
-                bean.sysUser.userName=UserInstance.getInstance().userInfo.userName;
-                bean.sysUser.nickName=et_nickname.getText().toString();
+                bean.sysUser.userName=et_nickname.getText().toString();
+                bean.sysUser.nickName=UserInstance.getInstance().userInfo.nickName;
+
 
                 ApiUtils.getApiService().modifyuser(bean).enqueue(new TaiShengCallback<BaseBean>() {
                     @Override
@@ -82,6 +83,8 @@ public class UpdateNickActivity extends BaseActivity {
                                 SPUtil.putAVATAR(bean.sysUser.avatar);
                                 UserInstance.getInstance().userInfo.nickName=bean.sysUser.nickName;
                                 SPUtil.putNickname(bean.sysUser.nickName);
+                                UserInstance.getInstance().userInfo.userName=bean.sysUser.userName;
+                                SPUtil.putZhanghao(bean.sysUser.userName);
                                 finish();
                                 break;
 

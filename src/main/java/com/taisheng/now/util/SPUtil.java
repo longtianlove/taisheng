@@ -41,12 +41,20 @@ public class SPUtil {
     public static final String SEX = "sex";
     //身高
     public static final String HEIGHT = "height";
+    //体重
+    public static final String WEIGHT="weight";
     //nickname
     public static final String NICKNAME = "nickname";
     //手机号
     public static final String PHONE = "phone";
     //账号
     public static final String ZHANGHAO = "zhanghao";
+
+    //头像
+    public static final String AVATAR = "avatar";
+
+    //血型
+    public static final String BLOODTYPE="bloodtype";
 
     //是否跳过用户信息
     public static final String SKIP = "skip";
@@ -121,6 +129,12 @@ public class SPUtil {
     public static void putHEIGHT(String value) {
         putString(HEIGHT, value);
     }
+    public static String getWEIGHT(){
+        return getString(WEIGHT);
+    }
+    public static void putWEIGHT(String value){
+        putString(WEIGHT,value);
+    }
 
     public static String getPhone() {
         return getString(PHONE);
@@ -136,6 +150,21 @@ public class SPUtil {
 
     public static void putZhanghao(String value) {
         putString(ZHANGHAO, value);
+    }
+
+    public static String getAVATAR() {
+        return getString(AVATAR);
+    }
+
+    public static void putAVATAR(String value) {
+        putString(AVATAR, value);
+    }
+
+    public static String getBLOODTYPE(){
+        return getString(BLOODTYPE);
+    }
+    public static void putBLOODTYPE(String value){
+        putString(BLOODTYPE,value);
     }
 
     public static String getUid() {
