@@ -122,7 +122,7 @@ public class UpdateZhanghaoActivity extends BaseActivity {
                     iv_nickname_guanbi.setVisibility(View.GONE);
                 }
 
-                if(s != null && s.length() > 0&&!s.equals(UserInstance.getInstance().getNickname())){
+                if(s != null && s.length() > 0&&!s.equals(UserInstance.getInstance().getZhanghao())){
                     btn_update.setEnabled(true);
                 }else{
                     btn_update.setEnabled(false);
@@ -134,7 +134,7 @@ public class UpdateZhanghaoActivity extends BaseActivity {
 
             }
         });
-        et_nickname.setText(UserInstance.getInstance().getNickname());
+        et_nickname.setText(UserInstance.getInstance().getZhanghao());
         CharSequence text = et_nickname.getText();
         //Debug.asserts(text instanceof Spannable);
         if (text instanceof Spannable) {

@@ -102,7 +102,7 @@ public class ArticleCollectActivity extends BaseActivity {
                             madapter.mData.addAll(message.result.articlerecords);
                             if (message.result.records.size() < 10) {
                                 lv_doctors.setHasLoadMore(false);
-                                lv_doctors.setLoadAllViewText("暂时只有这么多医生");
+                                lv_doctors.setLoadAllViewText("暂时只有这么多文章");
                                 lv_doctors.setLoadAllFooterVisible(true);
                             } else {
                                 lv_doctors.setHasLoadMore(true);
@@ -111,7 +111,7 @@ public class ArticleCollectActivity extends BaseActivity {
                         } else {
                             //没有消息
                             lv_doctors.setHasLoadMore(false);
-                            lv_doctors.setLoadAllViewText("暂时只有这么多医生");
+                            lv_doctors.setLoadAllViewText("暂时只有这么多文章");
                             lv_doctors.setLoadAllFooterVisible(true);
                         }
                         break;
