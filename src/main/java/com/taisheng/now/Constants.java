@@ -8,6 +8,9 @@ public class Constants {
 
     public final static String DEFAULT_TAG = "taisheng";
     public final static String BUGLY_APP_ID = "24b876d82d";
+    //todo 需要修改
+    //腾讯视频appid
+    public final static int SDKAPPID=1400227841;
 
 
     //访问成功

@@ -487,10 +487,7 @@ public class DoctorDetailActivity extends Activity {
         intent.putExtra("roomId", roomId);
         intent.putExtra("userId", userId);
         intent.putExtra("AppScene", TRTCCloudDef.TRTC_APP_SCENE_VIDEOCALL);
-
-        //todo 需要修改
-        int finalSdkAppId = 1400227841;
-        intent.putExtra("sdkAppId", finalSdkAppId);
+        intent.putExtra("sdkAppId", Constants.SDKAPPID);
         intent.putExtra("userSig", "eJxlj11PgzAARd-5FYRXjfYDVmbiA5Lqlm1mAiPqS4O0QMUV7CqbGP*7iksk8b6ek3tzPyzbtp1kGZ9led68KcPMeysc*8J2gHP6B9tWcpYZhjX-B8WhlVqwrDBCDxB6nocAGDuSC2VkIY9GoLhuvhuNNjkD7kjc8ZoNa79NLgAIEd*FY0WWA1zRTTi-eZl2NHrF3WQe0mR2HUN4fts-rmYBT6l37y9wlWi33-P0OZA0OCwUqTfpA7jbNoWp1*RkXy6n-MrE1ZMKItpXIkQR0QkuL0eTRm7F8doEEexjn4xoJ-RONmoQEIAeRBj8xLE*rS9DC2A5");
         startActivity(intent);
 
