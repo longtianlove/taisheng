@@ -560,11 +560,11 @@ public class FirstFragment extends BaseFragment {
         bean.token = UserInstance.getInstance().getToken();
         bean.userId = UserInstance.getInstance().getUid();
 
-        DialogUtil.showProgress(mActivity, "");
+//        DialogUtil.showProgress(mActivity, "");
         ApiUtils.getApiService().hotArticleList(bean).enqueue(new TaiShengCallback<BaseBean<ArrayList<ArticleBean>>>() {
             @Override
             public void onSuccess(Response<BaseBean<ArrayList<ArticleBean>>> response, BaseBean<ArrayList<ArticleBean>> message) {
-                DialogUtil.closeProgress();
+//                DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
 
@@ -595,7 +595,7 @@ public class FirstFragment extends BaseFragment {
 
             @Override
             public void onFail(Call<BaseBean<ArrayList<ArticleBean>>> call, Throwable t) {
-                DialogUtil.closeProgress();
+//                DialogUtil.closeProgress();
             }
         });
     }

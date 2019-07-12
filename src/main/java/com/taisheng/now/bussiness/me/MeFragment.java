@@ -15,6 +15,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragment;
+import com.taisheng.now.bussiness.article.ArticleCollectActivity;
+import com.taisheng.now.bussiness.doctor.DoctorCollectActivity;
+import com.taisheng.now.bussiness.healthfiles.HealthFileSearchActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,6 +36,10 @@ public class MeFragment extends BaseFragment {
     TextView tv_zhanghao;
     ImageView iv_jiantou;
 
+    View ll_healthfile;
+    View ll_zixunjilu;
+    View ll_doctorcollect;
+    View ll_articlecollect;
 
     View ll_mypingjia;
     View ll_tousuzhongxin;
@@ -56,28 +63,59 @@ public class MeFragment extends BaseFragment {
         return rootView;
     }
 
-    View.OnClickListener toMeMessageActivityListener=new View.OnClickListener() {
+    View.OnClickListener toMeMessageActivityListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent=new Intent(getActivity(),MeMessageActivity.class);
+            Intent intent = new Intent(getActivity(), MeMessageActivity.class);
             startActivity(intent);
         }
     };
 
     void initView(View rootView) {
-        sdv_header= (SimpleDraweeView) rootView.findViewById(R.id.sdv_header);
+        sdv_header = (SimpleDraweeView) rootView.findViewById(R.id.sdv_header);
         sdv_header.setOnClickListener(toMeMessageActivityListener);
-        tv_nickname= (TextView) rootView.findViewById(R.id.tv_nickname);
+        tv_nickname = (TextView) rootView.findViewById(R.id.tv_nickname);
         tv_nickname.setOnClickListener(toMeMessageActivityListener);
 
-        tv_zhanghao= (TextView) rootView.findViewById(R.id.tv_zhanghao);
+        tv_zhanghao = (TextView) rootView.findViewById(R.id.tv_zhanghao);
         tv_zhanghao.setOnClickListener(toMeMessageActivityListener);
 
-        iv_jiantou= (ImageView) rootView.findViewById(R.id.iv_jiantou);
+        iv_jiantou = (ImageView) rootView.findViewById(R.id.iv_jiantou);
         iv_jiantou.setOnClickListener(toMeMessageActivityListener);
 
 
+        ll_healthfile = rootView.findViewById(R.id.ll_healthfile);
+        ll_healthfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, HealthFileSearchActivity.class);
+                startActivity(intent);
+            }
+        });
+        ll_zixunjilu = rootView.findViewById(R.id.ll_zixunjilu);
+        ll_zixunjilu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo 咨询记录
+            }
+        });
 
+        ll_doctorcollect = rootView.findViewById(R.id.ll_doctorcollect);
+        ll_doctorcollect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, DoctorCollectActivity.class);
+                startActivity(intent);
+            }
+        });
+        ll_articlecollect=rootView.findViewById(R.id.ll_articlecollect);
+        ll_articlecollect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, ArticleCollectActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         ll_mypingjia = rootView.findViewById(R.id.ll_mypingjia);
@@ -132,13 +170,13 @@ public class MeFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         if (UserInstance.getInstance().userInfo.avatar != null) {
-            Uri uri = Uri.parse(Constants.Url.Host+UserInstance.getInstance().userInfo.avatar);
+            Uri uri = Uri.parse(Constants.Url.Host + UserInstance.getInstance().userInfo.avatar);
             sdv_header.setImageURI(uri);
         }
-        if(!TextUtils.isEmpty(UserInstance.getInstance().userInfo.nickName)){
+        if (!TextUtils.isEmpty(UserInstance.getInstance().userInfo.nickName)) {
             tv_nickname.setText(UserInstance.getInstance().userInfo.nickName);
         }
-        if(!TextUtils.isEmpty(UserInstance.getInstance().userInfo.userName)){
+        if (!TextUtils.isEmpty(UserInstance.getInstance().userInfo.userName)) {
             tv_zhanghao.setText(UserInstance.getInstance().userInfo.userName);
         }
     }

@@ -195,6 +195,7 @@ public class FillInMessageActivity extends BaseActivity {
                         //todo 获取账号和nickname
 //                        UserInstance.getInstance().userInfo.nickName=message.sysUser.nickName;
 //                        SPUtil.putNickname(bean.sysUser.nickName);
+
                         Intent intent;
                         if (TextUtils.isEmpty(SPUtil.getHEIGHT())) {
                             intent = new Intent(FillInMessageActivity.this, FillInMessageSecondActivity.class);

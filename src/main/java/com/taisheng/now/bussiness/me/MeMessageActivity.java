@@ -81,7 +81,8 @@ public class MeMessageActivity extends BaseActivity {
         ll_zhanghao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo  修改账号
+                Intent intent = new Intent(MeMessageActivity.this, UpdateZhanghaoActivity.class);
+                startActivity(intent);
             }
         });
         ll_bindphone = findViewById(R.id.ll_bindphone);

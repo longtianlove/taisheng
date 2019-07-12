@@ -44,13 +44,13 @@ public class UserInstance {
             userInstance.userInfo.realName = SPUtil.getRealname();
             userInstance.userInfo.age = SPUtil.getAge();
             userInstance.userInfo.sex = SPUtil.getSex();
-            userInstance.userInfo.avatar=SPUtil.getAVATAR();
+            userInstance.userInfo.avatar = SPUtil.getAVATAR();
 
 
-            userInstance.healthInfo=new HealthInfo();
-            userInstance.healthInfo.bloodType=SPUtil.getBLOODTYPE();
+            userInstance.healthInfo = new HealthInfo();
+            userInstance.healthInfo.bloodType = SPUtil.getBLOODTYPE();
             userInstance.healthInfo.height = SPUtil.getHEIGHT();
-            userInstance.healthInfo.weight=SPUtil.getWEIGHT();
+            userInstance.healthInfo.weight = SPUtil.getWEIGHT();
 
         }
         return userInstance;
@@ -107,8 +107,8 @@ public class UserInstance {
                                                                       switch (message.code) {
                                                                           case Constants.HTTP_SUCCESS:
                                                                               String path = message.result.path;
-                                                                              UserInstance.getInstance().userInfo.avatar =path;
-                                                                              SPUtil.putAVATAR( UserInstance.getInstance().userInfo.avatar);
+                                                                              UserInstance.getInstance().userInfo.avatar = path;
+                                                                              SPUtil.putAVATAR(UserInstance.getInstance().userInfo.avatar);
                                                                               EventBus.getDefault().post(new EventManage.uploadImageSuccess(path));
                                                                               break;
                                                                       }
@@ -150,14 +150,13 @@ public class UserInstance {
         SPUtil.putSex(0);
         this.healthInfo.height = "";
         SPUtil.putHEIGHT("");
-        userInfo.avatar="";
+        userInfo.avatar = "";
         SPUtil.putAVATAR("");
 
-        this.healthInfo.bloodType="";
+        this.healthInfo.bloodType = "";
         SPUtil.putBLOODTYPE("");
-        this.healthInfo.weight="";
+        this.healthInfo.weight = "";
         SPUtil.putWEIGHT("");
-
 
 
     }
@@ -176,9 +175,12 @@ public class UserInstance {
 
         SPUtil.putAVATAR(userInfo.avatar);
     }
-    public void saveHealInfo(HealthInfo healthInfo){
 
-        this.healthInfo=healthInfo;
+    public void saveHealInfo(HealthInfo healthInfo) {
+        if (healthInfo == null) {
+            return;
+        }
+        this.healthInfo = healthInfo;
         SPUtil.putHEIGHT(healthInfo.height);
         SPUtil.putWEIGHT(healthInfo.weight);
         SPUtil.putBLOODTYPE(healthInfo.bloodType);

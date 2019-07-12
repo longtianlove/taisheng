@@ -132,6 +132,9 @@ public class Constants {
             //收藏/取消收藏
             public static final String collectionaddOrRemove = "jeecg-boot/app/collection/addOrRemove";
 
+            //收藏管理
+            public static final String collectionlist="jeecg-boot/app/collection/list";
+
         }
 
 

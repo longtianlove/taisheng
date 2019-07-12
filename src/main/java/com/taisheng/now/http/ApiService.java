@@ -5,7 +5,8 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.AnswerPostBean;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
-import com.taisheng.now.bussiness.bean.post.CollectPostBean;
+import com.taisheng.now.bussiness.bean.post.CollectAddorRemovePostBean;
+import com.taisheng.now.bussiness.bean.post.CollectListPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorCommentPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorNumberPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorScorePostBean;
@@ -26,8 +27,8 @@ import com.taisheng.now.bussiness.bean.result.ArticleResultBean;
 import com.taisheng.now.bussiness.bean.post.CaptchaPostBean;
 import com.taisheng.now.bussiness.bean.post.HotPostBean;
 import com.taisheng.now.bussiness.bean.result.CheckHistoryResultBean;
-import com.taisheng.now.bussiness.bean.result.CollectResultBean;
-import com.taisheng.now.bussiness.bean.result.DoctorCommentBean;
+import com.taisheng.now.bussiness.bean.result.CollectAddorRemoveResultBean;
+import com.taisheng.now.bussiness.bean.result.CollectListResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorNumberResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
@@ -36,7 +37,6 @@ import com.taisheng.now.bussiness.bean.post.LoginPostBean;
 import com.taisheng.now.bussiness.bean.result.LoginResultBean;
 import com.taisheng.now.bussiness.bean.result.PictureBean;
 import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
-import com.taisheng.now.bussiness.bean.result.UserInfo;
 
 import java.util.ArrayList;
 
@@ -46,7 +46,6 @@ import retrofit2.http.Body;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Query;
 
 /**
  * Created by long
@@ -142,7 +141,12 @@ public interface ApiService {
 
     //收藏/取消收藏
     @POST(Constants.Url.Doctor.collectionaddOrRemove)
-    Call<BaseBean<CollectResultBean>> collectionaddOrRemove(@Body CollectPostBean bean);
+    Call<BaseBean<CollectAddorRemoveResultBean>> collectionaddOrRemove(@Body CollectAddorRemovePostBean bean);
+
+
+    //收藏列表
+    @POST(Constants.Url.Doctor.collectionlist)
+    Call<BaseBean<CollectListResultBean>> collectionlist(@Body CollectListPostBean bean);
 
     /**
      * 给医生评分

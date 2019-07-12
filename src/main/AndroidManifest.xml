@@ -377,6 +377,19 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
         </activity>
+
+        <activity
+            android:name=".bussiness.doctor.DoctorCollectActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".bussiness.article.ArticleCollectActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
     </application>
 
 </manifest>

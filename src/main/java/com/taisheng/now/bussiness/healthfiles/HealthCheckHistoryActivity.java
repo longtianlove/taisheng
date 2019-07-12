@@ -63,7 +63,7 @@ public class HealthCheckHistoryActivity extends BaseFragmentActivity {
             }
         });
 
-//todo 更新个人信息
+
         tv_age = (TextView) findViewById(R.id.tv_age);
         tv_age.setText(UserInstance.getInstance().getAge());
         tv_height = (TextView) findViewById(R.id.tv_height);

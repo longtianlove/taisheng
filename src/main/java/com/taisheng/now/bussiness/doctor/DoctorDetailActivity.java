@@ -5,38 +5,29 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.BaseAdapter;
-import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
-import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
-import com.taisheng.now.bussiness.article.ArticleContentActivity;
-import com.taisheng.now.bussiness.article.SearchResultActivity;
-import com.taisheng.now.bussiness.bean.post.CollectPostBean;
+import com.taisheng.now.bussiness.bean.post.CollectAddorRemovePostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorCommentPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorNumberPostBean;
 import com.taisheng.now.bussiness.bean.post.GuanzhuPostBean;
-import com.taisheng.now.bussiness.bean.result.ArticleBean;
-import com.taisheng.now.bussiness.bean.result.CollectResultBean;
+import com.taisheng.now.bussiness.bean.result.CollectAddorRemoveResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorNumberResultBean;
 import com.taisheng.now.bussiness.user.UserInstance;
-import com.taisheng.now.http.ApiService;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
-import com.taisheng.now.shipin.TRTCGetUserIDAndUserSig;
 import com.taisheng.now.shipin.TRTCMainActivity;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.DoubleClickUtil;
@@ -155,14 +146,14 @@ public class DoctorDetailActivity extends Activity {
                 if (DoubleClickUtil.isFastMiniDoubleClick()) {
                     return;
                 }
-                CollectPostBean bean = new CollectPostBean();
+                CollectAddorRemovePostBean bean = new CollectAddorRemovePostBean();
                 bean.userId = UserInstance.getInstance().getUid();
                 bean.token = UserInstance.getInstance().getToken();
                 bean.collectionType = "1";
                 bean.dataId = doctorId;
-                ApiUtils.getApiService().collectionaddOrRemove(bean).enqueue(new TaiShengCallback<BaseBean<CollectResultBean>>() {
+                ApiUtils.getApiService().collectionaddOrRemove(bean).enqueue(new TaiShengCallback<BaseBean<CollectAddorRemoveResultBean>>() {
                     @Override
-                    public void onSuccess(Response<BaseBean<CollectResultBean>> response, BaseBean<CollectResultBean> message) {
+                    public void onSuccess(Response<BaseBean<CollectAddorRemoveResultBean>> response, BaseBean<CollectAddorRemoveResultBean> message) {
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
                                 String resultFeedback = message.result.resultFeedback;
@@ -178,7 +169,7 @@ public class DoctorDetailActivity extends Activity {
                     }
 
                     @Override
-                    public void onFail(Call<BaseBean<CollectResultBean>> call, Throwable t) {
+                    public void onFail(Call<BaseBean<CollectAddorRemoveResultBean>> call, Throwable t) {
 
                     }
                 });

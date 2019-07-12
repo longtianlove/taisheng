@@ -108,6 +108,7 @@
 
 
             <LinearLayout
+                android:id="@+id/ll_healthfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -129,6 +130,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_zixunjilu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -150,6 +152,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_doctorcollect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -172,6 +175,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_articlecollect"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -192,11 +197,6 @@
                     android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
-
-
-
-
-
 
 
         <LinearLayout
