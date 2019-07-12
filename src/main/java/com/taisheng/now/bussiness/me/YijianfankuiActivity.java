@@ -55,7 +55,6 @@ public class YijianfankuiActivity extends BaseActivity {
                 FeedbackPostBean bean=new FeedbackPostBean();
                 bean.userId= UserInstance.getInstance().getUid();
                 bean.token=UserInstance.getInstance().getToken();
-                //todo 这里的参数不确定
                 bean.remark="";
                 bean.doctorId="";
                 bean.feedbackContent=feedbackContent;
