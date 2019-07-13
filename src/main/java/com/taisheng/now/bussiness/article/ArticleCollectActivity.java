@@ -88,7 +88,7 @@ public class ArticleCollectActivity extends BaseActivity {
         bean.token = UserInstance.getInstance().getToken();
         bean.pageNo = PAGE_NO;
         bean.pageSize = PAGE_SIZE;
-        bean.collectionType="1";
+        bean.collectionType="2";
         DialogUtil.showProgress(this, "");
         ApiUtils.getApiService().collectionlist(bean).enqueue(new TaiShengCallback<BaseBean<CollectListResultBean>>() {
             @Override

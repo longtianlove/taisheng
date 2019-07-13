@@ -191,8 +191,10 @@ public class DoctorCollectActivity extends BaseActivity {
                     startActivity(intent);
                 }
             });
-            Uri uri = Uri.parse(bean.avatar);
-            util.sdv_header.setImageURI(uri);
+            if(bean.avatar!=null) {
+                Uri uri = Uri.parse(bean.avatar);
+                util.sdv_header.setImageURI(uri);
+            }
             util.tv_doctor_name.setText(bean.nickName);
             util.tv_title.setText(bean.title);
             util.tv_times.setText(bean.answerNum);
