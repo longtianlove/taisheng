@@ -1,24 +1,18 @@
 package com.taisheng.now.bussiness.me;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
-import com.taisheng.now.bussiness.article.ArticleContentActivity;
-import com.taisheng.now.bussiness.bean.post.ConsultListPostBean;
-import com.taisheng.now.bussiness.bean.result.ArticleBean;
+import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.result.ConsultBean;
 import com.taisheng.now.bussiness.bean.result.ConsultListResultBean;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -26,7 +20,6 @@ import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.view.TaishengListView;
-import com.zzhoujay.richtext.RichText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +76,7 @@ public class ZixunjiluActivity extends BaseActivity {
     String nickName;
 
     void getconsultList() {
-        ConsultListPostBean bean = new ConsultListPostBean();
+        BaseListPostBean bean = new BaseListPostBean();
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
         bean.pageNo = PAGE_NO;

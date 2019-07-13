@@ -7,7 +7,7 @@ import com.taisheng.now.bussiness.bean.post.AnswerPostBean;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
 import com.taisheng.now.bussiness.bean.post.CollectAddorRemovePostBean;
 import com.taisheng.now.bussiness.bean.post.CollectListPostBean;
-import com.taisheng.now.bussiness.bean.post.ConsultListPostBean;
+import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorCommentPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorDetailPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorNumberPostBean;
@@ -39,6 +39,7 @@ import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
 import com.taisheng.now.bussiness.bean.result.HotResultBean;
 import com.taisheng.now.bussiness.bean.post.LoginPostBean;
 import com.taisheng.now.bussiness.bean.result.LoginResultBean;
+import com.taisheng.now.bussiness.bean.result.MyPingjiaResultBean;
 import com.taisheng.now.bussiness.bean.result.PictureBean;
 import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
 
@@ -83,6 +84,12 @@ public interface ApiService {
     @POST(Constants.Url.User.modifypassword)
     Call<BaseBean> modifypasswrod(@Body UpdatePswPostBean bean);
 
+
+    /**
+     * 我的评价列表
+     */
+    @POST(Constants.Url.User.myDoctorScores)
+    Call<BaseBean<MyPingjiaResultBean>> myDoctorScores(@Body BaseListPostBean bean);
 
     //获取热门文章
     @POST(Constants.Url.Article.hotSearchArticle)
@@ -136,7 +143,7 @@ public interface ApiService {
 
     //咨询记录
     @POST(Constants.Url.Doctor.consultList)
-    Call<BaseBean<ConsultListResultBean>> consultList(@Body ConsultListPostBean bean);
+    Call<BaseBean<ConsultListResultBean>> consultList(@Body BaseListPostBean bean);
 
 
     //统计被评价总数

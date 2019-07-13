@@ -77,6 +77,11 @@ public class Constants {
              * 更新密码
              */
             public static final String modifypassword = "jeecg-boot/app/user/modifypassword";
+
+            /**
+             * 我的评价列表
+             */
+            public static final String myDoctorScores="jeecg-boot/app/score/doctorScore/myDoctorScores";
         }
 
         //文章
