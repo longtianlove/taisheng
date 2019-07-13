@@ -46,6 +46,10 @@ public class ZhongyitizhiFragment extends BaseFragment {
 
     public String assessmentType;
 
+
+    public TextView tv_completeBatch;
+    public TextView tv_remarks;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,6 +61,8 @@ public class ZhongyitizhiFragment extends BaseFragment {
     }
 
     void initView(View rootView) {
+        tv_completeBatch= (TextView) rootView.findViewById(R.id.tv_completeBatch);
+        tv_remarks= (TextView) rootView.findViewById(R.id.tv_remarks);
         lv_history = (TaishengListView) rootView.findViewById(R.id.lv_history);
         madapter=new CheckHistoryAdapter(mActivity);
         lv_history.setAdapter(madapter);
@@ -66,6 +72,7 @@ public class ZhongyitizhiFragment extends BaseFragment {
                 initData();
             }
         });
+
     }
 
 
@@ -164,7 +171,14 @@ public class ZhongyitizhiFragment extends BaseFragment {
             } else {
                 util = (Util) convertView.getTag();
             }
+
+
             CheckHistoryBean bean = mData.get(position);
+
+            if(position==0){
+                tv_completeBatch.setText(bean.completeBatch);
+                tv_remarks.setText(bean.remarks);
+            }
             util.ll_all.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

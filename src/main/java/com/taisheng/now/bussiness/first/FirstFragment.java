@@ -33,6 +33,7 @@ import com.taisheng.now.bussiness.MainActivity;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
+import com.taisheng.now.bussiness.bean.result.ArticleResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorBean;
 import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
 import com.taisheng.now.bussiness.doctor.DoctorDetailActivity;
@@ -376,8 +377,11 @@ public class FirstFragment extends BaseFragment {
                     startActivity(intent);
                 }
             });
-            Uri uri = Uri.parse(bean.avatar);
-            util.sdv_header.setImageURI(uri);
+
+            if(bean.avatar!=null) {
+                Uri uri = Uri.parse(bean.avatar);
+                util.sdv_header.setImageURI(uri);
+            }
             util.tv_doctor_name.setText(bean.nickName);
 
 
@@ -560,18 +564,20 @@ public class FirstFragment extends BaseFragment {
         bean.token = UserInstance.getInstance().getToken();
         bean.userId = UserInstance.getInstance().getUid();
 
+
+
 //        DialogUtil.showProgress(mActivity, "");
-        ApiUtils.getApiService().hotArticleList(bean).enqueue(new TaiShengCallback<BaseBean<ArrayList<ArticleBean>>>() {
+        ApiUtils.getApiService().hotArticleList(bean).enqueue(new TaiShengCallback<BaseBean<ArticleResultBean>>() {
             @Override
-            public void onSuccess(Response<BaseBean<ArrayList<ArticleBean>>> response, BaseBean<ArrayList<ArticleBean>> message) {
+            public void onSuccess(Response<BaseBean<ArticleResultBean>> response, BaseBean<ArticleResultBean> message) {
 //                DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
 
-                        if (message.result != null && message.result.size() > 0) {
+                        if (message.result != null && message.result.records.size() > 0) {
                             //有消息
 //                            PAGE_NO++;
-                            madapter.mData.addAll(message.result);
+                            madapter.mData.addAll(message.result.records);
 //                            if(message.result.size()<10){
 //                                lv_articles.setHasLoadMore(false);
 //                                lv_articles.setLoadAllViewText("暂时只有这么多文章");
@@ -594,7 +600,7 @@ public class FirstFragment extends BaseFragment {
             }
 
             @Override
-            public void onFail(Call<BaseBean<ArrayList<ArticleBean>>> call, Throwable t) {
+            public void onFail(Call<BaseBean<ArticleResultBean>> call, Throwable t) {
 //                DialogUtil.closeProgress();
             }
         });

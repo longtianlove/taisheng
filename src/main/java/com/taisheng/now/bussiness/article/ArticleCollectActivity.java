@@ -18,15 +18,11 @@ import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.CollectListPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
-import com.taisheng.now.bussiness.bean.result.CollectListResultBean;
-import com.taisheng.now.bussiness.bean.result.DoctorBean;
-import com.taisheng.now.bussiness.doctor.DoctorDetailActivity;
+import com.taisheng.now.bussiness.bean.result.ArticleCollectListResultBean;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
-import com.taisheng.now.view.DoctorLabelWrapLayout;
-import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.TaishengListView;
 import com.zzhoujay.richtext.RichText;
 
@@ -90,16 +86,16 @@ public class ArticleCollectActivity extends BaseActivity {
         bean.pageSize = PAGE_SIZE;
         bean.collectionType="2";
         DialogUtil.showProgress(this, "");
-        ApiUtils.getApiService().collectionlist(bean).enqueue(new TaiShengCallback<BaseBean<CollectListResultBean>>() {
+        ApiUtils.getApiService().articlecollectionlist(bean).enqueue(new TaiShengCallback<BaseBean<ArticleCollectListResultBean>>() {
             @Override
-            public void onSuccess(Response<BaseBean<CollectListResultBean>> response, BaseBean<CollectListResultBean> message) {
+            public void onSuccess(Response<BaseBean<ArticleCollectListResultBean>> response, BaseBean<ArticleCollectListResultBean> message) {
                 DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         if (message.result.records != null && message.result.records.size() > 0) {
                             //有消息
                             PAGE_NO++;
-                            madapter.mData.addAll(message.result.articlerecords);
+                            madapter.mData.addAll(message.result.records);
                             if (message.result.records.size() < 10) {
                                 lv_doctors.setHasLoadMore(false);
                                 lv_doctors.setLoadAllViewText("暂时只有这么多文章");
@@ -119,7 +115,7 @@ public class ArticleCollectActivity extends BaseActivity {
             }
 
             @Override
-            public void onFail(Call<BaseBean<CollectListResultBean>> call, Throwable t) {
+            public void onFail(Call<BaseBean<ArticleCollectListResultBean>> call, Throwable t) {
                 DialogUtil.closeProgress();
             }
         });

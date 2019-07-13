@@ -8,6 +8,7 @@ import com.taisheng.now.bussiness.bean.post.BasePostBean;
 import com.taisheng.now.bussiness.bean.post.CollectAddorRemovePostBean;
 import com.taisheng.now.bussiness.bean.post.CollectListPostBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
+import com.taisheng.now.bussiness.bean.post.ConnectDoctorPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorCommentPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorDetailPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorNumberPostBean;
@@ -21,7 +22,6 @@ import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
 import com.taisheng.now.bussiness.bean.post.UpdatePswPostBean;
 import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
 import com.taisheng.now.bussiness.bean.result.AnswerResultBean;
-import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.bussiness.bean.result.ArticleContentBean;
 import com.taisheng.now.bussiness.bean.post.ArticleContentPostBean;
 import com.taisheng.now.bussiness.bean.post.ArticlePostBean;
@@ -30,9 +30,11 @@ import com.taisheng.now.bussiness.bean.post.CaptchaPostBean;
 import com.taisheng.now.bussiness.bean.post.HotPostBean;
 import com.taisheng.now.bussiness.bean.result.CheckHistoryResultBean;
 import com.taisheng.now.bussiness.bean.result.CollectAddorRemoveResultBean;
-import com.taisheng.now.bussiness.bean.result.CollectListResultBean;
+import com.taisheng.now.bussiness.bean.result.ArticleCollectListResultBean;
+import com.taisheng.now.bussiness.bean.result.ConnectDoctorResultBean;
 import com.taisheng.now.bussiness.bean.result.ConsultListResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorBean;
+import com.taisheng.now.bussiness.bean.result.DoctorCollectListResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorNumberResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
@@ -42,8 +44,6 @@ import com.taisheng.now.bussiness.bean.result.LoginResultBean;
 import com.taisheng.now.bussiness.bean.result.MyPingjiaResultBean;
 import com.taisheng.now.bussiness.bean.result.PictureBean;
 import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
-
-import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -119,7 +119,7 @@ public interface ApiService {
 
     //首页热度文章
     @POST(Constants.Url.Article.hotArticleList)
-    Call<BaseBean<ArrayList<ArticleBean>>> hotArticleList(@Body BasePostBean postBean);
+    Call<BaseBean<ArticleResultBean>> hotArticleList(@Body BasePostBean postBean);
 
 
     //获取推荐医生
@@ -164,9 +164,14 @@ public interface ApiService {
     Call<BaseBean<CollectAddorRemoveResultBean>> collectionaddOrRemove(@Body CollectAddorRemovePostBean bean);
 
 
-    //收藏列表
+    //文章收藏列表
     @POST(Constants.Url.Doctor.collectionlist)
-    Call<BaseBean<CollectListResultBean>> collectionlist(@Body CollectListPostBean bean);
+    Call<BaseBean<ArticleCollectListResultBean>> articlecollectionlist(@Body CollectListPostBean bean);
+
+
+    //医生收藏列表
+    @POST(Constants.Url.Doctor.collectionlist)
+    Call<BaseBean<DoctorCollectListResultBean>> doctorcollectionlist(@Body CollectListPostBean bean);
 
     /**
      * 给医生评分
@@ -174,6 +179,10 @@ public interface ApiService {
     @POST(Constants.Url.Doctor.doctorScore)
     Call<BaseBean> doctorScore(@Body DoctorScorePostBean beann);
 
+
+    //视频建立连接
+    @POST(Constants.Url.Doctor.connectDoctor)
+    Call<BaseBean<ConnectDoctorResultBean>> connectDoctor(@Body ConnectDoctorPostBean bean);
 
     //上传头像
     @Multipart

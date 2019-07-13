@@ -133,7 +133,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
                     iv_shoujihao_guanbi.setVisibility(View.GONE);
                     btn_yanzhengma_login.setEnabled(false);
                 }
-                if (s.length() == 11) {
+                if (s.length() == 11&&messageWaitTime<=1) {
                     btn_yanzhengma.setEnabled(true);
                 } else {
                     btn_yanzhengma.setEnabled(false);

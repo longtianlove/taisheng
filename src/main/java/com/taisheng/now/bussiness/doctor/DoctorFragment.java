@@ -71,9 +71,6 @@ public class DoctorFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 String searchkey=et_doctor_search.getText().toString();
-                if(TextUtils.isEmpty(searchkey)){
-                    return;
-                }
                 nickName=searchkey;
                 PAGE_NO=1;
                 madapter.mData.clear();

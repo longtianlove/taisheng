@@ -171,6 +171,7 @@ public class FillInMessageSecondActivity extends BaseActivity implements BleedDi
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
         HealthInfo userHealth = new HealthInfo();
+        userHealth.userId=UserInstance.getInstance().getUid();
         userHealth.height=et_height.getText().toString();
         userHealth.weight=et_weight.getText().toString();
         userHealth.antihistamine = antihistamine;

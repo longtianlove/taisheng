@@ -17,6 +17,7 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.article.ArticleCollectActivity;
 import com.taisheng.now.bussiness.doctor.DoctorCollectActivity;
+import com.taisheng.now.bussiness.healthfiles.HealthCheckHistoryActivity;
 import com.taisheng.now.bussiness.healthfiles.HealthFileSearchActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 
@@ -88,7 +89,8 @@ public class MeFragment extends BaseFragment {
         ll_healthfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mActivity, HealthFileSearchActivity.class);
+//                Intent intent = new Intent(mActivity, HealthFileSearchActivity.class);
+                Intent intent = new Intent(mActivity, HealthCheckHistoryActivity.class);
                 startActivity(intent);
             }
         });
@@ -109,7 +111,7 @@ public class MeFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-        ll_articlecollect=rootView.findViewById(R.id.ll_articlecollect);
+        ll_articlecollect = rootView.findViewById(R.id.ll_articlecollect);
         ll_articlecollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

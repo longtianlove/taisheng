@@ -18,11 +18,13 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.CollectAddorRemovePostBean;
+import com.taisheng.now.bussiness.bean.post.ConnectDoctorPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorCommentPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorDetailPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorNumberPostBean;
 import com.taisheng.now.bussiness.bean.post.GuanzhuPostBean;
 import com.taisheng.now.bussiness.bean.result.CollectAddorRemoveResultBean;
+import com.taisheng.now.bussiness.bean.result.ConnectDoctorResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentResultBean;
@@ -33,6 +35,7 @@ import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.shipin.TRTCMainActivity;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.DoubleClickUtil;
+import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.DoctorLabelWrapLayout;
 import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.StarGrade;
@@ -190,16 +193,17 @@ public class DoctorDetailActivity extends Activity {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                //todo 修改用户名和房间号
-                                onJoinRoom(113355, "Android_trtc_04");
+                                chatType = "video";
+
+                                connectDoctor();
 
                             }
                         },
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                //todo 修改用户名和房间号
-                                onJoinRoom(113355, "Android_trtc_04");
+                                chatType = "audio";
+                                connectDoctor();
                             }
                         },
                         new View.OnClickListener() {
@@ -211,6 +215,41 @@ public class DoctorDetailActivity extends Activity {
                 );
             }
         });
+    }
+
+    public String chatType = "video";
+
+    void connectDoctor() {
+        ConnectDoctorPostBean bean = new ConnectDoctorPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.doctorId = doctorId;
+        if ("video".equals(chatType)) {
+            bean.type = "1";
+        } else {
+            bean.type = "0";
+        }
+        ApiUtils.getApiService().connectDoctor(bean).enqueue(new TaiShengCallback<BaseBean<ConnectDoctorResultBean>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<ConnectDoctorResultBean>> response, BaseBean<ConnectDoctorResultBean> message) {
+                ConnectDoctorResultBean bean = message.result;
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        mUserSig = bean.userSign;
+                        onJoinRoom(bean.roomId, bean.userId);
+                        break;
+                    case Constants.DOCTOR_BUSY:
+                        ToastUtil.showTost("医生忙碌中,请稍后联系");
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<ConnectDoctorResultBean>> call, Throwable t) {
+
+            }
+        });
+
     }
 
 
@@ -231,6 +270,8 @@ public class DoctorDetailActivity extends Activity {
         getBeDoctorAttentionNum();
     }
 
+    DoctorBean doctorBean;
+
     void getDoctorDetail() {
         DoctorDetailPostBean bean = new DoctorDetailPostBean();
         bean.userId = UserInstance.getInstance().getUid();
@@ -241,20 +282,20 @@ public class DoctorDetailActivity extends Activity {
             public void onSuccess(Response<BaseBean<DoctorBean>> response, BaseBean<DoctorBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-                        DoctorBean bean = message.result;
-                        tv_doctor_name.setText(bean.nickName);
+                        doctorBean = message.result;
+                        tv_doctor_name.setText(doctorBean.nickName);
 
-                        tv_title.setText(bean.title);
-                        String fromMedicineTime = bean.fromMedicineTime;
+                        tv_title.setText(doctorBean.title);
+                        String fromMedicineTime = doctorBean.fromMedicineTime;
                         tv_workage.setText(getWorkYear(fromMedicineTime));
-                        tv_jobintroduce.setText(bean.jobIntroduction);
+                        tv_jobintroduce.setText(doctorBean.jobIntroduction);
 
-                        String goodDiseases = bean.goodDiseases;
+                        String goodDiseases = doctorBean.goodDiseases;
                         if (goodDiseases != null) {
                             String[] doctorlabel = goodDiseases.split(",");
                             dlwl_doctor_label.setData(doctorlabel, DoctorDetailActivity.this, 10, 5, 1, 5, 1, 4, 0, 4, 0);
                         }
-                        String score = bean.score;
+                        String score = doctorBean.score;
                         scorestar.setScore(score);
                         break;
                 }
@@ -508,12 +549,17 @@ public class DoctorDetailActivity extends Activity {
 
     private void onJoinRoom(final int roomId, final String userId) {
         final Intent intent = new Intent(DoctorDetailActivity.this, TRTCMainActivity.class);
-
+        if (doctorBean != null) {
+            intent.putExtra("nickName", doctorBean.nickName);
+            intent.putExtra("title", doctorBean.title);
+            intent.putExtra("avatar", doctorBean.avatar);
+        }
         intent.putExtra("roomId", roomId);
         intent.putExtra("userId", userId);
         intent.putExtra("AppScene", TRTCCloudDef.TRTC_APP_SCENE_VIDEOCALL);
         intent.putExtra("sdkAppId", Constants.SDKAPPID);
-        intent.putExtra("userSig", "eJxlj11PgzAARd-5FYRXjfYDVmbiA5Lqlm1mAiPqS4O0QMUV7CqbGP*7iksk8b6ek3tzPyzbtp1kGZ9led68KcPMeysc*8J2gHP6B9tWcpYZhjX-B8WhlVqwrDBCDxB6nocAGDuSC2VkIY9GoLhuvhuNNjkD7kjc8ZoNa79NLgAIEd*FY0WWA1zRTTi-eZl2NHrF3WQe0mR2HUN4fts-rmYBT6l37y9wlWi33-P0OZA0OCwUqTfpA7jbNoWp1*RkXy6n-MrE1ZMKItpXIkQR0QkuL0eTRm7F8doEEexjn4xoJ-RONmoQEIAeRBj8xLE*rS9DC2A5");
+        intent.putExtra("userSig", mUserSig);
+        intent.putExtra("chatType", chatType);
         startActivity(intent);
 
 

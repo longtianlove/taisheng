@@ -16,11 +16,9 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.CollectListPostBean;
-import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
-import com.taisheng.now.bussiness.bean.result.CollectListBean;
-import com.taisheng.now.bussiness.bean.result.CollectListResultBean;
+import com.taisheng.now.bussiness.bean.result.ArticleCollectListResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorBean;
-import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
+import com.taisheng.now.bussiness.bean.result.DoctorCollectListResultBean;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
@@ -89,9 +87,9 @@ public class DoctorCollectActivity extends BaseActivity {
         bean.pageSize = PAGE_SIZE;
         bean.collectionType="1";
         DialogUtil.showProgress(this, "");
-        ApiUtils.getApiService().collectionlist(bean).enqueue(new TaiShengCallback<BaseBean<CollectListResultBean>>() {
+        ApiUtils.getApiService().doctorcollectionlist(bean).enqueue(new TaiShengCallback<BaseBean<DoctorCollectListResultBean>>() {
             @Override
-            public void onSuccess(Response<BaseBean<CollectListResultBean>> response, BaseBean<CollectListResultBean> message) {
+            public void onSuccess(Response<BaseBean<DoctorCollectListResultBean>> response, BaseBean<DoctorCollectListResultBean> message) {
                 DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
@@ -118,7 +116,7 @@ public class DoctorCollectActivity extends BaseActivity {
             }
 
             @Override
-            public void onFail(Call<BaseBean<CollectListResultBean>> call, Throwable t) {
+            public void onFail(Call<BaseBean<DoctorCollectListResultBean>> call, Throwable t) {
                 DialogUtil.closeProgress();
             }
         });

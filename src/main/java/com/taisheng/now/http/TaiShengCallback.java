@@ -33,8 +33,6 @@ public abstract class TaiShengCallback<T extends BaseBean> implements Callback<T
     public void onResponse(Call<T> call, Response<T> response) {
         if (response.code() >= 200 && response.code() < 300) {
             T message = response.body();
-            //todo token过期
-
 //            if (message != null) {
 //
 //                //如果token过期，直接跳转到登录页面

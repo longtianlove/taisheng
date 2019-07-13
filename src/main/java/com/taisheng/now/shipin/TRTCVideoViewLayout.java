@@ -731,7 +731,8 @@ public class TRTCVideoViewLayout extends RelativeLayout {
 
     public void showAllAudioVolumeProgressBar() {
         for (TXCloudVideoView videoView: mVideoViewList) {
-            showAudioVolumeProgressBar(videoView, true);
+//            showAudioVolumeProgressBar(videoView, true);
+            showAudioVolumeProgressBar(videoView, false);
         }
     }
 
@@ -806,6 +807,8 @@ public class TRTCVideoViewLayout extends RelativeLayout {
     }
 
     public void updateVideoStatus(String userID, boolean bHasVideo) {
+
+        //todo 更新关闭视频页面
         for (TXCloudVideoView videoView: mVideoViewList) {
             if (videoView.getVisibility() == VISIBLE) {
                 String tempUserID = videoView.getUserId();
@@ -824,7 +827,8 @@ public class TRTCVideoViewLayout extends RelativeLayout {
                             layoutToolbar.setVisibility(VISIBLE);
                         }
 
-                        showNoVideoLayout(videoView, true);
+//                        showNoVideoLayout(videoView, true);
+                        showNoVideoLayout(videoView, false);
                     }
                     else {
                         showNoVideoLayout(videoView, false);
