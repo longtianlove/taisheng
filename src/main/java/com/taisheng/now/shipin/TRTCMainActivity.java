@@ -160,7 +160,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
     TextView tv_nickname;
     TextView tv_title;
     SimpleDraweeView sdv_header;
-    TextView tv_jieshouzhong;
+    public  TextView tv_jieshouzhong;
     View ll_changeaudio;
     View ll_openvideo;
     View ll_changevideo;
@@ -194,9 +194,9 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
             @Override
             public void onClick(View v) {
                 onEnableVideobylong(false);
-                ll_changeaudio.setVisibility(View.GONE);
+                ll_changeaudio.setVisibility(View.INVISIBLE);
                 ll_openvideo.setVisibility(View.VISIBLE);
-                ll_changevideo.setVisibility(View.GONE);
+                ll_changevideo.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -207,7 +207,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
             public void onClick(View v) {
                 onEnableVideobylong(true);
                 ll_changeaudio.setVisibility(View.VISIBLE);
-                ll_openvideo.setVisibility(View.GONE);
+                ll_openvideo.setVisibility(View.INVISIBLE);
                 ll_changevideo.setVisibility(View.VISIBLE);
             }
         });
@@ -321,13 +321,13 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         if ("video".equals(chatType)) {
             onEnableVideobylong(true);
             ll_changeaudio.setVisibility(View.VISIBLE);
-            ll_openvideo.setVisibility(View.GONE);
+            ll_openvideo.setVisibility(View.INVISIBLE);
             ll_changevideo.setVisibility(View.VISIBLE);
         } else {
             onEnableVideobylong(false);
-            ll_changeaudio.setVisibility(View.GONE);
+            ll_changeaudio.setVisibility(View.INVISIBLE);
             ll_openvideo.setVisibility(View.VISIBLE);
-            ll_changevideo.setVisibility(View.GONE);
+            ll_changevideo.setVisibility(View.INVISIBLE);
         }
 
         trtcCloud.setBeautyStyle(TRTCCloudDef.TRTC_BEAUTY_STYLE_SMOOTH, 5, 5, 5);
@@ -354,8 +354,8 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 
         trtcCloud.enterRoom(trtcParams, mAppScene);
 
-
-        Toast.makeText(this, "开始进房", Toast.LENGTH_SHORT).show();
+//todo
+//        Toast.makeText(this, "开始进房", Toast.LENGTH_SHORT).show();
     }
 
     public String chatType = "video";
@@ -508,6 +508,8 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         public void onEnterRoom(long elapsed) {
             final TRTCMainActivity activity = mContext.get();
             if (activity != null) {
+
+                activity.tv_jieshouzhong.setVisibility(View.GONE);
                 //todo 放开
 //                Toast.makeText(activity, "加入房间成功", Toast.LENGTH_SHORT).show();
                 activity.mVideoViewLayout.onRoomEnter();
@@ -690,6 +692,8 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                         activity.stopLinkMic();
                     }
                 }
+                activity.exitRoom();
+
             }
         }
 
