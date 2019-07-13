@@ -19,6 +19,7 @@ public class Constants {
     public final static int LOGIN_VERIFYCODE_FAIL = 1004;//验证码不正确，请重新输入
     public final static int LOGIN_USERNAME_NOT_EXISTENCE = 1002;//账号不存在,请切换手机号登陆！
     public final static int LOGIN_PASSWORD_ERROR = 101;//密码错误
+    public final static int TOKEN_DIFFERENCE=401023;//token异常
 
     //男女0是男，1是女
     public final static int MALE = 0;

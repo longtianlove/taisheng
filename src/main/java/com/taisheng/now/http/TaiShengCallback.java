@@ -5,9 +5,14 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.taisheng.now.Constants;
 import com.taisheng.now.Environment;
 import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.user.LoginActivity;
+import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.push.XMPushManagerInstance;
+import com.taisheng.now.util.ToastUtil;
 import com.tencent.bugly.crashreport.CrashReport;
 
 
@@ -29,6 +34,7 @@ public abstract class TaiShengCallback<T extends BaseBean> implements Callback<T
         if (response.code() >= 200 && response.code() < 300) {
             T message = response.body();
             //todo token过期
+
 //            if (message != null) {
 //
 //                //如果token过期，直接跳转到登录页面
@@ -51,6 +57,18 @@ public abstract class TaiShengCallback<T extends BaseBean> implements Callback<T
 //
 //                    return;
 //                }
+
+            if (message != null) {
+                if(message.code== Constants.TOKEN_DIFFERENCE){
+                    //注销小米账号
+                    XMPushManagerInstance.getInstance().stop();
+                    ToastUtil.showTost("身份过期，请重新登录");
+                    UserInstance.getInstance().clearUserInfo();
+                    Intent intent = new Intent(SampleAppLike.mcontext, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    SampleAppLike.mcontext.startActivity(intent);
+                    return;
+                }
                 if (SampleAppLike.environment == Environment.Release) {
                     //上线状态下：此处加了统一对网络请求的异常捕获，不让用户崩溃。然后上传异常信息到bugly。
                     try {
@@ -66,8 +84,9 @@ public abstract class TaiShengCallback<T extends BaseBean> implements Callback<T
                 }
                 return;
             }
+        }
 
-//        ToastUtil.showTost("网络错误");
+        ToastUtil.showTost("网络错误");
 
         onFail(call, null);
     }
