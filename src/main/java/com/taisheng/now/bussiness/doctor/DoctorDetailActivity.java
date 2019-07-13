@@ -19,9 +19,11 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.CollectAddorRemovePostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorCommentPostBean;
+import com.taisheng.now.bussiness.bean.post.DoctorDetailPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorNumberPostBean;
 import com.taisheng.now.bussiness.bean.post.GuanzhuPostBean;
 import com.taisheng.now.bussiness.bean.result.CollectAddorRemoveResultBean;
+import com.taisheng.now.bussiness.bean.result.DoctorBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorNumberResultBean;
@@ -215,22 +217,9 @@ public class DoctorDetailActivity extends Activity {
     void initData() {
         Intent intent = getIntent();
         doctorId = intent.getStringExtra("id");
-        String nickName = intent.getStringExtra("nickName");
-        tv_doctor_name.setText(nickName);
-        String title = intent.getStringExtra("title");
-        tv_title.setText(title);
-        String fromMedicineTime = intent.getStringExtra("fromMedicineTime");
-        tv_workage.setText(getWorkYear(fromMedicineTime));
-        String jobIntroduction = intent.getStringExtra("jobIntroduction");
-        tv_jobintroduce.setText(jobIntroduction);
 
-        String goodDiseases = intent.getStringExtra("goodDiseases");
-        if (goodDiseases != null) {
-            String[] doctorlabel = goodDiseases.split(",");
-            dlwl_doctor_label.setData(doctorlabel, DoctorDetailActivity.this, 10, 5, 1, 5, 1, 4, 0, 4, 0);
-        }
-        String score = intent.getStringExtra("score");
-        scorestar.setScore(score);
+
+        getDoctorDetail();
 
 
         PAGE_NO = 1;
@@ -240,6 +229,42 @@ public class DoctorDetailActivity extends Activity {
         getServiceNumber();
         getBeCommentedNum();
         getBeDoctorAttentionNum();
+    }
+
+    void getDoctorDetail() {
+        DoctorDetailPostBean bean = new DoctorDetailPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.id = doctorId;
+        ApiUtils.getApiService().doctorQueryById(bean).enqueue(new TaiShengCallback<BaseBean<DoctorBean>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<DoctorBean>> response, BaseBean<DoctorBean> message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        DoctorBean bean = message.result;
+                        tv_doctor_name.setText(bean.nickName);
+
+                        tv_title.setText(bean.title);
+                        String fromMedicineTime = bean.fromMedicineTime;
+                        tv_workage.setText(getWorkYear(fromMedicineTime));
+                        tv_jobintroduce.setText(bean.jobIntroduction);
+
+                        String goodDiseases = bean.goodDiseases;
+                        if (goodDiseases != null) {
+                            String[] doctorlabel = goodDiseases.split(",");
+                            dlwl_doctor_label.setData(doctorlabel, DoctorDetailActivity.this, 10, 5, 1, 5, 1, 4, 0, 4, 0);
+                        }
+                        String score = bean.score;
+                        scorestar.setScore(score);
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<DoctorBean>> call, Throwable t) {
+
+            }
+        });
     }
 
     String getWorkYear(String fromMedicineTime) {

@@ -171,6 +171,7 @@ public class MeFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         if (UserInstance.getInstance().userInfo.avatar != null) {
+            //todo 相对路径还是绝对路径
             Uri uri = Uri.parse(Constants.Url.Host + UserInstance.getInstance().userInfo.avatar);
             sdv_header.setImageURI(uri);
         }

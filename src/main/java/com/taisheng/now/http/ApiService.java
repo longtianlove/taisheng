@@ -9,6 +9,7 @@ import com.taisheng.now.bussiness.bean.post.CollectAddorRemovePostBean;
 import com.taisheng.now.bussiness.bean.post.CollectListPostBean;
 import com.taisheng.now.bussiness.bean.post.ConsultListPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorCommentPostBean;
+import com.taisheng.now.bussiness.bean.post.DoctorDetailPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorNumberPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorScorePostBean;
 import com.taisheng.now.bussiness.bean.post.FeedbackPostBean;
@@ -31,6 +32,7 @@ import com.taisheng.now.bussiness.bean.result.CheckHistoryResultBean;
 import com.taisheng.now.bussiness.bean.result.CollectAddorRemoveResultBean;
 import com.taisheng.now.bussiness.bean.result.CollectListResultBean;
 import com.taisheng.now.bussiness.bean.result.ConsultListResultBean;
+import com.taisheng.now.bussiness.bean.result.DoctorBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorNumberResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
@@ -120,6 +122,11 @@ public interface ApiService {
     //获取所有医生
     @POST(Constants.Url.Doctor.doctorslist)
     Call<BaseBean<DoctorsResultBean>> doctorslist(@Body RecommendDoctorPostBean bean);
+
+
+    //获取医生详情
+    @POST(Constants.Url.Doctor.doctorQueryById)
+    Call<BaseBean<DoctorBean>> doctorQueryById(@Body DoctorDetailPostBean bean);
 
     /**
      * 获取医生评价

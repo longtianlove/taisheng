@@ -115,6 +115,10 @@ public class Constants {
              */
             public static final String doctorslist = "jeecg-boot/app/doctor/list";
             /**
+             * 获取医生详情
+             */
+            public static  final String doctorQueryById="jeecg-boot/app/doctor/queryById";
+            /**
              * 获取医生评价
              */
             public static final String doctorScoreList = "jeecg-boot/app/score/doctorScore/scoreList";
