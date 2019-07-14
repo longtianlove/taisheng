@@ -156,7 +156,7 @@ public class Constants {
             public static final String collectionaddOrRemove = "jeecg-boot/app/collection/addOrRemove";
 
             //收藏管理
-            public static final String collectionlist = "jeecg-boot/app/collection/list";
+            public static final String collectionlist = "jeecg-boot/app/collection/getDoctorOrArticlePageList";
 
             //咨询记录
             public static final String consultList = "jeecg-boot/app/consult/consultList";

@@ -1,5 +1,6 @@
 package com.taisheng.now.bussiness.me;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,15 +8,25 @@ import android.os.Environment;
 import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
+import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.bussiness.doctor.DoctorCommentActivity;
+import com.taisheng.now.bussiness.doctor.DoctorDetailActivity;
+import com.taisheng.now.bussiness.user.LoginActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.push.XMPushManagerInstance;
+import com.taisheng.now.util.ToastUtil;
+import com.taisheng.now.view.AppDialog;
 import com.taisheng.now.view.crop.Crop;
 
 import java.io.File;
@@ -36,6 +47,8 @@ public class MeMessageActivity extends BaseActivity {
     TextView tv_nickname;
     TextView tv_zhanghao;
     TextView tv_phone;
+
+    TextView btn_post;
     SimpleDraweeView sdv_header;
     private final int REQ_CODE_PHOTO_SOURCE = 6;//选择方式
     private final int REQ_CODE_GET_PHOTO_FROM_GALLERY = 10;//从相册获取
@@ -81,8 +94,8 @@ public class MeMessageActivity extends BaseActivity {
         ll_zhanghao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MeMessageActivity.this, UpdateZhanghaoActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(MeMessageActivity.this, UpdateZhanghaoActivity.class);
+//                startActivity(intent);
             }
         });
         ll_bindphone = findViewById(R.id.ll_bindphone);
@@ -107,6 +120,16 @@ public class MeMessageActivity extends BaseActivity {
         tv_zhanghao = (TextView) findViewById(R.id.tv_zhanghao);
 
         tv_phone = (TextView) findViewById(R.id.tv_phone);
+
+        btn_post= (TextView) findViewById(R.id.btn_post);
+        btn_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showGoRecommendDialog();
+
+            }
+        });
 
     }
 
@@ -193,6 +216,45 @@ public class MeMessageActivity extends BaseActivity {
                 sdv_header.setImageURI(uri);
                 break;
         }
+    }
+
+
+
+    public void showGoRecommendDialog() {
+        final Dialog dialog = new AppDialog(this, R.layout.dialog_logout, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, R.style.mystyle, Gravity.CENTER);
+        dialog.getWindow().setWindowAnimations(0);
+
+        Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        Button btn_go_recommend = (Button) dialog.findViewById(R.id.btn_go_recommend);
+
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        btn_go_recommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+
+                //注销小米账号
+                XMPushManagerInstance.getInstance().stop();
+                UserInstance.getInstance().clearUserInfo();
+                Intent intent = new Intent(SampleAppLike.mcontext, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                SampleAppLike.mcontext.startActivity(intent);
+            }
+        });
+
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
     }
 
 }

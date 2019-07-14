@@ -308,11 +308,12 @@ public class DoctorDetailActivity extends Activity {
                         scorestar.setScore(score);
 
                         if ("1".equals(doctorBean.isSc)) {
-                            tv_collect_label.setEnabled(false);
-                            tv_collect_show.setText("收藏");
-                        } else {
                             tv_collect_label.setEnabled(true);
                             tv_collect_show.setText("已收藏");
+
+                        } else {
+                            tv_collect_label.setEnabled(false);
+                            tv_collect_show.setText("收藏");
                         }
                         break;
                 }
