@@ -70,9 +70,15 @@ public class ArticleCollectActivity extends BaseActivity {
         });
     }
     void initData() {
-        getDoctors();
+
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getDoctors();
+    }
 
     int PAGE_NO = 1;
     int PAGE_SIZE = 10;

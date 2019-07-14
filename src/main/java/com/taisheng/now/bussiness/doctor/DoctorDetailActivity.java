@@ -109,9 +109,10 @@ public class DoctorDetailActivity extends Activity {
 
 
         initView();
+        Intent intent = getIntent();
+        doctorId = intent.getStringExtra("id");
 
 
-        initData();
     }
 
     void initView() {
@@ -140,6 +141,7 @@ public class DoctorDetailActivity extends Activity {
 
         lv_comments = (TaishengListView) findViewById(R.id.lv_comments);
         madapter = new DoctorCommentAdapter(this);
+        lv_comments.setListViewSlide(false);
         lv_comments.setAdapter(madapter);
         lv_comments.setOnUpLoadListener(new TaishengListView.OnUpLoadListener() {
             @Override
@@ -263,13 +265,7 @@ public class DoctorDetailActivity extends Activity {
 
 
     void initData() {
-        Intent intent = getIntent();
-        doctorId = intent.getStringExtra("id");
-
-
         getDoctorDetail();
-
-
         PAGE_NO = 1;
         PAGE_SIZE = 10;
         bean = new DoctorCommentPostBean();
@@ -277,6 +273,12 @@ public class DoctorDetailActivity extends Activity {
         getServiceNumber();
         getBeCommentedNum();
         getBeDoctorAttentionNum();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initData();
     }
 
     DoctorBean doctorBean;
@@ -521,8 +523,7 @@ public class DoctorDetailActivity extends Activity {
 
             String temp_url = Constants.Url.Host + bean.avatar;
             if (bean.avatar == null || "".equals(bean.avatar)) {
-                //todo 默认头像评论人员
-                util.sdv_header.setBackgroundResource(R.drawable.article_default);
+                util.sdv_header.setBackgroundResource(R.drawable.icon_comment_avatar);
 
             } else {
                 Uri uri = Uri.parse(temp_url);

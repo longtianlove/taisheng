@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
@@ -17,7 +18,7 @@ public class DoctorCommentSuccessActivity extends BaseActivity {
 
 
     View ll_go_detail;
-    Button btn_post;
+    TextView btn_post;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +34,7 @@ public class DoctorCommentSuccessActivity extends BaseActivity {
             }
         });
 
-        btn_post= (Button) findViewById(R.id.btn_post);
+        btn_post= (TextView) findViewById(R.id.btn_post);
         btn_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

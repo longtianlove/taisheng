@@ -28,7 +28,8 @@
             android:id="@+id/starGrade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_marginLeft="-180dp"
+            android:gravity="left|center_vertical"
             android:orientation="horizontal" />
     </LinearLayout>
 

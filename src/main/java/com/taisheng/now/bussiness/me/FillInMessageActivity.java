@@ -191,9 +191,6 @@ public class FillInMessageActivity extends BaseActivity {
                         SPUtil.putRealname(UserInstance.getInstance().userInfo.realName);
                         UserInstance.getInstance().userInfo.sex = bean.sysUser.sex;
                         SPUtil.putSex(UserInstance.getInstance().userInfo.sex);
-                        //todo 获取账号和nickname
-//                        UserInstance.getInstance().userInfo.nickName=message.sysUser.nickName;
-//                        SPUtil.putNickname(bean.sysUser.nickName);
                         UserInstance.getInstance().userInfo.userName = message.result.userName;
                         SPUtil.putZhanghao(message.result.userName);
                         UserInstance.getInstance().userInfo.nickName = message.result.nickName;

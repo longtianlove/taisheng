@@ -52,9 +52,9 @@
         <!--/>-->
     <TextView
         android:id="@+id/tv_score"
-        android:layout_width="20dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:text="不错"
+        android:text="非常好"
         android:textColor="#ff999999"
         android:textSize="10sp"
         />

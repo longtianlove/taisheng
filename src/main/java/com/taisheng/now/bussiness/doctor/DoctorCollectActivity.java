@@ -71,9 +71,14 @@ public class DoctorCollectActivity extends BaseActivity {
         });
     }
     void initData() {
-        getDoctors();
+//        getDoctors();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getDoctors();
+    }
 
     int PAGE_NO = 1;
     int PAGE_SIZE = 10;
