@@ -4,6 +4,7 @@ package com.taisheng.now.http;
 import com.taisheng.now.Constants;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.AnswerPostBean;
+import com.taisheng.now.bussiness.bean.post.ArticleWithDoctorPostBean;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
 import com.taisheng.now.bussiness.bean.post.CollectAddorRemovePostBean;
 import com.taisheng.now.bussiness.bean.post.CollectListPostBean;
@@ -129,6 +130,10 @@ public interface ApiService {
     //获取所有医生
     @POST(Constants.Url.Doctor.doctorslist)
     Call<BaseBean<DoctorsResultBean>> doctorslist(@Body RecommendDoctorPostBean bean);
+
+    //文章相关的医生
+    @POST(Constants.Url.Article.getDoctorTypeList)
+    Call<BaseBean<DoctorsResultBean>> getDoctorTypeList(@Body ArticleWithDoctorPostBean bean);
 
 
     //获取医生详情

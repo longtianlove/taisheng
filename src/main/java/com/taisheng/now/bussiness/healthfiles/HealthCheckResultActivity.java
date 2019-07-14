@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.bussiness.MainActivity;
 
 /**
  * Created by dragon on 2019/7/10.
@@ -31,8 +32,9 @@ public class HealthCheckResultActivity extends BaseActivity {
         initView();
         initData();
     }
-    void initView(){
-        iv_back=findViewById(R.id.iv_back);
+
+    void initView() {
+        iv_back = findViewById(R.id.iv_back);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,29 +42,30 @@ public class HealthCheckResultActivity extends BaseActivity {
             }
         });
 
-        tv_completeBatch= (TextView) findViewById(R.id.tv_completeBatch);
-        tv_remarks= (TextView) findViewById(R.id.tv_remarks);
+        tv_completeBatch = (TextView) findViewById(R.id.tv_completeBatch);
+        tv_remarks = (TextView) findViewById(R.id.tv_remarks);
 
-        ll_zixun=findViewById(R.id.ll_zixun);
+        ll_zixun = findViewById(R.id.ll_zixun);
 
         ll_zixun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(HealthCheckResultActivity.this, MainActivity.class);
+                intent.putExtra("fromwhere","HealthCheckResultActivity");
+                startActivity(intent);
             }
         });
 
     }
 
-    void initData(){
-        Intent intent=getIntent();
-        String completeBatch=intent.getStringExtra("completeBatch");
-        String remarks=intent.getStringExtra("remarks");
+    void initData() {
+        Intent intent = getIntent();
+        String completeBatch = intent.getStringExtra("completeBatch");
+        String remarks = intent.getStringExtra("remarks");
 //        int score=intent.getIntExtra("score",0);
 
         tv_completeBatch.setText(completeBatch);
         tv_remarks.setText(remarks);
-
 
 
     }

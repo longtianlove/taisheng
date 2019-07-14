@@ -59,11 +59,12 @@ public class DoctorLabelWrapLayout extends ViewGroup {
      * @param mb 下外边距
      */
     public void setData(String[] data,Context context,int textSize,int pl,int pt,int pr,int pb,int ml,int mt,int mr,int mb){
+        this.removeAllViews();
         createChild(data,context,textSize, pl, pt, pr, pb, ml, mt, mr, mb);
     }
 
     public void setData(List<String> data, Context context, int textSize, int pl, int pt, int pr, int pb, int ml, int mt, int mr, int mb){
-        this.removeAllViews();
+
         String[] mydata = null;
         if(data!=null){
             int length = data.size();

@@ -242,6 +242,9 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        if("HealthCheckResultActivity".equals(intent.getStringExtra("fromwhere"))){
+            showFragment(1);
+        }
     }
 
     @Override

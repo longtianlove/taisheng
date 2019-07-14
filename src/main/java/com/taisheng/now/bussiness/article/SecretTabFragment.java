@@ -17,12 +17,18 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.base.BaseFragment;
+import com.taisheng.now.bussiness.bean.post.ArticleWithDoctorPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.bussiness.bean.post.ArticlePostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleResultBean;
+import com.taisheng.now.bussiness.bean.result.DoctorBean;
+import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
+import com.taisheng.now.bussiness.doctor.DoctorDetailActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
+import com.taisheng.now.view.DoctorLabelWrapLayout;
+import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.TaishengListView;
 import com.zzhoujay.richtext.RichText;
 
@@ -42,6 +48,18 @@ public class SecretTabFragment extends BaseFragment {
     ArticlePostBean bean;
     ArticleAdapter madapter;
 
+
+    View ll_all;
+    SimpleDraweeView sdv_header;
+    TextView tv_doctor_name;
+    TextView tv_title;
+    TextView tv_times;
+    DoctorLabelWrapLayout dlwl_doctor_label;
+    ScoreStar scorestar;
+    TextView btn_zixun;
+
+    TextView btn_change;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,6 +71,28 @@ public class SecretTabFragment extends BaseFragment {
     }
 
     void initView(View rootView) {
+
+
+        ll_all = rootView.findViewById(R.id.ll_all);
+        sdv_header = (SimpleDraweeView) rootView.findViewById(R.id.sdv_header);
+        tv_doctor_name = (TextView) rootView.findViewById(R.id.tv_doctor_name);
+        tv_title = (TextView) rootView.findViewById(R.id.tv_title);
+        tv_times = (TextView) rootView.findViewById(R.id.tv_times);
+        dlwl_doctor_label = (DoctorLabelWrapLayout) rootView.findViewById(R.id.dlwl_doctor_label);
+        scorestar = (ScoreStar) rootView.findViewById(R.id.scorestar);
+        btn_zixun = (TextView) rootView.findViewById(R.id.btn_zixun);
+
+
+        btn_change = (TextView) rootView.findViewById(R.id.btn_change);
+        btn_change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DOCTOR_pageNo++;
+                getDoctorTypeList();
+            }
+        });
+
+
         lv_articles = (TaishengListView) rootView.findViewById(R.id.lv_articles);
         madapter = new ArticleAdapter(mActivity);
         lv_articles.setAdapter(madapter);
@@ -65,18 +105,107 @@ public class SecretTabFragment extends BaseFragment {
     }
 
     void initData() {
+        DOCTOR_pageNo = 1;
+        getDoctorTypeList();
         PAGE_NO = 1;
         PAGE_SIZE = 10;
-        bean=new ArticlePostBean();
+        bean = new ArticlePostBean();
         getArticles();
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    public int DOCTOR_pageNo = 1;
+    public int DOCTOR_pageSize = 1;
 
+    void getDoctorTypeList() {
+        ArticleWithDoctorPostBean bean = new ArticleWithDoctorPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.pageNo = DOCTOR_pageNo;
+        bean.pageSize = DOCTOR_pageSize;
+        switch (typeName) {
+            case Constants.SUSHENHUFU:
+                bean.type = 1;
+                break;
+            case Constants.JIANSHENYUNDONG:
+                bean.type = 2;
+                break;
+            case Constants.SHILIAOYANGSHENG:
+                bean.type = 3;
+                break;
+            case Constants.YONGYAOZHIDAO:
+                bean.type = 4;
+                break;
+            case Constants.MUYINGYUNYU:
+                bean.type = 5;
+                break;
+        }
+        ApiUtils.getApiService().getDoctorTypeList(bean).enqueue(new TaiShengCallback<BaseBean<DoctorsResultBean>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<DoctorsResultBean>> response, BaseBean<DoctorsResultBean> message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        if (message.result.records != null && message.result.records.size() > 0) {
+                            DoctorBean bean = message.result.records.get(0);
+
+                            ll_all.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(mActivity, DoctorDetailActivity.class);
+                                    intent.putExtra("id", bean.id);
+                                    intent.putExtra("nickName", bean.nickName);
+                                    intent.putExtra("title", bean.title);
+                                    intent.putExtra("fromMedicineTime", bean.fromMedicineTime);
+                                    intent.putExtra("jobIntroduction", bean.jobIntroduction);
+                                    intent.putExtra("score", bean.score);
+                                    intent.putExtra("goodDiseases", bean.goodDiseases);
+                                    startActivity(intent);
+                                }
+                            });
+                            if (bean.avatar != null) {
+                                Uri uri = Uri.parse(bean.avatar);
+                                sdv_header.setImageURI(uri);
+                            }
+                            tv_doctor_name.setText(bean.nickName);
+                            tv_title.setText(bean.title);
+                            tv_times.setText(bean.answerNum);
+                            if (bean.goodDiseases != null) {
+                                String[] doctorlabel = bean.goodDiseases.split(",");
+                                dlwl_doctor_label.setData(doctorlabel, mActivity, 10, 5, 1, 5, 1, 4, 0, 4, 0);
+
+                            }
+
+                            if (bean.score != null) {
+                                scorestar.setScore(bean.score);
+                            }
+                            btn_zixun.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(mActivity, DoctorDetailActivity.class);
+                                    intent.putExtra("id", bean.id);
+                                    intent.putExtra("nickName", bean.nickName);
+                                    intent.putExtra("title", bean.title);
+                                    intent.putExtra("fromMedicineTime", bean.fromMedicineTime);
+                                    intent.putExtra("jobIntroduction", bean.jobIntroduction);
+                                    intent.putExtra("score", bean.score);
+                                    intent.putExtra("goodDiseases", bean.goodDiseases);
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                        break;
+                }
+
+
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<DoctorsResultBean>> call, Throwable t) {
+
+            }
+        });
     }
+
 
     int PAGE_NO = 1;
     int PAGE_SIZE = 10;
@@ -192,7 +321,7 @@ public class SecretTabFragment extends BaseFragment {
                 util.sdv_article.setImageURI(uri);
             }
             util.tv_title.setText(bean.title);
-            if(bean.content!=null) {
+            if (bean.content != null) {
                 util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
                 RichText.fromHtml(bean.content).into(util.tv_content);
                 Intent intent = new Intent(mActivity, ArticleContentActivity.class);

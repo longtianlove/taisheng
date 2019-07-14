@@ -1,16 +1,20 @@
 package com.taisheng.now.bussiness.doctor;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -36,6 +40,7 @@ import com.taisheng.now.shipin.TRTCMainActivity;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.DoubleClickUtil;
 import com.taisheng.now.util.ToastUtil;
+import com.taisheng.now.view.AppDialog;
 import com.taisheng.now.view.DoctorLabelWrapLayout;
 import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.StarGrade;
@@ -241,6 +246,10 @@ public class DoctorDetailActivity extends Activity {
                     case Constants.DOCTOR_BUSY:
                         ToastUtil.showTost("医生忙碌中,请稍后联系");
                         break;
+                    case Constants.DOCTOR_NOEXIST:
+                        ToastUtil.showTost("医生不存在");
+
+                        break;
                 }
             }
 
@@ -297,6 +306,14 @@ public class DoctorDetailActivity extends Activity {
                         }
                         String score = doctorBean.score;
                         scorestar.setScore(score);
+
+                        if ("1".equals(doctorBean.isSc)) {
+                            tv_collect_label.setEnabled(false);
+                            tv_collect_show.setText("收藏");
+                        } else {
+                            tv_collect_label.setEnabled(true);
+                            tv_collect_show.setText("已收藏");
+                        }
                         break;
                 }
             }
@@ -560,7 +577,7 @@ public class DoctorDetailActivity extends Activity {
         intent.putExtra("sdkAppId", Constants.SDKAPPID);
         intent.putExtra("userSig", mUserSig);
         intent.putExtra("chatType", chatType);
-        startActivity(intent);
+        startActivityForResult(intent,1);
 
 
 //                mUserInfoLoader.getUserSigFromServer(finalSdkAppId, roomId, userId, "12345678", new TRTCGetUserIDAndUserSig.IGetUserSigListener() {
@@ -582,6 +599,54 @@ public class DoctorDetailActivity extends Activity {
 //                    }
 //                });
 
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (resultCode) {
+            case TRTCMainActivity.TRTC_Normal_EXIT_RESULT:
+                showGoRecommendDialog();
+                break;
+
+        }
+    }
+
+
+    public void showGoRecommendDialog() {
+        final Dialog dialog = new AppDialog(this, R.layout.dialog_go_recommend, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, R.style.mystyle, Gravity.CENTER);
+        dialog.getWindow().setWindowAnimations(0);
+
+        Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        Button btn_go_recommend = (Button) dialog.findViewById(R.id.btn_go_recommend);
+
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        btn_go_recommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+                Intent intent = new Intent(DoctorDetailActivity.this, DoctorCommentActivity.class);
+                intent.putExtra("id",doctorId);
+                startActivity(intent);
+
+            }
+        });
+
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
     }
 }
 

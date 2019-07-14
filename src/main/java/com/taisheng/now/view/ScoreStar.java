@@ -88,6 +88,7 @@ public class ScoreStar extends LinearLayout {
                 btn_star5.setEnabled(true);
                 break;
             default:
+                tv_score.setText(5 + "");
                 btn_star1.setEnabled(true);
                 btn_star2.setEnabled(true);
                 btn_star3.setEnabled(true);

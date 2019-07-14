@@ -63,7 +63,7 @@
             android:textColor="#ff333333"
             android:textSize="12sp" />
 
-        <com.taisheng.now.view.StarGrade
+        <com.taisheng.now.view.StarGradeCanclick
             android:id="@+id/starGrade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,6 +82,7 @@
         android:padding="12dp">
 
         <EditText
+            android:id="@+id/et_commend"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"

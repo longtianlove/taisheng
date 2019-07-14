@@ -38,17 +38,56 @@ public class StarGrade extends LinearLayout {
         View rootView = LayoutInflater.from(context).inflate(R.layout.layout_star_grade, this, true);
         tv_score = (TextView) rootView.findViewById(R.id.tv_score);
         btn_star1 = (Button) rootView.findViewById(R.id.btn_star1);
+        btn_star1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                setScore(1);
+            }
+        });
         btn_star2 = (Button) rootView.findViewById(R.id.btn_star2);
+        btn_star2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                setScore(2);
+            }
+        });
         btn_star3 = (Button) rootView.findViewById(R.id.btn_star3);
+        btn_star3.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                setScore(3);
+            }
+        });
         btn_star4 = (Button) rootView.findViewById(R.id.btn_star4);
+        btn_star4.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                setScore(4);
+            }
+        });
         btn_star5 = (Button) rootView.findViewById(R.id.btn_star5);
+        btn_star5.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                setScore(5);
+            }
+        });
         setScore(0);
     }
+
+
+    public int resultScore = 0;
 
 
     public void setScore(float score) {
 
         int score_int = (int) Math.floor(score);
+        resultScore = score_int;
         tv_score.setText("一般");
         btn_star1.setEnabled(false);
         btn_star2.setEnabled(false);

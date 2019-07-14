@@ -135,6 +135,8 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         trtcCloud = TRTCCloud.sharedInstance(this);
         trtcCloud.setListener(trtcListener);
 
+
+        doctor_comein=false;
         //开始进入视频通话房间
         enterRoom();
     }
@@ -153,7 +155,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 
     @Override
     public void onBackPressed() {
-        exitRoom();
+        exitRoomNormal();
     }
 
 
@@ -223,7 +225,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         iv_cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                exitRoom();
+                exitRoomNormal();
             }
         });
         initClickableLayout(R.id.ll_beauty);
@@ -359,9 +361,10 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
     }
 
     public String chatType = "video";
+    public boolean doctor_comein=false;//医生是否进来
 
     /**
-     * 退出视频房间
+     * 退出视频房间//异常退出
      */
     private void exitRoom() {
         if (mCustomCapture != null) {
@@ -377,6 +380,26 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         finish();
     }
 
+    public static final int TRTC_Normal_EXIT_RESULT =4;
+
+    /**
+     * 退出视频房间//正常退出
+     */
+    private void exitRoomNormal() {
+        if (mCustomCapture != null) {
+            mCustomCapture.stop();
+        }
+        if (mCustomRender != null) {
+            mCustomRender.stop();
+        }
+        if (trtcCloud != null) {
+            trtcCloud.exitRoom();
+        }
+        if(doctor_comein) {//有医生进来再显示弹窗
+            setResult(TRTC_Normal_EXIT_RESULT);
+        }
+        finish();
+    }
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.iv_show_mode) {
@@ -663,6 +686,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                     }
                 }
                 activity.enableAudioVolumeEvaluation(activity.moreDlg.isAudioVolumeEvaluation());
+                activity.doctor_comein=true;
             }
         }
 
@@ -692,7 +716,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                         activity.stopLinkMic();
                     }
                 }
-                activity.exitRoom();
+                activity.exitRoomNormal();
 
             }
         }

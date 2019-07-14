@@ -30,4 +30,6 @@ public class DoctorBean {
     public String answerNum;
     public String id;
     public String goodDiseases;
+
+    public String isSc;
 }

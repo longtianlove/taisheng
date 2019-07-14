@@ -22,6 +22,7 @@ public class Constants {
     public final static int LOGIN_USERNAME_NOT_EXISTENCE = 1002;//账号不存在,请切换手机号登陆！
     public final static int LOGIN_PASSWORD_ERROR = 101;//密码错误
     public final static int TOKEN_DIFFERENCE = 401023;//token异常
+    public final static int DOCTOR_NOEXIST = 70000;//医生不存在
     public final static int DOCTOR_BUSY = 70001;//医生忙碌中,请稍后联系
 
 
@@ -40,9 +41,9 @@ public class Constants {
         //        public static String Host = "http://47.93.249.1:9100/";
 //        public static String File_Host="http://47.93.249.1:9700/";
 //        public static String Host = "http://120.24.152.121:9100/";
-//        public static String Host = "http://192.168.1.18:8080/";
+        public static String Host = "http://192.168.1.18:8080/";
 //        public static String Host = "http://192.168.1.8:8888/";
-        public static String Host = "http://192.168.1.17:8080/";
+//        public static String Host = "http://192.168.1.17:8080/";
 //        public static String Host = "http://39.108.247.58:9100/";
         //        public static String File_Host = "http://120.24.152.121:9700/";
 
@@ -109,6 +110,10 @@ public class Constants {
              * 首页热度文章
              */
             public static final String hotArticleList = "jeecg-boot/app/article/index/hotArticleList";
+
+
+            //文章相关的医生
+            public static final String getDoctorTypeList = "jeecg-boot/app/doctor/getDoctorTypeList";
 
         }
 
