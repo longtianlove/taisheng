@@ -224,6 +224,7 @@ public class SecretTabFragment extends BaseFragment {
                     case Constants.HTTP_SUCCESS:
 
                         if (message.result.records != null && message.result.records.size() > 0) {
+                            lv_articles.setLoading(false);
                             //有消息
                             PAGE_NO++;
                             madapter.mData = message.result.records;

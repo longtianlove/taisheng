@@ -436,6 +436,7 @@ public class DoctorDetailActivity extends Activity {
                             return;
                         }
                         if (message.result.records != null && message.result.records.size() > 0) {
+                            lv_comments.setLoading(false);
                             //有消息
                             PAGE_NO++;
                             madapter.mData.addAll(message.result.records);

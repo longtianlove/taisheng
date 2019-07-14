@@ -113,6 +113,7 @@ public class DoctorFragment extends BaseFragment {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         if (message.result.records != null && message.result.records.size() > 0) {
+                            lv_doctors.setLoading(false);
                             //有消息
                             PAGE_NO++;
                             madapter.mData.addAll(message.result.records);
