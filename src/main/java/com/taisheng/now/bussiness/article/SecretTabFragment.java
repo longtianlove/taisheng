@@ -146,8 +146,9 @@ public class SecretTabFragment extends BaseFragment {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         if (message.result.records != null && message.result.records.size() > 0) {
-                            DoctorBean bean = message.result.records.get(0);
 
+                            DoctorBean bean = message.result.records.get(0);
+                            ll_all.setVisibility(View.VISIBLE);
                             ll_all.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -192,6 +193,9 @@ public class SecretTabFragment extends BaseFragment {
                                     startActivity(intent);
                                 }
                             });
+                        }else{
+                            ll_all.setVisibility(View.GONE);
+
                         }
                         break;
                 }
