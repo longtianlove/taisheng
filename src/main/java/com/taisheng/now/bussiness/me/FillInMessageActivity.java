@@ -18,6 +18,7 @@ import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.MainActivity;
 import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
+import com.taisheng.now.bussiness.bean.result.ModifyUserInfoResultBean;
 import com.taisheng.now.bussiness.bean.result.UserInfo;
 import com.taisheng.now.bussiness.user.LoginActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -157,8 +158,6 @@ public class FillInMessageActivity extends BaseActivity {
         }
 
 
-
-
     }
 
     void initData() {
@@ -179,9 +178,9 @@ public class FillInMessageActivity extends BaseActivity {
         bean.sysUser.realName = et_realname.getText().toString();
         bean.sysUser.sex = sex;
 
-        ApiUtils.getApiService().modifyuser(bean).enqueue(new TaiShengCallback<BaseBean>() {
+        ApiUtils.getApiService().modifyuser(bean).enqueue(new TaiShengCallback<BaseBean<ModifyUserInfoResultBean>>() {
             @Override
-            public void onSuccess(Response<BaseBean> response, BaseBean message) {
+            public void onSuccess(Response<BaseBean<ModifyUserInfoResultBean>> response, BaseBean<ModifyUserInfoResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         UserInstance.getInstance().userInfo.age = bean.sysUser.age;
@@ -195,6 +194,10 @@ public class FillInMessageActivity extends BaseActivity {
                         //todo 获取账号和nickname
 //                        UserInstance.getInstance().userInfo.nickName=message.sysUser.nickName;
 //                        SPUtil.putNickname(bean.sysUser.nickName);
+                        UserInstance.getInstance().userInfo.userName = message.result.userName;
+                        SPUtil.putZhanghao(message.result.userName);
+                        UserInstance.getInstance().userInfo.nickName = message.result.nickName;
+                        SPUtil.putNickname(message.result.nickName);
 
                         Intent intent;
                         if (TextUtils.isEmpty(SPUtil.getHEIGHT())) {
@@ -210,7 +213,7 @@ public class FillInMessageActivity extends BaseActivity {
             }
 
             @Override
-            public void onFail(Call<BaseBean> call, Throwable t) {
+            public void onFail(Call<BaseBean<ModifyUserInfoResultBean>> call, Throwable t) {
 
             }
         });

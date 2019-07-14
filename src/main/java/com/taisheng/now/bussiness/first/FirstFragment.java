@@ -171,6 +171,7 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 //TODO 跳转到视频聊天页面
+                ((MainActivity) getActivity()).showFragment(1);
             }
         });
         ll_jianshenyundong = rootView.findViewById(R.id.ll_jianshenyundong);

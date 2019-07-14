@@ -186,7 +186,6 @@ public class MeMessageActivity extends BaseActivity {
 
             case Crop.REQUEST_CROP:
 //                modifyBean.logo_url = PetInfoInstance.getInstance().getPackBean().logo_url;
-                //todo avatar为空
                 Uri uri = Uri.parse(Constants.Url.Host+UserInstance.getInstance().userInfo.avatar);
                 if (sdv_header == null) {
                     return;

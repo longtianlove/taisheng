@@ -41,6 +41,7 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.MainActivity;
 import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
+import com.taisheng.now.bussiness.bean.result.ModifyUserInfoResultBean;
 import com.taisheng.now.bussiness.bean.result.UserInfo;
 import com.taisheng.now.bussiness.me.FillInMessageActivity;
 import com.taisheng.now.bussiness.me.FillInMessageSecondActivity;
@@ -126,9 +127,9 @@ public class CropImageActivity extends MonitoredActivity implements CropImageVie
         bean.sysUser.userName=UserInstance.getInstance().userInfo.userName;
         bean.sysUser.avatar = event.path;
 
-        ApiUtils.getApiService().modifyuser(bean).enqueue(new TaiShengCallback<BaseBean>() {
+        ApiUtils.getApiService().modifyuser(bean).enqueue(new TaiShengCallback<BaseBean<ModifyUserInfoResultBean>>() {
             @Override
-            public void onSuccess(Response<BaseBean> response, BaseBean message) {
+            public void onSuccess(Response<BaseBean<ModifyUserInfoResultBean>> response, BaseBean<ModifyUserInfoResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         UserInstance.getInstance().userInfo.age = bean.sysUser.age;
@@ -150,7 +151,7 @@ public class CropImageActivity extends MonitoredActivity implements CropImageVie
             }
 
             @Override
-            public void onFail(Call<BaseBean> call, Throwable t) {
+            public void onFail(Call<BaseBean<ModifyUserInfoResultBean>> call, Throwable t) {
 
             }
         });

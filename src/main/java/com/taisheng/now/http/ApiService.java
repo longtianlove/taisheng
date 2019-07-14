@@ -42,6 +42,7 @@ import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
 import com.taisheng.now.bussiness.bean.result.HotResultBean;
 import com.taisheng.now.bussiness.bean.post.LoginPostBean;
 import com.taisheng.now.bussiness.bean.result.LoginResultBean;
+import com.taisheng.now.bussiness.bean.result.ModifyUserInfoResultBean;
 import com.taisheng.now.bussiness.bean.result.MyPingjiaResultBean;
 import com.taisheng.now.bussiness.bean.result.PictureBean;
 import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
@@ -70,7 +71,7 @@ public interface ApiService {
      * 更新用户信息
      */
     @POST(Constants.Url.User.modifyuser)
-    Call<BaseBean> modifyuser(@Body UserInfoPostBean bean);
+    Call<BaseBean<ModifyUserInfoResultBean>> modifyuser(@Body UserInfoPostBean bean);
 
     /**
      * 更新档案信息

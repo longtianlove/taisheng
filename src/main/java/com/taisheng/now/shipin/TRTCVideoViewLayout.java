@@ -808,7 +808,7 @@ public class TRTCVideoViewLayout extends RelativeLayout {
 
     public void updateVideoStatus(String userID, boolean bHasVideo) {
 
-        //todo 更新关闭视频页面
+
         for (TXCloudVideoView videoView: mVideoViewList) {
             if (videoView.getVisibility() == VISIBLE) {
                 String tempUserID = videoView.getUserId();

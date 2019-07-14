@@ -14,6 +14,7 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
+import com.taisheng.now.bussiness.bean.result.ModifyUserInfoResultBean;
 import com.taisheng.now.bussiness.bean.result.UserInfo;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
@@ -65,9 +66,9 @@ public class UpdateNickActivity extends BaseActivity {
                 bean.sysUser.userName=UserInstance.getInstance().userInfo.userName;
                 bean.sysUser.nickName=et_nickname.getText().toString();
 
-                ApiUtils.getApiService().modifyuser(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                ApiUtils.getApiService().modifyuser(bean).enqueue(new TaiShengCallback<BaseBean<ModifyUserInfoResultBean>>() {
                     @Override
-                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                    public void onSuccess(Response<BaseBean<ModifyUserInfoResultBean>> response, BaseBean<ModifyUserInfoResultBean> message) {
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
                                 UserInstance.getInstance().userInfo.age = bean.sysUser.age;
@@ -89,7 +90,7 @@ public class UpdateNickActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onFail(Call<BaseBean> call, Throwable t) {
+                    public void onFail(Call<BaseBean<ModifyUserInfoResultBean>> call, Throwable t) {
 
                     }
                 });
