@@ -191,9 +191,6 @@ public class ArticleCollectActivity extends BaseActivity {
             if(bean.content!=null) {
                 util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
                 RichText.fromHtml(bean.content).into(util.tv_content);
-                Intent intent = new Intent(ArticleCollectActivity.this, ArticleContentActivity.class);
-                intent.putExtra("articleId", bean.id);
-                startActivity(intent);
             }
             util.tv_typename.setText(bean.typeName);
             util.tv_createtime.setText(bean.createTime);
