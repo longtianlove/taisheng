@@ -3,6 +3,7 @@ package com.taisheng.now.bussiness.article;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -31,7 +32,9 @@ public class ArticleContentActivity extends BaseActivity {
 
 
     View iv_back;
+    TextView tv_title;
     TextView tv_content;
+
     View ll_collect;
     TextView tv_collect;
     TextView tv_collect_label;
@@ -54,6 +57,7 @@ public class ArticleContentActivity extends BaseActivity {
                 finish();
             }
         });
+        tv_title = (TextView) findViewById(R.id.tv_title);
         tv_content = (TextView) findViewById(R.id.tv_content);
 
         ll_collect = findViewById(R.id.ll_collect);
@@ -118,10 +122,18 @@ public class ArticleContentActivity extends BaseActivity {
             public void onSuccess(Response<BaseBean<ArticleContentBean>> response, BaseBean<ArticleContentBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-                        tv_content.setText(message.result.content);
+                        tv_title.setText(message.result.title);
+//                        tv_content.setText(message.result.content);
                         if (message.result.content != null) {
-                            tv_content.setMovementMethod(LinkMovementMethod.getInstance());
-                            RichText.fromHtml(message.result.content).into(tv_content);
+//                            tv_content.setMovementMethod(LinkMovementMethod.getInstance());
+//                            RichText.fromHtml(message.result.content).into(tv_content);
+                            try {
+                                tv_content.setMovementMethod(LinkMovementMethod.getInstance());
+                                RichText.fromHtml(message.result.content).into(tv_content);
+
+                            } catch (Exception e) {
+                                Log.e("article", e.getMessage());
+                            }
                         }
                         collectionFlag = message.result.collectionFlag;
                         if ("YES".equals(message.result.collectionFlag)) {

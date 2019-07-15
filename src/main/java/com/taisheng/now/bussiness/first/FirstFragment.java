@@ -673,17 +673,13 @@ public class FirstFragment extends BaseFragment {
             }
             util.tv_title.setText(bean.title);
 //            util.tv_content.setText(bean.content);
-            if(bean.content!=null) {
-                util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
-                RichText.fromHtml(bean.content).into(util.tv_content);
-                util.tv_content.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(mActivity, ArticleContentActivity.class);
-                        intent.putExtra("articleId", bean.id);
-                        startActivity(intent);
-                    }
-                });
+            try {
+                if (bean.content != null) {
+                    util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
+                    RichText.fromHtml(bean.content).into(util.tv_content);
+                }
+            }catch (Exception e){
+                Log.e("article",e.getMessage());
             }
 
 

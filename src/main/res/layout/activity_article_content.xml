@@ -32,11 +32,14 @@
             android:src="@drawable/icon_back" />
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
+            android:ellipsize="end"
             android:gravity="center"
+            android:maxLength="8"
             android:text="文章详情"
             android:textColor="#ff333333"
             android:textSize="18sp" />
@@ -49,13 +52,21 @@
         android:layout_height="1dp"
         android:background="#f8f8f8" />
 
-    <TextView
-        android:id="@+id/tv_content"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="#fff"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+    </ScrollView>
 
     <View
         android:layout_width="match_parent"
@@ -139,10 +150,10 @@
                 />
 
             <TextView
-                android:layout_marginLeft="2dp"
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
                 android:gravity="center"
                 android:text="2019-10-24 10:29:43"
                 android:textColor="#999999"

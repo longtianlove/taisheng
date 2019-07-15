@@ -147,7 +147,7 @@ public class HealthQuestionActivity extends BaseActivity {
                         DialogUtil.closeProgress();
                     }
                 }
-            }, 1000);   //1秒
+            }, 300);   //1秒
 
             if (position < records.size()) {
 

@@ -66,6 +66,18 @@
                     android:text="资深医生"
                     android:textColor="#ff000000"
                     android:textSize="12sp" />
+
+
+                <TextView
+                    android:id="@+id/tv_onlineStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="在线"
+                    android:layout_gravity="bottom"
+                    android:textColor="#ff0dd500"
+                    android:textSize="10sp" />
             </LinearLayout>
 
             <com.taisheng.now.view.DoctorLabelWrapLayout
@@ -133,9 +145,9 @@
             android:id="@+id/btn_zixun"
             android:layout_width="50dp"
             android:layout_height="20dp"
+            android:layout_gravity="top"
             android:background="@drawable/item_doctor_zixun"
             android:gravity="center"
-            android:layout_gravity="top"
             android:text="咨询"
             android:textColor="@color/white"
             android:textSize="10sp"></TextView>

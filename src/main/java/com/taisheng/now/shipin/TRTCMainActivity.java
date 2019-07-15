@@ -259,8 +259,10 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         ll_qiehuandaoyuyin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //todo 切换到语音
                 onEnableVideobylong(false);
-                ll_qiehuandaoyuyin.setVisibility(View.INVISIBLE);
+//                ll_qiehuandaoyuyin.setVisibility(View.INVISIBLE);
                 ll_dakaishexiangtou.setVisibility(View.INVISIBLE);
                 ll_zhuanhuanshexiangtou.setVisibility(View.INVISIBLE);
             }
@@ -272,9 +274,9 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
             @Override
             public void onClick(View v) {
                 onEnableVideobylong(true);
-                ll_qiehuandaoyuyin.setVisibility(View.VISIBLE);
+//                ll_qiehuandaoyuyin.setVisibility(View.VISIBLE);
                 ll_dakaishexiangtou.setVisibility(View.INVISIBLE);
-                ll_zhuanhuanshexiangtou.setVisibility(View.INVISIBLE);
+                ll_zhuanhuanshexiangtou.setVisibility(View.VISIBLE);
             }
         });
         ll_zhuanhuanshexiangtou = findViewById(R.id.ll_zhuanhuanshexiangtou);
@@ -386,12 +388,12 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 //        }
         if ("video".equals(chatType)) {
             onEnableVideobylong(false);
-            ll_qiehuandaoyuyin.setVisibility(View.VISIBLE);
+//            ll_qiehuandaoyuyin.setVisibility(View.INVISIBLE);
             ll_dakaishexiangtou.setVisibility(View.VISIBLE);
-            ll_zhuanhuanshexiangtou.setVisibility(View.VISIBLE);
+            ll_zhuanhuanshexiangtou.setVisibility(View.INVISIBLE);
         } else {
             onEnableVideobylong(false);
-            ll_qiehuandaoyuyin.setVisibility(View.INVISIBLE);
+//            ll_qiehuandaoyuyin.setVisibility(View.INVISIBLE);
             ll_dakaishexiangtou.setVisibility(View.INVISIBLE);
             ll_zhuanhuanshexiangtou.setVisibility(View.INVISIBLE);
         }
@@ -402,7 +404,8 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
             trtcCloud.startLocalAudio();
         }
 
-        setVideoFillMode(moreDlg.isVideoFillMode());
+//        setVideoFillMode(moreDlg.isVideoFillMode());
+        setVideoFillMode(false);
 
         setVideoRotation(moreDlg.isVideoVertical());
 
@@ -571,8 +574,10 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
     @Override
     public void onComplete() {
         setTRTCCloudParam();
-        setVideoFillMode(settingDlg.isVideoVertical());
-        moreDlg.updateVideoFillMode(settingDlg.isVideoVertical());
+//        setVideoFillMode(settingDlg.isVideoVertical());
+        setVideoFillMode(false);
+//        moreDlg.updateVideoFillMode(settingDlg.isVideoVertical());
+        moreDlg.updateVideoFillMode(false);
     }
 
     /**

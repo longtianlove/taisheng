@@ -2,6 +2,7 @@ package com.taisheng.now.bussiness.doctor;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -173,6 +174,7 @@ public class DoctorCollectActivity extends BaseActivity {
                 util.sdv_header = (SimpleDraweeView) convertView.findViewById(R.id.sdv_header);
                 util.tv_doctor_name = (TextView) convertView.findViewById(R.id.tv_doctor_name);
                 util.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
+                util.tv_onlineStatus= (TextView) convertView.findViewById(R.id.tv_onlineStatus);
                 util.tv_times = (TextView) convertView.findViewById(R.id.tv_times);
                 util.dlwl_doctor_label = (DoctorLabelWrapLayout) convertView.findViewById(R.id.dlwl_doctor_label);
                 util.scorestar = (ScoreStar) convertView.findViewById(R.id.scorestar);
@@ -201,6 +203,14 @@ public class DoctorCollectActivity extends BaseActivity {
                 util.sdv_header.setImageURI(uri);
             }
             util.tv_doctor_name.setText(bean.nickName);
+
+            if("1".equals(bean.onlineStatus)){
+                util.tv_onlineStatus.setText("在线");
+                util.tv_onlineStatus.setTextColor(Color.parseColor("#ff0dd500"));
+            }else{
+                util.tv_onlineStatus.setText("忙碌");
+                util.tv_onlineStatus.setTextColor(Color.parseColor("#ffff554e"));
+            }
             util.tv_title.setText(bean.title);
             util.tv_times.setText(bean.answerNum);
             if (bean.goodDiseases != null) {
@@ -235,6 +245,7 @@ public class DoctorCollectActivity extends BaseActivity {
             View ll_all;
             SimpleDraweeView sdv_header;
             TextView tv_doctor_name;
+            TextView tv_onlineStatus;
             TextView tv_title;
             TextView tv_times;
             DoctorLabelWrapLayout dlwl_doctor_label;

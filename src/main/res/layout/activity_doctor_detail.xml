@@ -47,6 +47,13 @@
                             android:textColor="#ff666666"
                             android:textSize="17sp" />
 
+                        <TextView
+                            android:id="@+id/tv_onlineStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:text="在线" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -361,7 +368,7 @@
                         android:id="@+id/lv_comments"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="30dp"
                         android:background="#fff"
                         android:divider="#EEEEEE"
                         android:dividerHeight="1dp"

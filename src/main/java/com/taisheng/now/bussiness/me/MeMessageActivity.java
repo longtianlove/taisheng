@@ -160,7 +160,7 @@ public class MeMessageActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         if (UserInstance.getInstance().userInfo.avatar != null) {
-            Uri uri = Uri.parse(Constants.Url.Host+UserInstance.getInstance().userInfo.avatar);
+            Uri uri = Uri.parse(Constants.Url.File_Host+UserInstance.getInstance().userInfo.avatar);
             sdv_header.setImageURI(uri);
         }
         tv_nickname.setText(UserInstance.getInstance().getNickname());
@@ -209,7 +209,7 @@ public class MeMessageActivity extends BaseActivity {
 
             case Crop.REQUEST_CROP:
 //                modifyBean.logo_url = PetInfoInstance.getInstance().getPackBean().logo_url;
-                Uri uri = Uri.parse(Constants.Url.Host+UserInstance.getInstance().userInfo.avatar);
+                Uri uri = Uri.parse(Constants.Url.File_Host+UserInstance.getInstance().userInfo.avatar);
                 if (sdv_header == null) {
                     return;
                 }

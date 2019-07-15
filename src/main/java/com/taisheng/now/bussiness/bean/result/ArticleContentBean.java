@@ -10,5 +10,6 @@ public class ArticleContentBean {
     public String createTime;
     public String content;
     public String typeName;
+    public String title;
     public String collectionFlag;
 }

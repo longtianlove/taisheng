@@ -65,6 +65,7 @@ public class DoctorDetailActivity extends Activity {
     View iv_back;
 
     TextView tv_doctor_name;
+    TextView tv_onlineStatus;
     TextView tv_title;
     TextView tv_workage;
     ScoreStar scorestar;
@@ -127,6 +128,8 @@ public class DoctorDetailActivity extends Activity {
 
 
         tv_doctor_name = (TextView) findViewById(R.id.tv_doctor_name);
+        tv_onlineStatus = (TextView) findViewById(R.id.tv_onlineStatus);
+
         tv_title = (TextView) findViewById(R.id.tv_title);
         tv_workage = (TextView) findViewById(R.id.tv_workage);
         scorestar = (ScoreStar) findViewById(R.id.scorestar);
@@ -295,6 +298,12 @@ public class DoctorDetailActivity extends Activity {
                     case Constants.HTTP_SUCCESS:
                         doctorBean = message.result;
                         tv_doctor_name.setText(doctorBean.nickName);
+
+                        if ("1".equals(doctorBean.onlineStatus)) {
+                            tv_onlineStatus.setText("在线");
+                        } else {
+                            tv_onlineStatus.setText("忙碌");
+                        }
 
                         tv_title.setText(doctorBean.title);
                         String fromMedicineTime = doctorBean.fromMedicineTime;
@@ -521,7 +530,7 @@ public class DoctorDetailActivity extends Activity {
             DoctorCommentBean bean = mData.get(position);
 
 
-            String temp_url = Constants.Url.Host + bean.avatar;
+            String temp_url = Constants.Url.File_Host + bean.avatar;
             if (bean.avatar == null || "".equals(bean.avatar)) {
                 util.sdv_header.setBackgroundResource(R.drawable.icon_comment_avatar);
 
@@ -580,7 +589,7 @@ public class DoctorDetailActivity extends Activity {
         intent.putExtra("sdkAppId", Constants.SDKAPPID);
         intent.putExtra("userSig", mUserSig);
         intent.putExtra("chatType", chatType);
-        startActivityForResult(intent,1);
+        startActivityForResult(intent, 1);
 
 
 //                mUserInfoLoader.getUserSigFromServer(finalSdkAppId, roomId, userId, "12345678", new TRTCGetUserIDAndUserSig.IGetUserSigListener() {
@@ -641,7 +650,7 @@ public class DoctorDetailActivity extends Activity {
                     dialog.dismiss();
                 }
                 Intent intent = new Intent(DoctorDetailActivity.this, DoctorCommentActivity.class);
-                intent.putExtra("id",doctorId);
+                intent.putExtra("id", doctorId);
                 startActivity(intent);
 
             }

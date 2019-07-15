@@ -2,10 +2,12 @@ package com.taisheng.now.bussiness.article;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +54,9 @@ public class SecretTabFragment extends BaseFragment {
     View ll_all;
     SimpleDraweeView sdv_header;
     TextView tv_doctor_name;
+
     TextView tv_title;
+    TextView tv_onlineStatus;
     TextView tv_times;
     DoctorLabelWrapLayout dlwl_doctor_label;
     ScoreStar scorestar;
@@ -77,6 +81,7 @@ public class SecretTabFragment extends BaseFragment {
         sdv_header = (SimpleDraweeView) rootView.findViewById(R.id.sdv_header);
         tv_doctor_name = (TextView) rootView.findViewById(R.id.tv_doctor_name);
         tv_title = (TextView) rootView.findViewById(R.id.tv_title);
+        tv_onlineStatus= (TextView) rootView.findViewById(R.id.tv_onlineStatus);
         tv_times = (TextView) rootView.findViewById(R.id.tv_times);
         dlwl_doctor_label = (DoctorLabelWrapLayout) rootView.findViewById(R.id.dlwl_doctor_label);
         scorestar = (ScoreStar) rootView.findViewById(R.id.scorestar);
@@ -169,6 +174,13 @@ public class SecretTabFragment extends BaseFragment {
                             }
                             tv_doctor_name.setText(bean.nickName);
                             tv_title.setText(bean.title);
+                            if("1".equals(bean.onlineStatus)){
+                                tv_onlineStatus.setText("在线");
+                                tv_onlineStatus.setTextColor(Color.parseColor("#ff0dd500"));
+                            }else{
+                                tv_onlineStatus.setText("忙碌");
+                               tv_onlineStatus.setTextColor(Color.parseColor("#ffff554e"));
+                            }
                             tv_times.setText(bean.answerNum);
                             if (bean.goodDiseases != null) {
                                 String[] doctorlabel = bean.goodDiseases.split(",");
@@ -218,7 +230,23 @@ public class SecretTabFragment extends BaseFragment {
         bean.pageNo = PAGE_NO;
         bean.pageSize = PAGE_SIZE;
         bean.search = "";
-        bean.type = typeName;
+        switch (typeName) {
+            case Constants.SUSHENHUFU:
+                bean.type = "fe50b23ae5e68434def76f67cef35d01";
+                break;
+            case Constants.JIANSHENYUNDONG:
+                bean.type = "fe50b23ae5e68434def76f67cef35d04";
+                break;
+            case Constants.SHILIAOYANGSHENG:
+                bean.type = "fe50b23ae5e68434def76f67cef35d02";
+                break;
+            case Constants.YONGYAOZHIDAO:
+                bean.type = "fe50b23ae5e68434def76f67cef35d05";
+                break;
+            case Constants.MUYINGYUNYU:
+                bean.type = "fe50b23ae5e68434def76f67cef35d03";
+                break;
+        }
         bean.token = UserInstance.getInstance().getToken();
         bean.userId = UserInstance.getInstance().getUid();
         ApiUtils.getApiService().articleList(bean).enqueue(new TaiShengCallback<BaseBean<ArticleResultBean>>() {
@@ -326,12 +354,13 @@ public class SecretTabFragment extends BaseFragment {
                 util.sdv_article.setImageURI(uri);
             }
             util.tv_title.setText(bean.title);
-            if (bean.content != null) {
-                util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
-                RichText.fromHtml(bean.content).into(util.tv_content);
-                Intent intent = new Intent(mActivity, ArticleContentActivity.class);
-                intent.putExtra("articleId", bean.id);
-                startActivity(intent);
+            try {
+                if (bean.content != null) {
+                    util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
+                    RichText.fromHtml(bean.content).into(util.tv_content);
+                }
+            }catch (Exception e){
+                Log.e("article",e.getMessage());
             }
             util.tv_typename.setText(bean.typeName);
             util.tv_createtime.setText(bean.createTime);

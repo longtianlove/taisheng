@@ -12,7 +12,7 @@ public class Constants {
     public final static String BUGLY_APP_ID = "24b876d82d";
     //todo 需要修改
     //腾讯视频appid
-    public final static int SDKAPPID = 1400227841;
+    public final static int SDKAPPID = 1400229730;
 
 
     //访问成功
@@ -41,14 +41,14 @@ public class Constants {
         //        public static String Host = "http://47.93.249.1:9100/";
 //        public static String File_Host="http://47.93.249.1:9700/";
 //        public static String Host = "http://120.24.152.121:9100/";
-        public static String Host = "http://192.168.1.18:8080/";
+//        public static String Host = "http://192.168.1.18:8080/";
 //        public static String Host = "http://192.168.1.8:8888/";
 //        public static String Host = "http://192.168.1.17:8080/";
-//        public static String Host = "http://39.108.247.58:9100/";
+        public static String Host = "http://152.136.26.41:8080/";
         //        public static String File_Host = "http://120.24.152.121:9700/";
 
         //        public static String Host = "http://120.76.208.90:9100/";
-        public static String File_Host = "http://gateway.xiaomaoqiu.com:9700/";
+        public static String File_Host = "http://152.136.26.41:8888/";
 
 //        public static String File_Host = "http://39.108.247.58:9700/";
 //        public static String File_Host = "http://120.76.208.90:9700/";

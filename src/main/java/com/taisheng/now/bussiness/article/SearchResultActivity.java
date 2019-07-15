@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -207,12 +208,13 @@ public class SearchResultActivity extends BaseActivity {
                 util.sdv_article.setImageURI(uri);
             }
             util.tv_title.setText(bean.title);
-            if(bean.content!=null) {
-                util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
-                RichText.fromHtml(bean.content).into(util.tv_content);
-                Intent intent = new Intent(SearchResultActivity.this, ArticleContentActivity.class);
-                intent.putExtra("articleId", bean.id);
-                startActivity(intent);
+            try {
+                if (bean.content != null) {
+                    util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
+                    RichText.fromHtml(bean.content).into(util.tv_content);
+                }
+            }catch (Exception e){
+                Log.e("article",e.getMessage());
             }
             util.tv_typename.setText(bean.typeName);
             util.tv_createtime.setText(bean.createTime);

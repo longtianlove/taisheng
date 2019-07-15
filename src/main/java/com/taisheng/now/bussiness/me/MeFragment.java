@@ -153,14 +153,7 @@ public class MeFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-        ll_setting = rootView.findViewById(R.id.ll_setting);
-        ll_setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SettingActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
     }
 
@@ -173,7 +166,7 @@ public class MeFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         if (UserInstance.getInstance().userInfo.avatar != null) {
-            Uri uri = Uri.parse(Constants.Url.Host + UserInstance.getInstance().userInfo.avatar);
+            Uri uri = Uri.parse(Constants.Url.File_Host + UserInstance.getInstance().userInfo.avatar);
             sdv_header.setImageURI(uri);
         }
         if (!TextUtils.isEmpty(UserInstance.getInstance().userInfo.nickName)) {

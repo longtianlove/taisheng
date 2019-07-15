@@ -12,7 +12,7 @@ public class DoctorBean {
 //    public String onlineDuration;
     public String nickName;
     public String sex;
-//    public String onlineStatus;
+    public String onlineStatus;
 //    public String goodDirection;
 //    public String remark;
     public String avatar;

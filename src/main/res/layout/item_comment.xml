@@ -4,13 +4,14 @@
     android:id="@+id/ll_all"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_vertical"
     android:orientation="horizontal"
-
     android:weightSum="1">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="112dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="11dp"
         android:paddingTop="11dp"
@@ -22,6 +23,7 @@
             android:layout_height="30dp"
             android:gravity="center"
             android:scaleType="fitXY"
+            android:layout_gravity="top"
             fresco:actualImageScaleType="focusCrop"
             fresco:fadeDuration="300"
             fresco:failureImage="@drawable/icon_comment_avatar"
@@ -73,8 +75,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -89,24 +91,23 @@
                     android:id="@+id/starGrade"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_marginLeft="6dp"
+                    android:gravity="center"
                     android:orientation="horizontal" />
             </LinearLayout>
 
 
             <TextView
                 android:id="@+id/tv_content"
-                android:layout_marginTop="14dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="14dp"
+                android:gravity="center"
                 android:text="医术精湛，预测的病症很准，赞！医术精湛，预测的病症很
 准，赞！医术精湛，预测的病症很准，赞！"
                 android:textColor="#ff333333"
-                android:textSize="11sp"
-                android:gravity="center"
-                android:layout_marginBottom="15dp"
-                />
+                android:textSize="11sp" />
 
         </LinearLayout>
 

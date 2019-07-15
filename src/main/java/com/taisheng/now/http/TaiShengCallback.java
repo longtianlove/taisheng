@@ -73,6 +73,7 @@ public abstract class TaiShengCallback<T extends BaseBean> implements Callback<T
                         onSuccess(response, message);
                     } catch (Exception e) {
 //                        DialogUtil.closeProgress();
+                        Log.e("taishengcallback",e.getMessage());
                         CrashReport.postCatchedException(e);
 //                        Toast.makeText(PetAppLike.mcontext, "系统错误，请稍后……", Toast.LENGTH_SHORT).show();
 //                        Log.e(PetAppLike.TAG, "callback出错了" + e.getMessage());
