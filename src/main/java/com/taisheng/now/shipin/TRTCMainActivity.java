@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.TextureView;
@@ -136,7 +138,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         trtcCloud.setListener(trtcListener);
 
 
-        doctor_comein=false;
+        doctor_comein = false;
         //开始进入视频通话房间
         enterRoom();
     }
@@ -162,14 +164,75 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
     TextView tv_nickname;
     TextView tv_title;
     SimpleDraweeView sdv_header;
-    public  TextView tv_jieshouzhong;
-    View ll_changeaudio;
-    View ll_openvideo;
-    View ll_changevideo;
+    public TextView tv_jieshouzhong;
+    View ll_qiehuandaoyuyin;
+    View ll_dakaishexiangtou;
+    View ll_zhuanhuanshexiangtou;
     String nickname;
     String title;
     String avatar;
     View iv_cancle;
+
+    private Thread thread;
+    boolean running = true;
+
+
+    public Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    tv_jieshouzhong.setText("正在等待医师接受邀请.");
+                    break;
+                case 1:
+                    tv_jieshouzhong.setText("正在等待医师接受邀请..");
+                    break;
+                case 2:
+                    tv_jieshouzhong.setText("正在等待医师接受邀请...");
+                    break;
+                default:
+                    tv_jieshouzhong.setText("正在等待医师接受邀请...");
+                    break;
+            }
+        }
+    };
+
+    int i=0;
+    private void startThread() {
+        running = true;
+
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (running) {
+                    try {
+
+                        //reflashUI(progress);//这样更新会出错，不能在子线程更新UI
+                        Message message = new Message();
+                        message.what = i;
+                        i++;
+                        if(i==3){
+                            i=0;
+                        }
+                        mHandler.sendMessage(message);
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        thread.start();
+    }
+
+    private void stopThread(){
+        if (thread!=null){
+            running = false;
+        }
+    }
+
 
     /**
      * 初始化界面控件，包括主要的视频显示View，以及底部的一排功能按钮
@@ -191,30 +254,31 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         }
 
         tv_jieshouzhong = (TextView) findViewById(R.id.tv_jieshouzhong);
-        ll_changeaudio = findViewById(R.id.ll_changeaudio);
-        ll_changeaudio.setOnClickListener(new View.OnClickListener() {
+        startThread();
+        ll_qiehuandaoyuyin = findViewById(R.id.ll_qiehuandaoyuyin);
+        ll_qiehuandaoyuyin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onEnableVideobylong(false);
-                ll_changeaudio.setVisibility(View.INVISIBLE);
-                ll_openvideo.setVisibility(View.VISIBLE);
-                ll_changevideo.setVisibility(View.INVISIBLE);
+                ll_qiehuandaoyuyin.setVisibility(View.INVISIBLE);
+                ll_dakaishexiangtou.setVisibility(View.INVISIBLE);
+                ll_zhuanhuanshexiangtou.setVisibility(View.INVISIBLE);
             }
         });
 
 
-        ll_openvideo = findViewById(R.id.ll_openvideo);
-        ll_openvideo.setOnClickListener(new View.OnClickListener() {
+        ll_dakaishexiangtou = findViewById(R.id.ll_dakaishexiangtou);
+        ll_dakaishexiangtou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onEnableVideobylong(true);
-                ll_changeaudio.setVisibility(View.VISIBLE);
-                ll_openvideo.setVisibility(View.INVISIBLE);
-                ll_changevideo.setVisibility(View.VISIBLE);
+                ll_qiehuandaoyuyin.setVisibility(View.VISIBLE);
+                ll_dakaishexiangtou.setVisibility(View.INVISIBLE);
+                ll_zhuanhuanshexiangtou.setVisibility(View.INVISIBLE);
             }
         });
-        ll_changevideo = findViewById(R.id.ll_changevideo);
-        ll_changevideo.setOnClickListener(new View.OnClickListener() {
+        ll_zhuanhuanshexiangtou = findViewById(R.id.ll_zhuanhuanshexiangtou);
+        ll_zhuanhuanshexiangtou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 trtcCloud.switchCamera();
@@ -321,15 +385,15 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 //            startLocalVideo(true);
 //        }
         if ("video".equals(chatType)) {
-            onEnableVideobylong(true);
-            ll_changeaudio.setVisibility(View.VISIBLE);
-            ll_openvideo.setVisibility(View.INVISIBLE);
-            ll_changevideo.setVisibility(View.VISIBLE);
+            onEnableVideobylong(false);
+            ll_qiehuandaoyuyin.setVisibility(View.VISIBLE);
+            ll_dakaishexiangtou.setVisibility(View.VISIBLE);
+            ll_zhuanhuanshexiangtou.setVisibility(View.VISIBLE);
         } else {
             onEnableVideobylong(false);
-            ll_changeaudio.setVisibility(View.INVISIBLE);
-            ll_openvideo.setVisibility(View.VISIBLE);
-            ll_changevideo.setVisibility(View.INVISIBLE);
+            ll_qiehuandaoyuyin.setVisibility(View.INVISIBLE);
+            ll_dakaishexiangtou.setVisibility(View.INVISIBLE);
+            ll_zhuanhuanshexiangtou.setVisibility(View.INVISIBLE);
         }
 
         trtcCloud.setBeautyStyle(TRTCCloudDef.TRTC_BEAUTY_STYLE_SMOOTH, 5, 5, 5);
@@ -361,7 +425,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
     }
 
     public String chatType = "video";
-    public boolean doctor_comein=false;//医生是否进来
+    public boolean doctor_comein = false;//医生是否进来
 
     /**
      * 退出视频房间//异常退出
@@ -380,7 +444,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         finish();
     }
 
-    public static final int TRTC_Normal_EXIT_RESULT =4;
+    public static final int TRTC_Normal_EXIT_RESULT = 4;
 
     /**
      * 退出视频房间//正常退出
@@ -395,11 +459,12 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         if (trtcCloud != null) {
             trtcCloud.exitRoom();
         }
-        if(doctor_comein) {//有医生进来再显示弹窗
+        if (doctor_comein) {//有医生进来再显示弹窗
             setResult(TRTC_Normal_EXIT_RESULT);
         }
         finish();
     }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.iv_show_mode) {
@@ -532,7 +597,6 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
             final TRTCMainActivity activity = mContext.get();
             if (activity != null) {
 
-                activity.tv_jieshouzhong.setVisibility(View.GONE);
                 //todo 放开
 //                Toast.makeText(activity, "加入房间成功", Toast.LENGTH_SHORT).show();
                 activity.mVideoViewLayout.onRoomEnter();
@@ -686,7 +750,10 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                     }
                 }
                 activity.enableAudioVolumeEvaluation(activity.moreDlg.isAudioVolumeEvaluation());
-                activity.doctor_comein=true;
+                activity.doctor_comein = true;
+
+                activity.tv_jieshouzhong.setVisibility(View.GONE);
+                activity.stopThread();
             }
         }
 
@@ -1412,5 +1479,12 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
             }
         }
 
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopThread();
     }
 }

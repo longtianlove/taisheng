@@ -384,7 +384,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/ll_changeaudio"
+                    android:id="@+id/ll_qiehuandaoyuyin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
@@ -416,7 +416,7 @@
 
                     android:orientation="horizontal">
                     <LinearLayout
-                        android:id="@+id/ll_openvideo"
+                        android:id="@+id/ll_dakaishexiangtou"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
@@ -424,7 +424,7 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/iv_openvideo"
+                            android:id="@+id/iv_dakaishexiangtou"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_marginTop="23dp"
@@ -468,7 +468,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/ll_changevideo"
+                        android:id="@+id/ll_zhuanhuanshexiangtou"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
@@ -488,7 +488,7 @@
                             android:layout_marginBottom="20dp"
                             android:layout_marginTop="6dp"
                             android:gravity="center"
-                            android:text="转换摄像"
+                            android:text="转换摄像头"
                             android:textColor="#ffffffff"
                             android:textSize="14sp" />
                     </LinearLayout>
