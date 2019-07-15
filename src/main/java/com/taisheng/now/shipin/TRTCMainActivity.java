@@ -161,12 +161,17 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
     }
 
 
+
+    ImageView tv_noview_background;
     TextView tv_nickname;
     TextView tv_title;
     SimpleDraweeView sdv_header;
     public TextView tv_jieshouzhong;
     View ll_qiehuandaoyuyin;
     View ll_dakaishexiangtou;
+    boolean isOpenShexiangtou=false;
+    ImageView iv_dakaishexiangtou;
+    TextView tv_openshexiangtou;
     View ll_zhuanhuanshexiangtou;
     String nickname;
     String title;
@@ -255,30 +260,47 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 
         tv_jieshouzhong = (TextView) findViewById(R.id.tv_jieshouzhong);
         startThread();
-        ll_qiehuandaoyuyin = findViewById(R.id.ll_qiehuandaoyuyin);
-        ll_qiehuandaoyuyin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        ll_qiehuandaoyuyin = findViewById(R.id.ll_qiehuandaoyuyin);
+//        ll_qiehuandaoyuyin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                //todo 切换到语音
+//                onEnableVideobylong(false);
+////                ll_qiehuandaoyuyin.setVisibility(View.INVISIBLE);
+//                ll_dakaishexiangtou.setVisibility(View.INVISIBLE);
+//                ll_zhuanhuanshexiangtou.setVisibility(View.INVISIBLE);
+//            }
+//        });
 
-                //todo 切换到语音
-                onEnableVideobylong(false);
-//                ll_qiehuandaoyuyin.setVisibility(View.INVISIBLE);
-                ll_dakaishexiangtou.setVisibility(View.INVISIBLE);
-                ll_zhuanhuanshexiangtou.setVisibility(View.INVISIBLE);
-            }
-        });
 
-
+        tv_noview_background= (ImageView) findViewById(R.id.tv_noview_background);
         ll_dakaishexiangtou = findViewById(R.id.ll_dakaishexiangtou);
         ll_dakaishexiangtou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onEnableVideobylong(true);
+                isOpenShexiangtou=!isOpenShexiangtou;
+                onEnableVideobylong(isOpenShexiangtou);
+
 //                ll_qiehuandaoyuyin.setVisibility(View.VISIBLE);
-                ll_dakaishexiangtou.setVisibility(View.INVISIBLE);
-                ll_zhuanhuanshexiangtou.setVisibility(View.VISIBLE);
+                if(isOpenShexiangtou) {
+                    tv_noview_background.setVisibility(View.GONE);
+//                    ll_dakaishexiangtou.setVisibility(View.INVISIBLE);
+                    iv_dakaishexiangtou.setImageDrawable(getResources().getDrawable(R.drawable.icon_closeshexiangtou));
+                    tv_openshexiangtou.setText("关闭摄像头");
+                    ll_zhuanhuanshexiangtou.setVisibility(View.VISIBLE);
+                }else{
+                    tv_noview_background.setVisibility(View.VISIBLE);
+                    iv_dakaishexiangtou.setImageDrawable(getResources().getDrawable(R.drawable.chat_openvideo));
+                    tv_openshexiangtou.setText("打开摄像头");
+
+                    ll_zhuanhuanshexiangtou.setVisibility(View.INVISIBLE);
+                }
             }
         });
+        isOpenShexiangtou=false;
+        iv_dakaishexiangtou= (ImageView) findViewById(R.id.iv_dakaishexiangtou);
+        tv_openshexiangtou= (TextView) findViewById(R.id.tv_openshexiangtou);
         ll_zhuanhuanshexiangtou = findViewById(R.id.ll_zhuanhuanshexiangtou);
         ll_zhuanhuanshexiangtou.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -390,6 +412,8 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
             onEnableVideobylong(false);
 //            ll_qiehuandaoyuyin.setVisibility(View.INVISIBLE);
             ll_dakaishexiangtou.setVisibility(View.VISIBLE);
+            iv_dakaishexiangtou.setImageDrawable(getResources().getDrawable(R.drawable.chat_openvideo));
+            tv_openshexiangtou.setText("打开摄像头");
             ll_zhuanhuanshexiangtou.setVisibility(View.INVISIBLE);
         } else {
             onEnableVideobylong(false);

@@ -92,7 +92,7 @@ public class SecretTabFragment extends BaseFragment {
         btn_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DOCTOR_pageNo++;
+//                DOCTOR_pageNo++;
                 getDoctorTypeList();
             }
         });

@@ -62,9 +62,11 @@
 
                     <TextView
                         android:id="@+id/tv_nickname"
-                        android:layout_width="98dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="23dp"
                         android:text="沉浸深海の鱼"
+                        android:maxLength="10"
+                        android:ellipsize="end"
                         android:textColor="#ffffffff"
                         android:textSize="16sp" />
 
