@@ -20,8 +20,8 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sdv_header"
-            android:layout_width="92dp"
-            android:layout_height="92dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
             android:layout_marginTop="25dp"
             android:gravity="center"
@@ -33,7 +33,7 @@
             fresco:placeholderImage="@drawable/doctor_default"
             fresco:placeholderImageScaleType="fitCenter"
 
-            fresco:roundedCornerRadius="46dp" />
+            fresco:roundedCornerRadius="35dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -21,7 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.taisheng.now.Constants;
 import com.taisheng.now.R;
+import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.bean.post.DoctorUpdateStatePostBean;
+import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
+import com.taisheng.now.util.ToastUtil;
 import com.tencent.liteav.TXLiteAVCode;
 
 import com.tencent.rtmp.ui.TXCloudVideoView;
@@ -35,6 +42,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 //import com.tencent.liteav.demo.CustomAudioFileReader;
 
@@ -123,6 +133,9 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         mAppScene = intent.getIntExtra("AppScene", TRTCCloudDef.TRTC_APP_SCENE_VIDEOCALL);
 
 
+        doctorId = intent.getStringExtra("doctorId");
+
+
         nickname = intent.getStringExtra("nickName");
         title = intent.getStringExtra("title");
         avatar = intent.getStringExtra("avatar");
@@ -161,7 +174,6 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
     }
 
 
-
     ImageView tv_noview_background;
     TextView tv_nickname;
     TextView tv_title;
@@ -169,17 +181,17 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
     public TextView tv_jieshouzhong;
     View ll_qiehuandaoyuyin;
     View ll_dakaishexiangtou;
-    boolean isOpenShexiangtou=false;
+    boolean isOpenShexiangtou = false;
     ImageView iv_dakaishexiangtou;
     TextView tv_openshexiangtou;
     View ll_zhuanhuanshexiangtou;
+    String doctorId;
     String nickname;
     String title;
     String avatar;
     View iv_cancle;
 
-    private Thread thread;
-    boolean running = true;
+
 
 
     public Handler mHandler = new Handler() {
@@ -196,6 +208,9 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                 case 2:
                     tv_jieshouzhong.setText("正在等待医师接受邀请...");
                     break;
+                case 30:
+                    exitRoomNormal();
+                    break;
                 default:
                     tv_jieshouzhong.setText("正在等待医师接受邀请...");
                     break;
@@ -203,22 +218,26 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         }
     };
 
-    int i=0;
-    private void startThread() {
-        running = true;
 
-        thread = new Thread(new Runnable() {
+    private Thread textthread;
+    boolean textrunning = true;
+    int texti = 0;
+
+    private void startTextThread() {
+        textrunning = true;
+        texti = 0;
+        textthread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (running) {
+                while (textrunning) {
                     try {
 
                         //reflashUI(progress);//这样更新会出错，不能在子线程更新UI
                         Message message = new Message();
-                        message.what = i;
-                        i++;
-                        if(i==3){
-                            i=0;
+                        message.what = texti;
+                        texti++;
+                        if (texti == 3) {
+                            texti = 0;
                         }
                         mHandler.sendMessage(message);
                         Thread.sleep(500);
@@ -229,12 +248,53 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
             }
         });
 
-        thread.start();
+        textthread.start();
     }
 
-    private void stopThread(){
-        if (thread!=null){
-            running = false;
+    private void stopTextThread() {
+        if (textthread != null) {
+            textrunning = false;
+        }
+    }
+
+    private Thread waittingthread;
+    boolean waittingrunning = true;
+    int waittingi = 0;
+
+    private void startWaittinngThread() {
+        waittingrunning = true;
+        waittingi = 0;
+
+        waittingthread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (waittingrunning&&!doctor_comein) {
+                    try {
+
+                        //reflashUI(progress);//这样更新会出错，不能在子线程更新UI
+                        Message message = new Message();
+                        message.what = 30;
+                        waittingi++;
+                        Thread.sleep(1000);
+                        if (waittingi == 30) {
+                            mHandler.sendMessage(message);
+                            waittingi = 0;
+                        }
+
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        waittingthread.start();
+    }
+
+    private void stopWaittingThread() {
+        if (waittingthread != null) {
+            waittingrunning = false;
         }
     }
 
@@ -259,7 +319,8 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         }
 
         tv_jieshouzhong = (TextView) findViewById(R.id.tv_jieshouzhong);
-        startThread();
+        startTextThread();
+        startWaittinngThread();
 //        ll_qiehuandaoyuyin = findViewById(R.id.ll_qiehuandaoyuyin);
 //        ll_qiehuandaoyuyin.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -274,22 +335,22 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 //        });
 
 
-        tv_noview_background= (ImageView) findViewById(R.id.tv_noview_background);
+        tv_noview_background = (ImageView) findViewById(R.id.tv_noview_background);
         ll_dakaishexiangtou = findViewById(R.id.ll_dakaishexiangtou);
         ll_dakaishexiangtou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isOpenShexiangtou=!isOpenShexiangtou;
+                isOpenShexiangtou = !isOpenShexiangtou;
                 onEnableVideobylong(isOpenShexiangtou);
 
 //                ll_qiehuandaoyuyin.setVisibility(View.VISIBLE);
-                if(isOpenShexiangtou) {
+                if (isOpenShexiangtou) {
                     tv_noview_background.setVisibility(View.GONE);
 //                    ll_dakaishexiangtou.setVisibility(View.INVISIBLE);
                     iv_dakaishexiangtou.setImageDrawable(getResources().getDrawable(R.drawable.icon_closeshexiangtou));
                     tv_openshexiangtou.setText("关闭摄像头");
                     ll_zhuanhuanshexiangtou.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     tv_noview_background.setVisibility(View.VISIBLE);
                     iv_dakaishexiangtou.setImageDrawable(getResources().getDrawable(R.drawable.chat_openvideo));
                     tv_openshexiangtou.setText("打开摄像头");
@@ -298,9 +359,9 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                 }
             }
         });
-        isOpenShexiangtou=false;
-        iv_dakaishexiangtou= (ImageView) findViewById(R.id.iv_dakaishexiangtou);
-        tv_openshexiangtou= (TextView) findViewById(R.id.tv_openshexiangtou);
+        isOpenShexiangtou = false;
+        iv_dakaishexiangtou = (ImageView) findViewById(R.id.iv_dakaishexiangtou);
+        tv_openshexiangtou = (TextView) findViewById(R.id.tv_openshexiangtou);
         ll_zhuanhuanshexiangtou = findViewById(R.id.ll_zhuanhuanshexiangtou);
         ll_zhuanhuanshexiangtou.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -477,19 +538,42 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
      * 退出视频房间//正常退出
      */
     private void exitRoomNormal() {
-        if (mCustomCapture != null) {
-            mCustomCapture.stop();
-        }
-        if (mCustomRender != null) {
-            mCustomRender.stop();
-        }
-        if (trtcCloud != null) {
-            trtcCloud.exitRoom();
-        }
-        if (doctor_comein) {//有医生进来再显示弹窗
-            setResult(TRTC_Normal_EXIT_RESULT);
-        }
-        finish();
+        DoctorUpdateStatePostBean bean = new DoctorUpdateStatePostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.doctorId = doctorId;
+        ApiUtils.getApiService().updateDoctorStatus(bean).enqueue(new TaiShengCallback<BaseBean>() {
+            @Override
+            public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        if (mCustomCapture != null) {
+                            mCustomCapture.stop();
+                        }
+                        if (mCustomRender != null) {
+                            mCustomRender.stop();
+                        }
+                        if (trtcCloud != null) {
+                            trtcCloud.exitRoom();
+                        }
+                        if (doctor_comein) {//有医生进来再显示弹窗
+                            setResult(TRTC_Normal_EXIT_RESULT);
+                        }
+                        finish();
+                        break;
+                    default:
+                        ToastUtil.showTost("网络错误");
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean> call, Throwable t) {
+                ToastUtil.showTost("网络错误");
+            }
+        });
+
+
     }
 
     @Override
@@ -782,7 +866,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                 activity.doctor_comein = true;
 
                 activity.tv_jieshouzhong.setVisibility(View.GONE);
-                activity.stopThread();
+                activity.stopTextThread();
             }
         }
 
@@ -1514,6 +1598,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
     @Override
     protected void onStop() {
         super.onStop();
-        stopThread();
+        stopTextThread();
+        stopWaittingThread();
     }
 }

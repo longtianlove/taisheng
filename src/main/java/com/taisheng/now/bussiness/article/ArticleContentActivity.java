@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.taisheng.now.Constants;
@@ -33,7 +34,8 @@ public class ArticleContentActivity extends BaseActivity {
 
     View iv_back;
     TextView tv_title;
-    TextView tv_content;
+    //    TextView tv_content;
+    WebView webView;
 
     View ll_collect;
     TextView tv_collect;
@@ -58,7 +60,8 @@ public class ArticleContentActivity extends BaseActivity {
             }
         });
         tv_title = (TextView) findViewById(R.id.tv_title);
-        tv_content = (TextView) findViewById(R.id.tv_content);
+//        tv_content = (TextView) findViewById(R.id.tv_content);
+        webView= (WebView) findViewById(R.id.webView);
 
         ll_collect = findViewById(R.id.ll_collect);
         ll_collect.setOnClickListener(new View.OnClickListener() {
@@ -128,9 +131,9 @@ public class ArticleContentActivity extends BaseActivity {
 //                            tv_content.setMovementMethod(LinkMovementMethod.getInstance());
 //                            RichText.fromHtml(message.result.content).into(tv_content);
                             try {
-                                tv_content.setMovementMethod(LinkMovementMethod.getInstance());
-                                RichText.fromHtml(message.result.content).into(tv_content);
-
+//                                tv_content.setMovementMethod(LinkMovementMethod.getInstance());
+//                                RichText.fromHtml(message.result.content).into(tv_content);
+                                webView.loadDataWithBaseURL(null, message.result.content, "text/html" , "utf-8", null);
                             } catch (Exception e) {
                                 Log.e("article", e.getMessage());
                             }

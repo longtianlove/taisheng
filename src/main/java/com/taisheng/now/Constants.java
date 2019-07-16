@@ -164,6 +164,8 @@ public class Constants {
 
             //视频建立连接
             public static final String connectDoctor = "jeecg-boot/app/consult/connectDoctor";
+            //视频完接口回调
+            public static final String updateDoctorStatus="jeecg-boot/app/consult/updateDoctorStatus";
         }
 
 

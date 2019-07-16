@@ -32,7 +32,7 @@
             android:layout_marginLeft="8dp"
             android:text="2019-01-24  7:50 	AM"
             android:textColor="#ff666666"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <View
             android:layout_width="0dp"

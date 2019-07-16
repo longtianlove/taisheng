@@ -582,6 +582,7 @@ public class DoctorDetailActivity extends Activity {
             intent.putExtra("nickName", doctorBean.nickName);
             intent.putExtra("title", doctorBean.title);
             intent.putExtra("avatar", doctorBean.avatar);
+            intent.putExtra("doctorId",doctorBean.id);
         }
         intent.putExtra("roomId", roomId);
         intent.putExtra("userId", userId);

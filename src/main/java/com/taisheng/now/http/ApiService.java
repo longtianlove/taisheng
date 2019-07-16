@@ -14,6 +14,7 @@ import com.taisheng.now.bussiness.bean.post.DoctorCommentPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorDetailPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorNumberPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorScorePostBean;
+import com.taisheng.now.bussiness.bean.post.DoctorUpdateStatePostBean;
 import com.taisheng.now.bussiness.bean.post.FeedbackPostBean;
 import com.taisheng.now.bussiness.bean.post.GuanzhuPostBean;
 import com.taisheng.now.bussiness.bean.post.HealthCheckListPostBean;
@@ -163,6 +164,10 @@ public interface ApiService {
     //医生服务总数
     @POST(Constants.Url.Doctor.getDoctorServerNum)
     Call<BaseBean<DoctorNumberResultBean>> getDoctorServerNum(@Body DoctorNumberPostBean bean);
+
+
+    @POST(Constants.Url.Doctor.updateDoctorStatus)
+    Call<BaseBean> updateDoctorStatus(@Body DoctorUpdateStatePostBean bean);
 
 
     //收藏/取消收藏

@@ -61,8 +61,13 @@
         android:overScrollMode="never"
         android:scrollbars="none">
 
-        <TextView
-            android:id="@+id/tv_content"
+        <!--<TextView-->
+            <!--android:id="@+id/tv_content"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+        <!--/>-->
+        <WebView
+            android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="10dp"
