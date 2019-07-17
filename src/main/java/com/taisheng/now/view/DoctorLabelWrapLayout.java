@@ -1,7 +1,7 @@
 package com.taisheng.now.view;
 
 /**
- *  * 自动换行布局
+ * * 自动换行布局
  * Created by dragon on 2019/7/5.
  */
 
@@ -29,7 +29,7 @@ public class DoctorLabelWrapLayout extends ViewGroup {
      * Button的style
      */
     public int BUTTON_STYLE = 1;
-    private int style=0;
+    private int style = 0;
     private View btn;
 
     public DoctorLabelWrapLayout(Context context) {
@@ -58,49 +58,48 @@ public class DoctorLabelWrapLayout extends ViewGroup {
      * @param mr 右外边距
      * @param mb 下外边距
      */
-    public void setData(String[] data,Context context,int textSize,int pl,int pt,int pr,int pb,int ml,int mt,int mr,int mb){
+    public void setData(String[] data, Context context, int textSize, int pl, int pt, int pr, int pb, int ml, int mt, int mr, int mb) {
         this.removeAllViews();
-        createChild(data,context,textSize, pl, pt, pr, pb, ml, mt, mr, mb);
+        createChild(data, context, textSize, pl, pt, pr, pb, ml, mt, mr, mb);
     }
 
-    public void setData(List<String> data, Context context, int textSize, int pl, int pt, int pr, int pb, int ml, int mt, int mr, int mb){
+    public void setData(List<String> data, Context context, int textSize, int pl, int pt, int pr, int pb, int ml, int mt, int mr, int mb) {
 
         String[] mydata = null;
-        if(data!=null){
+        if (data != null) {
             int length = data.size();
             mydata = new String[length];
-            for(int i = 0 ; i<length;i++){
+            for (int i = 0; i < length; i++) {
                 mydata[i] = data.get(i);
             }
         }
-        setData(mydata,context, textSize,pl, pt, pr, pb, ml, mt, mr, mb);
+        setData(mydata, context, textSize, pl, pt, pr, pb, ml, mt, mr, mb);
     }
 
 
-
-    private void createChild(String[] data, final Context context, int textSize, int pl, int pt, int pr, int pb, int ml, int mt, int mr, int mb){
+    private void createChild(String[] data, final Context context, int textSize, int pl, int pt, int pr, int pb, int ml, int mt, int mr, int mb) {
         int size = data.length;
-        for(int i = 0;i<size;i++){
+        for (int i = 0; i < size; i++) {
             String text = data[i];
             //通过判断style是TextView还是Button进行不同的操作，还可以继续添加不同的view
-            if (style == TEXTVIEW_STYLE){
+            if (style == TEXTVIEW_STYLE) {
                 btn = new TextView(context);
                 ((TextView) btn).setGravity(Gravity.CENTER);
                 ((TextView) btn).setText(text);
                 ((TextView) btn).setTextSize(textSize);
-                ((TextView)btn).setTextColor(Color.parseColor("#ff529ffb"));
+                ((TextView) btn).setTextColor(Color.parseColor("#ff529ffb"));
                 ((TextView) btn).setBackground(getResources().getDrawable(R.drawable.doctorlabel_bg));
-            }else if (style == BUTTON_STYLE){
+            } else if (style == BUTTON_STYLE) {
                 btn = new Button(context);
                 ((Button) btn).setGravity(Gravity.CENTER);
                 ((Button) btn).setText(text);
                 ((Button) btn).setTextSize(textSize);
-                ((Button)btn).setTextColor(Color.parseColor("#ff529ffb"));
+                ((Button) btn).setTextColor(Color.parseColor("#ff529ffb"));
             }
             btn.setClickable(true);
 
-            btn.setPadding(dip2px(context, pl),dip2px(context, pt),dip2px(context, pr),dip2px(context, pb));
-            MarginLayoutParams params = new MarginLayoutParams(MarginLayoutParams.WRAP_CONTENT,MarginLayoutParams.WRAP_CONTENT);
+            btn.setPadding(dip2px(context, pl), dip2px(context, pt), dip2px(context, pr), dip2px(context, pb));
+            MarginLayoutParams params = new MarginLayoutParams(MarginLayoutParams.WRAP_CONTENT, MarginLayoutParams.WRAP_CONTENT);
             params.setMargins(ml, mt, mr, mb);
 
             btn.setLayoutParams(params);
@@ -109,7 +108,7 @@ public class DoctorLabelWrapLayout extends ViewGroup {
             btn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(markClickListener==null){
+                    if (markClickListener == null) {
                         return;
                     }
                     markClickListener.clickMark(finalI);
@@ -118,13 +117,14 @@ public class DoctorLabelWrapLayout extends ViewGroup {
             this.addView(btn);
         }
     }
+
     private MarkClickListener markClickListener;
 
     public void setMarkClickListener(MarkClickListener markClickListener) {
         this.markClickListener = markClickListener;
     }
 
-    public interface MarkClickListener{
+    public interface MarkClickListener {
         void clickMark(int position);
     }
 
@@ -137,11 +137,11 @@ public class DoctorLabelWrapLayout extends ViewGroup {
     }
 
 
-
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
         return new MarginLayoutParams(getContext(), attrs);
     }
+
 
 
     @Override
@@ -156,27 +156,29 @@ public class DoctorLabelWrapLayout extends ViewGroup {
         int lineHeight = 0;
         int width = 0;//warpcontet是需要记录的宽度
         int height = 0;
-        for(int i = 0 ; i< childCount;i++){
+        for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
             // 测量每一个child的宽和高
             measureChild(child, widthMeasureSpec, heightMeasureSpec);
             MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
-            int childWidth = child.getMeasuredWidth()+lp.leftMargin+lp.rightMargin;
-            int childHeight = child.getMeasuredHeight()+lp.topMargin+lp.bottomMargin;
+            int childWidth = child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
+            int childHeight = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
 //            Log.e(TAG, "onMeasure: lineHeight = "+lineHeight+" childHeight = "+childHeight );
-            if(lineWidth+childWidth>widthSize){
+            if (lineWidth + childWidth > widthSize) {
+                if(oneline){
+                    break;
+                }
                 width = Math.max(lineWidth, childWidth);//这种情况就是排除单个标签很长的情况
                 lineWidth = childWidth;//开启新行
                 height += lineHeight;//记录总行高
                 lineHeight = childHeight;//因为开了新行，所以这行的高度要记录一下
-            }else{
+            } else {
                 lineWidth += childWidth;
 //                lineHeight = Math.max(lineHeight, childHeight); //记录行高
                 lineHeight = Math.max(height, childHeight); //记录行高
             }
             // 如果是最后一个，则将当前记录的最大宽度和当前lineWidth做比较
-            if (i == childCount - 1)
-            {
+            if (i == childCount - 1) {
                 width = Math.max(width, lineWidth);  //宽度
                 height += lineHeight;  //
             }
@@ -201,6 +203,9 @@ public class DoctorLabelWrapLayout extends ViewGroup {
      */
     private List<Integer> mLineHeight = new ArrayList<Integer>();
 
+
+
+    public boolean oneline = true;
     //onLayout中完成对所有childView的位置以及大小的指定
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -212,17 +217,21 @@ public class DoctorLabelWrapLayout extends ViewGroup {
         List<View> lineViews = new ArrayList<View>();
         int lineWidth = 0;  //行宽
         int lineHeight = 0; //总行高
-        for(int i = 0 ; i<childCount;i++){
+        for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
             MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();//得到属性参数
             int childWidth = child.getMeasuredWidth();
             int childHeight = child.getMeasuredHeight();
             // 如果已经需要换行
-            if (i == 3){
+            if (i == 3) {
                 i = 3;
             }
             if (childWidth + lp.leftMargin + lp.rightMargin + lineWidth > width)  //大于父布局的宽度
             {
+
+                if(oneline){
+                    break;
+                }
                 // 记录这一行所有的View以及最大高度
                 mLineHeight.add(lineHeight);
                 // 将当前行的childView保存，然后开启新的ArrayList保存下一行的childView
@@ -244,22 +253,22 @@ public class DoctorLabelWrapLayout extends ViewGroup {
         int left = 0;
         int top = 0;
         int lineNums = mAllViews.size();
-        for(int i = 0;i<lineNums;i++){
+        for (int i = 0; i < lineNums; i++) {
             // 每一行的所有的views
             lineViews = mAllViews.get(i);
             // 当前行的最大高度  每一行的高度都相同  所以使用（i+1）进行设置高度
-            lineHeight = (i+1)*mLineHeight.get(i);
-            for(int j = 0 ;j < lineViews.size() ; j++){
+            lineHeight = (i + 1) * mLineHeight.get(i);
+            for (int j = 0; j < lineViews.size(); j++) {
                 View lineChild = lineViews.get(j);
-                if(lineChild.getVisibility() == View.GONE){
+                if (lineChild.getVisibility() == View.GONE) {
                     continue;
                 }
                 MarginLayoutParams lp = (MarginLayoutParams) lineChild.getLayoutParams();
                 //开始画标签了。左边和上边的距离是要根据累计的数确定的。
                 int lc = left + lp.leftMargin;
-                int tc = top+lp.topMargin;
-                int rc = lc+lineChild.getMeasuredWidth();
-                int bc = tc+lineChild.getMeasuredHeight();
+                int tc = top + lp.topMargin;
+                int rc = lc + lineChild.getMeasuredWidth();
+                int bc = tc + lineChild.getMeasuredHeight();
                 lineChild.layout(lc, tc, rc, bc);
                 left += lineChild.getMeasuredWidth() + lp.rightMargin + lp.leftMargin;
             }

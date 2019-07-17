@@ -41,10 +41,10 @@ public class Constants {
         //        public static String Host = "http://47.93.249.1:9100/";
 //        public static String File_Host="http://47.93.249.1:9700/";
 //        public static String Host = "http://120.24.152.121:9100/";
-        public static String Host = "http://192.168.1.18:8080/";
+//        public static String Host = "http://192.168.1.18:8080/";
 //        public static String Host = "http://192.168.1.8:8888/";
 //        public static String Host = "http://192.168.1.17:8080/";
-//        public static String Host = "http://152.136.26.41:8080/";
+        public static String Host = "http://152.136.26.41:8080/";
         //        public static String File_Host = "http://120.24.152.121:9700/";
 
         //        public static String Host = "http://120.76.208.90:9100/";

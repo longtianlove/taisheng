@@ -205,7 +205,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="12dp"
                     android:background="@drawable/me_kapian_background"
@@ -215,6 +215,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
                         android:layout_marginBottom="6dp"
                         android:layout_marginLeft="10dp"
                         android:gravity="center_vertical"
@@ -249,6 +250,8 @@
                         android:layout_marginRight="14dp"
                         android:text="    主要擅长急性慢性支气管炎，支气管哮喘，肺气肿，肺源性心脏病，急慢性胃炎。"
                         android:textColor="#ff666666"
+                        android:lineSpacingMultiplier="1.5"
+                        android:layout_marginBottom="6dp"
                         android:textSize="12sp" />
 
                 </LinearLayout>

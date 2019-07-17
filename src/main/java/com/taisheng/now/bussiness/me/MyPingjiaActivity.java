@@ -211,7 +211,7 @@ public class MyPingjiaActivity extends BaseActivity {
             util.tv_times.setText(bean.answerNum);
             if (bean.goodDiseases != null) {
                 String[] doctorlabel = bean.goodDiseases.split(",");
-                util.dlwl_doctor_label.setData(doctorlabel, MyPingjiaActivity.this, 10, 5, 1, 5, 1, 4, 0, 4, 0);
+                util.dlwl_doctor_label.setData(doctorlabel, MyPingjiaActivity.this, 10, 5, 1, 5, 1, 4, 4, 4, 4);
 
             }
 

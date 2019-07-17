@@ -313,7 +313,8 @@ public class DoctorDetailActivity extends Activity {
                         String goodDiseases = doctorBean.goodDiseases;
                         if (goodDiseases != null) {
                             String[] doctorlabel = goodDiseases.split(",");
-                            dlwl_doctor_label.setData(doctorlabel, DoctorDetailActivity.this, 10, 5, 1, 5, 1, 4, 0, 4, 0);
+                            dlwl_doctor_label.oneline=false;
+                            dlwl_doctor_label.setData(doctorlabel, DoctorDetailActivity.this, 10, 5, 1, 5, 1, 4, 4, 4, 4);
                         }
                         String score = doctorBean.score;
                         scorestar.setScore(score);
