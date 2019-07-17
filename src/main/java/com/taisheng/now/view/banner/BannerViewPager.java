@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.text.Layout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -169,8 +170,12 @@ public class BannerViewPager {
         for (int i = 0; i < msize; i++) {
             mbannerItems[i] = new SimpleDraweeView(mcontext);
             mbannerItems[i].setScaleType(ImageView.ScaleType.FIT_XY);
+            ViewPager.LayoutParams lp=new ViewPager.LayoutParams();
+            lp.width= ViewGroup.LayoutParams.MATCH_PARENT;
+            lp.height=ViewGroup.LayoutParams.MATCH_PARENT;
+            mbannerItems[i].setLayoutParams(lp);
 //            Uri uri = Uri.parse(mpictureUrls.get(i));
-            mbannerItems[i].setImageDrawable(mcontext.getResources().getDrawable(ids[i]));
+            mbannerItems[i].setBackground(mcontext.getResources().getDrawable(ids[i]));
         }
         madapter = new ViewPagerAdapter(mbannerItems, mpictureUrls, mcontext, mviewPager, mviewPagerItemListener);
         mviewPager.setAdapter(madapter);

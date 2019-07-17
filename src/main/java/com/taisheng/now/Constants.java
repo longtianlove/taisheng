@@ -41,10 +41,10 @@ public class Constants {
         //        public static String Host = "http://47.93.249.1:9100/";
 //        public static String File_Host="http://47.93.249.1:9700/";
 //        public static String Host = "http://120.24.152.121:9100/";
-//        public static String Host = "http://192.168.1.18:8080/";
+        public static String Host = "http://192.168.1.18:8080/";
 //        public static String Host = "http://192.168.1.8:8888/";
 //        public static String Host = "http://192.168.1.17:8080/";
-        public static String Host = "http://152.136.26.41:8080/";
+//        public static String Host = "http://152.136.26.41:8080/";
         //        public static String File_Host = "http://120.24.152.121:9700/";
 
         //        public static String Host = "http://120.76.208.90:9100/";
@@ -164,6 +164,8 @@ public class Constants {
 
             //视频建立连接
             public static final String connectDoctor = "jeecg-boot/app/consult/connectDoctor";
+            //有人进来
+            public static final String detectRoomIn="jeecg-boot/app/consult/detectRoomIn";
             //视频完接口回调
             public static final String updateDoctorStatus="jeecg-boot/app/consult/updateDoctorStatus";
         }

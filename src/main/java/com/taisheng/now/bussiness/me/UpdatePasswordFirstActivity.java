@@ -1,6 +1,7 @@
 package com.taisheng.now.bussiness.me;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -213,6 +214,7 @@ public class UpdatePasswordFirstActivity extends BaseActivity implements LoginVi
     void WaitForNextFetchCode(int nSecond) {
         messageWaitTime = nSecond;
         btn_yanzhengma.setText(String.valueOf(messageWaitTime) + "S");
+        btn_yanzhengma.setTextColor(Color.parseColor("#529FFB"));
         btn_yanzhengma.setEnabled(false);
 
         btn_yanzhengma.postDelayed(new Runnable() {
@@ -221,9 +223,12 @@ public class UpdatePasswordFirstActivity extends BaseActivity implements LoginVi
                 if (messageWaitTime == 1) {
                     btn_yanzhengma.setEnabled(true);
                     btn_yanzhengma.setText("重新发送");
+                    btn_yanzhengma.setTextColor(Color.parseColor("#ffffff"));
+
                 } else {
                     messageWaitTime--;
                     btn_yanzhengma.setText(String.valueOf(messageWaitTime) + "S");
+                    btn_yanzhengma.setTextColor(Color.parseColor("#529FFB"));
                     btn_yanzhengma.postDelayed(this, 1000);
                 }
             }

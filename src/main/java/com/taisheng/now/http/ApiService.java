@@ -195,6 +195,10 @@ public interface ApiService {
     @POST(Constants.Url.Doctor.connectDoctor)
     Call<BaseBean<ConnectDoctorResultBean>> connectDoctor(@Body ConnectDoctorPostBean bean);
 
+    //有人进来
+    @POST(Constants.Url.Doctor.detectRoomIn)
+    Call<BaseBean> detectRoomIn(@Body DoctorUpdateStatePostBean bean);
+
     //上传头像
     @Multipart
     @POST(Constants.Url.User.uploadImage)

@@ -29,6 +29,7 @@ import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.WrapLayout;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -151,7 +152,8 @@ public class SecretSearchActivity extends BaseActivity {
                         if(message.result==null){
                             return;
                         }
-                        madapter.mData = message.result.list;
+                        Collections.reverse(message.result.list);
+                        madapter.mData =message.result.list ;
                         madapter.notifyDataSetChanged();
                         break;
 

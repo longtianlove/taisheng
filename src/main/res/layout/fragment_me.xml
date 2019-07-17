@@ -125,6 +125,7 @@
                 <TextView
                     android:layout_width="65dp"
                     android:layout_height="19dp"
+                    android:layout_marginTop="6dp"
                     android:gravity="center"
                     android:text="健康档案"
                     android:textColor="#ff333333"
@@ -149,6 +150,7 @@
                     android:layout_height="19dp"
                     android:gravity="center"
                     android:text="咨询记录"
+                    android:layout_marginTop="6dp"
                     android:textColor="#ff333333"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -168,10 +170,12 @@
                     android:src="@drawable/icon_colloct" />
 
                 <TextView
+                    android:id="@+id/textView"
                     android:layout_width="65dp"
                     android:layout_height="19dp"
                     android:gravity="center"
                     android:text="医师收藏"
+                    android:layout_marginTop="6dp"
                     android:textColor="#ff333333"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -195,6 +199,7 @@
                     android:layout_height="19dp"
                     android:gravity="center"
                     android:text="秘籍收藏"
+                    android:layout_marginTop="6dp"
                     android:textColor="#ff333333"
                     android:textSize="13sp" />
             </LinearLayout>

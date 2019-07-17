@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +69,26 @@ public class DoctorFragment extends BaseFragment {
 
     void initView(View rootView) {
         et_doctor_search=(EditText)rootView.findViewById(R.id.et_doctor_search);
+        et_doctor_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String searchkey=s.toString();
+                nickName=searchkey;
+                PAGE_NO=1;
+                madapter.mData.clear();
+                getDoctors();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         tv_search=rootView.findViewById(R.id.tv_search);
         tv_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +101,7 @@ public class DoctorFragment extends BaseFragment {
 
             }
         });
+
 
         lv_doctors = (TaishengListView) rootView.findViewById(R.id.lv_doctors);
         madapter = new DoctorAdapter(mActivity);

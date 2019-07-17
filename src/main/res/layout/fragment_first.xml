@@ -99,8 +99,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/icon_zixun" />
 
                     <TextView
@@ -110,7 +110,7 @@
                         android:layout_marginTop="6dp"
                         android:text="实时咨询"
                         android:textColor="#ff333333"
-                        android:textSize="14sp" />
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -122,8 +122,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/icon_sushenhufu" />
 
                     <TextView
@@ -145,8 +145,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/icon_shiliaoyangsheng" />
 
                     <TextView
@@ -157,7 +157,7 @@
 
                         android:text="食疗养生"
                         android:textColor="#ff333333"
-                        android:textSize="14sp" />
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -169,8 +169,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/icon_muyingyunyu" />
 
                     <TextView
@@ -180,7 +180,7 @@
                         android:gravity="center"
                         android:text="母婴孕育"
                         android:textColor="#ff333333"
-                        android:textSize="14sp" />
+                        android:textSize="13sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -202,8 +202,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/icon_yingjichuli" />
 
                     <TextView
@@ -214,7 +214,7 @@
 
                         android:text="应急咨询"
                         android:textColor="#ff333333"
-                        android:textSize="14sp" />
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -226,8 +226,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/icon_manbingguanli" />
 
                     <TextView
@@ -237,7 +237,7 @@
                         android:text="健身运动"
                         android:layout_marginTop="6dp"
                         android:textColor="#ff333333"
-                        android:textSize="14sp" />
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -249,8 +249,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/icon_yongyaozhidao" />
 
                     <TextView
@@ -260,7 +260,7 @@
                         android:gravity="center"
                         android:text="用药指导"
                         android:textColor="#ff333333"
-                        android:textSize="14sp" />
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -272,8 +272,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/icon_vip" />
 
                     <TextView
@@ -283,7 +283,7 @@
                         android:layout_marginTop="6dp"
                         android:text="健康测评"
                         android:textColor="#ff333333"
-                        android:textSize="14sp" />
+                        android:textSize="13sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -330,7 +330,7 @@
                     android:layout_marginEnd="1dp"
                     android:text="更多 >>"
                     android:textColor="#ff529ffb"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <View
@@ -396,7 +396,7 @@
                     android:layout_marginEnd="1dp"
                     android:text="更多 >>"
                     android:textColor="#ff529ffb"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <View

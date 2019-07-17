@@ -193,6 +193,14 @@
 
         </activity>
         <activity
+            android:name=".bussiness.me.FuwuxieyiActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+
+        </activity>
+        <activity
             android:name=".bussiness.me.SettingActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"

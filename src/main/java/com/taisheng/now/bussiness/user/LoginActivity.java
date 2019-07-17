@@ -2,6 +2,7 @@ package com.taisheng.now.bussiness.user;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -25,6 +26,7 @@ import com.taisheng.now.bussiness.SplashActivity;
 import com.taisheng.now.bussiness.bean.post.LoginPostBean;
 import com.taisheng.now.bussiness.me.FillInMessageActivity;
 import com.taisheng.now.bussiness.me.FillInMessageSecondActivity;
+import com.taisheng.now.bussiness.me.FuwuxieyiActivity;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.SPUtil;
 
@@ -56,6 +58,9 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
     ImageView iv_password_yincang;
     TextView btn_zhanghao_login;
     TextView tv_yanzhengma_change;
+
+
+    View ll_fuwuxieyi;
 
 
     public boolean isPhone = true;
@@ -114,6 +119,15 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
         btn_zhanghao_login.setEnabled(false);
         tv_yanzhengma_change = (TextView) findViewById(R.id.tv_yanzhengma_change);
 
+        ll_fuwuxieyi = findViewById(R.id.ll_fuwuxieyi);
+        ll_fuwuxieyi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, FuwuxieyiActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     void initListener() {
@@ -133,7 +147,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
                     iv_shoujihao_guanbi.setVisibility(View.GONE);
                     btn_yanzhengma_login.setEnabled(false);
                 }
-                if (s.length() == 11&&messageWaitTime<=1) {
+                if (s.length() == 11 && messageWaitTime <= 1) {
                     btn_yanzhengma.setEnabled(true);
                 } else {
                     btn_yanzhengma.setEnabled(false);
@@ -194,7 +208,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
                 loginPostBean.deviceType = "1";
 
 //                try {
-                    loginPresenter.loginPhone(loginPostBean);
+                loginPresenter.loginPhone(loginPostBean);
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
@@ -234,7 +248,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
         iv_zhanghao_guanbi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                et_shoujihao.setText("");
+                et_zhanghao.setText("");
             }
         });
         et_password.addTextChangedListener(new TextWatcher() {
@@ -289,7 +303,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
                 loginPostBean.password = password;
                 loginPostBean.deviceType = "1";
 //                try {
-                    loginPresenter.loginPhone(loginPostBean);
+                loginPresenter.loginPhone(loginPostBean);
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
@@ -363,6 +377,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
     void WaitForNextFetchCode(int nSecond) {
         messageWaitTime = nSecond;
         btn_yanzhengma.setText(String.valueOf(messageWaitTime) + "S");
+        btn_yanzhengma.setTextColor(Color.parseColor("#529FFB"));
         btn_yanzhengma.setEnabled(false);
 
         btn_yanzhengma.postDelayed(new Runnable() {
@@ -371,9 +386,11 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
                 if (messageWaitTime == 1) {
                     btn_yanzhengma.setEnabled(true);
                     btn_yanzhengma.setText("重新发送");
+                    btn_yanzhengma.setTextColor(Color.parseColor("#ffffff"));
                 } else {
                     messageWaitTime--;
                     btn_yanzhengma.setText(String.valueOf(messageWaitTime) + "S");
+                    btn_yanzhengma.setTextColor(Color.parseColor("#529FFB"));
                     btn_yanzhengma.postDelayed(this, 1000);
                 }
             }
@@ -438,13 +455,13 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView {
 
         }
         Intent intent = new Intent();
-        if(SPUtil.getSKIP()){
+        if (SPUtil.getSKIP()) {
             intent.setClass(LoginActivity.this, MainActivity.class);
-        }else if(UserInstance.getInstance().userInfo.realName==null||TextUtils.isEmpty(UserInstance.getInstance().userInfo.realName)){
+        } else if (UserInstance.getInstance().userInfo.realName == null || TextUtils.isEmpty(UserInstance.getInstance().userInfo.realName)) {
             intent.setClass(LoginActivity.this, FillInMessageActivity.class);
-        }else if(TextUtils.isEmpty(SPUtil.getHEIGHT())){
+        } else if (TextUtils.isEmpty(SPUtil.getHEIGHT())) {
             intent.setClass(LoginActivity.this, FillInMessageSecondActivity.class);
-        } else{
+        } else {
             intent.setClass(LoginActivity.this, MainActivity.class);
         }
         startActivity(intent);

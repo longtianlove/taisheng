@@ -161,8 +161,8 @@
             android:textSize="14sp" />
         <ImageView
             android:id="@+id/iv_password_yincang"
-            android:layout_width="8dp"
-            android:layout_height="14dp"
+            android:layout_width="17dp"
+            android:layout_height="10dp"
             android:src="@drawable/yincang_background"
             android:layout_marginRight="11dp"
             android:layout_gravity="end|center_vertical"

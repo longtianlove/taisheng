@@ -105,6 +105,8 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 
     private ArrayList<VideoStream> mVideosInRoom = new ArrayList<>();
 
+    public int roomId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +119,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         //获取前一个页面得到的进房参数
         Intent intent = getIntent();
         mSdkAppId = intent.getIntExtra("sdkAppId", 0);
-        int roomId = intent.getIntExtra("roomId", 0);
+        roomId = intent.getIntExtra("roomId", 0);
         String selfUserId = intent.getStringExtra("userId");
         String userSig = intent.getStringExtra("userSig");
         mEnableCustomVideoCapture = intent.getBooleanExtra("customVideoCapture", false);
@@ -185,13 +187,11 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
     ImageView iv_dakaishexiangtou;
     TextView tv_openshexiangtou;
     View ll_zhuanhuanshexiangtou;
-    String doctorId;
+    public String doctorId;
     String nickname;
     String title;
     String avatar;
     View iv_cancle;
-
-
 
 
     public Handler mHandler = new Handler() {
@@ -268,7 +268,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         waittingthread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (waittingrunning&&!doctor_comein) {
+                while (waittingrunning && !doctor_comein) {
                     try {
 
                         //reflashUI(progress);//这样更新会出错，不能在子线程更新UI
@@ -542,6 +542,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
         bean.doctorId = doctorId;
+        bean.roomId = roomId + "";
         ApiUtils.getApiService().updateDoctorStatus(bean).enqueue(new TaiShengCallback<BaseBean>() {
             @Override
             public void onSuccess(Response<BaseBean> response, BaseBean message) {
@@ -867,6 +868,24 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 
                 activity.tv_jieshouzhong.setVisibility(View.GONE);
                 activity.stopTextThread();
+
+
+                DoctorUpdateStatePostBean bean = new DoctorUpdateStatePostBean();
+                bean.userId = UserInstance.getInstance().getUid();
+                bean.token = UserInstance.getInstance().getToken();
+                bean.doctorId = activity.doctorId;
+                bean.roomId = activity.roomId + "";
+                ApiUtils.getApiService().detectRoomIn(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
+
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean> call, Throwable t) {
+
+                    }
+                });
             }
         }
 

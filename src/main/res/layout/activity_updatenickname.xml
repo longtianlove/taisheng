@@ -34,18 +34,18 @@
 
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/btn_update"
-            android:layout_width="50dp"
-            android:layout_height="20dp"
-            android:background="@drawable/xml_login_background"
-            android:enabled="false"
-            android:gravity="center"
-            android:text="修改"
-            android:textColor="@color/white"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:textSize="10sp"></TextView>
+        <!--<TextView-->
+            <!--android:id="@+id/btn_update"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:background="@drawable/xml_login_background"-->
+            <!--android:enabled="false"-->
+            <!--android:gravity="center"-->
+            <!--android:text="修改"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="10sp"></TextView>-->
 
     </RelativeLayout>
 
@@ -97,4 +97,18 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:background="#EEEEEE" />
+
+    <TextView
+        android:id="@+id/btn_update"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:layout_marginLeft="37dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/xml_login_background"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="修改"
+        android:textColor="@color/white"
+        android:textSize="14sp"></TextView>
     </LinearLayout>

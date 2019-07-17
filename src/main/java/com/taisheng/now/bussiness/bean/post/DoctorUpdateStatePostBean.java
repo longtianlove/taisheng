@@ -6,4 +6,5 @@ package com.taisheng.now.bussiness.bean.post;
 
 public class DoctorUpdateStatePostBean extends BasePostBean {
     public String doctorId;
+    public String roomId;
 }
