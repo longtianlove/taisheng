@@ -32,11 +32,14 @@ import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.view.DoctorLabelWrapLayout;
 import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.TaishengListView;
+import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 import com.zzhoujay.richtext.RichText;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -50,6 +53,8 @@ public class SecretTabFragment extends BaseFragment {
     ArticlePostBean bean;
     ArticleAdapter madapter;
 
+
+    MaterialDesignPtrFrameLayout ptr_refresh;
 
     View ll_all;
     SimpleDraweeView sdv_header;
@@ -76,6 +81,18 @@ public class SecretTabFragment extends BaseFragment {
 
     void initView(View rootView) {
 
+        ptr_refresh = (MaterialDesignPtrFrameLayout) rootView.findViewById(R.id.ptr_refresh);
+        /**
+         * 下拉刷新
+         */
+        ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+
+                initData();
+
+            }
+        });
 
         ll_all = rootView.findViewById(R.id.ll_all);
         sdv_header = (SimpleDraweeView) rootView.findViewById(R.id.sdv_header);
@@ -252,14 +269,18 @@ public class SecretTabFragment extends BaseFragment {
         ApiUtils.getApiService().articleList(bean).enqueue(new TaiShengCallback<BaseBean<ArticleResultBean>>() {
             @Override
             public void onSuccess(Response<BaseBean<ArticleResultBean>> response, BaseBean<ArticleResultBean> message) {
+                ptr_refresh.refreshComplete();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
 
                         if (message.result.records != null && message.result.records.size() > 0) {
                             lv_articles.setLoading(false);
+                            if (PAGE_NO == 1) {
+                                madapter.mData.clear();
+                            }
                             //有消息
                             PAGE_NO++;
-                            madapter.mData = message.result.records;
+                            madapter.mData.addAll(message.result.records);
                             if (message.result.records.size() < 10) {
                                 lv_articles.setHasLoadMore(false);
                                 lv_articles.setLoadAllViewText("暂时只有这么多文章");
@@ -283,7 +304,7 @@ public class SecretTabFragment extends BaseFragment {
 
             @Override
             public void onFail(Call<BaseBean<ArticleResultBean>> call, Throwable t) {
-
+                ptr_refresh.refreshComplete();
             }
         });
     }
@@ -354,14 +375,14 @@ public class SecretTabFragment extends BaseFragment {
                 util.sdv_article.setImageURI(uri);
             }
             util.tv_title.setText(bean.title);
-            try {
-                if (bean.content != null) {
-                    util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
-                    RichText.fromHtml(bean.content).into(util.tv_content);
-                }
-            }catch (Exception e){
-                Log.e("article",e.getMessage());
-            }
+//            try {
+//                if (bean.content != null) {
+//                    util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
+//                    RichText.fromHtml(bean.content).into(util.tv_content);
+//                }
+//            }catch (Exception e){
+//                Log.e("article",e.getMessage());
+//            }
             util.tv_typename.setText(bean.typeName);
             util.tv_createtime.setText(bean.createTime);
 

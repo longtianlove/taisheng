@@ -20,10 +20,13 @@ import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.view.TaishengListView;
+import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -33,6 +36,8 @@ import retrofit2.Response;
 
 public class ZixunjiluActivity extends BaseActivity {
     View iv_back;
+
+    MaterialDesignPtrFrameLayout ptr_refresh;
 
     TaishengListView lv_doctors;
     ConsultAdapter madapter;
@@ -55,6 +60,17 @@ public class ZixunjiluActivity extends BaseActivity {
         });
 
 
+        ptr_refresh = (MaterialDesignPtrFrameLayout)findViewById(R.id.ptr_refresh);
+        /**
+         * 下拉刷新
+         */
+        ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+
+                initData();
+            }
+        });
         lv_doctors = (TaishengListView) findViewById(R.id.lv_doctors);
         madapter = new ConsultAdapter(this);
         lv_doctors.setAdapter(madapter);
@@ -67,6 +83,9 @@ public class ZixunjiluActivity extends BaseActivity {
     }
 
     void initData() {
+
+        PAGE_NO = 1;
+        PAGE_SIZE = 10;
         getconsultList();
     }
 
@@ -86,12 +105,16 @@ public class ZixunjiluActivity extends BaseActivity {
         ApiUtils.getApiService().consultList(bean).enqueue(new TaiShengCallback<BaseBean<ConsultListResultBean>>() {
             @Override
             public void onSuccess(Response<BaseBean<ConsultListResultBean>> response, BaseBean<ConsultListResultBean> message) {
+                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         if (message.result.records != null && message.result.records.size() > 0) {
 
                             lv_doctors.setLoading(false);
+                            if (PAGE_NO == 1) {
+                                madapter.mData.clear();
+                            }
                             //有消息
                             PAGE_NO++;
                             madapter.mData.addAll(message.result.records);
@@ -115,6 +138,7 @@ public class ZixunjiluActivity extends BaseActivity {
 
             @Override
             public void onFail(Call<BaseBean<ConsultListResultBean>> call, Throwable t) {
+                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
             }
         });

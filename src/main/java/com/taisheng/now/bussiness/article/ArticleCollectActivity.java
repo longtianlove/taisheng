@@ -25,11 +25,14 @@ import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.view.TaishengListView;
+import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 import com.zzhoujay.richtext.RichText;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -39,7 +42,7 @@ import retrofit2.Response;
 
 public class ArticleCollectActivity extends BaseActivity {
     View iv_back;
-
+    MaterialDesignPtrFrameLayout ptr_refresh;
     TaishengListView lv_doctors;
     ArticleAdapter madapter;
     @Override
@@ -58,7 +61,16 @@ public class ArticleCollectActivity extends BaseActivity {
             }
         });
 
-
+        ptr_refresh = (MaterialDesignPtrFrameLayout)findViewById(R.id.ptr_refresh);
+        /**
+         * 下拉刷新
+         */
+        ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                initData();
+            }
+        });
 
         lv_doctors = (TaishengListView)findViewById(R.id.lv_doctors);
         madapter = new ArticleAdapter(this);
@@ -71,14 +83,16 @@ public class ArticleCollectActivity extends BaseActivity {
         });
     }
     void initData() {
-
+         PAGE_NO = 1;
+         PAGE_SIZE = 10;
+        getDoctors();
     }
 
 
     @Override
     protected void onStart() {
         super.onStart();
-        getDoctors();
+
     }
 
     int PAGE_NO = 1;
@@ -96,11 +110,15 @@ public class ArticleCollectActivity extends BaseActivity {
         ApiUtils.getApiService().articlecollectionlist(bean).enqueue(new TaiShengCallback<BaseBean<ArticleCollectListResultBean>>() {
             @Override
             public void onSuccess(Response<BaseBean<ArticleCollectListResultBean>> response, BaseBean<ArticleCollectListResultBean> message) {
+                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         if (message.result.records != null && message.result.records.size() > 0) {
                             lv_doctors.setLoading(false);
+                            if (PAGE_NO == 1) {
+                                madapter.mData.clear();
+                            }
                             //有消息
                             PAGE_NO++;
                             madapter.mData.addAll(message.result.records);
@@ -124,6 +142,7 @@ public class ArticleCollectActivity extends BaseActivity {
 
             @Override
             public void onFail(Call<BaseBean<ArticleCollectListResultBean>> call, Throwable t) {
+                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
             }
         });
@@ -196,14 +215,14 @@ public class ArticleCollectActivity extends BaseActivity {
             }
             util.tv_title.setText(bean.title);
 
-            try {
-                if (bean.content != null) {
-                    util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
-                    RichText.fromHtml(bean.content).into(util.tv_content);
-                }
-            }catch (Exception e){
-                Log.e("article",e.getMessage());
-            }
+//            try {
+//                if (bean.content != null) {
+//                    util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
+//                    RichText.fromHtml(bean.content).into(util.tv_content);
+//                }
+//            }catch (Exception e){
+//                Log.e("article",e.getMessage());
+//            }
             util.tv_typename.setText(bean.typeName);
             util.tv_createtime.setText(bean.createTime);
 

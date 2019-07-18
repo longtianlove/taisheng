@@ -208,14 +208,14 @@ public class SearchResultActivity extends BaseActivity {
                 util.sdv_article.setImageURI(uri);
             }
             util.tv_title.setText(bean.title);
-            try {
-                if (bean.content != null) {
-                    util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
-                    RichText.fromHtml(bean.content).into(util.tv_content);
-                }
-            }catch (Exception e){
-                Log.e("article",e.getMessage());
-            }
+//            try {
+//                if (bean.content != null) {
+//                    util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
+//                    RichText.fromHtml(bean.content).into(util.tv_content);
+//                }
+//            }catch (Exception e){
+//                Log.e("article",e.getMessage());
+//            }
             util.tv_typename.setText(bean.typeName);
             util.tv_createtime.setText(bean.createTime);
 

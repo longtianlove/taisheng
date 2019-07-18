@@ -22,4 +22,15 @@
         <item>44100</item>
         <item>48000</item>
     </string-array>
+
+    <integer-array name="google_colors">
+        <!--<item>@color/red</item>-->
+        <!--<item>@color/blue</item>-->
+        <!--<item>@color/yellow</item>-->
+        <!--<item>@color/green</item>-->
+        <item>@color/refresh_color</item>
+        <item>@color/refresh_color</item>
+        <item>@color/refresh_color</item>
+        <item>@color/refresh_color</item>
+    </integer-array>
 </resources>

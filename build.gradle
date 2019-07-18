@@ -72,4 +72,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.zzhoujay.richtext:richtext:2.4.7'
+
+
+    //下拉刷新
+    compile 'in.srain.cube:ultra-ptr:1.0.11'
 }

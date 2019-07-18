@@ -51,6 +51,7 @@ import com.taisheng.now.view.HorizontalListView;
 import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.WithScrolleViewListView;
 import com.taisheng.now.view.banner.BannerViewPager;
+import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 import com.zzhoujay.richtext.RichText;
 
 import java.text.ParseException;
@@ -60,6 +61,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -75,11 +78,13 @@ public class FirstFragment extends BaseFragment {
 
 
     public ScrollView scl_bag;
+
+
+    MaterialDesignPtrFrameLayout ptr_refresh;
+
     private FrameLayout bannerContaner;
     BannerViewPager bannerViewPager;
     private View bannerView;
-
-
 
 
 //    HorizontalListViewAdapter horizontalListViewAdapter;
@@ -124,6 +129,20 @@ public class FirstFragment extends BaseFragment {
 
     void initView(View rootView) {
         scl_bag = (ScrollView) rootView.findViewById(R.id.scl_bag);
+
+
+        ptr_refresh = (MaterialDesignPtrFrameLayout) rootView.findViewById(R.id.ptr_refresh);
+
+
+        /**
+         * 下拉刷新
+         */
+        ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                initData();
+            }
+        });
         ll_shishizixun = rootView.findViewById(R.id.ll_shishizixun);
         ll_shishizixun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,13 +242,11 @@ public class FirstFragment extends BaseFragment {
         bannerContaner.addView(bannerView);
 
 
-
-
 //        hl_zhuanjia = (HorizontalListView) rootView.findViewById(R.id.hl_zhuanjia);
 //        horizontalListViewAdapter = new HorizontalListViewAdapter();
 //        hl_zhuanjia.setAdapter(horizontalListViewAdapter);
 
-        RecyclerView recyclerView = (RecyclerView)rootView.findViewById(R.id.rv_zhuanjia);
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_zhuanjia);
 
         LinearLayoutManager layout = new LinearLayoutManager(mActivity);
         layout.setOrientation(LinearLayoutManager.HORIZONTAL);//设置为横向排列
@@ -239,7 +256,6 @@ public class FirstFragment extends BaseFragment {
 
         zhuanjiaAdapter = new ZhuanjiaAdapter();
         recyclerView.setAdapter(zhuanjiaAdapter);
-
 
 
         tv_doctor_more = (TextView) rootView.findViewById(R.id.tv_doctor_more);
@@ -324,6 +340,7 @@ public class FirstFragment extends BaseFragment {
         ApiUtils.getApiService().recommendList(bean).enqueue(new TaiShengCallback<BaseBean<DoctorsResultBean>>() {
             @Override
             public void onSuccess(Response<BaseBean<DoctorsResultBean>> response, BaseBean<DoctorsResultBean> message) {
+                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
@@ -337,19 +354,20 @@ public class FirstFragment extends BaseFragment {
 
             @Override
             public void onFail(Call<BaseBean<DoctorsResultBean>> call, Throwable t) {
+                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
             }
         });
     }
 
 
-    public class ZhuanjiaAdapter extends RecyclerView.Adapter<ZhuanjiaAdapter.ViewHolder>{
+    public class ZhuanjiaAdapter extends RecyclerView.Adapter<ZhuanjiaAdapter.ViewHolder> {
 
         public List<DoctorBean> doctors;
 
         @Override
         public ZhuanjiaAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_zhuanjia,parent,false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_zhuanjia, parent, false);
             ViewHolder holder = new ViewHolder(view);
             return holder;
 
@@ -358,28 +376,28 @@ public class FirstFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(ZhuanjiaAdapter.ViewHolder util, int position) {
             DoctorBean bean = doctors.get(position);
-            if(position==(doctors.size()-1)){
+            if (position == (doctors.size() - 1)) {
                 util.view_label.setVisibility(View.GONE);
-            }else{
+            } else {
                 util.view_label.setVisibility(View.VISIBLE);
 
             }
             util.ll_all.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(mActivity, DoctorDetailActivity.class);
+                    Intent intent = new Intent(mActivity, DoctorDetailActivity.class);
                     intent.putExtra("id", bean.id);
-                    intent.putExtra("nickName",bean.nickName);
-                    intent.putExtra("title",bean.title);
-                    intent.putExtra("fromMedicineTime",bean.fromMedicineTime);
-                    intent.putExtra("jobIntroduction",bean.jobIntroduction);
-                    intent.putExtra("score",bean.score);
-                    intent.putExtra("goodDiseases",bean.goodDiseases);
+                    intent.putExtra("nickName", bean.nickName);
+                    intent.putExtra("title", bean.title);
+                    intent.putExtra("fromMedicineTime", bean.fromMedicineTime);
+                    intent.putExtra("jobIntroduction", bean.jobIntroduction);
+                    intent.putExtra("score", bean.score);
+                    intent.putExtra("goodDiseases", bean.goodDiseases);
                     startActivity(intent);
                 }
             });
 
-            if(bean.avatar!=null) {
+            if (bean.avatar != null) {
                 Uri uri = Uri.parse(bean.avatar);
                 util.sdv_header.setImageURI(uri);
             }
@@ -409,7 +427,7 @@ public class FirstFragment extends BaseFragment {
                 return currentTime.getYear() - strtodate.getYear() <= 0 ? "1" : currentTime.getYear() - strtodate.getYear() + "";
 
             } catch (Exception e) {
-                Log.e("firstfragment-getwork",e.getMessage());
+                Log.e("firstfragment-getwork", e.getMessage());
                 return "1";
             }
 
@@ -425,7 +443,7 @@ public class FirstFragment extends BaseFragment {
             }
         }
 
-        class  ViewHolder extends RecyclerView.ViewHolder{
+        class ViewHolder extends RecyclerView.ViewHolder {
             View ll_all;
             SimpleDraweeView sdv_header;
             TextView tv_doctor_name;
@@ -433,6 +451,7 @@ public class FirstFragment extends BaseFragment {
             DoctorLabelWrapLayout dlwl_doctor_label;
             ScoreStar scorestar;
             View view_label;
+
             public ViewHolder(View view) {
                 super(view);
                 ll_all = view.findViewById(R.id.ll_all);
@@ -441,7 +460,7 @@ public class FirstFragment extends BaseFragment {
                 tv_workage = (TextView) view.findViewById(R.id.tv_workage);
                 dlwl_doctor_label = (DoctorLabelWrapLayout) view.findViewById(R.id.dlwl_doctor_label);
                 scorestar = (ScoreStar) view.findViewById(R.id.scorestar);
-                view_label=view.findViewById(R.id.view_label);
+                view_label = view.findViewById(R.id.view_label);
             }
         }
 
@@ -558,13 +577,11 @@ public class FirstFragment extends BaseFragment {
 //    }
 
 
-
     void getHotArticle() {
 
         BasePostBean bean = new BasePostBean();
         bean.token = UserInstance.getInstance().getToken();
         bean.userId = UserInstance.getInstance().getUid();
-
 
 
 //        DialogUtil.showProgress(mActivity, "");
@@ -578,6 +595,7 @@ public class FirstFragment extends BaseFragment {
                         if (message.result != null && message.result.records.size() > 0) {
                             //有消息
 //                            PAGE_NO++;
+                            madapter.mData.clear();
                             madapter.mData.addAll(message.result.records);
 //                            if(message.result.size()<10){
 //                                lv_articles.setHasLoadMore(false);
@@ -673,14 +691,14 @@ public class FirstFragment extends BaseFragment {
             }
             util.tv_title.setText(bean.title);
 //            util.tv_content.setText(bean.content);
-            try {
-                if (bean.content != null) {
-                    util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
-                    RichText.fromHtml(bean.content).into(util.tv_content);
-                }
-            }catch (Exception e){
-                Log.e("article",e.getMessage());
-            }
+//            try {
+//                if (bean.content != null) {
+//                    util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());
+//                    RichText.fromHtml(bean.content).into(util.tv_content);
+//                }
+//            } catch (Exception e) {
+//                Log.e("article", e.getMessage());
+//            }
 
 
             util.tv_typename.setText(bean.typeName);

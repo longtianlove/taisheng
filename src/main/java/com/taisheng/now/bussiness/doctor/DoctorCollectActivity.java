@@ -27,10 +27,13 @@ import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.view.DoctorLabelWrapLayout;
 import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.TaishengListView;
+import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -40,7 +43,7 @@ import retrofit2.Response;
 
 public class DoctorCollectActivity extends BaseActivity {
     View iv_back;
-
+    MaterialDesignPtrFrameLayout ptr_refresh;
     TaishengListView lv_doctors;
     DoctorAdapter madapter;
     @Override
@@ -60,7 +63,17 @@ public class DoctorCollectActivity extends BaseActivity {
         });
 
 
+        ptr_refresh = (MaterialDesignPtrFrameLayout)findViewById(R.id.ptr_refresh);
+        /**
+         * 下拉刷新
+         */
+        ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                initData();
 
+            }
+        });
         lv_doctors = (TaishengListView)findViewById(R.id.lv_doctors);
         madapter = new DoctorAdapter(this);
         lv_doctors.setAdapter(madapter);
@@ -72,13 +85,15 @@ public class DoctorCollectActivity extends BaseActivity {
         });
     }
     void initData() {
-//        getDoctors();
+        PAGE_NO = 1;
+        PAGE_SIZE = 10;
+        getDoctors();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        getDoctors();
+
     }
 
     int PAGE_NO = 1;
@@ -96,12 +111,15 @@ public class DoctorCollectActivity extends BaseActivity {
         ApiUtils.getApiService().doctorcollectionlist(bean).enqueue(new TaiShengCallback<BaseBean<DoctorCollectListResultBean>>() {
             @Override
             public void onSuccess(Response<BaseBean<DoctorCollectListResultBean>> response, BaseBean<DoctorCollectListResultBean> message) {
+                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         if (message.result.records != null && message.result.records.size() > 0) {
                             lv_doctors.setLoading(false);
-
+                            if (PAGE_NO == 1) {
+                                madapter.mData.clear();
+                            }
                             //有消息
                             PAGE_NO++;
                             madapter.mData.addAll(message.result.records);
@@ -125,9 +143,11 @@ public class DoctorCollectActivity extends BaseActivity {
 
             @Override
             public void onFail(Call<BaseBean<DoctorCollectListResultBean>> call, Throwable t) {
+                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
             }
         });
+
 
     }
 

@@ -29,10 +29,13 @@ import com.taisheng.now.view.DoctorLabelWrapLayout;
 import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.StarGrade;
 import com.taisheng.now.view.TaishengListView;
+import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -42,6 +45,7 @@ import retrofit2.Response;
 
 public class MyPingjiaActivity extends BaseActivity {
     View iv_back;
+    MaterialDesignPtrFrameLayout ptr_refresh;
     TaishengListView lv_mypingluns;
     MyPingjiaAdapter madapter;
 
@@ -61,6 +65,16 @@ public class MyPingjiaActivity extends BaseActivity {
                 finish();
             }
         });
+        ptr_refresh = (MaterialDesignPtrFrameLayout)findViewById(R.id.ptr_refresh);
+        /**
+         * 下拉刷新
+         */
+        ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                initData();
+            }
+        });
         lv_mypingluns = (TaishengListView) findViewById(R.id.lv_mypingluns);
         madapter = new MyPingjiaAdapter(this);
         lv_mypingluns.setAdapter(madapter);
@@ -74,6 +88,9 @@ public class MyPingjiaActivity extends BaseActivity {
     }
 
     void initData() {
+
+         PAGE_NO = 1;
+         PAGE_SIZE = 10;
         getMyPingjias();
     }
 
@@ -91,11 +108,15 @@ public class MyPingjiaActivity extends BaseActivity {
         ApiUtils.getApiService().myDoctorScores(bean).enqueue(new TaiShengCallback<BaseBean<MyPingjiaResultBean>>() {
             @Override
             public void onSuccess(Response<BaseBean<MyPingjiaResultBean>> response, BaseBean<MyPingjiaResultBean> message) {
+                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         if (message.result.records != null && message.result.records.size() > 0) {
                             lv_mypingluns.setLoading(false);
+                            if (PAGE_NO == 1) {
+                                madapter.mData.clear();
+                            }
                             //有消息
                             PAGE_NO++;
                             madapter.mData.addAll(message.result.records);
@@ -119,6 +140,7 @@ public class MyPingjiaActivity extends BaseActivity {
 
             @Override
             public void onFail(Call<BaseBean<MyPingjiaResultBean>> call, Throwable t) {
+                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
             }
         });
