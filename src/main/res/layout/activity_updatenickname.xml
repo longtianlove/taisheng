@@ -73,7 +73,6 @@
         android:layout_weight="1"
         android:layout_marginLeft="16dp"
         android:background="@null"
-        android:inputType="phone"
         android:hint="我的昵称"
         android:maxLength="11"
         android:textColor="#ff999999"

@@ -46,7 +46,7 @@ public class FillInMessageActivity extends BaseActivity {
     RadioButton rb_female;
     int sex;
     EditText et_age;
-    EditText et_phone;
+    TextView et_phone;
     //    EditText et_height;
 //    EditText et_weight;
     TextView tv_next;
@@ -136,7 +136,7 @@ public class FillInMessageActivity extends BaseActivity {
 
             }
         });
-        et_phone = (EditText) findViewById(R.id.et_phone);
+        et_phone = (TextView) findViewById(R.id.et_phone);
         et_phone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

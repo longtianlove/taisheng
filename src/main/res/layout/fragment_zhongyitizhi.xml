@@ -5,14 +5,58 @@
     android:layout_height="fill_parent"
     android:background="#fff6f6f6">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_noresult"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+
+        <ImageView
+            android:layout_width="187dp"
+            android:layout_height="144dp"
+            android:layout_marginTop="34dp"
+            android:src="@drawable/health_noresult" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="您的健康档案为空"
+            android:textColor="#ffbbbbbb"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/btn_goceping"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/xml_login_background"
+            android:enabled="true"
+            android:gravity="center"
+            android:text="去测评"
+            android:textColor="@color/white"
+            android:textSize="14sp"></TextView>
+    </LinearLayout>
 
     <LinearLayout
 
+        android:id="@+id/ll_result"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
 
         <LinearLayout
@@ -21,8 +65,7 @@
             android:background="#f6f6f6"
             android:orientation="vertical"
             android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-        >
+            android:paddingRight="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,15 +73,14 @@
                 android:layout_marginTop="13dp"
                 android:background="@drawable/check_jianyi_bg"
                 android:orientation="vertical"
-                android:paddingBottom="10dp"
-               >
+                android:paddingBottom="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginBottom="6dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="6dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -57,21 +99,22 @@
                         android:textSize="12sp" />
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#ffeeeeee" />
 
                 <TextView
-                    android:layout_marginLeft="10dp"
                     android:id="@+id/tv_completeBatch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="您的新陈代谢类型为：蛋白质型。
-饮食方面，高蛋白的食谱比较适合你，但是同时要注意维生素、碳水化合物、膳食纤维的摄入。锻炼方面，可以选择游泳、搏击、举重等强度较大的运动方式，帮助你更快燃烧脂肪，达到减重效果。"
-                    android:textColor="#ff333333"
                     android:lineSpacingMultiplier="1.5"
+                    android:text="您的新陈代谢类型为：蛋白质型。
+    饮食方面，高蛋白的食谱比较适合你，但是同时要注意维生素、碳水化合物、膳食纤维的摄入。锻炼方面，可以选择游泳、搏击、举重等强度较大的运动方式，帮助你更快燃烧脂肪，达到减重效果。"
+                    android:textColor="#ff333333"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -81,15 +124,14 @@
                 android:layout_marginTop="13dp"
                 android:background="@drawable/check_jianyi_bg"
                 android:orientation="vertical"
-                android:paddingBottom="10dp"
-                >
+                android:paddingBottom="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginBottom="6dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="6dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -108,6 +150,7 @@
                         android:textSize="12sp" />
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -117,12 +160,12 @@
                     android:id="@+id/tv_remarks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
-                    android:text="新陈代谢快的人，能量转化率高，热量也消耗得快；而相反，新陈代谢慢的人，热量消耗的慢，容易转化为脂肪堆积在体内。想要高效减肥，就要根据自身的新陈代谢类型进行不同的选择。只有对症下药，才能事半功倍。
-还要提醒大家：早上6点到9点，下午5点到7点，是人体新陈代谢最为活跃的时间段。这个时候选择进食或者锻炼，巧妙利用新陈代谢，即可事半功倍减掉赘肉哟~"
-                    android:textColor="#ff333333"
+                    android:layout_marginTop="10dp"
                     android:lineSpacingMultiplier="1.5"
+                    android:text="新陈代谢快的人，能量转化率高，热量也消耗得快；而相反，新陈代谢慢的人，热量消耗的慢，容易转化为脂肪堆积在体内。想要高效减肥，就要根据自身的新陈代谢类型进行不同的选择。只有对症下药，才能事半功倍。
+    还要提醒大家：早上6点到9点，下午5点到7点，是人体新陈代谢最为活跃的时间段。这个时候选择进食或者锻炼，巧妙利用新陈代谢，即可事半功倍减掉赘肉哟~"
+                    android:textColor="#ff333333"
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
@@ -159,12 +202,12 @@
             </LinearLayout>
 
             <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="2dp"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_marginTop="6dp"-->
-                <!--android:background="@drawable/line_stroke"-->
-                <!--android:layerType="software" />-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="2dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginTop="6dp"-->
+            <!--android:background="@drawable/line_stroke"-->
+            <!--android:layerType="software" />-->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -186,4 +229,6 @@
         </LinearLayout>
 
     </LinearLayout>
+    </LinearLayout>
+
 </ScrollView>

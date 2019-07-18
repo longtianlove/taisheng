@@ -115,6 +115,8 @@ public class Constants {
             //文章相关的医生
             public static final String getDoctorTypeList = "jeecg-boot/app/doctor/getDoctorTypeList";
 
+            //增加文章的阅读量
+            public static final String updateArticleReadCount = "jeecg-boot/app/article/updateArticleReadCount";
         }
 
         //医生
@@ -165,9 +167,9 @@ public class Constants {
             //视频建立连接
             public static final String connectDoctor = "jeecg-boot/app/consult/connectDoctor";
             //有人进来
-            public static final String detectRoomIn="jeecg-boot/app/consult/detectRoomIn";
+            public static final String detectRoomIn = "jeecg-boot/app/consult/detectRoomIn";
             //视频完接口回调
-            public static final String updateDoctorStatus="jeecg-boot/app/consult/updateDoctorStatus";
+            public static final String updateDoctorStatus = "jeecg-boot/app/consult/updateDoctorStatus";
         }
 
 

@@ -21,6 +21,7 @@ import com.taisheng.now.bussiness.bean.post.HealthCheckListPostBean;
 import com.taisheng.now.bussiness.bean.post.HealthInfoPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
+import com.taisheng.now.bussiness.bean.post.UpdateArticleReadCountPostBean;
 import com.taisheng.now.bussiness.bean.post.UpdatePswPostBean;
 import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
 import com.taisheng.now.bussiness.bean.result.AnswerResultBean;
@@ -105,6 +106,10 @@ public interface ApiService {
     //获取文章详情
     @POST(Constants.Url.Article.articleQeryById)
     Call<BaseBean<ArticleContentBean>> articleQeryById(@Body ArticleContentPostBean articleContentPostBean);
+
+    //增加文章的阅读量
+    @POST(Constants.Url.Article.updateArticleReadCount)
+    Call<BaseBean> updateArticleReadCount(@Body UpdateArticleReadCountPostBean bean);
 
     //获取题目
     @POST(Constants.Url.CePing.getExtractionSubjectDb)

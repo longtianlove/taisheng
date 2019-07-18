@@ -71,8 +71,10 @@
                 android:textSize="17sp" />
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginTop="50dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="18dp"
@@ -99,6 +101,7 @@
                     android:background="@null"
                     android:hint="请输入姓名"
                     android:textColorHint="#999999"
+                    android:textColor="#333333"
                     android:gravity="right"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -143,7 +146,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:textColor="#999999"
+                        android:textColor="#333333"
                         android:drawableLeft="@drawable/selector_radio"
                         android:textSize="14sp"
                         android:button="@null"
@@ -156,7 +159,7 @@
                         android:id="@+id/rb_female"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#999999"
+                        android:textColor="#333333"
                         android:layout_marginLeft="30dp"
                         android:drawableLeft="@drawable/selector_radio"
                         android:textSize="14sp"
@@ -207,6 +210,7 @@
                     android:inputType="number"
                     android:textColorHint="#999999"
                     android:gravity="right"
+                    android:textColor="#333333"
                     android:maxLength="2"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -240,7 +244,7 @@
                     android:layout_height="1dp"
                     android:layout_weight="1" />
 
-                <EditText
+                <TextView
                     android:id="@+id/et_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -250,6 +254,8 @@
                     android:textColorHint="#999999"
                     android:maxLength="11"
                     android:gravity="right"
+                    android:textColor="#333333"
+
                     android:textSize="14sp" />
             </LinearLayout>
 

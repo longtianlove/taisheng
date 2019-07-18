@@ -13,6 +13,7 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.CollectAddorRemovePostBean;
+import com.taisheng.now.bussiness.bean.post.UpdateArticleReadCountPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleContentBean;
 import com.taisheng.now.bussiness.bean.post.ArticleContentPostBean;
 import com.taisheng.now.bussiness.bean.result.CollectAddorRemoveResultBean;
@@ -61,7 +62,7 @@ public class ArticleContentActivity extends BaseActivity {
         });
         tv_title = (TextView) findViewById(R.id.tv_title);
 //        tv_content = (TextView) findViewById(R.id.tv_content);
-        webView= (WebView) findViewById(R.id.webView);
+        webView = (WebView) findViewById(R.id.webView);
 
         ll_collect = findViewById(R.id.ll_collect);
         ll_collect.setOnClickListener(new View.OnClickListener() {
@@ -134,11 +135,11 @@ public class ArticleContentActivity extends BaseActivity {
 //                                tv_content.setMovementMethod(LinkMovementMethod.getInstance());
 //                                RichText.fromHtml(message.result.content).into(tv_content);
 //                                String content=message.result.content.replace("<img", "<img style=\"max-width:100%;height:auto");
-                                String sHead=   "<html><head><meta name=\"viewport\" content=\"width=device-width, " +
-                                        "initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes\" />"+
+                                String sHead = "<html><head><meta name=\"viewport\" content=\"width=device-width, " +
+                                        "initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes\" />" +
                                         "<style>img{max-width:100% !important;height:auto !important;}</style>"
-                                        +"<style>body{max-width:100% !important;}</style>"+"</head><body>";
-                                webView.loadDataWithBaseURL(null, sHead+message.result.content+"</body></html>", "text/html" , "utf-8", null);
+                                        + "<style>body{max-width:100% !important;}</style>" + "</head><body>";
+                                webView.loadDataWithBaseURL(null, sHead + message.result.content + "</body></html>", "text/html", "utf-8", null);
                             } catch (Exception e) {
                                 Log.e("article", e.getMessage());
                             }
@@ -162,5 +163,26 @@ public class ArticleContentActivity extends BaseActivity {
 
             }
         });
+        updateArticleReadCount();
     }
+
+    public void updateArticleReadCount() {
+        UpdateArticleReadCountPostBean bean=new UpdateArticleReadCountPostBean();
+        bean.userId=UserInstance.getInstance().getUid();
+        bean.token=UserInstance.getInstance().getToken();
+        bean.articleId=articleId;
+        ApiUtils.getApiService().updateArticleReadCount(bean).enqueue(new TaiShengCallback<BaseBean>() {
+            @Override
+            public void onSuccess(Response<BaseBean> response, BaseBean message) {
+
+            }
+
+            @Override
+            public void onFail(Call<BaseBean> call, Throwable t) {
+
+            }
+        });
+    }
+
+
 }

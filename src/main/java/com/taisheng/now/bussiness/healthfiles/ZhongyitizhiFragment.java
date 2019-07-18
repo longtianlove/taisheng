@@ -41,6 +41,11 @@ import retrofit2.Response;
  */
 
 public class ZhongyitizhiFragment extends BaseFragment {
+
+    View ll_result;
+    View ll_noresult;
+
+    View btn_goceping;
     TaishengListView lv_history;
     CheckHistoryAdapter madapter;
 
@@ -61,15 +66,26 @@ public class ZhongyitizhiFragment extends BaseFragment {
     }
 
     void initView(View rootView) {
-        tv_completeBatch= (TextView) rootView.findViewById(R.id.tv_completeBatch);
-        tv_remarks= (TextView) rootView.findViewById(R.id.tv_remarks);
+
+        ll_result=rootView.findViewById(R.id.ll_result);
+        ll_noresult=rootView.findViewById(R.id.ll_noresult);
+        btn_goceping=rootView.findViewById(R.id.btn_goceping);
+        btn_goceping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(mActivity,HealthCheckActivity.class);
+                startActivity(intent);
+            }
+        });
+        tv_completeBatch = (TextView) rootView.findViewById(R.id.tv_completeBatch);
+        tv_remarks = (TextView) rootView.findViewById(R.id.tv_remarks);
         lv_history = (TaishengListView) rootView.findViewById(R.id.lv_history);
-        madapter=new CheckHistoryAdapter(mActivity);
+        madapter = new CheckHistoryAdapter(mActivity);
         lv_history.setAdapter(madapter);
         lv_history.setOnUpLoadListener(new TaishengListView.OnUpLoadListener() {
             @Override
             public void onUpLoad() {
-                initData();
+                getHistoryMore();
             }
         });
 
@@ -80,7 +96,56 @@ public class ZhongyitizhiFragment extends BaseFragment {
     int PAGE_SIZE = 10;
 
     void initData() {
+        PAGE_NO=1;
+        HealthCheckListPostBean bean = new HealthCheckListPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.pageNo = PAGE_NO;
+        bean.pageSize = PAGE_SIZE;
+        bean.subjectdbType = "1";
+        bean.assessmentType = assessmentType;
+        DialogUtil.showProgress(mActivity, "");
+        ApiUtils.getApiService().answerRecordList(bean).enqueue(new TaiShengCallback<BaseBean<CheckHistoryResultBean>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<CheckHistoryResultBean>> response, BaseBean<CheckHistoryResultBean> message) {
+                DialogUtil.closeProgress();
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        if (message.result.records != null && message.result.records.size() > 0) {
+                            lv_history.setLoading(false);
 
+                            ll_result.setVisibility(View.VISIBLE);
+                            ll_noresult.setVisibility(View.GONE);
+                            //有消息
+                            PAGE_NO++;
+                            madapter.mData.addAll(message.result.records);
+                            if (message.result.records.size() < 10 && message.result.records.size() > 0) {
+                                lv_history.setHasLoadMore(false);
+                                lv_history.setLoadAllViewText("暂时只有这么多结果");
+                                lv_history.setLoadAllFooterVisible(true);
+                            }  else {
+                                lv_history.setHasLoadMore(true);
+                            }
+                            madapter.notifyDataSetChanged();
+                        }else {
+                            ll_result.setVisibility(View.GONE);
+                            ll_noresult.setVisibility(View.VISIBLE);
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<CheckHistoryResultBean>> call, Throwable t) {
+                DialogUtil.closeProgress();
+            }
+        });
+
+
+    }
+
+
+    void getHistoryMore(){
         HealthCheckListPostBean bean = new HealthCheckListPostBean();
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
@@ -124,7 +189,6 @@ public class ZhongyitizhiFragment extends BaseFragment {
                 DialogUtil.closeProgress();
             }
         });
-
 
     }
 
@@ -177,7 +241,7 @@ public class ZhongyitizhiFragment extends BaseFragment {
 
             CheckHistoryBean bean = mData.get(position);
 
-            if(position==0){
+            if (position == 0) {
                 tv_completeBatch.setText(bean.completeBatch);
                 tv_remarks.setText(bean.remarks);
             }
