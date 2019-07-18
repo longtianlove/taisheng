@@ -183,6 +183,7 @@ public class FillInMessageSecondActivity extends BaseActivity implements BleedDi
             public void onSuccess(Response<BaseBean> response, BaseBean message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
+                        UserInstance.getInstance().healthInfo=bean.userHealth;
                         UserInstance.getInstance().userInfo.height=bean.userHealth.height;
                         SPUtil.putHEIGHT(bean.userHealth.height);
                         Intent intent=new Intent(FillInMessageSecondActivity.this, MainActivity.class);
