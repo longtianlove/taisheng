@@ -3,6 +3,7 @@ package com.taisheng.now.shipin;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -107,9 +108,47 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 
     public int roomId;
 
+
+    public MediaPlayer mMediaPlayer,nextMediaPlayer;
+
+   void createNextMediaPlayer(){
+       nextMediaPlayer = MediaPlayer.create(this, R.raw.audio);
+       mMediaPlayer.setNextMediaPlayer(nextMediaPlayer);
+       mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+           @Override
+           public void onCompletion(MediaPlayer mp) {
+               mp.release();
+               mMediaPlayer = nextMediaPlayer;
+               createNextMediaPlayer();
+           }
+       });
+   }
+    /**
+     * 关闭播放器
+     */
+    public void closeMedia() {
+        if (mMediaPlayer != null) {
+            if (mMediaPlayer.isPlaying()) {
+                mMediaPlayer.stop();
+            }
+            mMediaPlayer.release();
+        }
+        if (nextMediaPlayer != null) {
+            if (nextMediaPlayer.isPlaying()) {
+                nextMediaPlayer.stop();
+            }
+            nextMediaPlayer.release();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mMediaPlayer=MediaPlayer.create(this, R.raw.audio);
+
+
+
+
 
         //应用运行时，保持屏幕高亮，不锁屏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -462,6 +501,17 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
      * 加入视频房间：需要 TRTCNewViewActivity 提供的  TRTCParams 函数
      */
     private void enterRoom() {
+        mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                mMediaPlayer.start();
+            }
+        });
+
+        mMediaPlayer.setVolume(0.5f, 0.5f);
+        createNextMediaPlayer();
+
+
         // 预览前配置默认参数
         setTRTCCloudParam();
 
@@ -560,6 +610,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                         if (doctor_comein) {//有医生进来再显示弹窗
                             setResult(TRTC_Normal_EXIT_RESULT);
                         }
+                        closeMedia();
                         finish();
                         break;
                     default:
@@ -886,6 +937,10 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 
                     }
                 });
+
+                activity.closeMedia();
+
+
             }
         }
 
