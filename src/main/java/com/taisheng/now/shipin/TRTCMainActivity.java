@@ -569,17 +569,18 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
      * 退出视频房间//异常退出
      */
     private void exitRoom() {
-        if (mCustomCapture != null) {
-            mCustomCapture.stop();
-        }
-        if (mCustomRender != null) {
-            mCustomRender.stop();
-        }
-        if (trtcCloud != null) {
-            trtcCloud.exitRoom();
-        }
-
-        finish();
+//        if (mCustomCapture != null) {
+//            mCustomCapture.stop();
+//        }
+//        if (mCustomRender != null) {
+//            mCustomRender.stop();
+//        }
+//        if (trtcCloud != null) {
+//            trtcCloud.exitRoom();
+//        }
+//
+//        finish();
+        exitRoomNormal();
     }
 
     public static final int TRTC_Normal_EXIT_RESULT = 4;
@@ -598,20 +599,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
             public void onSuccess(Response<BaseBean> response, BaseBean message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-                        if (mCustomCapture != null) {
-                            mCustomCapture.stop();
-                        }
-                        if (mCustomRender != null) {
-                            mCustomRender.stop();
-                        }
-                        if (trtcCloud != null) {
-                            trtcCloud.exitRoom();
-                        }
-                        if (doctor_comein) {//有医生进来再显示弹窗
-                            setResult(TRTC_Normal_EXIT_RESULT);
-                        }
-                        closeMedia();
-                        finish();
+
                         break;
                     default:
                         ToastUtil.showTost("网络错误");
@@ -624,6 +612,21 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                 ToastUtil.showTost("网络错误");
             }
         });
+
+        if (mCustomCapture != null) {
+            mCustomCapture.stop();
+        }
+        if (mCustomRender != null) {
+            mCustomRender.stop();
+        }
+        if (trtcCloud != null) {
+            trtcCloud.exitRoom();
+        }
+        if (doctor_comein) {//有医生进来再显示弹窗
+            setResult(TRTC_Normal_EXIT_RESULT);
+        }
+        closeMedia();
+        finish();
 
 
     }
