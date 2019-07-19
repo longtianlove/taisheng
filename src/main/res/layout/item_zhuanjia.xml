@@ -84,7 +84,7 @@
         <com.taisheng.now.view.DoctorLabelWrapLayout
             android:id="@+id/dlwl_doctor_label"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="6dp"
             android:gravity="center"></com.taisheng.now.view.DoctorLabelWrapLayout>

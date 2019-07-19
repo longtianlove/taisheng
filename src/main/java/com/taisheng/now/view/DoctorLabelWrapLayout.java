@@ -46,17 +46,18 @@ public class DoctorLabelWrapLayout extends ViewGroup {
 
     /**
      * 设置数据
-     * @param data  文字
-     * @param context 上下文
+     *
+     * @param data     文字
+     * @param context  上下文
      * @param textSize 文字大小
-     * @param pl 左内边距
-     * @param pt 上内边距
-     * @param pr 右内边距
-     * @param pb 下内边距
-     * @param ml 左外边距
-     * @param mt 上外边距
-     * @param mr 右外边距
-     * @param mb 下外边距
+     * @param pl       左内边距
+     * @param pt       上内边距
+     * @param pr       右内边距
+     * @param pb       下内边距
+     * @param ml       左外边距
+     * @param mt       上外边距
+     * @param mr       右外边距
+     * @param mb       下外边距
      */
     public void setData(String[] data, Context context, int textSize, int pl, int pt, int pr, int pb, int ml, int mt, int mr, int mb) {
         this.removeAllViews();
@@ -143,7 +144,6 @@ public class DoctorLabelWrapLayout extends ViewGroup {
     }
 
 
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -165,10 +165,11 @@ public class DoctorLabelWrapLayout extends ViewGroup {
             int childHeight = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
 //            Log.e(TAG, "onMeasure: lineHeight = "+lineHeight+" childHeight = "+childHeight );
             if (lineWidth + childWidth > widthSize) {
-                if(oneline){
-                    break;
-                }
+
                 width = Math.max(lineWidth, childWidth);//这种情况就是排除单个标签很长的情况
+//                if (oneline) {
+//                    break;
+//                }
                 lineWidth = childWidth;//开启新行
                 height += lineHeight;//记录总行高
                 lineHeight = childHeight;//因为开了新行，所以这行的高度要记录一下
@@ -204,8 +205,8 @@ public class DoctorLabelWrapLayout extends ViewGroup {
     private List<Integer> mLineHeight = new ArrayList<Integer>();
 
 
-
     public boolean oneline = true;
+
     //onLayout中完成对所有childView的位置以及大小的指定
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -228,16 +229,18 @@ public class DoctorLabelWrapLayout extends ViewGroup {
             }
             if (childWidth + lp.leftMargin + lp.rightMargin + lineWidth > width)  //大于父布局的宽度
             {
+//                if (oneline) {
+//                    break;
+//                }
 
-                if(oneline){
-                    break;
-                }
                 // 记录这一行所有的View以及最大高度
                 mLineHeight.add(lineHeight);
                 // 将当前行的childView保存，然后开启新的ArrayList保存下一行的childView
                 mAllViews.add(lineViews);
+
                 lineWidth = 0;// 重置行宽
                 lineViews = new ArrayList<View>();
+
             }
             /**
              * 如果不需要换行，则累加

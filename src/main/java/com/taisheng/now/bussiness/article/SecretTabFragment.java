@@ -29,6 +29,7 @@ import com.taisheng.now.bussiness.doctor.DoctorDetailActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
+import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.view.DoctorLabelWrapLayout;
 import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.TaishengListView;
@@ -266,9 +267,11 @@ public class SecretTabFragment extends BaseFragment {
         }
         bean.token = UserInstance.getInstance().getToken();
         bean.userId = UserInstance.getInstance().getUid();
+        DialogUtil.showProgress(mActivity,"");
         ApiUtils.getApiService().articleList(bean).enqueue(new TaiShengCallback<BaseBean<ArticleResultBean>>() {
             @Override
             public void onSuccess(Response<BaseBean<ArticleResultBean>> response, BaseBean<ArticleResultBean> message) {
+                DialogUtil.closeProgress();
                 ptr_refresh.refreshComplete();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
@@ -304,6 +307,7 @@ public class SecretTabFragment extends BaseFragment {
 
             @Override
             public void onFail(Call<BaseBean<ArticleResultBean>> call, Throwable t) {
+                DialogUtil.closeProgress();
                 ptr_refresh.refreshComplete();
             }
         });
