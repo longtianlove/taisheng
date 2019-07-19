@@ -248,7 +248,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                     tv_jieshouzhong.setText("正在等待医师接受邀请...");
                     break;
                 case 30:
-                    exitRoomNormal();
+                    exitRoomAuto();
                     break;
                 default:
                     tv_jieshouzhong.setText("正在等待医师接受邀请...");
@@ -594,6 +594,52 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         bean.token = UserInstance.getInstance().getToken();
         bean.doctorId = doctorId;
         bean.roomId = roomId + "";
+        bean.offType="0";
+        ApiUtils.getApiService().updateDoctorStatus(bean).enqueue(new TaiShengCallback<BaseBean>() {
+            @Override
+            public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+
+                        break;
+                    default:
+                        ToastUtil.showTost("网络错误");
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean> call, Throwable t) {
+                ToastUtil.showTost("网络错误");
+            }
+        });
+
+        if (mCustomCapture != null) {
+            mCustomCapture.stop();
+        }
+        if (mCustomRender != null) {
+            mCustomRender.stop();
+        }
+        if (trtcCloud != null) {
+            trtcCloud.exitRoom();
+        }
+        if (doctor_comein) {//有医生进来再显示弹窗
+            setResult(TRTC_Normal_EXIT_RESULT);
+        }
+        closeMedia();
+        finish();
+
+
+    }
+
+    //30s后自动挂断
+    private void exitRoomAuto() {
+        DoctorUpdateStatePostBean bean = new DoctorUpdateStatePostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.doctorId = doctorId;
+        bean.roomId = roomId + "";
+        bean.offType="1";
         ApiUtils.getApiService().updateDoctorStatus(bean).enqueue(new TaiShengCallback<BaseBean>() {
             @Override
             public void onSuccess(Response<BaseBean> response, BaseBean message) {

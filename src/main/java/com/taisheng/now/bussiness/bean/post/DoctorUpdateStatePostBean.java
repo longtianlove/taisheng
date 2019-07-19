@@ -7,4 +7,6 @@ package com.taisheng.now.bussiness.bean.post;
 public class DoctorUpdateStatePostBean extends BasePostBean {
     public String doctorId;
     public String roomId;
+    /** 挂断类型. 0:用户挂断  1:自动挂断 */
+    public String offType;
 }
