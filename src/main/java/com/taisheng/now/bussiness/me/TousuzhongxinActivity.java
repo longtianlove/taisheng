@@ -1,7 +1,9 @@
 package com.taisheng.now.bussiness.me;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,6 +51,27 @@ public class TousuzhongxinActivity extends BaseActivity {
         });
 
         et_feedbackContent = (EditText) findViewById(R.id.et_feedbackContent);
+        et_feedbackContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s != null && s.length() > 0) {
+                    btn_post.setEnabled(true);
+                } else {
+                    btn_post.setEnabled(false);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 //        tv_nickname = (TextView) findViewById(R.id.tv_nickname);
 //        tv_nickname.setText(UserInstance.getInstance().getNickname());
 //        tv_phone= (TextView) findViewById(R.id.tv_phone);

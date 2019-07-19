@@ -78,7 +78,7 @@
         android:layout_marginLeft="36dp"
         android:layout_marginRight="36dp"
         android:background="@drawable/xml_login_background"
-        android:enabled="true"
+        android:enabled="false"
         android:gravity="center"
         android:text="提交"
         android:textColor="@color/white"
