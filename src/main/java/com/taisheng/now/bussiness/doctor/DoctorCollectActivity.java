@@ -232,7 +232,7 @@ public class DoctorCollectActivity extends BaseActivity {
                 util.tv_onlineStatus.setTextColor(Color.parseColor("#ffff554e"));
             }
             util.tv_title.setText(bean.title);
-            util.tv_times.setText(bean.answerNum);
+            util.tv_times.setText(bean.servicesNum);
             if (bean.goodDiseases != null) {
                 String[] doctorlabel = bean.goodDiseases.split(",");
                 util.dlwl_doctor_label.setData(doctorlabel, DoctorCollectActivity.this, 10, 5, 1, 5, 1, 4, 4, 4, 4);

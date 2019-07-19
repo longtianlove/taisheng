@@ -23,11 +23,11 @@ public class DoctorBean {
 //    public String realName;
     public String score;
 //    public String goodField;
-//    public String servicesNum;
+    public String servicesNum;
     public String phone;
 //    public String doctorId;
 //    public String grade;
-    public String answerNum;
+//    public String answerNum;
     public String id;
     public String goodDiseases;
 
