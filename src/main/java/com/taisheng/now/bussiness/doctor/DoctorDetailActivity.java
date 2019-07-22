@@ -460,6 +460,9 @@ public class DoctorDetailActivity extends Activity {
                         }
                         if (message.result.records != null && message.result.records.size() > 0) {
                             lv_comments.setLoading(false);
+                            if (PAGE_NO == 1) {
+                                madapter.mData.clear();
+                            }
                             //有消息
                             PAGE_NO++;
                             madapter.mData.addAll(message.result.records);
