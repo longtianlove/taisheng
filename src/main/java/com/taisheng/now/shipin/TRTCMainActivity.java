@@ -127,17 +127,26 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
      * 关闭播放器
      */
     public void closeMedia() {
-        if (mMediaPlayer != null) {
-            if (mMediaPlayer.isPlaying()) {
+
+        try {
+            if (mMediaPlayer != null) {
+//            if (mMediaPlayer.isPlaying()) {
                 mMediaPlayer.stop();
+//            }
+
+
+                mMediaPlayer.release();
+                mMediaPlayer=null;
             }
-            mMediaPlayer.release();
-        }
-        if (nextMediaPlayer != null) {
-            if (nextMediaPlayer.isPlaying()) {
+            if (nextMediaPlayer != null) {
+//            if (nextMediaPlayer.isPlaying()) {
                 nextMediaPlayer.stop();
+//            }
+                nextMediaPlayer.release();
+                nextMediaPlayer=null;
             }
-            nextMediaPlayer.release();
+        }catch (Exception e){
+            Log.e("mymedia",e.getMessage());
         }
     }
 
@@ -391,6 +400,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                     ll_zhuanhuanshexiangtou.setVisibility(View.VISIBLE);
                 } else {
                     tv_noview_background.setVisibility(View.VISIBLE);
+//                    tv_noview_background.setVisibility(View.GONE);
                     iv_dakaishexiangtou.setImageDrawable(getResources().getDrawable(R.drawable.chat_openvideo));
                     tv_openshexiangtou.setText("打开摄像头");
 
