@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.taisheng.now.R;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by dragon on 2019/6/29.
  */
@@ -51,7 +53,11 @@ public class ScoreStar extends LinearLayout {
             return;
         }
         float d= Float.parseFloat(score);
+
         int score_int = (int) Math.floor(d);
+
+        DecimalFormat decimalFormat=new DecimalFormat("0.0");//构造方法的字符格式这里如果小数不足2位,会以0补足.
+        score=decimalFormat.format(d);//format 返回的是字符串
         tv_score.setText(score + "");
         btn_star1.setEnabled(false);
         btn_star2.setEnabled(false);

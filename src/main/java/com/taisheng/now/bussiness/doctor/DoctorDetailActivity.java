@@ -64,6 +64,9 @@ public class DoctorDetailActivity extends Activity {
 
     View iv_back;
 
+
+    SimpleDraweeView sdv_doctor_header;
+
     TextView tv_doctor_name;
     TextView tv_onlineStatus;
     TextView tv_title;
@@ -126,6 +129,8 @@ public class DoctorDetailActivity extends Activity {
             }
         });
 
+
+        sdv_doctor_header= (SimpleDraweeView) findViewById(R.id.sdv_doctor_header);
 
         tv_doctor_name = (TextView) findViewById(R.id.tv_doctor_name);
         tv_onlineStatus = (TextView) findViewById(R.id.tv_onlineStatus);
@@ -326,6 +331,11 @@ public class DoctorDetailActivity extends Activity {
                         } else {
                             tv_collect_label.setEnabled(false);
                             tv_collect_show.setText("收藏");
+                        }
+
+                        if (doctorBean.img != null) {
+                            Uri uri = Uri.parse(doctorBean.img);
+                            sdv_doctor_header.setImageURI(uri);
                         }
                         break;
                 }

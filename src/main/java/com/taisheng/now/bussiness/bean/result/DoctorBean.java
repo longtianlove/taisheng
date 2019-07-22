@@ -32,4 +32,6 @@ public class DoctorBean {
     public String goodDiseases;
 
     public String isSc;
+
+    public String img;
 }
