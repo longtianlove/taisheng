@@ -271,7 +271,7 @@ public class DoctorFragment extends BaseFragment {
             util.tv_times.setText(bean.servicesNum);
             if (bean.goodDiseases != null) {
                 String[] doctorlabel = bean.goodDiseases.split(",");
-                util.dlwl_doctor_label.setData(doctorlabel, mActivity, 10, 5, 1, 5, 1, 4, 4, 4, 4);
+                util.dlwl_doctor_label.setData(doctorlabel, mActivity, 10, 5, 1, 5, 1, 4, 4, 4, 8);
 
             }
 

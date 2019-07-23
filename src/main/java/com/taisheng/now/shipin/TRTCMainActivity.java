@@ -32,6 +32,7 @@ import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.ToastUtil;
 import com.tencent.liteav.TXLiteAVCode;
 
+import com.tencent.rtmp.TXLog;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.tencent.trtc.TRTCCloud;
 import com.tencent.trtc.TRTCCloudDef;
@@ -385,7 +386,10 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 
         tv_noview_background = (ImageView) findViewById(R.id.tv_noview_background);
         ll_dakaishexiangtou = findViewById(R.id.ll_dakaishexiangtou);
-        ll_dakaishexiangtou.setOnClickListener(new View.OnClickListener() {
+
+        isOpenShexiangtou = false;
+        iv_dakaishexiangtou = (ImageView) findViewById(R.id.iv_dakaishexiangtou);
+        iv_dakaishexiangtou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isOpenShexiangtou = !isOpenShexiangtou;
@@ -408,8 +412,6 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                 }
             }
         });
-        isOpenShexiangtou = false;
-        iv_dakaishexiangtou = (ImageView) findViewById(R.id.iv_dakaishexiangtou);
         tv_openshexiangtou = (TextView) findViewById(R.id.tv_openshexiangtou);
         ll_zhuanhuanshexiangtou = findViewById(R.id.ll_zhuanhuanshexiangtou);
         ll_zhuanhuanshexiangtou.setOnClickListener(new View.OnClickListener() {
@@ -536,6 +538,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
             iv_dakaishexiangtou.setImageDrawable(getResources().getDrawable(R.drawable.chat_openvideo));
             tv_openshexiangtou.setText("打开摄像头");
             ll_zhuanhuanshexiangtou.setVisibility(View.INVISIBLE);
+
         } else {
             onEnableVideobylong(false);
 //            ll_qiehuandaoyuyin.setVisibility(View.INVISIBLE);
@@ -972,6 +975,21 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                         renderView.addVideoView(textureView);
                         customRender.start(textureView);
                     }
+
+//                    if ("video".equals(activity.chatType)) {
+//
+//                        Object object =renderView.getTag(R.string.str_tag_pos);
+//                        if (object != null) {
+//                            int pos = (int) object;
+////                            TXCloudVideoView renderView = (TXCloudVideoView) v;
+//                            TXLog.i(TAG, "click on pos: " + pos + "/userId: " + renderView.getUserId());
+//                            if (null != renderView.getUserId()) {
+//                                activity.mVideoViewLayout.makeFullVideoView(pos);
+//                            }
+//                        }
+//                        activity.mVideoViewLayout.makeFullVideoView((int)renderView.getTag(R.string.str_tag_pos));
+
+//                    }
                 }
                 activity.enableAudioVolumeEvaluation(activity.moreDlg.isAudioVolumeEvaluation());
                 activity.doctor_comein = true;

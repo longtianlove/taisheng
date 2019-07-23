@@ -202,7 +202,7 @@ public class SecretTabFragment extends BaseFragment {
                             tv_times.setText(bean.servicesNum);
                             if (bean.goodDiseases != null) {
                                 String[] doctorlabel = bean.goodDiseases.split(",");
-                                dlwl_doctor_label.setData(doctorlabel, mActivity, 10, 5, 1, 5, 1, 4, 4, 4, 4);
+                                dlwl_doctor_label.setData(doctorlabel, mActivity, 10, 5, 1, 5, 1, 4, 4, 4, 8);
 
                             }
 
