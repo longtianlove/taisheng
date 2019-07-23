@@ -397,13 +397,13 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 
 //                ll_qiehuandaoyuyin.setVisibility(View.VISIBLE);
                 if (isOpenShexiangtou) {
-                    tv_noview_background.setVisibility(View.GONE);
+//                    tv_noview_background.setVisibility(View.GONE);
 //                    ll_dakaishexiangtou.setVisibility(View.INVISIBLE);
                     iv_dakaishexiangtou.setImageDrawable(getResources().getDrawable(R.drawable.icon_closeshexiangtou));
                     tv_openshexiangtou.setText("关闭摄像头");
                     ll_zhuanhuanshexiangtou.setVisibility(View.VISIBLE);
                 } else {
-                    tv_noview_background.setVisibility(View.VISIBLE);
+//                    tv_noview_background.setVisibility(View.VISIBLE);
 //                    tv_noview_background.setVisibility(View.GONE);
                     iv_dakaishexiangtou.setImageDrawable(getResources().getDrawable(R.drawable.chat_openvideo));
                     tv_openshexiangtou.setText("打开摄像头");
@@ -532,7 +532,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 //            startLocalVideo(true);
 //        }
         if ("video".equals(chatType)) {
-            onEnableVideobylong(false);
+//            onEnableVideobylong(false);
 //            ll_qiehuandaoyuyin.setVisibility(View.INVISIBLE);
             ll_dakaishexiangtou.setVisibility(View.VISIBLE);
             iv_dakaishexiangtou.setImageDrawable(getResources().getDrawable(R.drawable.chat_openvideo));
@@ -540,7 +540,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
             ll_zhuanhuanshexiangtou.setVisibility(View.INVISIBLE);
 
         } else {
-            onEnableVideobylong(false);
+//            onEnableVideobylong(false);
 //            ll_qiehuandaoyuyin.setVisibility(View.INVISIBLE);
             ll_dakaishexiangtou.setVisibility(View.INVISIBLE);
             ll_zhuanhuanshexiangtou.setVisibility(View.INVISIBLE);
@@ -976,8 +976,8 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                         customRender.start(textureView);
                     }
 
-//                    if ("video".equals(activity.chatType)) {
-//
+                    if ("video".equals(activity.chatType)) {
+                        activity.tv_noview_background.setVisibility(View.GONE);
 //                        Object object =renderView.getTag(R.string.str_tag_pos);
 //                        if (object != null) {
 //                            int pos = (int) object;
@@ -989,7 +989,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 //                        }
 //                        activity.mVideoViewLayout.makeFullVideoView((int)renderView.getTag(R.string.str_tag_pos));
 
-//                    }
+                    }
                 }
                 activity.enableAudioVolumeEvaluation(activity.moreDlg.isAudioVolumeEvaluation());
                 activity.doctor_comein = true;

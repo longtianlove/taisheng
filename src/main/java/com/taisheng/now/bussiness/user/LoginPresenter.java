@@ -146,6 +146,9 @@ public class LoginPresenter {
                         case Constants.LOGIN_VERIFYCODE_FAIL:
                             ToastUtil.showTost("验证码错误");
                             break;
+                        case Constants.LOGIN_VERIFYCODE_OVERDUE_FAIL:
+                            ToastUtil.showTost("验证码已过期，请重新获取！");
+                            break;
                         case Constants.LOGIN_USERNAME_NOT_EXISTENCE:
                             ToastUtil.showTost("账号不存在,请切换手机号登陆");
                             break;

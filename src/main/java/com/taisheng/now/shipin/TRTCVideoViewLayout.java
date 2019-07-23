@@ -828,7 +828,7 @@ public class TRTCVideoViewLayout extends RelativeLayout {
                         }
 
 //                        showNoVideoLayout(videoView, true);
-                        showNoVideoLayout(videoView, false);
+                        showNoVideoLayout(videoView, true);
                     }
                     else {
                         showNoVideoLayout(videoView, false);
