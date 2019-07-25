@@ -126,7 +126,7 @@ public class ArticleContentActivity extends BaseActivity {
             public void onSuccess(Response<BaseBean<ArticleContentBean>> response, BaseBean<ArticleContentBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-                        tv_title.setText(message.result.title);
+//                        tv_title.setText(message.result.title);
 //                        tv_content.setText(message.result.content);
                         if (message.result.content != null) {
 //                            tv_content.setMovementMethod(LinkMovementMethod.getInstance());
