@@ -68,7 +68,7 @@ public class SecretTabFragment extends BaseFragment {
     ScoreStar scorestar;
     TextView btn_zixun;
 
-    TextView btn_change;
+    View btn_change;
 
     @Nullable
     @Override
@@ -106,7 +106,7 @@ public class SecretTabFragment extends BaseFragment {
         btn_zixun = (TextView) rootView.findViewById(R.id.btn_zixun);
 
 
-        btn_change = (TextView) rootView.findViewById(R.id.btn_change);
+        btn_change =rootView.findViewById(R.id.btn_change);
         btn_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

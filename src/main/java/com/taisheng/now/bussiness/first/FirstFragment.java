@@ -254,6 +254,18 @@ public class FirstFragment extends BaseFragment {
 //        //添加Android自带的分割线
 //        recyclerView.addItemDecoration(new DividerItemDecoration());
 
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
         zhuanjiaAdapter = new ZhuanjiaAdapter();
         recyclerView.setAdapter(zhuanjiaAdapter);
 
