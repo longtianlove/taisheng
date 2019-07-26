@@ -60,7 +60,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="傅明云"
+                                android:text=""
                                 android:textColor="#ff333333"
                                 android:textSize="17sp" />
 
@@ -267,7 +267,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="14dp"
                         android:layout_marginLeft="9dp"
-                        android:layout_marginRight="14dp"
+                        android:layout_marginRight="9dp"
                         android:lineSpacingMultiplier="1.5"
                         android:text="    主要擅长急性慢性支气管炎，支气管哮喘，肺气肿，肺源性心脏病，急慢性胃炎。"
                         android:textColor="#ff666666"

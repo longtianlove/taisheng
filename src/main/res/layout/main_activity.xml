@@ -30,10 +30,10 @@
                 android:layout_height="40dp"
                 android:layout_gravity="left|center_vertical"
                 android:background="@color/transparent"
-                android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
                 android:src="@mipmap/ic_back" />
 
             <TextView
@@ -197,8 +197,8 @@
             android:background="@drawable/shape_round_corner_trtc"
             android:clickable="true"
             android:orientation="vertical"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp">
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -213,8 +213,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
                 android:hint="请输入目标房间号"
                 android:singleLine="true"
                 android:textSize="15dp" />
@@ -224,8 +224,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
                 android:hint="请输入目标用户ID"
                 android:singleLine="true"
                 android:textSize="15dp" />
@@ -301,8 +301,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:background="@drawable/video_close_background"
-            />
+            android:background="@drawable/video_close_background" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -396,8 +395,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
 
                     <ImageView
@@ -416,20 +415,36 @@
                         android:textSize="14sp" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_chat_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="#ffffffff"
+                        android:textSize="14sp"
+                        />
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:weightSum="3"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
-                    android:orientation="horizontal">
                     <LinearLayout
                         android:id="@+id/ll_dakaishexiangtou"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
                         android:layout_weight="1"
+                        android:gravity="center_horizontal"
                         android:orientation="vertical">
 
                         <ImageView
@@ -443,8 +458,8 @@
                             android:id="@+id/tv_openshexiangtou"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="20dp"
                             android:layout_marginTop="6dp"
+                            android:layout_marginBottom="20dp"
                             android:gravity="center"
                             android:text="打开摄像头"
                             android:textColor="#ffffffff"
@@ -455,8 +470,8 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
                         android:layout_weight="1"
+                        android:gravity="center_horizontal"
                         android:orientation="vertical">
 
                         <ImageView
@@ -467,10 +482,11 @@
                             android:src="@drawable/chat_exitroom" />
 
                         <TextView
+                            android:id="@+id/tv_cancel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="20dp"
                             android:layout_marginTop="6dp"
+                            android:layout_marginBottom="20dp"
                             android:gravity="center"
                             android:text="取消"
                             android:textColor="#ffffffff"
@@ -481,8 +497,8 @@
                         android:id="@+id/ll_zhuanhuanshexiangtou"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
                         android:layout_weight="1"
+                        android:gravity="center_horizontal"
                         android:orientation="vertical">
 
                         <ImageView
@@ -495,8 +511,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="20dp"
                             android:layout_marginTop="6dp"
+                            android:layout_marginBottom="20dp"
                             android:gravity="center"
                             android:text="转换摄像头"
                             android:textColor="#ffffffff"

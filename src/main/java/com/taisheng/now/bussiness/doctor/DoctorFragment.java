@@ -49,7 +49,9 @@ import retrofit2.Response;
 @SuppressLint("WrongConstant")
 public class DoctorFragment extends BaseFragment {
     EditText et_doctor_search;
+    View iv_search_guanbi;
     View tv_search;
+
 
     MaterialDesignPtrFrameLayout ptr_refresh;
 
@@ -72,6 +74,16 @@ public class DoctorFragment extends BaseFragment {
     }
 
     void initView(View rootView) {
+
+
+        iv_search_guanbi=rootView.findViewById(R.id.iv_search_guanbi);
+        iv_search_guanbi.setVisibility(View.GONE);
+        iv_search_guanbi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_doctor_search.setText("");
+            }
+        });
         et_doctor_search = (EditText) rootView.findViewById(R.id.et_doctor_search);
         et_doctor_search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -81,6 +93,11 @@ public class DoctorFragment extends BaseFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s != null && s.length() > 0) {
+                    iv_search_guanbi.setVisibility(View.VISIBLE);
+                } else {
+                    iv_search_guanbi.setVisibility(View.GONE);
+                }
                 String searchkey = s.toString();
                 nickName = searchkey;
                 PAGE_NO = 1;

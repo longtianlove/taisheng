@@ -40,7 +40,9 @@ import retrofit2.Response;
  */
 
 public class SecretSearchActivity extends BaseActivity {
+    View iv_back;
     EditText et_search;
+    View iv_search_guanbi;
     View tv_search;
     View iv_deletehistory;
 
@@ -64,6 +66,21 @@ public class SecretSearchActivity extends BaseActivity {
 
 
     void initView() {
+        iv_back = findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        iv_search_guanbi = findViewById(R.id.iv_search_guanbi);
+        iv_search_guanbi.setVisibility(View.GONE);
+        iv_search_guanbi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_search.setText("");
+            }
+        });
         et_search = (EditText) findViewById(R.id.et_search);
         et_search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -73,7 +90,11 @@ public class SecretSearchActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                if (s != null && s.length() > 0) {
+                    iv_search_guanbi.setVisibility(View.VISIBLE);
+                } else {
+                    iv_search_guanbi.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -81,6 +102,7 @@ public class SecretSearchActivity extends BaseActivity {
 
             }
         });
+
         tv_search = findViewById(R.id.tv_search);
         tv_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,15 +151,12 @@ public class SecretSearchActivity extends BaseActivity {
         wl_histroy_search = (WrapLayout) findViewById(R.id.wl_histroy_search);
 
 
-
-
         madapter = new MessageAdapter(this);
         lv_hotsearch = (TaishengListView) findViewById(R.id.lv_hotsearch);
         lv_hotsearch.setAdapter(madapter);
         lv_hotsearch.setHasLoadMore(false);
         getHot();
     }
-
 
 
     void getHot() {
@@ -149,11 +168,11 @@ public class SecretSearchActivity extends BaseActivity {
             public void onSuccess(Response<BaseBean<HotResultBean>> response, BaseBean<HotResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-                        if(message.result==null){
+                        if (message.result == null) {
                             return;
                         }
                         Collections.reverse(message.result.list);
-                        madapter.mData =message.result.list ;
+                        madapter.mData = message.result.list;
                         madapter.notifyDataSetChanged();
                         break;
 
@@ -166,8 +185,6 @@ public class SecretSearchActivity extends BaseActivity {
             }
         });
     }
-
-
 
 
     class MessageAdapter extends BaseAdapter {
@@ -225,8 +242,8 @@ public class SecretSearchActivity extends BaseActivity {
             util.tv_hotsearchtitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(SecretSearchActivity.this,ArticleContentActivity.class);
-                    intent.putExtra("articleId",bean.id);
+                    Intent intent = new Intent(SecretSearchActivity.this, ArticleContentActivity.class);
+                    intent.putExtra("articleId", bean.id);
                     startActivity(intent);
                 }
             });
@@ -256,7 +273,7 @@ public class SecretSearchActivity extends BaseActivity {
             wl_histroy_search.setMarkClickListener(new WrapLayout.MarkClickListener() {
                 @Override
                 public void clickMark(int position) {
-                    String searchString =historysearchlist.get(position);
+                    String searchString = historysearchlist.get(position);
                     if (TextUtils.isEmpty(searchString)) {
                         return;
                     }

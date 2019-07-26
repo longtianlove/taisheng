@@ -42,7 +42,9 @@ import com.tencent.trtc.TRTCStatistics;
 import java.lang.ref.WeakReference;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -110,20 +112,21 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
     public int roomId;
 
 
-    public MediaPlayer mMediaPlayer,nextMediaPlayer;
+    public MediaPlayer mMediaPlayer, nextMediaPlayer;
 
-   void createNextMediaPlayer(){
-       nextMediaPlayer = MediaPlayer.create(this, R.raw.audio);
-       mMediaPlayer.setNextMediaPlayer(nextMediaPlayer);
-       mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-           @Override
-           public void onCompletion(MediaPlayer mp) {
-               mp.release();
-               mMediaPlayer = nextMediaPlayer;
-               createNextMediaPlayer();
-           }
-       });
-   }
+    void createNextMediaPlayer() {
+        nextMediaPlayer = MediaPlayer.create(this, R.raw.audio);
+        mMediaPlayer.setNextMediaPlayer(nextMediaPlayer);
+        mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+                mMediaPlayer = nextMediaPlayer;
+                createNextMediaPlayer();
+            }
+        });
+    }
+
     /**
      * 关闭播放器
      */
@@ -137,27 +140,24 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 
 
                 mMediaPlayer.release();
-                mMediaPlayer=null;
+                mMediaPlayer = null;
             }
             if (nextMediaPlayer != null) {
 //            if (nextMediaPlayer.isPlaying()) {
                 nextMediaPlayer.stop();
 //            }
                 nextMediaPlayer.release();
-                nextMediaPlayer=null;
+                nextMediaPlayer = null;
             }
-        }catch (Exception e){
-            Log.e("mymedia",e.getMessage());
+        } catch (Exception e) {
+            Log.e("mymedia", e.getMessage());
         }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMediaPlayer=MediaPlayer.create(this, R.raw.audio);
-
-
-
+        mMediaPlayer = MediaPlayer.create(this, R.raw.audio);
 
 
         //应用运行时，保持屏幕高亮，不锁屏
@@ -236,6 +236,10 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
     ImageView iv_dakaishexiangtou;
     TextView tv_openshexiangtou;
     View ll_zhuanhuanshexiangtou;
+
+
+    TextView tv_chat_time;
+    TextView tv_cancel;
     public String doctorId;
     String nickname;
     String title;
@@ -259,6 +263,9 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                     break;
                 case 30:
                     exitRoomAuto();
+                    break;
+                case 31:
+                    tv_chat_time.setText((new SimpleDateFormat("mm:ss").format(new Date(System.currentTimeMillis() - startTimeMillis))));
                     break;
                 default:
                     tv_jieshouzhong.setText("正在等待医师接受邀请...");
@@ -302,6 +309,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 
     private void stopTextThread() {
         if (textthread != null) {
+            textthread = null;
             textrunning = false;
         }
     }
@@ -343,7 +351,44 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 
     private void stopWaittingThread() {
         if (waittingthread != null) {
+            waittingthread = null;
+
             waittingrunning = false;
+        }
+    }
+
+
+    private Thread chattimethread;
+    boolean chattimerunning = true;
+    long startTimeMillis;
+
+    private void startChattimeThread() {
+        startTimeMillis = System.currentTimeMillis();
+        chattimerunning = true;
+        chattimethread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (chattimerunning) {
+                    try {
+
+                        Message message = new Message();
+                        message.what = 31;
+                        Thread.sleep(1000);
+                        mHandler.sendMessage(message);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        chattimethread.start();
+    }
+
+    private void stopChattimeThread() {
+        if (chattimethread != null) {
+            chattimethread = null;
+            chattimerunning = false;
         }
     }
 
@@ -467,6 +512,12 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         //美颜p图部分
         mBeautyPannelView = (TRTCBeautySettingPanel) findViewById(R.id.layoutFaceBeauty);
         mBeautyPannelView.setBeautyParamsChangeListener(this);
+
+
+        tv_chat_time = (TextView) findViewById(R.id.tv_chat_time);
+        tv_chat_time.setVisibility(View.GONE);
+        tv_cancel = (TextView) findViewById(R.id.tv_cancel);
+        tv_cancel.setText("取消");
     }
 
     private LinearLayout initClickableLayout(int resId) {
@@ -607,7 +658,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         bean.token = UserInstance.getInstance().getToken();
         bean.doctorId = doctorId;
         bean.roomId = roomId + "";
-        bean.offType="0";
+        bean.offType = "0";
         ApiUtils.getApiService().updateDoctorStatus(bean).enqueue(new TaiShengCallback<BaseBean>() {
             @Override
             public void onSuccess(Response<BaseBean> response, BaseBean message) {
@@ -636,6 +687,10 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         if (trtcCloud != null) {
             trtcCloud.exitRoom();
         }
+
+        stopTextThread();
+        stopWaittingThread();
+        stopChattimeThread();
         if (doctor_comein) {//有医生进来再显示弹窗
             setResult(TRTC_Normal_EXIT_RESULT);
         }
@@ -652,7 +707,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         bean.token = UserInstance.getInstance().getToken();
         bean.doctorId = doctorId;
         bean.roomId = roomId + "";
-        bean.offType="1";
+        bean.offType = "1";
         ApiUtils.getApiService().updateDoctorStatus(bean).enqueue(new TaiShengCallback<BaseBean>() {
             @Override
             public void onSuccess(Response<BaseBean> response, BaseBean message) {
@@ -684,6 +739,9 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         if (doctor_comein) {//有医生进来再显示弹窗
             setResult(TRTC_Normal_EXIT_RESULT);
         }
+
+        stopTextThread();
+        stopWaittingThread();
         closeMedia();
         finish();
 
@@ -993,6 +1051,11 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                 }
                 activity.enableAudioVolumeEvaluation(activity.moreDlg.isAudioVolumeEvaluation());
                 activity.doctor_comein = true;
+                activity.tv_chat_time.setVisibility(View.VISIBLE);
+                activity.tv_chat_time.setText((new SimpleDateFormat("mm:ss").format(new Date(0))));
+                activity.startChattimeThread();
+
+                activity.tv_cancel.setText("挂断");
 
                 activity.tv_jieshouzhong.setVisibility(View.GONE);
                 activity.stopTextThread();
@@ -1751,5 +1814,6 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         super.onStop();
         stopTextThread();
         stopWaittingThread();
+        stopChattimeThread();
     }
 }

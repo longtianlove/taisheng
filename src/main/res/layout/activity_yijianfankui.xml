@@ -59,8 +59,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:gravity="left|top"
-            android:hint="有什么不足跟需要改进的地方，尽管提出来哟~您的建议是我们
-进步的动力！谢谢~"
+            android:hint="有什么不足跟需要改进的地方，尽管提出来哟~您的建议是我们进步的动力！谢谢~"
             android:textColorHint="#ff999999"
             android:textSize="12sp" />
     </LinearLayout>

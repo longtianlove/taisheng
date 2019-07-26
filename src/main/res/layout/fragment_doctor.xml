@@ -58,6 +58,16 @@
                 android:textColorHint="#ff999999"
                 android:textSize="14sp" />
 
+            <ImageView
+                android:id="@+id/iv_search_guanbi"
+                android:layout_width="wrap_content"
+                android:layout_height="12dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginRight="11dp"
+                android:src="@drawable/icon_guanbi"
+
+                />
+
         </LinearLayout>
 
         <TextView
