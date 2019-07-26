@@ -99,14 +99,14 @@ public class SecretTabFragment extends BaseFragment {
         sdv_header = (SimpleDraweeView) rootView.findViewById(R.id.sdv_header);
         tv_doctor_name = (TextView) rootView.findViewById(R.id.tv_doctor_name);
         tv_title = (TextView) rootView.findViewById(R.id.tv_title);
-        tv_onlineStatus= (TextView) rootView.findViewById(R.id.tv_onlineStatus);
+        tv_onlineStatus = (TextView) rootView.findViewById(R.id.tv_onlineStatus);
         tv_times = (TextView) rootView.findViewById(R.id.tv_times);
         dlwl_doctor_label = (DoctorLabelWrapLayout) rootView.findViewById(R.id.dlwl_doctor_label);
         scorestar = (ScoreStar) rootView.findViewById(R.id.scorestar);
         btn_zixun = (TextView) rootView.findViewById(R.id.btn_zixun);
 
 
-        btn_change =rootView.findViewById(R.id.btn_change);
+        btn_change = rootView.findViewById(R.id.btn_change);
         btn_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,12 +192,12 @@ public class SecretTabFragment extends BaseFragment {
                             }
                             tv_doctor_name.setText(bean.nickName);
                             tv_title.setText(bean.title);
-                            if("1".equals(bean.onlineStatus)){
+                            if ("1".equals(bean.onlineStatus)) {
                                 tv_onlineStatus.setText("在线");
                                 tv_onlineStatus.setTextColor(Color.parseColor("#ff0dd500"));
-                            }else{
+                            } else {
                                 tv_onlineStatus.setText("忙碌");
-                               tv_onlineStatus.setTextColor(Color.parseColor("#ffff554e"));
+                                tv_onlineStatus.setTextColor(Color.parseColor("#ffff554e"));
                             }
                             tv_times.setText(bean.servicesNum);
                             if (bean.goodDiseases != null) {
@@ -223,7 +223,7 @@ public class SecretTabFragment extends BaseFragment {
                                     startActivity(intent);
                                 }
                             });
-                        }else{
+                        } else {
                             ll_all.setVisibility(View.GONE);
 
                         }
@@ -267,7 +267,7 @@ public class SecretTabFragment extends BaseFragment {
         }
         bean.token = UserInstance.getInstance().getToken();
         bean.userId = UserInstance.getInstance().getUid();
-        DialogUtil.showProgress(mActivity,"");
+        DialogUtil.showProgress(mActivity, "");
         ApiUtils.getApiService().articleList(bean).enqueue(new TaiShengCallback<BaseBean<ArticleResultBean>>() {
             @Override
             public void onSuccess(Response<BaseBean<ArticleResultBean>> response, BaseBean<ArticleResultBean> message) {
@@ -379,6 +379,7 @@ public class SecretTabFragment extends BaseFragment {
                 util.sdv_article.setImageURI(uri);
             }
             util.tv_title.setText(bean.title);
+            util.tv_content.setText(bean.summary);
 //            try {
 //                if (bean.content != null) {
 //                    util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());

@@ -13,4 +13,5 @@ public class ArticleBean {
     public String id;
     public String title;
     public String content;
+    public String summary;
 }

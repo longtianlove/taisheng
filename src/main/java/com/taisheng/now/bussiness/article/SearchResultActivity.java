@@ -208,6 +208,7 @@ public class SearchResultActivity extends BaseActivity {
                 util.sdv_article.setImageURI(uri);
             }
             util.tv_title.setText(bean.title);
+            util.tv_content.setText(bean.summary);
 //            try {
 //                if (bean.content != null) {
 //                    util.tv_content.setMovementMethod(LinkMovementMethod.getInstance());

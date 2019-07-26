@@ -77,7 +77,7 @@ public class StarGradeCanclick extends LinearLayout {
                 setScore(5);
             }
         });
-        setScore(0);
+        setScore(5);
     }
 
 
@@ -89,55 +89,55 @@ public class StarGradeCanclick extends LinearLayout {
         int score_int = (int) Math.floor(score);
         resultScore = score_int;
         tv_score.setText("一般");
-        btn_star1.setBackground(getResources().getDrawable(R.drawable.doctor_starr_disabled));
-        btn_star2.setBackground(getResources().getDrawable(R.drawable.doctor_starr_disabled));
-        btn_star3.setBackground(getResources().getDrawable(R.drawable.doctor_starr_disabled));
-        btn_star4.setBackground(getResources().getDrawable(R.drawable.doctor_starr_disabled));
-        btn_star5.setBackground(getResources().getDrawable(R.drawable.doctor_starr_disabled));
+        btn_star1.setBackground(getResources().getDrawable(R.drawable.star_click_disabled));
+        btn_star2.setBackground(getResources().getDrawable(R.drawable.star_click_disabled));
+        btn_star3.setBackground(getResources().getDrawable(R.drawable.star_click_disabled));
+        btn_star4.setBackground(getResources().getDrawable(R.drawable.star_click_disabled));
+        btn_star5.setBackground(getResources().getDrawable(R.drawable.star_click_disabled));
         switch (score_int) {
             case 0:
 
                 break;
             case 1:
                 tv_score.setText("非常差");
-                btn_star1.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
+                btn_star1.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
                 break;
             case 2:
                 tv_score.setText("差");
 
-                btn_star1.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
-                btn_star2.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
+                btn_star1.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
+                btn_star2.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
                 break;
             case 3:
                 tv_score.setText("一般");
-                btn_star1.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
-                btn_star2.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
-                btn_star3.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
+                btn_star1.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
+                btn_star2.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
+                btn_star3.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
                 break;
             case 4:
                 tv_score.setText("好");
 
-                btn_star1.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
-                btn_star2.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
-                btn_star3.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
-                btn_star4.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
+                btn_star1.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
+                btn_star2.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
+                btn_star3.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
+                btn_star4.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
                 break;
             case 5:
                 tv_score.setText("非常好");
 
-                btn_star1.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
-                btn_star2.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
-                btn_star3.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
-                btn_star4.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
-                btn_star5.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
+                btn_star1.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
+                btn_star2.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
+                btn_star3.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
+                btn_star4.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
+                btn_star5.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
                 break;
             default:
                 tv_score.setText("非常好");
-                btn_star1.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
-                btn_star2.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
-                btn_star3.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
-                btn_star4.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
-                btn_star5.setBackground(getResources().getDrawable(R.drawable.doctor_star_enable));
+                btn_star1.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
+                btn_star2.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
+                btn_star3.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
+                btn_star4.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
+                btn_star5.setBackground(getResources().getDrawable(R.drawable.star_click_enable));
                 break;
         }
 

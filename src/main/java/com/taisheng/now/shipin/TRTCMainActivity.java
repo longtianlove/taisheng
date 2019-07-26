@@ -653,30 +653,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
      * 退出视频房间//正常退出
      */
     private void exitRoomNormal() {
-        DoctorUpdateStatePostBean bean = new DoctorUpdateStatePostBean();
-        bean.userId = UserInstance.getInstance().getUid();
-        bean.token = UserInstance.getInstance().getToken();
-        bean.doctorId = doctorId;
-        bean.roomId = roomId + "";
-        bean.offType = "0";
-        ApiUtils.getApiService().updateDoctorStatus(bean).enqueue(new TaiShengCallback<BaseBean>() {
-            @Override
-            public void onSuccess(Response<BaseBean> response, BaseBean message) {
-                switch (message.code) {
-                    case Constants.HTTP_SUCCESS:
 
-                        break;
-                    default:
-                        ToastUtil.showTost("网络错误");
-                        break;
-                }
-            }
-
-            @Override
-            public void onFail(Call<BaseBean> call, Throwable t) {
-                ToastUtil.showTost("网络错误");
-            }
-        });
 
         if (mCustomCapture != null) {
             mCustomCapture.stop();
@@ -693,6 +670,31 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         stopChattimeThread();
         if (doctor_comein) {//有医生进来再显示弹窗
             setResult(TRTC_Normal_EXIT_RESULT);
+        }else{
+            DoctorUpdateStatePostBean bean = new DoctorUpdateStatePostBean();
+            bean.userId = UserInstance.getInstance().getUid();
+            bean.token = UserInstance.getInstance().getToken();
+            bean.doctorId = doctorId;
+            bean.roomId = roomId + "";
+            bean.offType = "0";
+            ApiUtils.getApiService().updateDoctorStatus(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                @Override
+                public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                    switch (message.code) {
+                        case Constants.HTTP_SUCCESS:
+
+                            break;
+                        default:
+                            ToastUtil.showTost("网络错误");
+                            break;
+                    }
+                }
+
+                @Override
+                public void onFail(Call<BaseBean> call, Throwable t) {
+                    ToastUtil.showTost("网络错误");
+                }
+            });
         }
         closeMedia();
         finish();
