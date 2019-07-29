@@ -214,6 +214,7 @@ public class ArticleCollectActivity extends BaseActivity {
                 util.sdv_article.setImageURI(uri);
             }
             util.tv_title.setText(bean.title);
+            util.tv_content.setText(bean.summary);
 
 //            try {
 //                if (bean.content != null) {
