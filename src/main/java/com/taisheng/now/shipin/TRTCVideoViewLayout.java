@@ -260,7 +260,8 @@ public class TRTCVideoViewLayout extends RelativeLayout {
         for (int i = 0; i < 3; i++) {
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(subWidth, subHeight);
             layoutParams.leftMargin = layoutWidth - lrMargin - subWidth;
-            layoutParams.topMargin = layoutHeight - (bottomMargin + midMargin * (i + 1) + subHeight * i) - subHeight;
+//            layoutParams.topMargin = layoutHeight - (bottomMargin + midMargin * (i + 1) + subHeight * i) - subHeight;
+            layoutParams.topMargin = bottomMargin + midMargin;
             mFloatParamList.add(layoutParams);
         }
 

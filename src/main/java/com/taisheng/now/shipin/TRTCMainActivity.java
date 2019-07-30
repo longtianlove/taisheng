@@ -1667,6 +1667,8 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
                     // 前三个小画面靠右从下往上铺
                     audience.x = videoWidth - offsetX - subWidth;
                     audience.y = videoHeight - offsetY - index * subHeight - subHeight;
+                    audience.y = offsetY;
+
                     audience.width = subWidth;
                     audience.height = subHeight;
                 } else if (index < 6) {

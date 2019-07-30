@@ -191,7 +191,11 @@ public class SecretTabFragment extends BaseFragment {
                                 sdv_header.setImageURI(uri);
                             }
                             tv_doctor_name.setText(bean.nickName);
-                            tv_title.setText(bean.title);
+                            if (typeName.equals(Constants.YONGYAOZHIDAO)) {
+                                tv_title.setText("职业药师");
+                            } else {
+                                tv_title.setText(bean.title);
+                            }
                             if ("1".equals(bean.onlineStatus)) {
                                 tv_onlineStatus.setText("在线");
                                 tv_onlineStatus.setTextColor(Color.parseColor("#ff0dd500"));
