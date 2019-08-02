@@ -19,7 +19,7 @@ public class Constants {
     public final static int HTTP_SUCCESS = 200;
     public final static int HTTP_ERROR = 500;
     public final static int LOGIN_VERIFYCODE_FAIL = 1004;//验证码不正确，请重新输入
-    public final static int LOGIN_VERIFYCODE_OVERDUE_FAIL=1007;//"验证码已过期，请重新获取！"
+    public final static int LOGIN_VERIFYCODE_OVERDUE_FAIL = 1007;//"验证码已过期，请重新获取！"
     public final static int LOGIN_USERNAME_NOT_EXISTENCE = 1002;//账号不存在,请切换手机号登陆！
     public final static int LOGIN_PASSWORD_ERROR = 101;//密码错误
     public final static int TOKEN_DIFFERENCE = 401023;//token异常
@@ -41,13 +41,20 @@ public class Constants {
     public static class Url {
         //        public static String Host = "http://47.93.249.1:9100/";
 //        public static String File_Host="http://47.93.249.1:9700/";
-//        public static String Host = "http://120.24.152.121:9100/";
-//        public static String Host = "http://192.168.1.18:8080/";
-//        public static String Host = "http://192.168.1.8:8888/";
+//        public static String Host = "http://120.24.152.121:9100/";、
+        //        public static String Host = "http://192.168.1.8:8888/";
 //        public static String Host = "http://192.168.1.17:8080/";
-        public static String Host = "http://152.136.26.41:8080/";
-        //        public static String File_Host = "http://120.24.152.121:9700/";
 
+
+
+
+//        public static String Host = "http://192.168.1.18:8080/";
+        public static String Host = "http://152.136.26.41:8080/";
+
+
+
+
+        //        public static String File_Host = "http://120.24.152.121:9700/";
         //        public static String Host = "http://120.76.208.90:9100/";
         public static String File_Host = "http://152.136.26.41:8888/";
 

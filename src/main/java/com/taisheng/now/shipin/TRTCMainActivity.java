@@ -420,7 +420,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 //            @Override
 //            public void onClick(View v) {
 //
-//                //todo 切换到语音
+//                //切换到语音
 //                onEnableVideobylong(false);
 ////                ll_qiehuandaoyuyin.setVisibility(View.INVISIBLE);
 //                ll_dakaishexiangtou.setVisibility(View.INVISIBLE);
@@ -621,9 +621,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         mVideosInRoom.clear();
 
         trtcCloud.enterRoom(trtcParams, mAppScene);
-
-//todo
-//        Toast.makeText(this, "开始进房", Toast.LENGTH_SHORT).show();
+//      Toast.makeText(this, "开始进房", Toast.LENGTH_SHORT).show();
     }
 
     public String chatType = "video";
@@ -884,8 +882,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
             final TRTCMainActivity activity = mContext.get();
             if (activity != null) {
 
-                //todo 放开
-//                Toast.makeText(activity, "加入房间成功", Toast.LENGTH_SHORT).show();
+//              Toast.makeText(activity, "加入房间成功", Toast.LENGTH_SHORT).show();
                 activity.mVideoViewLayout.onRoomEnter();
                 activity.updateCloudMixtureParams();
                 activity.enableAudioVolumeEvaluation(activity.moreDlg.isAudioVolumeEvaluation());
