@@ -73,7 +73,28 @@ public class ZhongyitizhiFragment extends BaseFragment {
         btn_goceping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(mActivity,HealthCheckActivity.class);
+//                Intent intent=new Intent(mActivity,HealthCheckActivity.class);
+//                startActivity(intent);
+                //            0 其他 1 中医体质测评 2 基础代谢测评 3 基础代谢测评 4 女性健康测评 5 心肺功能测评 6 腰颈肩背测评 7 脾胃肝肾测评
+                String assessmentTypeToQuestion = "0";
+                Intent intent = new Intent(getActivity(), HealthQuestionActivity.class);
+                switch (assessmentType) {
+
+                    case "1":
+                        assessmentTypeToQuestion="1";
+                        break;
+
+                    case "2":
+                        assessmentTypeToQuestion="2";
+                        break;
+
+                    case "3":
+                        assessmentTypeToQuestion="3";
+                        break;
+
+                }
+
+                intent.putExtra("assessmentType",assessmentTypeToQuestion);
                 startActivity(intent);
             }
         });
