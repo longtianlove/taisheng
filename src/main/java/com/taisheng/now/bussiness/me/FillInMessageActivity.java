@@ -2,7 +2,7 @@ package com.taisheng.now.bussiness.me;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
+import androidx.annotation.IdRes;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -20,15 +20,11 @@ import com.taisheng.now.bussiness.MainActivity;
 import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
 import com.taisheng.now.bussiness.bean.result.ModifyUserInfoResultBean;
 import com.taisheng.now.bussiness.bean.result.UserInfo;
-import com.taisheng.now.bussiness.user.LoginActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.SPUtil;
 import com.taisheng.now.util.ToastUtil;
-import com.taisheng.now.view.chenjinshi.StatusBarUtil;
-
-import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Response;

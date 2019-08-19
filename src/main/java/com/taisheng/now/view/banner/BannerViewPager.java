@@ -3,13 +3,14 @@ package com.taisheng.now.view.banner;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Message;
-import android.support.v4.view.ViewPager;
-import android.text.Layout;
+//import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import androidx.viewpager.widget.ViewPager;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.R;

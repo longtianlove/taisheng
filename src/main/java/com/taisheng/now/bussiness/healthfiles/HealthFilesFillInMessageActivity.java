@@ -1,8 +1,7 @@
 package com.taisheng.now.bussiness.healthfiles;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
+import androidx.annotation.IdRes;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -15,10 +14,7 @@ import android.widget.TextView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
-import com.taisheng.now.bussiness.MainActivity;
-import com.taisheng.now.bussiness.me.FillInMessageActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
-import com.taisheng.now.util.SPUtil;
 import com.taisheng.now.util.ToastUtil;
 
 /**

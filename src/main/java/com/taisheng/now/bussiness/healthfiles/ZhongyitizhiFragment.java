@@ -2,16 +2,14 @@ package com.taisheng.now.bussiness.healthfiles;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
@@ -19,15 +17,10 @@ import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.bean.post.HealthCheckListPostBean;
 import com.taisheng.now.bussiness.bean.result.CheckHistoryBean;
 import com.taisheng.now.bussiness.bean.result.CheckHistoryResultBean;
-import com.taisheng.now.bussiness.bean.result.DoctorBean;
-import com.taisheng.now.bussiness.doctor.DoctorDetailActivity;
-import com.taisheng.now.bussiness.doctor.DoctorFragment;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
-import com.taisheng.now.view.DoctorLabelWrapLayout;
-import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.TaishengListView;
 
 import java.util.ArrayList;

@@ -1,12 +1,9 @@
 package com.taisheng.now.bussiness.healthfiles;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
+
+import androidx.core.content.ContextCompat;
+
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,9 +11,6 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragmentActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by dragon on 2019/6/28.

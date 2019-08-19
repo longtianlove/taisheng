@@ -1,13 +1,11 @@
 package com.taisheng.now.base;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.View;
+//import android.support.v4.app.FragmentActivity;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
 

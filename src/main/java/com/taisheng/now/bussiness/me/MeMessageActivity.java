@@ -5,9 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.PersistableBundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -20,17 +19,13 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.base.BaseActivity;
-import com.taisheng.now.bussiness.doctor.DoctorCommentActivity;
-import com.taisheng.now.bussiness.doctor.DoctorDetailActivity;
 import com.taisheng.now.bussiness.user.LoginActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.push.XMPushManagerInstance;
-import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.AppDialog;
 import com.taisheng.now.view.crop.Crop;
 
 import java.io.File;
-import java.text.DecimalFormat;
 
 /**
  * Created by dragon on 2019/6/29.

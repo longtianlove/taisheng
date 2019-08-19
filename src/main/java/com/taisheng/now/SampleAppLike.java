@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
-import android.support.multidex.MultiDex;
+import androidx.multidex.MultiDex;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.taisheng.now.bussiness.MainActivity;

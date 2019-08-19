@@ -1,27 +1,26 @@
 package com.taisheng.now.bussiness.healthfiles;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPager;
+import com.google.android.material.tabs.TabLayout;
+//import android.support.v4.app.Fragment;
+//import android.support.v4.app.FragmentManager;
+//import android.support.v4.app.FragmentPagerAdapter;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+//import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
-import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseFragmentActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.util.DensityUtil;
-import com.taisheng.now.view.chenjinshi.StatusBarUtil;
-
-import org.w3c.dom.Text;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

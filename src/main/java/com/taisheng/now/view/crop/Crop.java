@@ -128,15 +128,15 @@ public class Crop {
         start(context, fragment, REQUEST_CROP);
     }
 
-    /**
-     * Send the crop Intent from a support library Fragment
-     *
-     * @param context  Context
-     * @param fragment Fragment to receive result
-     */
-    public void start(Context context, android.support.v4.app.Fragment fragment) {
-        start(context, fragment, REQUEST_CROP);
-    }
+//    /**
+//     * Send the crop Intent from a support library Fragment
+//     *
+//     * @param context  Context
+//     * @param fragment Fragment to receive result
+//     */
+//    public void start(Context context, android.support.v4.app.Fragment fragment) {
+//        start(context, fragment, REQUEST_CROP);
+//    }
 
     /**
      * Send the crop Intent with a custom request code
@@ -150,16 +150,16 @@ public class Crop {
         fragment.startActivityForResult(getIntent(context), requestCode);
     }
 
-    /**
-     * Send the crop Intent with a custom request code
-     *
-     * @param context     Context
-     * @param fragment    Fragment to receive result
-     * @param requestCode requestCode for result
-     */
-    public void start(Context context, android.support.v4.app.Fragment fragment, int requestCode) {
-        fragment.startActivityForResult(getIntent(context), requestCode);
-    }
+//    /**
+//     * Send the crop Intent with a custom request code
+//     *
+//     * @param context     Context
+//     * @param fragment    Fragment to receive result
+//     * @param requestCode requestCode for result
+//     */
+//    public void start(Context context, android.support.v4.app.Fragment fragment, int requestCode) {
+//        fragment.startActivityForResult(getIntent(context), requestCode);
+//    }
 
     /**
      * Get Intent to start crop Activity
@@ -216,15 +216,15 @@ public class Crop {
         pickImage(context, fragment, REQUEST_PICK);
     }
 
-    /**
-     * Pick image from a support library Fragment
-     *
-     * @param context  Context
-     * @param fragment Fragment to receive result
-     */
-    public static void pickImage(Context context, android.support.v4.app.Fragment fragment) {
-        pickImage(context, fragment, REQUEST_PICK);
-    }
+//    /**
+//     * Pick image from a support library Fragment
+//     *
+//     * @param context  Context
+//     * @param fragment Fragment to receive result
+//     */
+//    public static void pickImage(Context context, android.support.v4.app.Fragment fragment) {
+//        pickImage(context, fragment, REQUEST_PICK);
+//    }
 
     /**
      * Pick image from an Activity with a custom request code
@@ -256,20 +256,20 @@ public class Crop {
         }
     }
 
-    /**
-     * Pick image from a support library Fragment with a custom request code
-     *
-     * @param context     Context
-     * @param fragment    Fragment to receive result
-     * @param requestCode requestCode for result
-     */
-    public static void pickImage(Context context, android.support.v4.app.Fragment fragment, int requestCode) {
-        try {
-            fragment.startActivityForResult(getImagePicker(), requestCode);
-        } catch (ActivityNotFoundException e) {
-            showImagePickerError(context);
-        }
-    }
+//    /**
+//     * Pick image from a support library Fragment with a custom request code
+//     *
+//     * @param context     Context
+//     * @param fragment    Fragment to receive result
+//     * @param requestCode requestCode for result
+//     */
+//    public static void pickImage(Context context, android.support.v4.app.Fragment fragment, int requestCode) {
+//        try {
+//            fragment.startActivityForResult(getImagePicker(), requestCode);
+//        } catch (ActivityNotFoundException e) {
+//            showImagePickerError(context);
+//        }
+//    }
 
     private static Intent getImagePicker() {
         return new Intent(Intent.ACTION_GET_CONTENT).setType("image/*");
