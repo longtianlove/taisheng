@@ -13,6 +13,7 @@
     <permission android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions"
         />
+
     <!-- 这个权限用于进行网络定位 -->
     <!-- 这个权限用于访问GPS定位 -->
     <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
@@ -36,6 +37,10 @@
 
 
 
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+
+
     <!--腾讯云视频-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -50,6 +55,8 @@
 
     <uses-feature android:name="android.hardware.Camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
+
 
 
 
@@ -420,8 +427,18 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
 
-
-
+        <activity
+            android:name="com.taisheng.now.selfshipin.ui.ChatRoomActivity"
+            android:configChanges="orientation|smallestScreenSize|screenSize|screenLayout"
+            android:launchMode="singleInstance"
+            android:screenOrientation="fullUser"
+            android:theme="@style/Webrtc.AppTheme.NoActionBar" />
+        <activity
+            android:name="com.taisheng.now.selfshipin.ui.ChatSingleActivity"
+            android:configChanges="orientation|smallestScreenSize|screenSize|screenLayout"
+            android:launchMode="singleInstance"
+            android:screenOrientation="fullUser"
+            android:theme="@style/Webrtc.AppTheme.NoActionBar" />
         <provider
             android:authorities="com.taisheng.now.fileprovider"
             android:name="androidx.core.content.FileProvider"

@@ -41,6 +41,7 @@ import com.taisheng.now.bussiness.bean.result.DoctorNumberResultBean;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
+import com.taisheng.now.selfshipin.util.WebrtcUtil;
 import com.taisheng.now.shipin.TRTCMainActivity;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.DoubleClickUtil;
@@ -336,7 +337,8 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         mUserSig = bean.userSign;
-                        onJoinRoomByTecent(bean.roomId, bean.userId);
+//                        onJoinRoomByTecent(bean.roomId, bean.userId);
+                        onJoinRoomBySelf(bean.roomId, bean.userId);
                         break;
                     case Constants.DOCTOR_BUSY:
                         ToastUtil.showTost("医生忙碌中,请稍后联系");
@@ -654,6 +656,17 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
             TextView tv_content;
 
         }
+    }
+
+
+
+
+
+    private void onJoinRoomBySelf(final int roomId, final String userId){
+        WebrtcUtil.callSingle(this,
+               "",
+                roomId+"",
+                "video".equals(chatType)?true:false);
     }
 
 

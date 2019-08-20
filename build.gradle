@@ -81,4 +81,5 @@ dependencies {
     implementation 'in.srain.cube:ultra-ptr:1.0.11'
 
     implementation project(':libskywebrtc')
+
 }
