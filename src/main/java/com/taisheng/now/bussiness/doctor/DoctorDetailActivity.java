@@ -7,10 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,7 +21,6 @@ import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
@@ -57,7 +53,6 @@ import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
 import com.tencent.trtc.TRTCCloudDef;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -242,7 +237,7 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
         });
     }
 
-
+//检查权限
     void check() {
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
 
@@ -341,7 +336,7 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         mUserSig = bean.userSign;
-                        onJoinRoom(bean.roomId, bean.userId);
+                        onJoinRoomByTecent(bean.roomId, bean.userId);
                         break;
                     case Constants.DOCTOR_BUSY:
                         ToastUtil.showTost("医生忙碌中,请稍后联系");
@@ -680,7 +675,7 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
     private String mUserId = "";
     private String mUserSig = "";
 
-    private void onJoinRoom(final int roomId, final String userId) {
+    private void onJoinRoomByTecent(final int roomId, final String userId) {
         final Intent intent = new Intent(DoctorDetailActivity.this, TRTCMainActivity.class);
         if (doctorBean != null) {
             intent.putExtra("nickName", doctorBean.nickName);
