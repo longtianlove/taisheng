@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.taisheng.now">
 
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!--<uses-permission android:name="android.permission.CALL_PHONE" />-->
     <!--<uses-permission android:name="android.permission.INTERNET" />-->
 
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
@@ -32,11 +32,9 @@
     <permission android:name="android.permission.READ_LOGS"
         tools:ignore="ProtectedPermissions"
         />
-    <!-- 用于优化GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+
 
     <!--腾讯云视频-->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -68,6 +66,7 @@
     <!--小米推送相关^结束-->
 
 
+
     <application
         android:name="com.taisheng.now.SampleApplication"
         android:allowBackup="true"
@@ -76,8 +75,7 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:appComponentFactory=""
-        tools:replace="android:appComponentFactory"
+
         >
 
         <service android:enabled="true" android:process=":pushservice" android:name="com.xiaomi.push.service.XMPushService"/>
@@ -121,6 +119,10 @@
                 <action android:name="com.xiaomi.mipush.ERROR" />
             </intent-filter>
         </receiver>
+
+
+
+
 
 
         <activity
@@ -417,6 +419,19 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
+
+
+        <provider
+            android:authorities="com.taisheng.now.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false"
+            >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

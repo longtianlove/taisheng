@@ -15,9 +15,9 @@ android {
     defaultConfig {
         applicationId "com.taisheng.now"
         minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 9
-        versionName "1.6"
+        targetSdkVersion 26
+        versionCode 10
+        versionName "1.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 //        jackOptions {
@@ -56,6 +56,7 @@ dependencies {
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     implementation 'androidx.appcompat:appcompat:1.0.0'
 //    testCompile 'junit:junit:4.12'
     implementation 'androidx.multidex:multidex:2.0.0'

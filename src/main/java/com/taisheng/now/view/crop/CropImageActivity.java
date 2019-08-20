@@ -167,7 +167,7 @@ public class CropImageActivity extends MonitoredActivity implements CropImageVie
         setupViews();
         loadInput();
         if (rotateBitmap == null) {
-            ToastUtil.showTost("图片已损坏，请重新选择");
+//            ToastUtil.showTost("图片已损坏，请重新选择");
             finish();
             return;
         }

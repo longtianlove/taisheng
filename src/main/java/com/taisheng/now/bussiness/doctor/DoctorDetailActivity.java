@@ -1,11 +1,16 @@
 package com.taisheng.now.bussiness.doctor;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,6 +21,10 @@ import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
@@ -48,6 +57,7 @@ import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
 import com.tencent.trtc.TRTCCloudDef;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,7 +70,7 @@ import retrofit2.Response;
  * Created by dragon on 2019/7/1.
  */
 
-public class DoctorDetailActivity extends Activity {
+public class DoctorDetailActivity extends Activity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     View iv_back;
 
@@ -130,7 +140,7 @@ public class DoctorDetailActivity extends Activity {
         });
 
 
-        sdv_doctor_header= (SimpleDraweeView) findViewById(R.id.sdv_doctor_header);
+        sdv_doctor_header = (SimpleDraweeView) findViewById(R.id.sdv_doctor_header);
 
         tv_doctor_name = (TextView) findViewById(R.id.tv_doctor_name);
         tv_onlineStatus = (TextView) findViewById(R.id.tv_onlineStatus);
@@ -210,7 +220,7 @@ public class DoctorDetailActivity extends Activity {
                             public void onClick(View v) {
                                 chatType = "video";
 
-                                connectDoctor();
+                                check();
 
                             }
                         },
@@ -218,7 +228,7 @@ public class DoctorDetailActivity extends Activity {
                             @Override
                             public void onClick(View v) {
                                 chatType = "audio";
-                                connectDoctor();
+                                check();
                             }
                         },
                         new View.OnClickListener() {
@@ -231,6 +241,86 @@ public class DoctorDetailActivity extends Activity {
             }
         });
     }
+
+
+    void check() {
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
+        } else {
+            //TODO
+            permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITEEXTRENAL_STOR);
+            } else {
+                permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO);
+
+                if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_AUDIO);
+                } else {
+                    connectDoctor();
+                }
+            }
+        }
+    }
+
+
+    public final static int REQUEST_CAMERA = 1;
+
+    public final static int REQUEST_WRITEEXTRENAL_STOR = 2;
+
+    public final static int REQUEST_AUDIO = 3;
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CAMERA:
+                int permissionCheck;
+
+                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+//                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITEEXTRENAL_STOR);
+                    permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+                    if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITEEXTRENAL_STOR);
+                    } else {
+                        permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO);
+
+                        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_AUDIO);
+                        } else {
+                            connectDoctor();
+                        }
+                    }
+                }
+                break;
+            case REQUEST_WRITEEXTRENAL_STOR:
+
+                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO);
+
+                    if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_AUDIO);
+                    } else {
+                        connectDoctor();
+                    }
+
+                }
+                break;
+            case REQUEST_AUDIO:
+                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    connectDoctor();
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
 
     public String chatType = "video";
 
@@ -318,7 +408,7 @@ public class DoctorDetailActivity extends Activity {
                         String goodDiseases = doctorBean.goodDiseases;
                         if (goodDiseases != null) {
                             String[] doctorlabel = goodDiseases.split(",");
-                            dlwl_doctor_label.oneline=false;
+                            dlwl_doctor_label.oneline = false;
                             dlwl_doctor_label.setData(doctorlabel, DoctorDetailActivity.this, 10, 5, 1, 5, 1, 4, 4, 4, 8);
                         }
                         String score = doctorBean.score;
@@ -596,7 +686,7 @@ public class DoctorDetailActivity extends Activity {
             intent.putExtra("nickName", doctorBean.nickName);
             intent.putExtra("title", doctorBean.title);
             intent.putExtra("avatar", doctorBean.avatar);
-            intent.putExtra("doctorId",doctorBean.id);
+            intent.putExtra("doctorId", doctorBean.id);
         }
         intent.putExtra("roomId", roomId);
         intent.putExtra("userId", userId);

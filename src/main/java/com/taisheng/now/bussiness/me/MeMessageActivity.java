@@ -1,12 +1,19 @@
 package com.taisheng.now.bussiness.me;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import androidx.annotation.Nullable;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,6 +23,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
+import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
 import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.base.BaseActivity;
@@ -25,13 +33,17 @@ import com.taisheng.now.push.XMPushManagerInstance;
 import com.taisheng.now.view.AppDialog;
 import com.taisheng.now.view.crop.Crop;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.io.File;
 
 /**
  * Created by dragon on 2019/6/29.
  */
 
-public class MeMessageActivity extends BaseActivity {
+public class MeMessageActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     ImageView iv_back;
     View ll_nickname;
     View ll_zhanghao;
@@ -54,6 +66,7 @@ public class MeMessageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memessage);
         initView();
+        EventBus.getDefault().register(this);
     }
 
     void initView() {
@@ -130,6 +143,8 @@ public class MeMessageActivity extends BaseActivity {
 
 
     public void modifyAvatar() {
+
+
         Intent intent = new Intent(this, SelectAvatarSourceDialog.class);
         startActivityForResult(intent, REQ_CODE_PHOTO_SOURCE);
     }
@@ -143,12 +158,105 @@ public class MeMessageActivity extends BaseActivity {
             startActivityForResult(intent, REQ_CODE_GET_PHOTO_FROM_GALLERY);
 
         } else if (mode == R.id.btn_take_photo) {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment
-                    .getExternalStorageDirectory(), "temp.jpg")));
-            startActivityForResult(intent, REQ_CODE_GET_PHOTO_FROM_TAKEPHOTO);
+
+
+            int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
+            } else {
+                //TODO
+                 permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+                if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITEEXTRENAL_STOR);
+                } else {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        Uri contentUri=FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
+                                .getExternalStorageDirectory(), "temp.jpg"));
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT,contentUri);
+                    }else{
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment
+                                .getExternalStorageDirectory(), "temp.jpg")));
+                    }
+                    startActivityForResult(intent, REQ_CODE_GET_PHOTO_FROM_TAKEPHOTO);
+                }
+            }
+
+
+
+
+
+
         }
     }
+
+
+    public final static int REQUEST_CAMERA = 1;
+
+    public final static int REQUEST_WRITEEXTRENAL_STOR = 2;
+
+
+
+
+
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CAMERA:
+                int permissionCheck;
+
+                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+//                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITEEXTRENAL_STOR);
+                    permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+                    if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITEEXTRENAL_STOR);
+                    } else {
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            Uri contentUri=FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
+                                    .getExternalStorageDirectory(), "temp.jpg"));
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT,contentUri);
+                        }else{
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment
+                                    .getExternalStorageDirectory(), "temp.jpg")));
+                        }
+                        startActivityForResult(intent, REQ_CODE_GET_PHOTO_FROM_TAKEPHOTO);
+                    }
+                }
+                break;
+            case REQUEST_WRITEEXTRENAL_STOR:
+
+                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    //TODO
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        Uri contentUri=FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider",new File(Environment
+                                .getExternalStorageDirectory(), "temp.jpg"));
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT,contentUri);
+                    }else{
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment
+                                .getExternalStorageDirectory(), "temp.jpg")));
+                    }
+
+                    startActivityForResult(intent, REQ_CODE_GET_PHOTO_FROM_TAKEPHOTO);
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+
 
 
     @Override
@@ -168,6 +276,21 @@ public class MeMessageActivity extends BaseActivity {
         Crop.of(source, destination).asSquare().start(this, bundle);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 0)
+    public void uploadImageSuccess(EventManage.uploadImageSuccess event){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Uri source=FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider",new File(Environment
+                    .getExternalStorageDirectory(), "temp.jpg"));
+            getContentResolver().delete(source, null, null);
+        }else{
+
+            File picture = new File(Environment.getExternalStorageDirectory()
+                    , "temp.jpg");
+            if (picture.exists() && picture.isFile()) {
+                picture.delete();
+            }
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -190,15 +313,27 @@ public class MeMessageActivity extends BaseActivity {
                 break;
             case REQ_CODE_GET_PHOTO_FROM_TAKEPHOTO:
                 // 判断相机是否有返回
-                File picture = new File(Environment.getExternalStorageDirectory()
-                        + "/temp.jpg");
-                if (!picture.exists()) {
-                    return;
-                }
+
+                Uri source;
                 Bundle bundle = new Bundle();
-                // 选择图片后进入裁剪
-                Uri source = Uri.fromFile(picture);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                     source=FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider",new File(Environment
+                            .getExternalStorageDirectory(), "temp.jpg"));
+                }else{
+                    // 选择图片后进入裁剪
+                    File picture = new File(Environment.getExternalStorageDirectory()
+                            , "temp.jpg");
+                    if (!picture.exists()) {
+                        return;
+                    }
+                    source = Uri.fromFile(picture);
+                }
+
+
+
                 beginCrop(source, bundle);
+
+
 
                 break;
 
@@ -252,4 +387,10 @@ public class MeMessageActivity extends BaseActivity {
         dialog.show();
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }
