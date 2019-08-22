@@ -337,8 +337,8 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         mUserSig = bean.userSign;
-//                        onJoinRoomByTecent(bean.roomId, bean.userId);
-                        onJoinRoomBySelf(bean.roomId, bean.userId);
+                        onJoinRoomByTecent(bean.roomId, bean.userId);
+//                        onJoinRoomBySelf(bean.roomId, bean.userId);
                         break;
                     case Constants.DOCTOR_BUSY:
                         ToastUtil.showTost("医生忙碌中,请稍后联系");
