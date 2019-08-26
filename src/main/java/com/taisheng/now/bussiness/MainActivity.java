@@ -273,7 +273,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
 
     @Override
     public void onBackPressed() {
-        DialogUtil.showTwoButtonDialog(this, "确定要退出泰晟健康吗？", "取消","退出", new View.OnClickListener() {
+        DialogUtil.showTwoButtonDialog(this, "确定要退出宏晟健康吗？", "取消","退出", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
