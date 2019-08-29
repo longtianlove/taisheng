@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_all"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:orientation="horizontal"
-    android:paddingBottom="17dp"
     android:gravity="center_vertical"
-    android:id="@+id/ll_all"
-    android:paddingTop="20dp">
+    android:orientation="horizontal"
+    android:paddingTop="20dp"
+    android:paddingBottom="17dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sdv_article"
@@ -33,9 +33,11 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:ellipsize="end"
             android:gravity="center|left"
-            android:maxLines="1"
+            android:lineSpacingMultiplier="1.2"
+            android:maxLines="2"
             android:text="健康美食搭配，助您身心健康助您身心健康助您身心健康助您身心健康"
             android:textColor="#ff333333"
             android:textSize="14sp" />
@@ -45,19 +47,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
+            android:ellipsize="end"
             android:gravity="center|left"
             android:maxLines="2"
-            android:visibility="visible"
-            android:ellipsize="end"
             android:text="此处是段落文字详情此处是段落文字详情此处是段落文字详情此处是段落文字详情段落文字详情此处是段落文字详情段落文字详情此处是段落文字详情段落文字详情此处是段落文字详情段落文字详情此处是段落文字详情"
             android:textColor="#ff666666"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:gravity="center_vertical"
-            android:layout_marginTop="7dp"
             android:orientation="horizontal">
 
             <TextView
@@ -68,12 +70,13 @@
                 android:text="食疗养生"
                 android:textColor="#ff529ffb"
                 android:textSize="10sp" />
+
             <ImageView
 
-                android:layout_marginLeft="42dp"
                 android:layout_width="8dp"
                 android:layout_height="8dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="42dp"
                 android:src="@drawable/icon_time"
 
                 />
@@ -82,12 +85,11 @@
                 android:id="@+id/tv_createtime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:gravity="center"
                 android:text="2019-10-24 10:29:43"
                 android:textColor="#ff999999"
-                android:layout_marginLeft="2dp"
-                android:textSize="10sp"
-                android:gravity="center"
-                />
+                android:textSize="10sp" />
         </LinearLayout>
 
     </LinearLayout>
