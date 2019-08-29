@@ -135,11 +135,14 @@ public class ArticleContentActivity extends BaseActivity {
 //                                tv_content.setMovementMethod(LinkMovementMethod.getInstance());
 //                                RichText.fromHtml(message.result.content).into(tv_content);
 //                                String content=message.result.content.replace("<img", "<img style=\"max-width:100%;height:auto");
-                                String sHead = "<html><head><meta name=\"viewport\" content=\"width=device-width, " +
-                                        "initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes\" />" +
-                                        "<style>img{max-width:100% !important;height:auto !important;}</style>"
-                                        + "<style>body{max-width:100% !important;}</style>" + "</head><body>";
-                                webView.loadDataWithBaseURL(null, sHead + message.result.content + "</body></html>", "text/html", "utf-8", null);
+
+
+//                                String sHead = "<html><head><meta name=\"viewport\" content=\"width=device-width, " +
+//                                        "initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes\" />" +
+//                                        "<style>img{max-width:100% !important;height:auto !important;}</style>"
+//                                        + "<style>body{max-width:100% !important;}</style>" + "</head><body>";
+//                                webView.loadDataWithBaseURL(null, sHead + message.result.content + "</body></html>", "text/html", "utf-8", null);
+                                webView.loadUrl(Constants.Url.Article.articleContent+articleId);
                             } catch (Exception e) {
                                 Log.e("article", e.getMessage());
                             }

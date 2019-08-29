@@ -114,6 +114,11 @@ public class Constants {
              * 文章详情
              */
             public static final String articleQeryById = "jeecg-boot/app/article/queryById";
+
+            /**
+             * 文章内容
+             */
+            public static final String articleContent="http://192.168.1.12:8080/jeecg-boot/app/article/v2/h5/articleDetail?articleId=";
             /**
              * 首页热度文章
              */
