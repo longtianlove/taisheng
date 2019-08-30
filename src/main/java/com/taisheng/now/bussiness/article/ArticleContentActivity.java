@@ -1,6 +1,7 @@
 package com.taisheng.now.bussiness.article;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -23,6 +24,7 @@ import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DoubleClickUtil;
 import com.zzhoujay.richtext.RichText;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -35,6 +37,7 @@ public class ArticleContentActivity extends BaseActivity {
 
     View iv_back;
     TextView tv_title;
+    View tv_share;
     //    TextView tv_content;
     WebView webView;
 
@@ -61,6 +64,13 @@ public class ArticleContentActivity extends BaseActivity {
             }
         });
         tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_share=findViewById(R.id.tv_share);
+        tv_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showShare();
+            }
+        });
 //        tv_content = (TextView) findViewById(R.id.tv_content);
         webView = (WebView) findViewById(R.id.webView);
 
@@ -185,6 +195,27 @@ public class ArticleContentActivity extends BaseActivity {
 
             }
         });
+    }
+
+
+
+
+    //java
+    private void showShare() {
+        OnekeyShare oks = new OnekeyShare();
+        // title标题，微信、QQ和QQ空间等平台使用
+        oks.setTitle("泰盛健康");
+        // titleUrl QQ和QQ空间跳转链接
+        oks.setTitleUrl("http://sharesdk.cn");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("我是分享文本");
+        // imagePath是图片的本地路径，确保SDcard下面存在此张图片
+//        oks.setImagePath("/sdcard/test.jpg");
+        oks.setImageData(BitmapFactory.decodeResource(getResources(), R.drawable.icon_app));
+        // url在微信、Facebook等平台中使用
+        oks.setUrl(Constants.Url.Article.articleContent+articleId);
+        // 启动分享GUI
+        oks.show(this);
     }
 
 

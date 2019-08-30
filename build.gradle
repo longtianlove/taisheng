@@ -1,5 +1,25 @@
 apply plugin: 'com.android.application'
 apply from: 'tinker-support.gradle'
+apply plugin: 'com.mob.sdk'
+MobSDK {
+    appKey "2c3ce5b35f0b0"
+    appSecret "19e779f031f0b512874aa4fb2b92b989"
+    ShareSDK {
+        //平台配置信息
+        devInfo {
+            Wechat {
+                appId "wx4868b35061f87885"
+                appSecret "64020361b8ec4c99936c0e3999a9f249"
+            }
+            WechatMoments {
+                appId "wx4868b35061f87885"
+                appSecret "64020361b8ec4c99936c0e3999a9f249"
+            }
+
+        }
+
+    }
+}
 
 android {
     signingConfigs {

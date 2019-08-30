@@ -118,7 +118,10 @@ public class Constants {
             /**
              * 文章内容
              */
+            //todo 上线改host
+//            public static final String articleContent=Host+"jeecg-boot/app/article/v2/h5/articleDetail?articleId=";
             public static final String articleContent="http://192.168.1.12:8080/jeecg-boot/app/article/v2/h5/articleDetail?articleId=";
+
             /**
              * 首页热度文章
              */
