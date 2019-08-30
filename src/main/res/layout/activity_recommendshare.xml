@@ -96,7 +96,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:layout_width="115dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="17dp"
                     android:layout_marginTop="9dp"
                     android:text="快把自己分享给您的小伙伴吧~"

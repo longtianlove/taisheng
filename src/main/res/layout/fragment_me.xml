@@ -385,14 +385,14 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/icon_about" />
+                android:src="@drawable/icon_share" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginLeft="9dp"
                 android:gravity="center"
-                android:text="推荐二维码"
+                android:text="推荐给好友"
                 android:textColor="#ff666666"
                 android:textSize="14sp" />
 
