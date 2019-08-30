@@ -9,6 +9,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import com.mob.MobSDK;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
@@ -204,9 +205,9 @@ public class ArticleContentActivity extends BaseActivity {
     private void showShare() {
         OnekeyShare oks = new OnekeyShare();
         // title标题，微信、QQ和QQ空间等平台使用
-        oks.setTitle("泰盛健康");
+        oks.setTitle("泰晟健康");
         // titleUrl QQ和QQ空间跳转链接
-        oks.setTitleUrl("http://sharesdk.cn");
+        oks.setTitleUrl(Constants.Url.Article.articleContent+articleId);
         // text是分享文本，所有平台都需要这个字段
         oks.setText("我是分享文本");
         // imagePath是图片的本地路径，确保SDcard下面存在此张图片
@@ -216,6 +217,27 @@ public class ArticleContentActivity extends BaseActivity {
         oks.setUrl(Constants.Url.Article.articleContent+articleId);
         // 启动分享GUI
         oks.show(this);
+    }
+
+
+    private void showShare(String platform) {
+        final OnekeyShare oks = new OnekeyShare();
+        //指定分享的平台，如果为空，还是会调用九宫格的平台列表界面
+        if (platform != null) {
+            oks.setPlatform(platform);
+        }
+        oks.setTitle("泰晟健康");
+        // titleUrl QQ和QQ空间跳转链接
+        oks.setTitleUrl(Constants.Url.Article.articleContent+articleId);
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("我是分享文本");
+        // imagePath是图片的本地路径，确保SDcard下面存在此张图片
+//        oks.setImagePath("/sdcard/test.jpg");
+        oks.setImageData(BitmapFactory.decodeResource(getResources(), R.drawable.icon_app));
+        // url在微信、Facebook等平台中使用
+        oks.setUrl(Constants.Url.Article.articleContent+articleId);
+        //启动分享
+        oks.show(MobSDK.getContext());
     }
 
 

@@ -47,6 +47,7 @@ public class MeFragment extends BaseFragment {
     View ll_yijianfankui;
     View ll_aboutus;
     View ll_setting;
+    View ll_share;
 
 
     @Override
@@ -150,6 +151,15 @@ public class MeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AboutUsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ll_share=rootView.findViewById(R.id.ll_share);
+        ll_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), RecommendShareActivity.class);
                 startActivity(intent);
             }
         });
