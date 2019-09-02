@@ -96,6 +96,11 @@ public class Constants {
              * 我的评价列表
              */
             public static final String myDoctorScores = "jeecg-boot/app/score/doctorScore/myDoctorScores";
+
+
+            //邀请历史
+            public static final String myrecommendshare = "jeecg-boot/app/extension/getExtensionManagement";
+
         }
 
         //文章

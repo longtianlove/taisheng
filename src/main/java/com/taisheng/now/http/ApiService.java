@@ -21,6 +21,7 @@ import com.taisheng.now.bussiness.bean.post.HealthCheckListPostBean;
 import com.taisheng.now.bussiness.bean.post.HealthInfoPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
+import com.taisheng.now.bussiness.bean.post.RecommendSharePostBean;
 import com.taisheng.now.bussiness.bean.post.UpdateArticleReadCountPostBean;
 import com.taisheng.now.bussiness.bean.post.UpdatePswPostBean;
 import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
@@ -48,6 +49,7 @@ import com.taisheng.now.bussiness.bean.result.ModifyUserInfoResultBean;
 import com.taisheng.now.bussiness.bean.result.MyPingjiaResultBean;
 import com.taisheng.now.bussiness.bean.result.PictureBean;
 import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
+import com.taisheng.now.bussiness.bean.result.RecommendSharedResultBean;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -94,6 +96,9 @@ public interface ApiService {
      */
     @POST(Constants.Url.User.myDoctorScores)
     Call<BaseBean<MyPingjiaResultBean>> myDoctorScores(@Body BaseListPostBean bean);
+
+    @POST(Constants.Url.User.myrecommendshare)
+    Call<BaseBean<RecommendSharedResultBean>> myrecommendshare(@Body RecommendSharePostBean bean);
 
     //获取热门文章
     @POST(Constants.Url.Article.hotSearchArticle)
