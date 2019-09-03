@@ -368,6 +368,9 @@ public class SecretTabFragment extends BaseFragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(mActivity, ArticleContentActivity.class);
                     intent.putExtra("articleId", bean.id);
+                    intent.putExtra("articlePic",bean.picUrl);
+                    intent.putExtra("summary",bean.summary);
+                    intent.putExtra("title",bean.title);
                     startActivity(intent);
                 }
             });

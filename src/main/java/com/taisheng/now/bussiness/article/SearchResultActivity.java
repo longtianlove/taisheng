@@ -195,6 +195,9 @@ public class SearchResultActivity extends BaseActivity {
                 public void onClick(View v) {
                     Intent intent=new Intent(SearchResultActivity.this,ArticleContentActivity.class);
                     intent.putExtra("articleId",bean.id);
+                    intent.putExtra("articlePic",bean.picUrl);
+                    intent.putExtra("summary",bean.summary);
+                    intent.putExtra("title",bean.title);
                     startActivity(intent);
                 }
             });

@@ -8,12 +8,12 @@ MobSDK {
         //平台配置信息
         devInfo {
             Wechat {
-                appId "wx4868b35061f87885"
-                appSecret "64020361b8ec4c99936c0e3999a9f249"
+                appId "wxe56f5507e7542127"
+                appSecret "wxe56f5507e7542127"
             }
             WechatMoments {
-                appId "wx4868b35061f87885"
-                appSecret "64020361b8ec4c99936c0e3999a9f249"
+                appId "wxe56f5507e7542127"
+                appSecret "wxe56f5507e7542127"
             }
 
         }

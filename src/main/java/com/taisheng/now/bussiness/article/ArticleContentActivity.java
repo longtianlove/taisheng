@@ -124,10 +124,18 @@ public class ArticleContentActivity extends BaseActivity {
 
     String collectionFlag;
     String articleId;
+    String title;
+    String articlePic;
+    String summary;
+
+
 
     void initData() {
         Intent intent = getIntent();
         articleId = intent.getStringExtra("articleId");
+        articlePic=intent.getStringExtra("articlePic");
+        summary=intent.getStringExtra("summary");
+        title=intent.getStringExtra("title");
         ArticleContentPostBean bean = new ArticleContentPostBean();
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
@@ -205,14 +213,15 @@ public class ArticleContentActivity extends BaseActivity {
     private void showShare() {
         OnekeyShare oks = new OnekeyShare();
         // title标题，微信、QQ和QQ空间等平台使用
-        oks.setTitle("泰晟健康");
+        oks.setTitle(title);
         // titleUrl QQ和QQ空间跳转链接
         oks.setTitleUrl(Constants.Url.Article.articleContent+articleId);
         // text是分享文本，所有平台都需要这个字段
-        oks.setText("我是分享文本");
+        oks.setText(summary);
         // imagePath是图片的本地路径，确保SDcard下面存在此张图片
 //        oks.setImagePath("/sdcard/test.jpg");
-        oks.setImageData(BitmapFactory.decodeResource(getResources(), R.drawable.icon_app));
+//        oks.setImageData(BitmapFactory.decodeResource(getResources(), R.drawable.icon_app));
+        oks.setImageUrl(articlePic);
         // url在微信、Facebook等平台中使用
         oks.setUrl(Constants.Url.Article.articleContent+articleId);
         // 启动分享GUI

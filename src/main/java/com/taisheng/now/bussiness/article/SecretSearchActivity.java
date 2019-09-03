@@ -244,6 +244,7 @@ public class SecretSearchActivity extends BaseActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(SecretSearchActivity.this, ArticleContentActivity.class);
                     intent.putExtra("articleId", bean.id);
+
                     startActivity(intent);
                 }
             });
