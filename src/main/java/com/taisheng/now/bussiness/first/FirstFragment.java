@@ -391,6 +391,8 @@ public class FirstFragment extends BaseFragment {
 //        videoPlayer.startPlayLogic();
 
 
+
+
     }
 
     TextView tv_shipintitle;
@@ -427,11 +429,11 @@ public class FirstFragment extends BaseFragment {
                             case Constants.HTTP_SUCCESS:
                                 if(tv_dianzan.isEnabled()){
                                     String dianzanshuString=tv_shipindianzan.getText().toString();
-                                    int dianzanshuint=Integer.parseInt(dianzanshuString)-1;
+                                    int dianzanshuint=Integer.parseInt(dianzanshuString)+1;
                                     tv_shipindianzan.setText(dianzanshuint+"");
                                 }else{
                                     String dianzanshuString=tv_shipindianzan.getText().toString();
-                                    int dianzanshuint=Integer.parseInt(dianzanshuString)+1;
+                                    int dianzanshuint=Integer.parseInt(dianzanshuString)-1;
                                     tv_shipindianzan.setText(dianzanshuint+"");
                                 }
                                 tv_dianzan.setEnabled(!tv_dianzan.isEnabled());
@@ -464,11 +466,11 @@ public class FirstFragment extends BaseFragment {
                             case Constants.HTTP_SUCCESS:
                                 if(tv_guanzhu.isEnabled()){
                                     String dianzanshuString=tv_shipinguanzhu.getText().toString();
-                                    int dianzanshuint=Integer.parseInt(dianzanshuString)-1;
+                                    int dianzanshuint=Integer.parseInt(dianzanshuString)+1;
                                     tv_shipinguanzhu.setText(dianzanshuint+"");
                                 }else{
                                     String dianzanshuString=tv_shipinguanzhu.getText().toString();
-                                    int dianzanshuint=Integer.parseInt(dianzanshuString)+1;
+                                    int dianzanshuint=Integer.parseInt(dianzanshuString)-1;
                                     tv_shipinguanzhu.setText(dianzanshuint+"");
                                 }
                                 tv_guanzhu.setEnabled(!tv_guanzhu.isEnabled());
@@ -668,16 +670,16 @@ public class FirstFragment extends BaseFragment {
                             tv_shipintitle.setText(bean.videoTitle);
                             tv_shipindianzan.setText(bean.videoPraise + "");
                             if ("NO".equals(bean.videoPraiseFlag)) {
-                                tv_dianzan.setEnabled(false);
-                            } else {
                                 tv_dianzan.setEnabled(true);
+                            } else {
+                                tv_dianzan.setEnabled(false);
                             }
 
                             tv_shipinguanzhu.setText(bean.collectionCount + "");
                             if ("NO".equals(bean.userCollected)) {
-                                tv_guanzhu.setEnabled(false);
-                            } else {
                                 tv_guanzhu.setEnabled(true);
+                            } else {
+                                tv_guanzhu.setEnabled(false);
                             }
                             tv_shipinbofangshu.setText(bean.videoPlayTimes + "");
                         } else {

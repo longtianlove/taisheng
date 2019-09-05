@@ -241,27 +241,39 @@ public class MoreShipinActivity extends BaseActivity {
             }
             ShipinBean bean = mData.get(position);
             Util finalUtil = util;
+
+            if ("NO".equals(bean.videoPraiseFlag)) {
+                finalUtil.tv_dianzan.setEnabled(true);
+            } else {
+                finalUtil.tv_dianzan.setEnabled(false);
+            }
+
+            if ("NO".equals(bean.userCollected)) {
+                finalUtil.tv_guanzhu.setEnabled(true);
+            } else {
+                finalUtil.tv_guanzhu.setEnabled(false);
+            }
             util.ll_shipindianzan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    VideoOperatePostBean bean=new VideoOperatePostBean();
-                    bean.userId=UserInstance.getInstance().getUid();
-                    bean.token=UserInstance.getInstance().getToken();
-                    bean.id=bean.id;
-                    bean.operateType="praise";
+                    VideoOperatePostBean mbean=new VideoOperatePostBean();
+                    mbean.userId=UserInstance.getInstance().getUid();
+                    mbean.token=UserInstance.getInstance().getToken();
+                    mbean.id=bean.id;
+                    mbean.operateType="praise";
 
-                    ApiUtils.getApiService().videoOperate(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                    ApiUtils.getApiService().videoOperate(mbean).enqueue(new TaiShengCallback<BaseBean>() {
                         @Override
                         public void onSuccess(Response<BaseBean> response, BaseBean message) {
                             switch (message.code) {
                                 case Constants.HTTP_SUCCESS:
                                     if(finalUtil.tv_dianzan.isEnabled()){
                                         String dianzanshuString=finalUtil.tv_shipindianzan.getText().toString();
-                                        int dianzanshuint=Integer.parseInt(dianzanshuString)-1;
+                                        int dianzanshuint=Integer.parseInt(dianzanshuString)+1;
                                         finalUtil.tv_shipindianzan.setText(dianzanshuint+"");
                                     }else{
                                         String dianzanshuString=finalUtil.tv_shipindianzan.getText().toString();
-                                        int dianzanshuint=Integer.parseInt(dianzanshuString)+1;
+                                        int dianzanshuint=Integer.parseInt(dianzanshuString)-1;
                                         finalUtil.tv_shipindianzan.setText(dianzanshuint+"");
                                     }
                                     finalUtil.tv_dianzan.setEnabled(!finalUtil.tv_dianzan.isEnabled());
@@ -280,24 +292,24 @@ public class MoreShipinActivity extends BaseActivity {
             util.ll_shipinguanzhu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    VideoOperatePostBean bean=new VideoOperatePostBean();
-                    bean.userId=UserInstance.getInstance().getUid();
-                    bean.token=UserInstance.getInstance().getToken();
-                    bean.id=bean.id;
-                    bean.operateType="collection";
+                    VideoOperatePostBean mbean=new VideoOperatePostBean();
+                    mbean.userId=UserInstance.getInstance().getUid();
+                    mbean.token=UserInstance.getInstance().getToken();
+                    mbean.id=bean.id;
+                    mbean.operateType="collection";
 
-                    ApiUtils.getApiService().videoOperate(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                    ApiUtils.getApiService().videoOperate(mbean).enqueue(new TaiShengCallback<BaseBean>() {
                         @Override
                         public void onSuccess(Response<BaseBean> response, BaseBean message) {
                             switch (message.code) {
                                 case Constants.HTTP_SUCCESS:
                                     if(finalUtil.tv_guanzhu.isEnabled()){
                                         String dianzanshuString=finalUtil.tv_shipinguanzhu.getText().toString();
-                                        int dianzanshuint=Integer.parseInt(dianzanshuString)-1;
+                                        int dianzanshuint=Integer.parseInt(dianzanshuString)+1;
                                         finalUtil.tv_shipinguanzhu.setText(dianzanshuint+"");
                                     }else{
                                         String dianzanshuString=finalUtil.tv_shipinguanzhu.getText().toString();
-                                        int dianzanshuint=Integer.parseInt(dianzanshuString)+1;
+                                        int dianzanshuint=Integer.parseInt(dianzanshuString)-1;
                                         finalUtil.tv_shipinguanzhu.setText(dianzanshuint+"");
                                     }
                                     finalUtil.tv_guanzhu.setEnabled(!finalUtil.tv_guanzhu.isEnabled());
