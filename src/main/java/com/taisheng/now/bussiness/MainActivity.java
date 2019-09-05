@@ -152,6 +152,8 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         hideAllTabIcon(transaction);
         toolBar.setVisibility(View.VISIBLE);
+
+
         switch (index) {
             case 0:
 
@@ -162,7 +164,8 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
                 transaction.show(firstFragment).commit();
                 iv_tab_first.setSelected(true);
                 tv_tab_first.setTextColor(getResources().getColor(R.color.tv_tab_color_select));
-
+//                firstFragment.videoPlayer.onVideoResume();
+//                firstFragment.videoPlayer.onVideoPause();
 
 
 
@@ -182,7 +185,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
                         .show(doctorFragment).commit();
                 iv_tab_doctor.setSelected(true);
                 tv_tab_doctor.setTextColor(getResources().getColor(R.color.tv_tab_color_select));
-
+                firstFragment.videoPlayer.onVideoPause();
                 break;
             case 2:
                 if(secretFragment==null){
@@ -193,7 +196,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
                 transaction.show(secretFragment).commit();
                 iv_tab_secret.setSelected(true);
                 tv_tab_secret.setTextColor(getResources().getColor(R.color.tv_tab_color_select));
-
+                firstFragment.videoPlayer.onVideoPause();
                 break;
             case 3:
 
@@ -208,6 +211,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
                 iv_tab_me.setSelected(true);
                 tv_tab_me.setTextColor(getResources().getColor(R.color.tv_tab_color_select));
                 toolBar.setVisibility(View.GONE);
+                firstFragment.videoPlayer.onVideoPause();
                 break;
         }
     }

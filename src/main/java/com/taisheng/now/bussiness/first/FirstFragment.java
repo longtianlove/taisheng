@@ -21,7 +21,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
@@ -33,6 +38,8 @@ import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.bussiness.bean.result.ArticleResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorBean;
 import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
+import com.taisheng.now.bussiness.bean.result.ShipinBean;
+import com.taisheng.now.bussiness.bean.result.ShipinsResultBean;
 import com.taisheng.now.bussiness.doctor.DoctorDetailActivity;
 import com.taisheng.now.bussiness.healthfiles.HealthCheckActivity;
 import com.taisheng.now.bussiness.article.ArticleContentActivity;
@@ -86,6 +93,7 @@ public class FirstFragment extends BaseFragment {
     TextView tv_doctor_more;
     TextView tv_secret_more;
 
+//    View ll_shipin_all;
 
     View ll_shishizixun;
     View ll_sushenhufu;
@@ -103,6 +111,13 @@ public class FirstFragment extends BaseFragment {
     com.taisheng.now.view.WithScrolleViewListView lv_articles;
     ArticleAdapter madapter;
 
+
+
+
+    View tv_shipin_more;
+    public StandardGSYVideoPlayer videoPlayer;
+
+    OrientationUtils orientationUtils;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -130,11 +145,13 @@ public class FirstFragment extends BaseFragment {
          * 下拉刷新
          */
         ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
+
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 initData();
             }
         });
+//        ll_shipin_all=rootView.findViewById(R.id.ll_shipin_all);
         ll_shishizixun = rootView.findViewById(R.id.ll_shishizixun);
         ll_shishizixun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -323,6 +340,74 @@ public class FirstFragment extends BaseFragment {
             });
             guideView.show();
         }
+        tv_shipin_more=rootView.findViewById(R.id.tv_shipin_more);
+        tv_shipin_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getActivity(),MoreShipinActivity.class);
+                startActivity(intent);
+            }
+        });
+        videoPlayer =  (StandardGSYVideoPlayer)rootView.findViewById(R.id.video_player);
+        initShipin();
+        initShipinDianzan(rootView);
+
+
+    }
+
+
+    String source1;
+    ImageView imageView;
+    void initShipin(){
+         source1 = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
+
+        //增加封面
+        imageView = new ImageView(getActivity());
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setImageResource(R.mipmap.xxx1);
+        videoPlayer.setThumbImageView(imageView);
+        //增加title
+        videoPlayer.getTitleTextView().setVisibility(View.GONE);
+        //设置返回键
+        videoPlayer.getBackButton().setVisibility(View.GONE);
+        //设置旋转
+        orientationUtils = new OrientationUtils(getActivity(), videoPlayer);
+        videoPlayer.getFullscreenButton().setVisibility(View.GONE);
+//        //设置全屏按键功能,这是使用的是选择屏幕，而不是全屏
+//        videoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                orientationUtils.resolveByClick();
+//            }
+//        });
+        //是否可以滑动调整
+        videoPlayer.setIsTouchWiget(false);
+//        //设置返回按键功能
+//        videoPlayer.getBackButton().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onBackPressed();
+//            }
+//        });
+//        videoPlayer.startPlayLogic();
+
+
+
+    }
+
+    TextView tv_shipintitle;
+    View ll_shipindianzan;
+    TextView tv_shipindianzan;
+    View ll_shipinguanzhu;
+    TextView tv_shipinguanzhu;
+    TextView tv_shipinbofangshu;
+    void initShipinDianzan(View rootView){
+        tv_shipintitle=rootView.findViewById(R.id.tv_shipintitle);
+        ll_shipindianzan=rootView.findViewById(R.id.ll_shipindianzan);
+        tv_shipindianzan=rootView.findViewById(R.id.tv_shipindianzan);
+        ll_shipinguanzhu=rootView.findViewById(R.id.ll_shipinguanzhu);
+        tv_shipinguanzhu=rootView.findViewById(R.id.tv_shipinguanzhu);
+        tv_shipinbofangshu=rootView.findViewById(R.id.tv_shipinbofangshu);
 
     }
 
@@ -330,6 +415,7 @@ public class FirstFragment extends BaseFragment {
     void initData() {
 
         getRecommendDoctors();
+        getRecommendShipin();
         getHotArticle();
 
     }
@@ -471,114 +557,60 @@ public class FirstFragment extends BaseFragment {
 
     }
 
-//    public class HorizontalListViewAdapter extends BaseAdapter {
-//        public List<DoctorBean> doctors;
-//
-//
-//        @Override
-//        public int getCount() {
-//            if (doctors == null) {
-//                return 0;
-//            } else {
-//                return doctors.size();
-//            }
-//        }
-//
-//        @Override
-//        public Object getItem(int position) {
-//            return doctors.get(position);
-//        }
-//
-//        @Override
-//        public long getItemId(int position) {
-//            return position;
-//        }
-//
-//        @Override
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//
-//            Util util = null;
-//            // 中间变量
-//            final int flag = position;
-//            if (convertView == null) {
-//                util = new Util();
-//                LayoutInflater inflater = LayoutInflater.from(mActivity);
-//                convertView = inflater.inflate(R.layout.item_zhuanjia, null);
-//                util.ll_all = convertView.findViewById(R.id.ll_all);
-//
-//                util.sdv_header = (SimpleDraweeView) convertView.findViewById(R.id.sdv_header);
-//                util.tv_doctor_name = (TextView) convertView.findViewById(R.id.tv_doctor_name);
-//                util.tv_workage = (TextView) convertView.findViewById(R.id.tv_workage);
-//                util.dlwl_doctor_label = (DoctorLabelWrapLayout) convertView.findViewById(R.id.dlwl_doctor_label);
-//                util.scorestar = (ScoreStar) convertView.findViewById(R.id.scorestar);
-//                util.view_label=convertView.findViewById(R.id.view_label);
-//                convertView.setTag(util);
-//            } else {
-//                util = (Util) convertView.getTag();
-//            }
-//            DoctorBean bean = doctors.get(position);
-//            if(position==(doctors.size()-1)){
-//                util.view_label.setVisibility(View.GONE);
-//            }else{
-//                util.view_label.setVisibility(View.VISIBLE);
-//
-//            }
-//            util.ll_all.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent=new Intent(mActivity, DoctorDetailActivity.class);
-//                    intent.putExtra("id",bean.id);
-//                    startActivity(intent);
-//                }
-//            });
-//            Uri uri = Uri.parse(bean.avatar);
-//            util.sdv_header.setImageURI(uri);
-//            util.tv_doctor_name.setText(bean.nickName);
-//
-//
-//            util.tv_workage.setText(getWorkYear(bean.fromMedicineTime));
-//            if (bean.goodDiseases != null) {
-//                String[] doctorlabel = bean.goodDiseases.split(",");
-//                util.dlwl_doctor_label.setData(doctorlabel, mActivity, 10, 5, 1, 5, 1, 4, 0, 4, 0);
-//
-//            }
-//
-//            if (bean.score != null) {
-//                util.scorestar.setScore(bean.score);
-//            }
-//
-//            return convertView;
-//        }
-//
-//        String getWorkYear(String fromMedicineTime) {
-//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-////            ParsePosition pos = new ParsePosition(0);
-//            Date strtodate = null;
-//            try {
-//                strtodate = formatter.parse(fromMedicineTime);
-//                Date currentTime = new Date();
-//                return currentTime.getYear() - strtodate.getYear() <= 0 ? "1" : currentTime.getYear() - strtodate.getYear() + "";
-//
-//            } catch (Exception e) {
-//                Log.e("firstfragment-getwork",e.getMessage());
-//                return "1";
-//            }
-//
-//
-//        }
-//
-//        class Util {
-//            View ll_all;
-//            SimpleDraweeView sdv_header;
-//            TextView tv_doctor_name;
-//            TextView tv_workage;
-//            DoctorLabelWrapLayout dlwl_doctor_label;
-//            ScoreStar scorestar;
-//            View view_label;
-//
-//        }
-//
-//    }
+
+
+    void getRecommendShipin(){
+        BasePostBean bean=new BasePostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        DialogUtil.showProgress(getActivity(), "");
+        ApiUtils.getApiService().recommendShiPin(bean).enqueue(new TaiShengCallback<BaseBean<ShipinsResultBean>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<ShipinsResultBean>> response, BaseBean<ShipinsResultBean> message) {
+                ptr_refresh.refreshComplete();
+                DialogUtil.closeProgress();
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        if (message.result.records != null && message.result.records.size() > 0) {
+//                            ll_shipin_all.setVisibility(View.VISIBLE);
+//                            madapter.mData.addAll(message.result.records);
+                            ShipinBean bean = message.result.records.get(0);
+                            source1=bean.videoUrl;
+                            videoPlayer.setUp(bean.videoUrl, true, "测试视频");
+                            Glide.with(getContext().getApplicationContext())
+                                    .setDefaultRequestOptions(
+                                            new RequestOptions()
+                                                    .frame(1000000)
+                                                    .centerCrop()
+                                                    .error(R.mipmap.xxx1)
+                                                    .placeholder(R.mipmap.xxx1))
+                                    .load(bean.videoBanner)
+                                    .into(imageView);
+                            tv_shipintitle.setText(bean.videoTitle);
+                            tv_shipindianzan.setText(bean.videoPraise+"");
+                            tv_shipinguanzhu.setText(bean.collectionCount+"");
+                            tv_shipinbofangshu.setText(bean.videoPlayTimes+"");
+                        } else {
+//                            //没有消息
+//                            lv_shipins.setHasLoadMore(false);
+//                            lv_shipins.setLoadAllViewText("暂时只有这么多医生");
+//                            lv_shipins.setLoadAllFooterVisible(true);
+//                            ll_shipin_all.setVisibility(View.GONE);
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<ShipinsResultBean>> call, Throwable t) {
+                ptr_refresh.refreshComplete();
+                DialogUtil.closeProgress();
+            }
+        });
+
+
+    }
+
 
 
     void getHotArticle() {
@@ -726,9 +758,34 @@ public class FirstFragment extends BaseFragment {
         }
     }
 
-    public void onDestroy() {
-        super.onDestroy();
-//        EventBus.getDefault().unregister(this);
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        videoPlayer.onVideoPause();
+                GSYVideoManager.releaseAllVideos();
+        if (orientationUtils != null)
+            orientationUtils.releaseListener();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        videoPlayer.onVideoResume();
+
+        videoPlayer.setUp(source1, true, "测试视频");
+
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+//        GSYVideoManager.releaseAllVideos();
+//        if (orientationUtils != null)
+//            orientationUtils.releaseListener();
+    }
+
+
 }

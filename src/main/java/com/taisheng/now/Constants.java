@@ -48,8 +48,8 @@ public class Constants {
 
 
 
-//        public static String Host = "http://192.168.1.18:8080/";
-        public static String Host = "http://152.136.26.41:8080/";
+        public static String Host = "http://192.168.1.12:8080/";
+//        public static String Host = "http://152.136.26.41:8080/";
 
 
 
@@ -191,6 +191,21 @@ public class Constants {
             public static final String detectRoomIn = "jeecg-boot/app/consult/detectRoomIn";
             //视频完接口回调
             public static final String updateDoctorStatus = "jeecg-boot/app/consult/updateDoctorStatus";
+        }
+
+        //视频
+        public static class ShiPin{
+
+            /**
+             * 推荐视频
+             */
+            public static final String recommendShiPin = "jeecg-boot/app/video/home/recommend";
+
+            /**
+             * 获取视频列表
+             */
+            public static final String moreShiPin = "jeecg-boot/app/video/list";
+
         }
 
 

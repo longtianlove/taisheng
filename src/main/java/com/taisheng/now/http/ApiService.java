@@ -19,6 +19,7 @@ import com.taisheng.now.bussiness.bean.post.FeedbackPostBean;
 import com.taisheng.now.bussiness.bean.post.GuanzhuPostBean;
 import com.taisheng.now.bussiness.bean.post.HealthCheckListPostBean;
 import com.taisheng.now.bussiness.bean.post.HealthInfoPostBean;
+import com.taisheng.now.bussiness.bean.post.MoreShipinPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendSharePostBean;
@@ -50,6 +51,7 @@ import com.taisheng.now.bussiness.bean.result.MyPingjiaResultBean;
 import com.taisheng.now.bussiness.bean.result.PictureBean;
 import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
 import com.taisheng.now.bussiness.bean.result.RecommendSharedResultBean;
+import com.taisheng.now.bussiness.bean.result.ShipinsResultBean;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -138,6 +140,25 @@ public interface ApiService {
     //获取推荐医生
     @POST(Constants.Url.Doctor.recommendList)
     Call<BaseBean<DoctorsResultBean>> recommendList(@Body RecommendDoctorPostBean postBean);
+
+
+
+    /**
+     * 推荐视频
+     */
+    public static final String recommendShiPin = "jeecg-boot/app/assessment/getExtractionSubjectDb";
+    @POST(Constants.Url.ShiPin.recommendShiPin)
+    Call<BaseBean<ShipinsResultBean>> recommendShiPin(@Body BasePostBean bean);
+
+    /**
+     * 获取视频列表
+     */
+//    public static final String moreShiPin = "jeecg-boot/app/assessment/getExtractionSubjectDb";
+    @POST(Constants.Url.ShiPin.moreShiPin)
+    Call<BaseBean<ShipinsResultBean>> moreShiPin(@Body MoreShipinPostBean bean);
+
+
+
 
     //获取所有医生
     @POST(Constants.Url.Doctor.doctorslist)

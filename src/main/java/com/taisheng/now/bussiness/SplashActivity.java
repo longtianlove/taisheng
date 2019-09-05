@@ -1,10 +1,15 @@
 package com.taisheng.now.bussiness;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.WindowManager;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
@@ -29,7 +34,7 @@ import org.w3c.dom.Text;
  * Created by long on 2017/4/13.
  */
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
 
     @Override
@@ -39,7 +44,16 @@ public class SplashActivity extends BaseActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
-        toWhere();//判断跳转逻辑
+
+
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITEEXTRENAL_STOR);
+        } else {
+            toWhere();//判断跳转逻辑
+        }
+
 
     }
 
@@ -127,6 +141,23 @@ public class SplashActivity extends BaseActivity {
 //
 //    }
 
+
+    public final static int REQUEST_WRITEEXTRENAL_STOR = 2;
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_WRITEEXTRENAL_STOR:
+                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    toWhere();
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
 
     @Override
     protected void onDestroy() {
