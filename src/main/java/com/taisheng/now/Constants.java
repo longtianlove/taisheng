@@ -206,6 +206,13 @@ public class Constants {
              */
             public static final String moreShiPin = "jeecg-boot/app/video/list";
 
+
+            /**
+             * 点赞
+             */
+            public static final String videoOperate = "jeecg-boot/app/video/operate";
+
+
         }
 
 

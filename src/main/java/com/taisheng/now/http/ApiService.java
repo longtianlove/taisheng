@@ -26,6 +26,7 @@ import com.taisheng.now.bussiness.bean.post.RecommendSharePostBean;
 import com.taisheng.now.bussiness.bean.post.UpdateArticleReadCountPostBean;
 import com.taisheng.now.bussiness.bean.post.UpdatePswPostBean;
 import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
+import com.taisheng.now.bussiness.bean.post.VideoOperatePostBean;
 import com.taisheng.now.bussiness.bean.result.AnswerResultBean;
 import com.taisheng.now.bussiness.bean.result.ArticleContentBean;
 import com.taisheng.now.bussiness.bean.post.ArticleContentPostBean;
@@ -157,6 +158,12 @@ public interface ApiService {
     @POST(Constants.Url.ShiPin.moreShiPin)
     Call<BaseBean<ShipinsResultBean>> moreShiPin(@Body MoreShipinPostBean bean);
 
+    /**
+     * 点赞
+     */
+    public static final String videoOperate = "jeecg-boot/app/video/operate";
+    @POST(Constants.Url.ShiPin.videoOperate)
+    Call<BaseBean> videoOperate(@Body VideoOperatePostBean bean);
 
 
 

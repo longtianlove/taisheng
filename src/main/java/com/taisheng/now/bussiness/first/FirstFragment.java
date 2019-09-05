@@ -34,6 +34,7 @@ import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.MainActivity;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
+import com.taisheng.now.bussiness.bean.post.VideoOperatePostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.bussiness.bean.result.ArticleResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorBean;
@@ -110,8 +111,6 @@ public class FirstFragment extends BaseFragment {
 
     com.taisheng.now.view.WithScrolleViewListView lv_articles;
     ArticleAdapter madapter;
-
-
 
 
     View tv_shipin_more;
@@ -198,7 +197,6 @@ public class FirstFragment extends BaseFragment {
         ll_yingjizixun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO 跳转到视频聊天页面
                 ((MainActivity) getActivity()).showFragment(1);
             }
         });
@@ -340,15 +338,15 @@ public class FirstFragment extends BaseFragment {
             });
             guideView.show();
         }
-        tv_shipin_more=rootView.findViewById(R.id.tv_shipin_more);
+        tv_shipin_more = rootView.findViewById(R.id.tv_shipin_more);
         tv_shipin_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(getActivity(),MoreShipinActivity.class);
+                Intent intent = new Intent(getActivity(), MoreShipinActivity.class);
                 startActivity(intent);
             }
         });
-        videoPlayer =  (StandardGSYVideoPlayer)rootView.findViewById(R.id.video_player);
+        videoPlayer = (StandardGSYVideoPlayer) rootView.findViewById(R.id.video_player);
         initShipin();
         initShipinDianzan(rootView);
 
@@ -358,8 +356,9 @@ public class FirstFragment extends BaseFragment {
 
     String source1;
     ImageView imageView;
-    void initShipin(){
-         source1 = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
+
+    void initShipin() {
+        source1 = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
 
         //增加封面
         imageView = new ImageView(getActivity());
@@ -392,22 +391,101 @@ public class FirstFragment extends BaseFragment {
 //        videoPlayer.startPlayLogic();
 
 
-
     }
 
     TextView tv_shipintitle;
     View ll_shipindianzan;
+    TextView tv_dianzan;
     TextView tv_shipindianzan;
     View ll_shipinguanzhu;
+    TextView tv_guanzhu;
     TextView tv_shipinguanzhu;
     TextView tv_shipinbofangshu;
-    void initShipinDianzan(View rootView){
-        tv_shipintitle=rootView.findViewById(R.id.tv_shipintitle);
-        ll_shipindianzan=rootView.findViewById(R.id.ll_shipindianzan);
-        tv_shipindianzan=rootView.findViewById(R.id.tv_shipindianzan);
-        ll_shipinguanzhu=rootView.findViewById(R.id.ll_shipinguanzhu);
-        tv_shipinguanzhu=rootView.findViewById(R.id.tv_shipinguanzhu);
-        tv_shipinbofangshu=rootView.findViewById(R.id.tv_shipinbofangshu);
+
+
+
+    String shipinId;
+    void initShipinDianzan(View rootView) {
+        tv_shipintitle = rootView.findViewById(R.id.tv_shipintitle);
+        tv_dianzan = rootView.findViewById(R.id.tv_dianzan);
+        ll_shipindianzan = rootView.findViewById(R.id.ll_shipindianzan);
+        ll_shipindianzan.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                VideoOperatePostBean bean=new VideoOperatePostBean();
+                bean.userId=UserInstance.getInstance().getUid();
+                bean.token=UserInstance.getInstance().getToken();
+                bean.id=shipinId;
+                bean.operateType="praise";
+
+                ApiUtils.getApiService().videoOperate(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+                                if(tv_dianzan.isEnabled()){
+                                    String dianzanshuString=tv_shipindianzan.getText().toString();
+                                    int dianzanshuint=Integer.parseInt(dianzanshuString)-1;
+                                    tv_shipindianzan.setText(dianzanshuint+"");
+                                }else{
+                                    String dianzanshuString=tv_shipindianzan.getText().toString();
+                                    int dianzanshuint=Integer.parseInt(dianzanshuString)+1;
+                                    tv_shipindianzan.setText(dianzanshuint+"");
+                                }
+                                tv_dianzan.setEnabled(!tv_dianzan.isEnabled());
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+        tv_shipindianzan = rootView.findViewById(R.id.tv_shipindianzan);
+        ll_shipinguanzhu = rootView.findViewById(R.id.ll_shipinguanzhu);
+        ll_shipinguanzhu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                VideoOperatePostBean bean=new VideoOperatePostBean();
+                bean.userId=UserInstance.getInstance().getUid();
+                bean.token=UserInstance.getInstance().getToken();
+                bean.id=shipinId;
+                bean.operateType="collection";
+
+                ApiUtils.getApiService().videoOperate(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+                                if(tv_guanzhu.isEnabled()){
+                                    String dianzanshuString=tv_shipinguanzhu.getText().toString();
+                                    int dianzanshuint=Integer.parseInt(dianzanshuString)-1;
+                                    tv_shipinguanzhu.setText(dianzanshuint+"");
+                                }else{
+                                    String dianzanshuString=tv_shipinguanzhu.getText().toString();
+                                    int dianzanshuint=Integer.parseInt(dianzanshuString)+1;
+                                    tv_shipinguanzhu.setText(dianzanshuint+"");
+                                }
+                                tv_guanzhu.setEnabled(!tv_guanzhu.isEnabled());
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+        tv_guanzhu = rootView.findViewById(R.id.tv_guanzhu);
+        tv_shipinguanzhu = rootView.findViewById(R.id.tv_shipinguanzhu);
+        tv_shipinbofangshu = rootView.findViewById(R.id.tv_shipinbofangshu);
 
     }
 
@@ -558,9 +636,8 @@ public class FirstFragment extends BaseFragment {
     }
 
 
-
-    void getRecommendShipin(){
-        BasePostBean bean=new BasePostBean();
+    void getRecommendShipin() {
+        BasePostBean bean = new BasePostBean();
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
         DialogUtil.showProgress(getActivity(), "");
@@ -575,7 +652,8 @@ public class FirstFragment extends BaseFragment {
 //                            ll_shipin_all.setVisibility(View.VISIBLE);
 //                            madapter.mData.addAll(message.result.records);
                             ShipinBean bean = message.result.records.get(0);
-                            source1=bean.videoUrl;
+                            shipinId=bean.id;
+                            source1 = bean.videoUrl;
                             videoPlayer.setUp(bean.videoUrl, true, "测试视频");
                             Glide.with(getContext().getApplicationContext())
                                     .setDefaultRequestOptions(
@@ -586,16 +664,25 @@ public class FirstFragment extends BaseFragment {
                                                     .placeholder(R.mipmap.xxx1))
                                     .load(bean.videoBanner)
                                     .into(imageView);
+
                             tv_shipintitle.setText(bean.videoTitle);
-                            tv_shipindianzan.setText(bean.videoPraise+"");
-                            tv_shipinguanzhu.setText(bean.collectionCount+"");
-                            tv_shipinbofangshu.setText(bean.videoPlayTimes+"");
+                            tv_shipindianzan.setText(bean.videoPraise + "");
+                            if ("NO".equals(bean.videoPraiseFlag)) {
+                                tv_dianzan.setEnabled(false);
+                            } else {
+                                tv_dianzan.setEnabled(true);
+                            }
+
+                            tv_shipinguanzhu.setText(bean.collectionCount + "");
+                            if ("NO".equals(bean.userCollected)) {
+                                tv_guanzhu.setEnabled(false);
+                            } else {
+                                tv_guanzhu.setEnabled(true);
+                            }
+                            tv_shipinbofangshu.setText(bean.videoPlayTimes + "");
                         } else {
 //                            //没有消息
-//                            lv_shipins.setHasLoadMore(false);
-//                            lv_shipins.setLoadAllViewText("暂时只有这么多医生");
-//                            lv_shipins.setLoadAllFooterVisible(true);
-//                            ll_shipin_all.setVisibility(View.GONE);
+
                         }
                         break;
                 }
@@ -610,7 +697,6 @@ public class FirstFragment extends BaseFragment {
 
 
     }
-
 
 
     void getHotArticle() {
@@ -713,9 +799,9 @@ public class FirstFragment extends BaseFragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(mActivity, ArticleContentActivity.class);
                     intent.putExtra("articleId", bean.id);
-                    intent.putExtra("articlePic",bean.picUrl);
-                    intent.putExtra("summary",bean.summary);
-                    intent.putExtra("title",bean.title);
+                    intent.putExtra("articlePic", bean.picUrl);
+                    intent.putExtra("summary", bean.summary);
+                    intent.putExtra("title", bean.title);
                     startActivity(intent);
                 }
             });
@@ -759,12 +845,11 @@ public class FirstFragment extends BaseFragment {
     }
 
 
-
     @Override
     public void onPause() {
         super.onPause();
         videoPlayer.onVideoPause();
-                GSYVideoManager.releaseAllVideos();
+        GSYVideoManager.releaseAllVideos();
         if (orientationUtils != null)
             orientationUtils.releaseListener();
     }

@@ -19,6 +19,7 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.MoreShipinPostBean;
+import com.taisheng.now.bussiness.bean.post.VideoOperatePostBean;
 import com.taisheng.now.bussiness.bean.result.DoctorBean;
 import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
 import com.taisheng.now.bussiness.bean.result.ShipinBean;
@@ -37,6 +38,8 @@ import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.jiankangjiangtang.SampleCoverVideo;
 import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -230,11 +233,86 @@ public class MoreShipinActivity extends BaseActivity {
                 util.ll_shipinguanzhu=convertView.findViewById(R.id.ll_shipinguanzhu);
                 util.tv_shipinguanzhu=convertView.findViewById(R.id.tv_shipinguanzhu);
                 util.tv_shipinbofangshu=convertView.findViewById(R.id.tv_shipinbofangshu);
+                util.tv_dianzan=convertView.findViewById(R.id.tv_dianzan);
+                util.tv_guanzhu=convertView.findViewById(R.id.tv_guanzhu);
                  convertView.setTag(util);
             } else {
                 util = (Util) convertView.getTag();
             }
             ShipinBean bean = mData.get(position);
+            Util finalUtil = util;
+            util.ll_shipindianzan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    VideoOperatePostBean bean=new VideoOperatePostBean();
+                    bean.userId=UserInstance.getInstance().getUid();
+                    bean.token=UserInstance.getInstance().getToken();
+                    bean.id=bean.id;
+                    bean.operateType="praise";
+
+                    ApiUtils.getApiService().videoOperate(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                        @Override
+                        public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                            switch (message.code) {
+                                case Constants.HTTP_SUCCESS:
+                                    if(finalUtil.tv_dianzan.isEnabled()){
+                                        String dianzanshuString=finalUtil.tv_shipindianzan.getText().toString();
+                                        int dianzanshuint=Integer.parseInt(dianzanshuString)-1;
+                                        finalUtil.tv_shipindianzan.setText(dianzanshuint+"");
+                                    }else{
+                                        String dianzanshuString=finalUtil.tv_shipindianzan.getText().toString();
+                                        int dianzanshuint=Integer.parseInt(dianzanshuString)+1;
+                                        finalUtil.tv_shipindianzan.setText(dianzanshuint+"");
+                                    }
+                                    finalUtil.tv_dianzan.setEnabled(!finalUtil.tv_dianzan.isEnabled());
+                                    break;
+                            }
+                        }
+
+                        @Override
+                        public void onFail(Call<BaseBean> call, Throwable t) {
+
+                        }
+                    });
+
+                }
+            });
+            util.ll_shipinguanzhu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    VideoOperatePostBean bean=new VideoOperatePostBean();
+                    bean.userId=UserInstance.getInstance().getUid();
+                    bean.token=UserInstance.getInstance().getToken();
+                    bean.id=bean.id;
+                    bean.operateType="collection";
+
+                    ApiUtils.getApiService().videoOperate(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                        @Override
+                        public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                            switch (message.code) {
+                                case Constants.HTTP_SUCCESS:
+                                    if(finalUtil.tv_guanzhu.isEnabled()){
+                                        String dianzanshuString=finalUtil.tv_shipinguanzhu.getText().toString();
+                                        int dianzanshuint=Integer.parseInt(dianzanshuString)-1;
+                                        finalUtil.tv_shipinguanzhu.setText(dianzanshuint+"");
+                                    }else{
+                                        String dianzanshuString=finalUtil.tv_shipinguanzhu.getText().toString();
+                                        int dianzanshuint=Integer.parseInt(dianzanshuString)+1;
+                                        finalUtil.tv_shipinguanzhu.setText(dianzanshuint+"");
+                                    }
+                                    finalUtil.tv_guanzhu.setEnabled(!finalUtil.tv_guanzhu.isEnabled());
+                                    break;
+                            }
+                        }
+
+                        @Override
+                        public void onFail(Call<BaseBean> call, Throwable t) {
+
+                        }
+                    });
+
+                }
+            });
 
 
             util.gsyVideoPlayer.loadCoverImage(bean.videoBanner, R.mipmap.xxx1);
@@ -278,6 +356,8 @@ public class MoreShipinActivity extends BaseActivity {
             View ll_shipinguanzhu;
             TextView tv_shipinguanzhu;
             TextView tv_shipinbofangshu;
+            TextView tv_dianzan;
+            TextView tv_guanzhu;
         }
 
     }
