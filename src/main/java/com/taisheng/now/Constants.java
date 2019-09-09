@@ -48,7 +48,10 @@ public class Constants {
 
 
 
-        public static String Host = "http://192.168.1.12:8080/";
+//        public static String Host = "http://192.168.1.12:8080/";
+                public static String Host = "http://192.168.1.7:8080/";
+
+
 //        public static String Host = "http://152.136.26.41:8080/";
 
 
