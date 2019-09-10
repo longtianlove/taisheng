@@ -7,7 +7,7 @@ import android.database.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoreDB implements IEventListener {
+public class CoreDB  {
     public static String APP_DB_PATH = "/data/data/com.taisheng.now/";
     private final String TEXTTAG = "CoreDB";
     private static final String HISTORY_TABLE = "historyListTable";
@@ -47,7 +47,6 @@ public class CoreDB implements IEventListener {
 
     }
 
-    @Override
     public void dispatchEvent(String aEventID, boolean success, Object eventObj) {
 
 //        switch (aEventID) {

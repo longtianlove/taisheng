@@ -1,11 +1,17 @@
 package com.taisheng.now.chat.websocket;
 
+import android.util.Log;
+
 import com.neovisionaries.ws.client.WebSocket;
 import com.neovisionaries.ws.client.WebSocketAdapter;
 import com.neovisionaries.ws.client.WebSocketException;
 import com.neovisionaries.ws.client.WebSocketFactory;
 import com.neovisionaries.ws.client.WebSocketFrame;
 import com.taisheng.now.Constants;
+import com.taisheng.now.bussiness.bean.post.HealthInfo;
+import com.taisheng.now.bussiness.bean.result.UserInfo;
+import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.util.SPUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +23,22 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class WebSocketManager {
+
+    private static WebSocketManager instance;
+
+    private WebSocketManager() {
+    }
+
+    public static WebSocketManager getInstance() {
+        if (instance == null) {
+            instance = new WebSocketManager();
+            instance.mUri = Constants.Url.WEB_SOCKET_URL;
+            instance.mWebSocketFactory = new WebSocketFactory().setConnectionTimeout(DEFAULT_SOCKET_CONNECTTIMEOUT);
+
+        }
+        return instance;
+    }
+
 
     private static final int DEFAULT_SOCKET_CONNECTTIMEOUT = 3000;
     private static final int DEFAULT_SOCKET_RECONNECTINTERVAL = 3000;
@@ -44,10 +66,7 @@ public class WebSocketManager {
         CONNECTING;//正在连接
     }
 
-    public WebSocketManager(){
-        mUri = Constants.Url.WEB_SOCKET_URL;
-        mWebSocketFactory = new WebSocketFactory().setConnectionTimeout(DEFAULT_SOCKET_CONNECTTIMEOUT);
-    }
+
 
     public WebSocketManager(String deviceToken) {
         this(deviceToken, DEFAULT_SOCKET_CONNECTTIMEOUT);
@@ -80,15 +99,17 @@ public class WebSocketManager {
     }
 
     // 客户端像服务器发送消息
-    public void sendMessage(int deviceStatus, int appUpdateFlag) {
-//        try {
+    public void sendMessage(String message) {
+        try {
 //            JSONObject json = new JSONObject();
 //            json.put("xxx", xxx);
 //            json.put("xxx", xxx);
-//            mWebSocket.sendText(json.toString());
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+            mWebSocket.sendText(message);
+            Log.e("longtianlove","发送消息"+message);
+
+        } catch (Exception e) {
+            Log.e("longtianlove","发送消息失败"+e.getMessage());
+        }
     }
 
     private void setConnectStatus(ConnectStatus connectStatus) {

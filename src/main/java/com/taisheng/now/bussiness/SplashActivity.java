@@ -12,27 +12,17 @@ import android.text.TextUtils;
 import android.view.WindowManager;
 
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
 import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.bussiness.me.FillInMessageActivity;
 import com.taisheng.now.bussiness.me.FillInMessageSecondActivity;
 import com.taisheng.now.bussiness.user.LoginActivity;
-import com.taisheng.now.bussiness.user.UserInstance;
-import com.taisheng.now.chat.AEvent;
-import com.taisheng.now.chat.KeepLiveService;
 import com.taisheng.now.push.XMPushManagerInstance;
 import com.taisheng.now.util.Apputil;
 import com.taisheng.now.util.SPUtil;
 import com.xiaomi.mipush.sdk.MiPushClient;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +42,6 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
-        AEvent.setHandler(new Handler());
         checkPermission();
     }
 
@@ -104,9 +93,6 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
 
     //判断跳转逻辑
     void toWhere() {
-        initSDK();
-
-
         if (TextUtils.isEmpty(SPUtil.getUid())) {
             SPUtil.putAPP_VERSION(Apputil.getVersionCode() + "");
             SampleAppLike.mainHandler = new Handler(getMainLooper());
@@ -154,6 +140,7 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
                 }
             }, 1000);
         } else {
+
             SampleAppLike.mainHandler = new Handler(getMainLooper());
             SampleAppLike.mainHandler.postDelayed(new Runnable() {
                 @Override
@@ -174,14 +161,8 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
 
 
 
-    private void initSDK(){
-        startService();
-//        startAnimation();
-    }
-    private void startService(){
-        Intent intent = new Intent(SplashActivity.this, KeepLiveService.class);
-        startService(intent);
-    }
+
+
 
 
 //    //网络获取用户信息成功

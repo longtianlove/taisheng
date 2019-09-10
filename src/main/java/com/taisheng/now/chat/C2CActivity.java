@@ -19,15 +19,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
+import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
+import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.chat.websocket.WebSocketManager;
 import com.taisheng.now.util.DensityUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class C2CActivity extends Activity implements IEventListener, AdapterView.OnItemLongClickListener {
+public class C2CActivity extends Activity implements  AdapterView.OnItemLongClickListener {
 
     private EditText vEditText;
     private TextView vTargetId;
@@ -51,7 +57,6 @@ public class C2CActivity extends Activity implements IEventListener, AdapterView
                 finish();
             }
         });
-        addListener();
         vEditText = (EditText) findViewById(R.id.id_input);
         mDatas = new ArrayList<>();
 
@@ -77,6 +82,9 @@ public class C2CActivity extends Activity implements IEventListener, AdapterView
             }
         });
 
+        EventBus.getDefault().register(this);
+
+
     }
 
     private void sendMsg(String msg){
@@ -91,8 +99,17 @@ public class C2CActivity extends Activity implements IEventListener, AdapterView
 //                MLOC.d("IM_C2C  失败","消息序号："+errMsg);
 //            }
 //        });
+        String rawMessage=",fhadmin-msg,"+ UserInstance.getInstance().getUid() +",fh,"+mTargetId+",fh,"
+                +UserInstance.getInstance().getNickname()+",fh,普通用户,fh,"+UserInstance.getInstance().getRealname()
+                +",fh,friend,fh,assets/images/user/avatar-2.jpg,fh,"+msg;
+
+        WebSocketManager.getInstance().sendMessage(rawMessage);
+
         RemoteChatMessage message=new RemoteChatMessage();
-//todo 消息实例化
+        message.contentData=msg;
+        message.targetId=mTargetId;
+        message.fromId=UserInstance.getInstance().getUid();
+
         HistoryBean historyBean = new HistoryBean();
         historyBean.setType(CoreDB.HISTORY_TYPE_C2C);
         historyBean.setLastTime(new SimpleDateFormat("MM-dd HH:mm").format(new java.util.Date()));
@@ -115,14 +132,11 @@ public class C2CActivity extends Activity implements IEventListener, AdapterView
 
 
 
-    private void addListener(){
-        AEvent.addListener(AEvent.AEVENT_C2C_REV_MSG,this);
-    }
+
 
     @Override
     public void onRestart(){
         super.onRestart();
-        addListener();
     }
 
     @Override
@@ -138,18 +152,17 @@ public class C2CActivity extends Activity implements IEventListener, AdapterView
 
     @Override
     public void onStop(){
-        AEvent.removeListener(AEvent.AEVENT_C2C_REV_MSG,this);
         super.onStop();
     }
 
 
 
-    @Override
-    public void dispatchEvent(String aEventID, boolean success, final Object eventObj) {
-        MLOC.d("IM_C2C",aEventID+"||"+eventObj);
-        switch (aEventID){
-            case AEvent.AEVENT_C2C_REV_MSG:
-                final RemoteChatMessage revMsg = (RemoteChatMessage) eventObj;
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 0)
+    public void recevieMessage(EventManage.AEVENT_C2C_REV_MSG eventObj){
+        MLOC.d("IM_C2C","||"+eventObj);
+                final RemoteChatMessage revMsg = (RemoteChatMessage) eventObj.message;
                 if(revMsg.fromId.equals(mTargetId)){
                     HistoryBean historyBean = new HistoryBean();
                     historyBean.setType(CoreDB.HISTORY_TYPE_C2C);
@@ -166,10 +179,11 @@ public class C2CActivity extends Activity implements IEventListener, AdapterView
                     messageBean.setFromId(revMsg.fromId);
                     mDatas.add(messageBean);
                     mAdapter.notifyDataSetChanged();
-                }
-                break;
+
         }
     }
+
+
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -273,6 +287,9 @@ public class C2CActivity extends Activity implements IEventListener, AdapterView
         public ImageView vHeadImage;
     }
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

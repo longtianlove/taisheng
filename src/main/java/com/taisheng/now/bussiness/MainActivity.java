@@ -25,6 +25,7 @@ import com.taisheng.now.bussiness.first.FirstFragment;
 import com.taisheng.now.bussiness.me.MeFragment;
 import com.taisheng.now.bussiness.article.SecretFragment;
 import com.taisheng.now.bussiness.message.MessageFragment;
+import com.taisheng.now.chat.ChatManagerInstance;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.SPUtil;
 
@@ -58,7 +59,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message,tv_tab_secret,tv_tab_
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
+        ChatManagerInstance.getInstance().init();
         //进入主页
         SPUtil.putHome(true);
         initView();

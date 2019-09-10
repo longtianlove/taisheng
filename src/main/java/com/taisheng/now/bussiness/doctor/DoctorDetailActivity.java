@@ -39,6 +39,7 @@ import com.taisheng.now.bussiness.bean.result.DoctorCommentBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorNumberResultBean;
 import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.chat.C2CActivity;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.selfshipin.util.WebrtcUtil;
@@ -337,7 +338,8 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         mUserSig = bean.userSign;
-                        onJoinRoomByTecent(bean.roomId, bean.userId);
+                        toChat();
+//                        onJoinRoomByTecent(bean.roomId, bean.userId);
 //                        onJoinRoomBySelf(bean.roomId, bean.userId);
                         break;
                     case Constants.DOCTOR_BUSY:
@@ -356,6 +358,12 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
             }
         });
 
+    }
+
+    void toChat(){
+        Intent intent=new Intent(DoctorDetailActivity.this, C2CActivity.class);
+        intent.putExtra("targetId",doctorId);
+        startActivity(intent);
     }
 
 

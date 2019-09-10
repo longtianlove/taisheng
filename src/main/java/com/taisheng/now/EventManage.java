@@ -38,4 +38,11 @@ public class EventManage {
         }
     }
 
+
+
+    //收到消息
+    public static class  AEVENT_C2C_REV_MSG{
+        public Object message;
+    }
+
 }

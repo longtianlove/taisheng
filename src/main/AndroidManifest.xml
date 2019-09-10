@@ -192,12 +192,6 @@
 
         </activity>
 
-        <service android:name="com.taisheng.now.chat.KeepLiveService">
-            <intent-filter>
-                <action android:name="com.taisheng.now.chat.service.KeepLiveService"/>
-            </intent-filter>
-        </service>
-
         <activity
             android:name=".bussiness.me.MyPingjiaActivity"
             android:configChanges="keyboardHidden|orientation"

@@ -11,34 +11,24 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
-import com.google.android.material.tabs.TabLayout;
-import com.taisheng.now.Constants;
+import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragment;
-import com.taisheng.now.bussiness.MainActivity;
-import com.taisheng.now.bussiness.article.SecretSearchActivity;
-import com.taisheng.now.bussiness.article.SecretTabFragment;
-import com.taisheng.now.chat.AEvent;
 import com.taisheng.now.chat.C2CActivity;
 import com.taisheng.now.chat.CircularCoverView;
 import com.taisheng.now.chat.ColorUtils;
 import com.taisheng.now.chat.CoreDB;
 import com.taisheng.now.chat.HistoryBean;
-import com.taisheng.now.chat.IEventListener;
 import com.taisheng.now.chat.MLOC;
 import com.taisheng.now.util.DensityUtil;
 
-import java.lang.reflect.Field;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +43,7 @@ import java.util.List;
  */
 
 @SuppressLint("WrongConstant")
-public class MessageFragment extends BaseFragment implements IEventListener {
+public class MessageFragment extends BaseFragment  {
 
     private String mTargetId;
     private List<HistoryBean> mHistoryList;
@@ -70,7 +60,7 @@ public class MessageFragment extends BaseFragment implements IEventListener {
         initView(rootView);
 
 
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
         initData();
 
         return rootView;
@@ -111,14 +101,14 @@ public class MessageFragment extends BaseFragment implements IEventListener {
         }
         listAdapter.notifyDataSetChanged();
 
-        addListener();
+
     }
-    private void addListener(){
-        AEvent.addListener(AEvent.AEVENT_C2C_REV_MSG,this);
-    }
-    @Override
-    public void dispatchEvent(String aEventID, boolean success, final Object eventObj) {
-//        super.dispatchEvent(aEventID,success,eventObj);
+
+
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 0)
+    public void recevieMessage(EventManage.AEVENT_C2C_REV_MSG eventObj){
         onResume();
     }
 
@@ -203,7 +193,7 @@ public class MessageFragment extends BaseFragment implements IEventListener {
 
     public void onDestroy() {
         super.onDestroy();
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
 
     }
 }
