@@ -12,7 +12,10 @@ import com.starrtc.starrtcsdk.api.XHCustomConfig;
 import com.starrtc.starrtcsdk.apiInterface.IXHErrorCallback;
 import com.starrtc.starrtcsdk.apiInterface.IXHResultCallback;
 import com.starrtc.starrtcsdk.core.videosrc.XHVideoSourceManager;
+import com.taisheng.now.chat.websocket.WebSocketManager;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -54,6 +57,21 @@ public class KeepLiveService extends Service implements IEventListener {
         MLOC.d("KeepLiveService", "initFree");
         addListener();
         //todo 收到消息回调
+        WebSocketManager webSocketManager=new WebSocketManager();
+        webSocketManager.setWebSocketListener(new WebSocketManager.WebSocketListener() {
+            @Override
+            public void onConnected(Map<String, List<String>> headers) {
+
+            }
+
+            @Override
+            public void onTextMessage(String text) {
+
+            }
+        });
+        webSocketManager.connect();
+
+
 //        XHClient.getInstance().getChatManager().addListener(new XHChatManagerListener());
     }
 

@@ -28,11 +28,13 @@ import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.MainActivity;
 import com.taisheng.now.bussiness.article.SecretSearchActivity;
 import com.taisheng.now.bussiness.article.SecretTabFragment;
+import com.taisheng.now.chat.AEvent;
 import com.taisheng.now.chat.C2CActivity;
 import com.taisheng.now.chat.CircularCoverView;
 import com.taisheng.now.chat.ColorUtils;
 import com.taisheng.now.chat.CoreDB;
 import com.taisheng.now.chat.HistoryBean;
+import com.taisheng.now.chat.IEventListener;
 import com.taisheng.now.chat.MLOC;
 import com.taisheng.now.util.DensityUtil;
 
@@ -51,7 +53,7 @@ import java.util.List;
  */
 
 @SuppressLint("WrongConstant")
-public class MessageFragment extends BaseFragment {
+public class MessageFragment extends BaseFragment implements IEventListener {
 
     private String mTargetId;
     private List<HistoryBean> mHistoryList;
@@ -108,6 +110,16 @@ public class MessageFragment extends BaseFragment {
             mHistoryList.addAll(list);
         }
         listAdapter.notifyDataSetChanged();
+
+        addListener();
+    }
+    private void addListener(){
+        AEvent.addListener(AEvent.AEVENT_C2C_REV_MSG,this);
+    }
+    @Override
+    public void dispatchEvent(String aEventID, boolean success, final Object eventObj) {
+//        super.dispatchEvent(aEventID,success,eventObj);
+        onResume();
     }
 
     public class MyListAdapter extends BaseAdapter {

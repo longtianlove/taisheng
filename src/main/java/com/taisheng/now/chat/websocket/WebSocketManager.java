@@ -44,6 +44,11 @@ public class WebSocketManager {
         CONNECTING;//正在连接
     }
 
+    public WebSocketManager(){
+        mUri = Constants.Url.WEB_SOCKET_URL;
+        mWebSocketFactory = new WebSocketFactory().setConnectionTimeout(DEFAULT_SOCKET_CONNECTTIMEOUT);
+    }
+
     public WebSocketManager(String deviceToken) {
         this(deviceToken, DEFAULT_SOCKET_CONNECTTIMEOUT);
     }
