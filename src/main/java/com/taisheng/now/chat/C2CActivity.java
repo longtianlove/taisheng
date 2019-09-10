@@ -19,9 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.starrtc.starrtcsdk.api.XHClient;
-import com.starrtc.starrtcsdk.apiInterface.IXHResultCallback;
-import com.starrtc.starrtcsdk.core.im.message.XHIMMessage;
+
 import com.taisheng.now.R;
 import com.taisheng.now.util.DensityUtil;
 
@@ -82,18 +80,19 @@ public class C2CActivity extends Activity implements IEventListener, AdapterView
     }
 
     private void sendMsg(String msg){
-        XHIMMessage message = XHClient.getInstance().getChatManager().sendMessage(msg, mTargetId, new IXHResultCallback() {
-            @Override
-            public void success(Object data) {
-                MLOC.d("IM_C2C  成功","消息序号："+data);
-            }
-
-            @Override
-            public void failed(String errMsg) {
-                MLOC.d("IM_C2C  失败","消息序号："+errMsg);
-            }
-        });
-
+//        XHIMMessage message = XHClient.getInstance().getChatManager().sendMessage(msg, mTargetId, new IXHResultCallback() {
+//            @Override
+//            public void success(Object data) {
+//                MLOC.d("IM_C2C  成功","消息序号："+data);
+//            }
+//
+//            @Override
+//            public void failed(String errMsg) {
+//                MLOC.d("IM_C2C  失败","消息序号："+errMsg);
+//            }
+//        });
+        RemoteChatMessage message=new RemoteChatMessage();
+//todo 消息实例化
         HistoryBean historyBean = new HistoryBean();
         historyBean.setType(CoreDB.HISTORY_TYPE_C2C);
         historyBean.setLastTime(new SimpleDateFormat("MM-dd HH:mm").format(new java.util.Date()));
@@ -150,7 +149,7 @@ public class C2CActivity extends Activity implements IEventListener, AdapterView
         MLOC.d("IM_C2C",aEventID+"||"+eventObj);
         switch (aEventID){
             case AEvent.AEVENT_C2C_REV_MSG:
-                final XHIMMessage revMsg = (XHIMMessage) eventObj;
+                final RemoteChatMessage revMsg = (RemoteChatMessage) eventObj;
                 if(revMsg.fromId.equals(mTargetId)){
                     HistoryBean historyBean = new HistoryBean();
                     historyBean.setType(CoreDB.HISTORY_TYPE_C2C);

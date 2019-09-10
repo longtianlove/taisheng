@@ -107,7 +107,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
     implementation 'jp.wasabeef:glide-transformations:2.0.2'
     //图形变换依赖库
-    implementation files('libs/star_rtc_sdk.jar')
+
 
     implementation 'com.neovisionaries:nv-websocket-client:2.9'
 }
