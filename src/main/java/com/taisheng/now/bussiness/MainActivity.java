@@ -24,6 +24,7 @@ import com.taisheng.now.bussiness.doctor.DoctorFragment;
 import com.taisheng.now.bussiness.first.FirstFragment;
 import com.taisheng.now.bussiness.me.MeFragment;
 import com.taisheng.now.bussiness.article.SecretFragment;
+import com.taisheng.now.bussiness.message.MessageFragment;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.SPUtil;
 
@@ -33,16 +34,18 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     private static int mTabID[] = {
             R.id.tab_first,
             R.id.tab_doctor,
+            R.id.tab_message,
             R.id.tab_secret,
             R.id.tab_me};
 
-    private ImageView iv_tab_first, iv_tab_doctor, iv_tab_secret,iv_tab_me;
-private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
+    private ImageView iv_tab_first, iv_tab_doctor,iv_tab_message, iv_tab_secret,iv_tab_me;
+private TextView tv_tab_first,tv_tab_doctor,tv_tab_message,tv_tab_secret,tv_tab_me;
 
-    private View mTabs[] = {null, null,null, null};
+    private View mTabs[] = {null, null,null,null, null};
 
     private FirstFragment firstFragment;
     private DoctorFragment doctorFragment;
+    private MessageFragment messageFragment;
     public SecretFragment secretFragment;
     private MeFragment meFragment;
 
@@ -62,6 +65,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
         if (savedInstanceState != null) {
             firstFragment = (FirstFragment) getSupportFragmentManager().findFragmentByTag(FirstFragment.class.getName());
             doctorFragment = (DoctorFragment) getSupportFragmentManager().findFragmentByTag(DoctorFragment.class.getName());
+            messageFragment= (MessageFragment) getSupportFragmentManager().findFragmentByTag(MessageFragment.class.getName());
             secretFragment= (SecretFragment) getSupportFragmentManager().findFragmentByTag(SecretFragment.class.getName());
             meFragment = (MeFragment) getSupportFragmentManager().findFragmentByTag(MeFragment.class.getName());
             if (firstFragment == null) {
@@ -69,6 +73,9 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
             }
             if (doctorFragment == null) {
                 doctorFragment = new DoctorFragment();
+            }
+            if(messageFragment==null){
+                messageFragment=new MessageFragment();
             }
             if(secretFragment==null){
                 secretFragment=new SecretFragment();
@@ -79,6 +86,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
             getSupportFragmentManager().beginTransaction()
                     .show(firstFragment)
                     .hide(doctorFragment)
+                    .hide(messageFragment)
                     .hide(secretFragment)
                     .hide(meFragment).commit();
         } else {
@@ -89,7 +97,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
         }
 
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             mTabs[i] = findViewById(mTabID[i]);
             mTabs[i].setOnClickListener(this);
         }
@@ -107,10 +115,12 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
         toolBar=findViewById(R.id.toolBar);
         iv_tab_first= (ImageView) findViewById(R.id.iv_tab_first);
         iv_tab_doctor= (ImageView) findViewById(R.id.iv_tab_doctor);
+        iv_tab_message=findViewById(R.id.iv_tab_message);
         iv_tab_secret= (ImageView) findViewById(R.id.iv_tab_secret);
         iv_tab_me= (ImageView) findViewById(R.id.iv_tab_me);
         tv_tab_first= (TextView) findViewById(R.id.tv_tab_first);
         tv_tab_doctor= (TextView) findViewById(R.id.tv_tab_doctor);
+        tv_tab_message=findViewById(R.id.tv_tab_message);
         tv_tab_secret= (TextView) findViewById(R.id.tv_tab_secret);
         tv_tab_me= (TextView) findViewById(R.id.tv_tab_me);
 
@@ -126,6 +136,9 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
         if (null != doctorFragment) {
             transaction.hide(doctorFragment);
         }
+        if(null!=messageFragment){
+            transaction.hide(messageFragment);
+        }
         if(null!=secretFragment){
             transaction.hide(secretFragment);
         }
@@ -136,6 +149,9 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
         tv_tab_first.setTextColor(getResources().getColor(R.color.tv_tab_color_normal));
         iv_tab_doctor.setSelected(false);
         tv_tab_doctor.setTextColor(getResources().getColor(R.color.tv_tab_color_normal));
+
+        iv_tab_message.setSelected(false);
+        tv_tab_message.setTextColor(getResources().getColor(R.color.tv_tab_color_normal));
 
         iv_tab_secret.setSelected(false);
         tv_tab_secret.setTextColor(getResources().getColor(R.color.tv_tab_color_normal));
@@ -213,6 +229,19 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
                 toolBar.setVisibility(View.GONE);
                 firstFragment.videoPlayer.onVideoPause();
                 break;
+            case 4:
+                if (messageFragment == null) {
+                    messageFragment = new MessageFragment();
+                    transaction.add(R.id.fragment_container, messageFragment, MessageFragment.class.getName());
+                }
+//                getLocationWithOneMinute = false;
+                select_index = 4;
+                transaction
+                        .show(messageFragment).commit();
+                iv_tab_message.setSelected(true);
+                tv_tab_message.setTextColor(getResources().getColor(R.color.tv_tab_color_select));
+                firstFragment.videoPlayer.onVideoPause();
+                break;
         }
     }
 
@@ -231,6 +260,9 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_secret,tv_tab_me;
                 break;
             case R.id.tab_me:
                 showFragment(3);
+                break;
+            case R.id.tab_message:
+                showFragment(4);
                 break;
         }
     }

@@ -182,6 +182,21 @@
             android:theme="@style/Theme.AppCompat">
 
         </activity>
+        <activity
+            android:name="com.taisheng.now.chat.C2CActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat">
+
+        </activity>
+
+        <service android:name="com.taisheng.now.chat.KeepLiveService">
+            <intent-filter>
+                <action android:name="com.taisheng.now.chat.service.KeepLiveService"/>
+            </intent-filter>
+        </service>
 
         <activity
             android:name=".bussiness.me.MyPingjiaActivity"
