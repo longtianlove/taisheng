@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -41,6 +43,7 @@ public class C2CActivity extends Activity implements  AdapterView.OnItemLongClic
     private View vSendBtn;
 
     private String mTargetId;
+    public String doctorAvator;
     private List<MessageBean> mDatas;
     private MyChatroomListAdapter mAdapter ;
 
@@ -62,6 +65,7 @@ public class C2CActivity extends Activity implements  AdapterView.OnItemLongClic
 
         mTargetId = getIntent().getStringExtra("targetId");
         ((TextView)findViewById(R.id.title_text)).setText(mTargetId);
+        doctorAvator=getIntent().getStringExtra("doctorAvator");
         mAdapter = new MyChatroomListAdapter();
         vMsgList = (ListView) findViewById(R.id.msg_list);
         vMsgList.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
@@ -88,17 +92,6 @@ public class C2CActivity extends Activity implements  AdapterView.OnItemLongClic
     }
 
     private void sendMsg(String msg){
-//        XHIMMessage message = XHClient.getInstance().getChatManager().sendMessage(msg, mTargetId, new IXHResultCallback() {
-//            @Override
-//            public void success(Object data) {
-//                MLOC.d("IM_C2C  成功","消息序号："+data);
-//            }
-//
-//            @Override
-//            public void failed(String errMsg) {
-//                MLOC.d("IM_C2C  失败","消息序号："+errMsg);
-//            }
-//        });
         String rawMessage=",fhadmin-msg,"+ UserInstance.getInstance().getUid() +",fh,"+mTargetId+",fh,"
                 +UserInstance.getInstance().getNickname()+",fh,普通用户,fh,"+UserInstance.getInstance().getRealname()
                 +",fh,friend,fh,assets/images/user/avatar-2.jpg,fh,"+msg;
@@ -116,6 +109,7 @@ public class C2CActivity extends Activity implements  AdapterView.OnItemLongClic
         historyBean.setLastMsg(message.contentData);
         historyBean.setConversationId(message.targetId);
         historyBean.setNewMsgCount(1);
+        historyBean.doctorAvator=doctorAvator;
         MLOC.addHistory(historyBean,true);
 
         MessageBean messageBean = new MessageBean();
@@ -239,20 +233,21 @@ public class C2CActivity extends Activity implements  AdapterView.OnItemLongClic
                     convertView = mInflater.inflate(R.layout.item_chat_msg_list_right,null);
                     itemSelfHolder.vUserId = (TextView) convertView.findViewById(R.id.item_user_id);
                     itemSelfHolder.vMsg = (TextView) convertView.findViewById(R.id.item_msg);
-                    itemSelfHolder.vHeadBg = convertView.findViewById(R.id.head_bg);
-                    itemSelfHolder.vHeadCover = (CircularCoverView) convertView.findViewById(R.id.head_cover);
-                    itemSelfHolder.vHeadImage = (ImageView) convertView.findViewById(R.id.head_img);
+//                    itemSelfHolder.vHeadBg = convertView.findViewById(R.id.head_bg);
+                    itemSelfHolder.sdv_header=convertView.findViewById(R.id.sdv_header);
+//                    itemSelfHolder.vHeadCover = (CircularCoverView) convertView.findViewById(R.id.head_cover);
+//                    itemSelfHolder.vHeadImage = (ImageView) convertView.findViewById(R.id.head_img);
                     convertView.setTag(itemSelfHolder);
                 }else{
                     itemSelfHolder = (ViewHolder)convertView.getTag();
                 }
                 itemSelfHolder.vUserId.setText(mDatas.get(position).getFromId());
                 itemSelfHolder.vMsg.setText(mDatas.get(position).getMsg());
-                itemSelfHolder.vHeadBg.setBackgroundColor(ColorUtils.getColor(C2CActivity.this,mDatas.get(position).getFromId()));
-                itemSelfHolder.vHeadCover.setCoverColor(Color.parseColor("#f6f6f6"));
-                int cint = DensityUtil.dip2px(C2CActivity.this,20);
-                itemSelfHolder.vHeadCover.setRadians(cint, cint, cint, cint,0);
-                itemSelfHolder.vHeadImage.setImageResource(MLOC.getHeadImage(C2CActivity.this,mDatas.get(position).getFromId()));
+//                itemSelfHolder.vHeadBg.setBackgroundColor(ColorUtils.getColor(C2CActivity.this,mDatas.get(position).getFromId()));
+//                itemSelfHolder.vHeadCover.setCoverColor(Color.parseColor("#f6f6f6"));
+//                int cint = DensityUtil.dip2px(C2CActivity.this,20);
+//                itemSelfHolder.vHeadCover.setRadians(cint, cint, cint, cint,0);
+//                itemSelfHolder.vHeadImage.setImageResource(MLOC.getHeadImage(C2CActivity.this,mDatas.get(position).getFromId()));
             }else if(currLayoutType == 1){//别人的信息
                 final ViewHolder itemOtherHolder;
                 if(convertView == null){
@@ -260,20 +255,25 @@ public class C2CActivity extends Activity implements  AdapterView.OnItemLongClic
                     convertView = mInflater.inflate(R.layout.item_chat_msg_list_left,null);
                     itemOtherHolder.vUserId = (TextView) convertView.findViewById(R.id.item_user_id);
                     itemOtherHolder.vMsg = (TextView) convertView.findViewById(R.id.item_msg);
-                    itemOtherHolder.vHeadBg = convertView.findViewById(R.id.head_bg);
-                    itemOtherHolder.vHeadCover = (CircularCoverView) convertView.findViewById(R.id.head_cover);
-                    itemOtherHolder.vHeadImage = (ImageView) convertView.findViewById(R.id.head_img);
+//                    itemOtherHolder.vHeadBg = convertView.findViewById(R.id.head_bg);
+                    itemOtherHolder.sdv_header=convertView.findViewById(R.id.sdv_header);
+//                    itemOtherHolder.vHeadCover = (CircularCoverView) convertView.findViewById(R.id.head_cover);
+//                    itemOtherHolder.vHeadImage = (ImageView) convertView.findViewById(R.id.head_img);
                     convertView.setTag(itemOtherHolder);
                 }else{
                     itemOtherHolder = (ViewHolder)convertView.getTag();
                 }
                 itemOtherHolder.vUserId.setText(mDatas.get(position).getFromId());
                 itemOtherHolder.vMsg.setText(mDatas.get(position).getMsg());
-                itemOtherHolder.vHeadBg.setBackgroundColor(ColorUtils.getColor(C2CActivity.this,mDatas.get(position).getFromId()));
-                itemOtherHolder.vHeadCover.setCoverColor(Color.parseColor("#f6f6f6"));
-                int cint = DensityUtil.dip2px(C2CActivity.this,20);
-                itemOtherHolder.vHeadCover.setRadians(cint, cint, cint, cint,0);
-                itemOtherHolder.vHeadImage.setImageResource(MLOC.getHeadImage(C2CActivity.this,mDatas.get(position).getFromId()));
+                if(doctorAvator!=null&&!"".equals(doctorAvator)) {
+                    Uri uri = Uri.parse(doctorAvator);
+                    itemOtherHolder.sdv_header.setImageURI(uri);
+                }
+//                itemOtherHolder.vHeadBg.setBackgroundColor(ColorUtils.getColor(C2CActivity.this,mDatas.get(position).getFromId()));
+//                itemOtherHolder.vHeadCover.setCoverColor(Color.parseColor("#f6f6f6"));
+//                int cint = DensityUtil.dip2px(C2CActivity.this,20);
+//                itemOtherHolder.vHeadCover.setRadians(cint, cint, cint, cint,0);
+//                itemOtherHolder.vHeadImage.setImageResource(MLOC.getHeadImage(C2CActivity.this,mDatas.get(position).getFromId()));
             }
             return convertView;
         }
@@ -282,9 +282,10 @@ public class C2CActivity extends Activity implements  AdapterView.OnItemLongClic
     public class ViewHolder{
         public TextView vUserId;
         public TextView vMsg;
-        public View vHeadBg;
-        public CircularCoverView vHeadCover;
-        public ImageView vHeadImage;
+//        public View vHeadBg;
+//        public CircularCoverView vHeadCover;
+//        public ImageView vHeadImage;
+        public SimpleDraweeView sdv_header;
     }
 
     @Override

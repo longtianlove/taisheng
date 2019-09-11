@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragment;
@@ -78,6 +80,7 @@ public class MessageFragment extends BaseFragment  {
                 mTargetId = (String) mHistoryList.get(position).getConversationId();
                 Intent intent = new Intent(getActivity(), C2CActivity.class);
                 intent.putExtra("targetId",mTargetId);
+                intent.putExtra("doctorAvator",mHistoryList.get(position).doctorAvator);
                 startActivity(intent);
             }
         });
@@ -150,9 +153,10 @@ public class MessageFragment extends BaseFragment  {
                 itemSelfHolder.vTime = (TextView) convertView.findViewById(R.id.item_time);
                 itemSelfHolder.vMessage = (TextView) convertView.findViewById(R.id.item_msg);
                 itemSelfHolder.vCount = (TextView) convertView.findViewById(R.id.item_count);
-                itemSelfHolder.vHeadBg =  convertView.findViewById(R.id.head_bg);
-                itemSelfHolder.vHeadImage = (ImageView) convertView.findViewById(R.id.head_img);
-                itemSelfHolder.vHeadCover = (CircularCoverView) convertView.findViewById(R.id.head_cover);
+//                itemSelfHolder.vHeadBg =  convertView.findViewById(R.id.head_bg);
+                itemSelfHolder.sdv_header=convertView.findViewById(R.id.sdv_header);
+//                itemSelfHolder.vHeadImage = (ImageView) convertView.findViewById(R.id.head_img);
+//                itemSelfHolder.vHeadCover = (CircularCoverView) convertView.findViewById(R.id.head_cover);
                 convertView.setTag(itemSelfHolder);
             }else{
                 itemSelfHolder = (ViewHolder)convertView.getTag();
@@ -161,12 +165,16 @@ public class MessageFragment extends BaseFragment  {
             HistoryBean historyBean = mHistoryList.get(position);
             String userId = historyBean.getConversationId();
             itemSelfHolder.vUserId.setText(userId);
-            itemSelfHolder.vHeadBg.setBackgroundColor(ColorUtils.getColor(getActivity(),userId));
-            itemSelfHolder.vHeadCover.setCoverColor(Color.parseColor("#FFFFFF"));
-            int cint = DensityUtil.dip2px(getActivity(),28);
-            itemSelfHolder.vHeadCover.setRadians(cint, cint, cint, cint,0);
-            itemSelfHolder.vHeadImage.setImageResource(MLOC.getHeadImage(getActivity(),userId));
+//            itemSelfHolder.vHeadBg.setBackgroundColor(ColorUtils.getColor(getActivity(),userId));
+//            itemSelfHolder.vHeadCover.setCoverColor(Color.parseColor("#FFFFFF"));
+//            int cint = DensityUtil.dip2px(getActivity(),28);
+//            itemSelfHolder.vHeadCover.setRadians(cint, cint, cint, cint,0);
+//            itemSelfHolder.vHeadImage.setImageResource(MLOC.getHeadImage(getActivity(),userId));
 
+            if(historyBean.doctorAvator!=null&&!"".equals(historyBean.doctorAvator)) {
+                Uri uri = Uri.parse(historyBean.doctorAvator);
+                itemSelfHolder.sdv_header.setImageURI(uri);
+            }
             itemSelfHolder.vTime.setText(historyBean.getLastTime());
             itemSelfHolder.vMessage.setText(historyBean.getLastMsg());
             if(historyBean.getNewMsgCount()==0){
@@ -184,9 +192,10 @@ public class MessageFragment extends BaseFragment  {
         public TextView vTime;
         public TextView vMessage;
         public TextView vCount;
-        public View vHeadBg;
-        public CircularCoverView vHeadCover;
-        public ImageView vHeadImage;
+//        public View vHeadBg;
+//        public CircularCoverView vHeadCover;
+//        public ImageView vHeadImage;
+        public SimpleDraweeView sdv_header;
     }
 
 

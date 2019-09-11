@@ -9,6 +9,7 @@ public class HistoryBean {
     private String lastTime = "";
     private String groupName = "";
     private String groupCreaterId = "";
+    public String doctorAvator="";
 
     public int getId() {
         return id;

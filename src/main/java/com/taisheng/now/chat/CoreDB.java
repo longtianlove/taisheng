@@ -30,6 +30,7 @@ public class CoreDB  {
         coreDBM.execSQL("create table if not exists "+HISTORY_TABLE+"(" +
                 "id INTEGER PRIMARY KEY," +
                 "type TEXT ," +
+                "doctoravatar TEXT ," +
                 "conversationId TEXT ," +
                 "newMsg INTEGER," +
                 "groupName TEXT," +
@@ -71,6 +72,7 @@ public class CoreDB  {
             bean.setNewMsgCount(cursor.getInt(cursor.getColumnIndex("newMsg")));
             bean.setLastMsg(cursor.getString(cursor.getColumnIndex("lastMsg")));
             bean.setLastTime(cursor.getString(cursor.getColumnIndex("lastTime")));
+            bean.doctorAvator=cursor.getString(cursor.getColumnIndex("doctoravatar"));
             bean.setGroupName(cursor.getString(cursor.getColumnIndex("groupName")));
             bean.setGroupCreaterId(cursor.getString(cursor.getColumnIndex("groupCreaterId")));
             bean.setType(type);
@@ -111,20 +113,22 @@ public class CoreDB  {
             if (cursor != null) cursor.close();
             coreDBM.execSQL("UPDATE "+HISTORY_TABLE+" SET newMsg = ?," +
                     " lastMsg = ?," +
-                    " lastTime = ?" +
+                    " lastTime = ?," +
+                            " doctoravatar = ?" +
                     " where type=? and conversationId=?",
                     new Object[]{
                             historyBean.getNewMsgCount(), historyBean.getLastMsg(),
                             historyBean.getLastTime(),
+                            historyBean.doctorAvator,
                             historyBean.getType(), historyBean.getConversationId()});
         }else{
             if(hasRead){
                 historyBean.setNewMsgCount(0);
             }
-            coreDBM.execSQL("insert into " + HISTORY_TABLE + "(type,conversationId,newMsg,lastMsg,lastTime,groupName,groupCreaterId) values(?,?,?,?,?,?,?)",
+            coreDBM.execSQL("insert into " + HISTORY_TABLE + "(type,conversationId,newMsg,lastMsg,lastTime,doctoravatar,groupName,groupCreaterId) values(?,?,?,?,?,?,?,?)",
                     new Object[]{historyBean.getType(), historyBean.getConversationId(),
                             historyBean.getNewMsgCount(), historyBean.getLastMsg(),
-                            historyBean.getLastTime(),historyBean.getGroupName(),
+                            historyBean.getLastTime(), historyBean.doctorAvator,historyBean.getGroupName(),
                             historyBean.getGroupCreaterId()});
         }
 

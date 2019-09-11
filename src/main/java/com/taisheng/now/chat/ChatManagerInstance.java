@@ -62,13 +62,14 @@ public class ChatManagerInstance {
                             RemoteChatMessage message = new RemoteChatMessage();
                             message.fromId = rawRemoteMessage.send_id;
                             message.contentData = rawRemoteMessage.content;
-                            //todo 实例化消息
+
                             HistoryBean historyBean = new HistoryBean();
                             historyBean.setType(CoreDB.HISTORY_TYPE_C2C);
                             historyBean.setLastTime(new SimpleDateFormat("MM-dd HH:mm").format(new java.util.Date()));
                             historyBean.setLastMsg(message.contentData);
                             historyBean.setConversationId(message.fromId);
                             historyBean.setNewMsgCount(1);
+                            historyBean.doctorAvator=rawRemoteMessage.avatar;
                             MLOC.addHistory(historyBean, false);
 
                             MessageBean messageBean = new MessageBean();

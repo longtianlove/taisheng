@@ -363,6 +363,7 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
     void toChat(){
         Intent intent=new Intent(DoctorDetailActivity.this, C2CActivity.class);
         intent.putExtra("targetId",doctorId);
+        intent.putExtra("doctorAvator",doctorAvator);
         startActivity(intent);
     }
 
@@ -385,6 +386,8 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
     }
 
     DoctorBean doctorBean;
+
+    String doctorAvator;
 
     void getDoctorDetail() {
         DoctorDetailPostBean bean = new DoctorDetailPostBean();
@@ -432,6 +435,7 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
                             Uri uri = Uri.parse(doctorBean.img);
                             sdv_doctor_header.setImageURI(uri);
                         }
+                        doctorAvator=doctorBean.avatar;
                         break;
                 }
             }
