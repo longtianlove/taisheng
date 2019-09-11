@@ -10,6 +10,7 @@ public class HistoryBean {
     private String groupName = "";
     private String groupCreaterId = "";
     public String doctorAvator="";
+    public String doctorName="";
 
     public int getId() {
         return id;

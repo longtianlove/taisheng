@@ -70,6 +70,7 @@ public class ChatManagerInstance {
                             historyBean.setConversationId(message.fromId);
                             historyBean.setNewMsgCount(1);
                             historyBean.doctorAvator=rawRemoteMessage.avatar;
+                            historyBean.doctorName=rawRemoteMessage.user_name;
                             MLOC.addHistory(historyBean, false);
 
                             MessageBean messageBean = new MessageBean();

@@ -14,6 +14,7 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.bean.post.ArticleCollectionBean;
 import com.taisheng.now.bussiness.bean.post.CollectAddorRemovePostBean;
 import com.taisheng.now.bussiness.bean.post.UpdateArticleReadCountPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleContentBean;
@@ -84,18 +85,18 @@ public class ArticleContentActivity extends BaseActivity {
                 if (DoubleClickUtil.isFastMiniDoubleClick()) {
                     return;
                 }
-                CollectAddorRemovePostBean bean = new CollectAddorRemovePostBean();
+                ArticleCollectionBean bean = new ArticleCollectionBean();
                 bean.userId = UserInstance.getInstance().getUid();
                 bean.token = UserInstance.getInstance().getToken();
-                bean.collectionType = "2";
+                bean.label = "app";
                 bean.dataId = articleId;
-                ApiUtils.getApiService().collectionaddOrRemove(bean).enqueue(new TaiShengCallback<BaseBean<CollectAddorRemoveResultBean>>() {
+                ApiUtils.getApiService().saveCollectionArticleLog(bean).enqueue(new TaiShengCallback<BaseBean>() {
                     @Override
-                    public void onSuccess(Response<BaseBean<CollectAddorRemoveResultBean>> response, BaseBean<CollectAddorRemoveResultBean> message) {
+                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
-                                String resultFeedback = message.result.resultFeedback;
-                                if ("0".equals(resultFeedback)) {
+//                                String resultFeedback = message.result.resultFeedback;
+                                if ("YES".equals(collectionFlag)) {
                                     collectionFlag = "NO";
                                     tv_collect.setEnabled(false);
                                     tv_collect_label.setText("  收藏");
@@ -109,7 +110,7 @@ public class ArticleContentActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onFail(Call<BaseBean<CollectAddorRemoveResultBean>> call, Throwable t) {
+                    public void onFail(Call<BaseBean> call, Throwable t) {
 
                     }
                 });
@@ -161,7 +162,7 @@ public class ArticleContentActivity extends BaseActivity {
 //                                        "<style>img{max-width:100% !important;height:auto !important;}</style>"
 //                                        + "<style>body{max-width:100% !important;}</style>" + "</head><body>";
 //                                webView.loadDataWithBaseURL(null, sHead + message.result.content + "</body></html>", "text/html", "utf-8", null);
-                                webView.loadUrl(Constants.Url.Article.articleContent+articleId);
+                                webView.loadUrl(Constants.Url.Article.articleContent+articleId+"&type=app&userId="+UserInstance.getInstance().getUid());
                             } catch (Exception e) {
                                 Log.e("article", e.getMessage());
                             }
@@ -223,7 +224,7 @@ public class ArticleContentActivity extends BaseActivity {
 //        oks.setImageData(BitmapFactory.decodeResource(getResources(), R.drawable.icon_app));
         oks.setImageUrl(articlePic);
         // url在微信、Facebook等平台中使用
-        oks.setUrl(Constants.Url.Article.articleContent+articleId);
+        oks.setUrl(Constants.Url.Article.articleContent+articleId+"&shareType=app&userId="+UserInstance.getInstance().getUid());
         // 启动分享GUI
         oks.show(this);
     }

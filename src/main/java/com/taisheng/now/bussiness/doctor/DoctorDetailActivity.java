@@ -364,6 +364,7 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
         Intent intent=new Intent(DoctorDetailActivity.this, C2CActivity.class);
         intent.putExtra("targetId",doctorId);
         intent.putExtra("doctorAvator",doctorAvator);
+        intent.putExtra("doctorName",doctorName);
         startActivity(intent);
     }
 
@@ -388,6 +389,7 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
     DoctorBean doctorBean;
 
     String doctorAvator;
+    String doctorName;
 
     void getDoctorDetail() {
         DoctorDetailPostBean bean = new DoctorDetailPostBean();
@@ -401,6 +403,7 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
                     case Constants.HTTP_SUCCESS:
                         doctorBean = message.result;
                         tv_doctor_name.setText(doctorBean.nickName);
+                        doctorName=doctorBean.nickName;
 
                         if ("1".equals(doctorBean.onlineStatus)) {
                             tv_onlineStatus.setText("在线");

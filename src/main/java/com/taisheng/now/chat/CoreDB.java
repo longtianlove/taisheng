@@ -31,6 +31,7 @@ public class CoreDB  {
                 "id INTEGER PRIMARY KEY," +
                 "type TEXT ," +
                 "doctoravatar TEXT ," +
+                "doctorName TEXT ," +
                 "conversationId TEXT ," +
                 "newMsg INTEGER," +
                 "groupName TEXT," +
@@ -75,6 +76,7 @@ public class CoreDB  {
             bean.doctorAvator=cursor.getString(cursor.getColumnIndex("doctoravatar"));
             bean.setGroupName(cursor.getString(cursor.getColumnIndex("groupName")));
             bean.setGroupCreaterId(cursor.getString(cursor.getColumnIndex("groupCreaterId")));
+            bean.doctorName=cursor.getString(cursor.getColumnIndex("doctorName"));
             bean.setType(type);
             list.add(bean);
         }
@@ -114,21 +116,23 @@ public class CoreDB  {
             coreDBM.execSQL("UPDATE "+HISTORY_TABLE+" SET newMsg = ?," +
                     " lastMsg = ?," +
                     " lastTime = ?," +
-                            " doctoravatar = ?" +
+                            " doctoravatar = ?," +
+                            " doctorName = ?" +
                     " where type=? and conversationId=?",
                     new Object[]{
                             historyBean.getNewMsgCount(), historyBean.getLastMsg(),
                             historyBean.getLastTime(),
                             historyBean.doctorAvator,
+                            historyBean.doctorName,
                             historyBean.getType(), historyBean.getConversationId()});
         }else{
             if(hasRead){
                 historyBean.setNewMsgCount(0);
             }
-            coreDBM.execSQL("insert into " + HISTORY_TABLE + "(type,conversationId,newMsg,lastMsg,lastTime,doctoravatar,groupName,groupCreaterId) values(?,?,?,?,?,?,?,?)",
+            coreDBM.execSQL("insert into " + HISTORY_TABLE + "(type,conversationId,newMsg,lastMsg,lastTime,doctoravatar,doctorName,groupName,groupCreaterId) values(?,?,?,?,?,?,?,?,?)",
                     new Object[]{historyBean.getType(), historyBean.getConversationId(),
                             historyBean.getNewMsgCount(), historyBean.getLastMsg(),
-                            historyBean.getLastTime(), historyBean.doctorAvator,historyBean.getGroupName(),
+                            historyBean.getLastTime(), historyBean.doctorAvator,historyBean.doctorName,historyBean.getGroupName(),
                             historyBean.getGroupCreaterId()});
         }
 

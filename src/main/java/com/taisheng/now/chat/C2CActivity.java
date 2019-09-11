@@ -44,6 +44,7 @@ public class C2CActivity extends Activity implements  AdapterView.OnItemLongClic
 
     private String mTargetId;
     public String doctorAvator;
+    public String doctorName;
     private List<MessageBean> mDatas;
     private MyChatroomListAdapter mAdapter ;
 
@@ -64,8 +65,10 @@ public class C2CActivity extends Activity implements  AdapterView.OnItemLongClic
         mDatas = new ArrayList<>();
 
         mTargetId = getIntent().getStringExtra("targetId");
-        ((TextView)findViewById(R.id.title_text)).setText(mTargetId);
+
         doctorAvator=getIntent().getStringExtra("doctorAvator");
+        doctorName=getIntent().getStringExtra("doctorName");
+        ((TextView)findViewById(R.id.title_text)).setText(doctorName);
         mAdapter = new MyChatroomListAdapter();
         vMsgList = (ListView) findViewById(R.id.msg_list);
         vMsgList.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
@@ -164,6 +167,8 @@ public class C2CActivity extends Activity implements  AdapterView.OnItemLongClic
                     historyBean.setLastMsg(revMsg.contentData);
                     historyBean.setConversationId(revMsg.fromId);
                     historyBean.setNewMsgCount(1);
+                    historyBean.doctorName=doctorName;
+                    historyBean.doctorAvator=doctorAvator;
                     MLOC.addHistory(historyBean,true);
 
                     MessageBean messageBean = new MessageBean();
@@ -241,7 +246,7 @@ public class C2CActivity extends Activity implements  AdapterView.OnItemLongClic
                 }else{
                     itemSelfHolder = (ViewHolder)convertView.getTag();
                 }
-                itemSelfHolder.vUserId.setText(mDatas.get(position).getFromId());
+                itemSelfHolder.vUserId.setText(UserInstance.getInstance().getNickname());
                 itemSelfHolder.vMsg.setText(mDatas.get(position).getMsg());
 //                itemSelfHolder.vHeadBg.setBackgroundColor(ColorUtils.getColor(C2CActivity.this,mDatas.get(position).getFromId()));
 //                itemSelfHolder.vHeadCover.setCoverColor(Color.parseColor("#f6f6f6"));
@@ -263,7 +268,7 @@ public class C2CActivity extends Activity implements  AdapterView.OnItemLongClic
                 }else{
                     itemOtherHolder = (ViewHolder)convertView.getTag();
                 }
-                itemOtherHolder.vUserId.setText(mDatas.get(position).getFromId());
+                itemOtherHolder.vUserId.setText(doctorName);
                 itemOtherHolder.vMsg.setText(mDatas.get(position).getMsg());
                 if(doctorAvator!=null&&!"".equals(doctorAvator)) {
                     Uri uri = Uri.parse(doctorAvator);

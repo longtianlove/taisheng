@@ -53,6 +53,9 @@ public class MessageFragment extends BaseFragment  {
     private MyListAdapter listAdapter;
 
 
+    public String doctorName;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,6 +84,8 @@ public class MessageFragment extends BaseFragment  {
                 Intent intent = new Intent(getActivity(), C2CActivity.class);
                 intent.putExtra("targetId",mTargetId);
                 intent.putExtra("doctorAvator",mHistoryList.get(position).doctorAvator);
+                intent.putExtra("doctorName",mHistoryList.get(position).doctorName);
+
                 startActivity(intent);
             }
         });
@@ -164,7 +169,7 @@ public class MessageFragment extends BaseFragment  {
 
             HistoryBean historyBean = mHistoryList.get(position);
             String userId = historyBean.getConversationId();
-            itemSelfHolder.vUserId.setText(userId);
+            itemSelfHolder.vUserId.setText(historyBean.doctorName);
 //            itemSelfHolder.vHeadBg.setBackgroundColor(ColorUtils.getColor(getActivity(),userId));
 //            itemSelfHolder.vHeadCover.setCoverColor(Color.parseColor("#FFFFFF"));
 //            int cint = DensityUtil.dip2px(getActivity(),28);
