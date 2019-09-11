@@ -104,7 +104,9 @@ public class WebSocketManager {
 //            JSONObject json = new JSONObject();
 //            json.put("xxx", xxx);
 //            json.put("xxx", xxx);
-            mWebSocket.sendText(message);
+            synchronized (mWebSocket) {
+                mWebSocket.sendText(message);
+            }
             Log.e("longtianlove","发送消息"+message);
 
         } catch (Exception e) {

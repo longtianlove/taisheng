@@ -52,6 +52,20 @@ public class ChatManagerInstance {
                     public void onConnected(Map<String, List<String>> headers) {
                         Log.e("longtianlove", "websocket-connect");
                         webSocketManager.sendMessage(",mobilefh-join," + UserInstance.getInstance().getUid());
+                       Thread thread= new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                while (true) {
+                                    try {
+                                        Thread.sleep(60000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    webSocketManager.sendMessage(",heartbeat,"+UserInstance.getInstance().getUid());
+                                }
+                            }
+                        });
+                        thread.start();
                     }
 
                     @Override
