@@ -33,6 +33,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
+import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.ConnectDoctorPostBean;
 import com.taisheng.now.bussiness.bean.result.ConnectDoctorResultBean;
@@ -62,7 +63,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class C2CActivity extends Activity implements  AdapterView.OnItemLongClickListener , ActivityCompat.OnRequestPermissionsResultCallback {
+public class C2CActivity extends BaseActivity implements  AdapterView.OnItemLongClickListener , ActivityCompat.OnRequestPermissionsResultCallback {
 
     private EditText vEditText;
     private TextView vTargetId;
