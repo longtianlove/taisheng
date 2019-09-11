@@ -113,6 +113,7 @@ public class C2CActivity extends Activity implements  AdapterView.OnItemLongClic
         historyBean.setConversationId(message.targetId);
         historyBean.setNewMsgCount(1);
         historyBean.doctorAvator=doctorAvator;
+        historyBean.doctorName=doctorName;
         MLOC.addHistory(historyBean,true);
 
         MessageBean messageBean = new MessageBean();

@@ -15,6 +15,7 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.ArticleCollectionBean;
+import com.taisheng.now.bussiness.bean.post.ArticleShareBean;
 import com.taisheng.now.bussiness.bean.post.CollectAddorRemovePostBean;
 import com.taisheng.now.bussiness.bean.post.UpdateArticleReadCountPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleContentBean;
@@ -26,6 +27,10 @@ import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DoubleClickUtil;
 import com.zzhoujay.richtext.RichText;
 
+import java.util.HashMap;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -212,7 +217,49 @@ public class ArticleContentActivity extends BaseActivity {
 
     //java
     private void showShare() {
+        PlatformActionListener callback = new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                //  分享成功后的操作或者提示
+                ArticleShareBean bean = new ArticleShareBean();
+                bean.userId = UserInstance.getInstance().getUid();
+//                bean.token = UserInstance.getInstance().getToken();
+                bean.shareType= "app";
+                bean.articleId = articleId;
+                ApiUtils.getApiService().saveShareArticleLog(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean> call, Throwable t) {
+
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+                //  失败，打印throwable为错误码
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+                //  分享取消操作
+            }
+        };
+
+
         OnekeyShare oks = new OnekeyShare();
+        // 设置自定义的外部回调
+        oks.setCallback(callback);
         // title标题，微信、QQ和QQ空间等平台使用
         oks.setTitle(title);
         // titleUrl QQ和QQ空间跳转链接

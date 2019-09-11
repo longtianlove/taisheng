@@ -5,6 +5,7 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.AnswerPostBean;
 import com.taisheng.now.bussiness.bean.post.ArticleCollectionBean;
+import com.taisheng.now.bussiness.bean.post.ArticleShareBean;
 import com.taisheng.now.bussiness.bean.post.ArticleWithDoctorPostBean;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
 import com.taisheng.now.bussiness.bean.post.CollectAddorRemovePostBean;
@@ -146,6 +147,13 @@ public interface ApiService {
     //文章收藏
     @POST(Constants.Url.Article.saveCollectionArticleLog)
     Call<BaseBean> saveCollectionArticleLog(@Body ArticleCollectionBean bean);
+
+
+
+    //文章收藏
+    @POST(Constants.Url.Article.saveShareArticleLog)
+    Call<BaseBean> saveShareArticleLog(@Body ArticleShareBean bean);
+
 
 
     /**

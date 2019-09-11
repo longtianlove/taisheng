@@ -48,8 +48,8 @@ public class Constants {
 
 
 
-        public static String Host = "http://192.168.1.12:8080/";
-//                public static String Host = "http://192.168.1.17:8080/";
+//        public static String Host = "http://192.168.1.12:8080/";
+                public static String Host = "http://192.168.1.17:8080/";
 
 
 //        public static String Host = "http://152.136.26.41:8080/";
@@ -147,6 +147,9 @@ public class Constants {
 
             //文章收藏
             public static final String saveCollectionArticleLog="jeecg-boot/app/article/v2/saveCollectionArticleLog";
+            //文章分享
+            public static final String saveShareArticleLog="jeecg-boot/app/article/v2/saveShareArticleLog";
+
         }
 
         //医生
