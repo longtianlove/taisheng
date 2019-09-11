@@ -4,6 +4,7 @@ import android.util.JsonReader;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.taisheng.now.Constants;
 import com.taisheng.now.EventManage;
 import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.bussiness.bean.post.HealthInfo;
@@ -55,7 +56,7 @@ public class ChatManagerInstance {
 
                     @Override
                     public void onTextMessage(String text) {
-
+                        Log.e("longtianlove", "收到消息:" + text);
 
                         try {
                             RawRemoteMessage rawRemoteMessage = JSON.parseObject(text, RawRemoteMessage.class);
@@ -69,7 +70,7 @@ public class ChatManagerInstance {
                             historyBean.setLastMsg(message.contentData);
                             historyBean.setConversationId(message.fromId);
                             historyBean.setNewMsgCount(1);
-                            historyBean.doctorAvator=rawRemoteMessage.avatar;
+                            historyBean.doctorAvator= Constants.Url.File_Host+rawRemoteMessage.avatar;
                             historyBean.doctorName=rawRemoteMessage.user_name;
                             MLOC.addHistory(historyBean, false);
 

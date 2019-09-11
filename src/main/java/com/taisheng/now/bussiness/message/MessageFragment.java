@@ -45,11 +45,12 @@ import java.util.List;
  */
 
 @SuppressLint("WrongConstant")
-public class MessageFragment extends BaseFragment  {
+public class MessageFragment extends BaseFragment {
 
     private String mTargetId;
     private List<HistoryBean> mHistoryList;
     private ListView vHistoryList;
+    private View ll_noresult;
     private MyListAdapter listAdapter;
 
 
@@ -71,24 +72,26 @@ public class MessageFragment extends BaseFragment  {
         return rootView;
     }
 
-    void initView(View rootView){
+    void initView(View rootView) {
         mHistoryList = new ArrayList<>();
         listAdapter = new MyListAdapter();
         vHistoryList = (ListView) rootView.findViewById(R.id.history_list);
+
         vHistoryList.setAdapter(listAdapter);
         vHistoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MLOC.addHistory(mHistoryList.get(position),true);
+                MLOC.addHistory(mHistoryList.get(position), true);
                 mTargetId = (String) mHistoryList.get(position).getConversationId();
                 Intent intent = new Intent(getActivity(), C2CActivity.class);
-                intent.putExtra("targetId",mTargetId);
-                intent.putExtra("doctorAvator",mHistoryList.get(position).doctorAvator);
-                intent.putExtra("doctorName",mHistoryList.get(position).doctorName);
+                intent.putExtra("targetId", mTargetId);
+                intent.putExtra("doctorAvator", mHistoryList.get(position).doctorAvator);
+                intent.putExtra("doctorName", mHistoryList.get(position).doctorName);
 
                 startActivity(intent);
             }
         });
+        ll_noresult = rootView.findViewById(R.id.ll_noresult);
     }
 
     void initData() {
@@ -97,15 +100,19 @@ public class MessageFragment extends BaseFragment  {
     }
 
 
-
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         MLOC.hasNewC2CMsg = false;
         mHistoryList.clear();
         List<HistoryBean> list = MLOC.getHistoryList(CoreDB.HISTORY_TYPE_C2C);
-        if(list!=null&&list.size()>0){
+        if (list != null && list.size() > 0) {
             mHistoryList.addAll(list);
+            vHistoryList.setVisibility(View.VISIBLE);
+            ll_noresult.setVisibility(View.GONE);
+        } else {
+            vHistoryList.setVisibility(View.GONE);
+            ll_noresult.setVisibility(View.VISIBLE);
         }
         listAdapter.notifyDataSetChanged();
 
@@ -113,36 +120,35 @@ public class MessageFragment extends BaseFragment  {
     }
 
 
-
-
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 0)
-    public void recevieMessage(EventManage.AEVENT_C2C_REV_MSG eventObj){
+    public void recevieMessage(EventManage.AEVENT_C2C_REV_MSG eventObj) {
         onResume();
     }
 
     public class MyListAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
-        public MyListAdapter(){
+
+        public MyListAdapter() {
             mInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
         @Override
         public int getCount() {
-            if(mHistoryList!=null)
+            if (mHistoryList != null)
                 return mHistoryList.size();
             return 0;
         }
 
         @Override
         public Object getItem(int position) {
-            if(mHistoryList ==null)
+            if (mHistoryList == null)
                 return null;
             return mHistoryList.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            if(mHistoryList ==null)
+            if (mHistoryList == null)
                 return 0;
             return position;
         }
@@ -151,20 +157,20 @@ public class MessageFragment extends BaseFragment  {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             final ViewHolder itemSelfHolder;
-            if(convertView == null){
+            if (convertView == null) {
                 itemSelfHolder = new ViewHolder();
-                convertView = mInflater.inflate(R.layout.item_c2c_history,null);
+                convertView = mInflater.inflate(R.layout.item_c2c_history, null);
                 itemSelfHolder.vUserId = (TextView) convertView.findViewById(R.id.item_id);
                 itemSelfHolder.vTime = (TextView) convertView.findViewById(R.id.item_time);
                 itemSelfHolder.vMessage = (TextView) convertView.findViewById(R.id.item_msg);
                 itemSelfHolder.vCount = (TextView) convertView.findViewById(R.id.item_count);
 //                itemSelfHolder.vHeadBg =  convertView.findViewById(R.id.head_bg);
-                itemSelfHolder.sdv_header=convertView.findViewById(R.id.sdv_header);
+                itemSelfHolder.sdv_header = convertView.findViewById(R.id.sdv_header);
 //                itemSelfHolder.vHeadImage = (ImageView) convertView.findViewById(R.id.head_img);
 //                itemSelfHolder.vHeadCover = (CircularCoverView) convertView.findViewById(R.id.head_cover);
                 convertView.setTag(itemSelfHolder);
-            }else{
-                itemSelfHolder = (ViewHolder)convertView.getTag();
+            } else {
+                itemSelfHolder = (ViewHolder) convertView.getTag();
             }
 
             HistoryBean historyBean = mHistoryList.get(position);
@@ -176,33 +182,32 @@ public class MessageFragment extends BaseFragment  {
 //            itemSelfHolder.vHeadCover.setRadians(cint, cint, cint, cint,0);
 //            itemSelfHolder.vHeadImage.setImageResource(MLOC.getHeadImage(getActivity(),userId));
 
-            if(historyBean.doctorAvator!=null&&!"".equals(historyBean.doctorAvator)) {
+            if (historyBean.doctorAvator != null && !"".equals(historyBean.doctorAvator)) {
                 Uri uri = Uri.parse(historyBean.doctorAvator);
                 itemSelfHolder.sdv_header.setImageURI(uri);
             }
             itemSelfHolder.vTime.setText(historyBean.getLastTime());
             itemSelfHolder.vMessage.setText(historyBean.getLastMsg());
-            if(historyBean.getNewMsgCount()==0){
+            if (historyBean.getNewMsgCount() == 0) {
                 itemSelfHolder.vCount.setVisibility(View.INVISIBLE);
-            }else{
-                itemSelfHolder.vCount.setText(""+historyBean.getNewMsgCount());
+            } else {
+                itemSelfHolder.vCount.setText("" + historyBean.getNewMsgCount());
                 itemSelfHolder.vCount.setVisibility(View.VISIBLE);
             }
             return convertView;
         }
     }
 
-    public class ViewHolder{
+    public class ViewHolder {
         public TextView vUserId;
         public TextView vTime;
         public TextView vMessage;
         public TextView vCount;
-//        public View vHeadBg;
+        //        public View vHeadBg;
 //        public CircularCoverView vHeadCover;
 //        public ImageView vHeadImage;
         public SimpleDraweeView sdv_header;
     }
-
 
 
     public void onDestroy() {

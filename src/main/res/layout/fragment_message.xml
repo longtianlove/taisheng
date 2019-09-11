@@ -29,5 +29,30 @@
         android:paddingRight="10dp"
         android:dividerHeight="1px"
         android:background="#FFFFFF"/>
+    <LinearLayout
+        android:id="@+id/ll_noresult"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+
+        <ImageView
+            android:layout_width="187dp"
+            android:layout_height="144dp"
+            android:layout_marginTop="34dp"
+            android:src="@drawable/health_noresult" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="您的聊天记录为空"
+            android:textColor="#ffbbbbbb"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
 
 </LinearLayout>

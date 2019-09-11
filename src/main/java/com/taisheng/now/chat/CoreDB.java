@@ -147,7 +147,7 @@ public class CoreDB  {
 
     public List<MessageBean> getMessageList(String conversationId){
         List<MessageBean> list = new ArrayList<>();
-        Cursor cursor = coreDBM.rawQuery("select * from " + MSG_TABLE + " where conversationId=? order by id desc limit 5", new String[]{conversationId});
+        Cursor cursor = coreDBM.rawQuery("select * from " + MSG_TABLE + " where conversationId=? order by id desc ", new String[]{conversationId});
         while (cursor!=null&&cursor.moveToNext()){
             MessageBean bean = new MessageBean();
             bean.setId(cursor.getInt(cursor.getColumnIndex("id")));
