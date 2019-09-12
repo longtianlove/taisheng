@@ -100,7 +100,7 @@ public class MoreShipinActivity extends BaseActivity {
                 getShipins();
             }
         });
-        lv_shipins.setOnScrollListener(new AbsListView.OnScrollListener() {
+        lv_shipins.setOnMScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
             }
