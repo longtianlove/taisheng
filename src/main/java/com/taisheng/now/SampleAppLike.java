@@ -36,7 +36,7 @@ public class SampleAppLike extends DefaultApplicationLike {
         super.onCreate();
 
         mcontext=getApplication();
-        //todo 上线前修改为Release
+
         environment=Environment.Release;
 //        WeChatManagerInstance.getInstance().registToWx(mcontext);
 

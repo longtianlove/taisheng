@@ -46,15 +46,11 @@ public class Constants {
 //        public static String Host = "http://192.168.1.17:8080/";
 
 
-
-
 //        public static String Host = "http://192.168.1.12:8080/";
-                public static String Host = "http://192.168.1.17:8080/";
+//                public static String Host = "http://192.168.1.17:8080/";
 
 
-//        public static String Host = "http://152.136.26.41:8080/";
-
-
+        public static String Host = "http://152.136.26.41:8080/";
 
 
         //        public static String File_Host = "http://120.24.152.121:9700/";
@@ -62,10 +58,10 @@ public class Constants {
         public static String File_Host = "http://152.136.26.41:8888/";
 
 
-        public static String WEB_SOCKET_URL="ws://192.168.1.17:8879";
+        //public static String WEB_SOCKET_URL="ws://192.168.1.17:8879";
+        public static String WEB_SOCKET_URL = "ws://152.136.26.41:8879";
 
-//        public static String File_Host = "http://39.108.247.58:9700/";
-//        public static String File_Host = "http://120.76.208.90:9700/";
+
 
         //用户相关
         public static class User {
@@ -131,7 +127,7 @@ public class Constants {
              */
             //todo 上线改host
 //            public static final String articleContent=Host+"jeecg-boot/app/article/v2/h5/articleDetail?articleId=";
-            public static final String articleContent="http://192.168.1.12:8080/jeecg-boot/app/article/v2/h5/articleDetail?articleId=";
+            public static final String articleContent = Host + "jeecg-boot/app/article/v2/h5/articleDetail?articleId=";
 
             /**
              * 首页热度文章
@@ -146,9 +142,9 @@ public class Constants {
             public static final String updateArticleReadCount = "jeecg-boot/app/article/updateArticleReadCount";
 
             //文章收藏
-            public static final String saveCollectionArticleLog="jeecg-boot/app/article/v2/saveCollectionArticleLog";
+            public static final String saveCollectionArticleLog = "jeecg-boot/app/article/v2/saveCollectionArticleLog";
             //文章分享
-            public static final String saveShareArticleLog="jeecg-boot/app/article/v2/saveShareArticleLog";
+            public static final String saveShareArticleLog = "jeecg-boot/app/article/v2/saveShareArticleLog";
 
         }
 
@@ -206,7 +202,7 @@ public class Constants {
         }
 
         //视频
-        public static class ShiPin{
+        public static class ShiPin {
 
             /**
              * 推荐视频

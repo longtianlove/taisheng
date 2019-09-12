@@ -45,7 +45,7 @@ public class ChatManagerInstance {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                //todo 收到消息回调
+                // 收到消息回调
                 WebSocketManager webSocketManager = WebSocketManager.getInstance();
                 webSocketManager.setWebSocketListener(new WebSocketManager.WebSocketListener() {
                     @Override
