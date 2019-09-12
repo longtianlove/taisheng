@@ -3,6 +3,7 @@ package com.taisheng.now.bussiness.article;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -265,7 +266,11 @@ public class ArticleContentActivity extends BaseActivity {
         // titleUrl QQ和QQ空间跳转链接
         oks.setTitleUrl(Constants.Url.Article.articleContent+articleId);
         // text是分享文本，所有平台都需要这个字段
-        oks.setText(summary);
+        if(TextUtils.isEmpty(summary)){
+            oks.setText("想要健康的身体，看这里~");
+        }else{
+            oks.setText(summary);
+        }
         // imagePath是图片的本地路径，确保SDcard下面存在此张图片
 //        oks.setImagePath("/sdcard/test.jpg");
 //        oks.setImageData(BitmapFactory.decodeResource(getResources(), R.drawable.icon_app));
