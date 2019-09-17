@@ -88,6 +88,13 @@ public class MessageFragment extends BaseFragment {
                 intent.putExtra("doctorAvator", mHistoryList.get(position).doctorAvator);
                 intent.putExtra("doctorName", mHistoryList.get(position).doctorName);
 
+
+                intent.putExtra("nickName",mHistoryList.get(position).doctorName);
+//                intent.putExtra("title",doctorBean.title);
+                intent.putExtra("avatar",mHistoryList.get(position).doctorAvator);
+                intent.putExtra("doctorId",mTargetId);
+
+
                 startActivity(intent);
             }
         });

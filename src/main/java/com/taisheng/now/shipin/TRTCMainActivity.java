@@ -188,7 +188,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 
 
         nickname = intent.getStringExtra("nickName");
-        title = intent.getStringExtra("title");
+//        title = intent.getStringExtra("title");
         avatar = intent.getStringExtra("avatar");
 
         chatType = intent.getStringExtra("chatType");
@@ -227,7 +227,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
 
     ImageView tv_noview_background;
     TextView tv_nickname;
-    TextView tv_title;
+//    TextView tv_title;
     SimpleDraweeView sdv_header;
     public TextView tv_jieshouzhong;
     View ll_qiehuandaoyuyin;
@@ -242,7 +242,7 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
     TextView tv_cancel;
     public String doctorId;
     String nickname;
-    String title;
+//    String title;
     String avatar;
     View iv_cancle;
 
@@ -402,10 +402,10 @@ public class TRTCMainActivity extends Activity implements View.OnClickListener, 
         if (nickname != null) {
             tv_nickname.setText(nickname);
         }
-        tv_title = (TextView) findViewById(R.id.tv_title);
-        if (title != null) {
-            tv_title.setText(title);
-        }
+//        tv_title = (TextView) findViewById(R.id.tv_title);
+//        if (title != null) {
+//            tv_title.setText(title);
+//        }
         sdv_header = (SimpleDraweeView) findViewById(R.id.sdv_header);
         if (avatar != null) {
             Uri uri = Uri.parse(avatar);

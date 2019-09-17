@@ -131,7 +131,7 @@ public class C2CActivity extends BaseActivity implements  AdapterView.OnItemLong
 
 
          nickName=getIntent().getStringExtra("nickName");
-         title=getIntent().getStringExtra("title");
+//         title=getIntent().getStringExtra("title");
          avatar=getIntent().getStringExtra("avatar");
          doctorId=getIntent().getStringExtra("doctorId");
 
@@ -525,7 +525,7 @@ public class C2CActivity extends BaseActivity implements  AdapterView.OnItemLong
     private String mUserSig = "";
 
     String nickName;
-    String title;
+//    String title;
     String avatar;
     String doctorId;
 
@@ -534,7 +534,7 @@ public class C2CActivity extends BaseActivity implements  AdapterView.OnItemLong
         final Intent intent = new Intent(C2CActivity.this, TRTCMainActivity.class);
 
             intent.putExtra("nickName", nickName);
-            intent.putExtra("title", title);
+//            intent.putExtra("title", title);
             intent.putExtra("avatar", avatar);
             intent.putExtra("doctorId",doctorId );
 
