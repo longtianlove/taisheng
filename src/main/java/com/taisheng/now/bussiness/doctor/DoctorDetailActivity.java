@@ -226,6 +226,13 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
         intent.putExtra("targetId",doctorId);
         intent.putExtra("doctorAvator",doctorAvator);
         intent.putExtra("doctorName",doctorName);
+
+        intent.putExtra("nickName",doctorBean.nickName);
+        intent.putExtra("title",doctorBean.title);
+        intent.putExtra("avatar",doctorBean.avatar);
+        intent.putExtra("doctorId",doctorBean.id);
+
+
         startActivity(intent);
     }
 

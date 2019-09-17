@@ -128,6 +128,14 @@ public class C2CActivity extends BaseActivity implements  AdapterView.OnItemLong
 
         doctorAvator=getIntent().getStringExtra("doctorAvator");
         doctorName=getIntent().getStringExtra("doctorName");
+
+
+         nickName=getIntent().getStringExtra("nickName");
+         title=getIntent().getStringExtra("title");
+         avatar=getIntent().getStringExtra("avatar");
+         doctorId=getIntent().getStringExtra("doctorId");
+
+
         ((TextView)findViewById(R.id.title_text)).setText(doctorName);
         mAdapter = new MyChatroomListAdapter();
         vMsgList = (ListView) findViewById(R.id.msg_list);
@@ -467,7 +475,7 @@ public class C2CActivity extends BaseActivity implements  AdapterView.OnItemLong
                     case Constants.HTTP_SUCCESS:
                         mUserSig = bean.userSign;
 
-//                        onJoinRoomByTecent(bean.roomId, bean.userId);
+                        onJoinRoomByTecent(bean.roomId, bean.userId);
 //                        onJoinRoomBySelf(bean.roomId, bean.userId);
                         break;
                     case Constants.DOCTOR_BUSY:
@@ -516,14 +524,20 @@ public class C2CActivity extends BaseActivity implements  AdapterView.OnItemLong
     private String mUserId = "";
     private String mUserSig = "";
 
+    String nickName;
+    String title;
+    String avatar;
+    String doctorId;
+
+
     private void onJoinRoomByTecent(final int roomId, final String userId) {
         final Intent intent = new Intent(C2CActivity.this, TRTCMainActivity.class);
-//        if (doctorBean != null) {
-//            intent.putExtra("nickName", doctorBean.nickName);
-//            intent.putExtra("title", doctorBean.title);
-//            intent.putExtra("avatar", doctorBean.avatar);
-//            intent.putExtra("doctorId", doctorBean.id);
-//        }
+
+            intent.putExtra("nickName", nickName);
+            intent.putExtra("title", title);
+            intent.putExtra("avatar", avatar);
+            intent.putExtra("doctorId",doctorId );
+
         intent.putExtra("roomId", roomId);
         intent.putExtra("userId", userId);
         intent.putExtra("AppScene", TRTCCloudDef.TRTC_APP_SCENE_VIDEOCALL);
