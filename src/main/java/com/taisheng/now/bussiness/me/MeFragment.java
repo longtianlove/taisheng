@@ -36,6 +36,7 @@ public class MeFragment extends BaseFragment {
     TextView tv_nickname;
     TextView tv_zhanghao;
     ImageView iv_jiantou;
+    View tv_qiandao;
 
     View ll_healthfile;
     View ll_zixunjilu;
@@ -78,6 +79,14 @@ public class MeFragment extends BaseFragment {
         sdv_header.setOnClickListener(toMeMessageActivityListener);
         tv_nickname = (TextView) rootView.findViewById(R.id.tv_nickname);
         tv_nickname.setOnClickListener(toMeMessageActivityListener);
+        tv_qiandao = rootView.findViewById(R.id.tv_qiandao);
+        tv_qiandao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), QuqiandaoActivity.class);
+                startActivity(intent);
+            }
+        });
 
         tv_zhanghao = (TextView) rootView.findViewById(R.id.tv_zhanghao);
         tv_zhanghao.setOnClickListener(toMeMessageActivityListener);
@@ -155,7 +164,7 @@ public class MeFragment extends BaseFragment {
             }
         });
 
-        ll_share=rootView.findViewById(R.id.ll_share);
+        ll_share = rootView.findViewById(R.id.ll_share);
         ll_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
