@@ -37,6 +37,14 @@ public class EventManage {
             this.path = path;
         }
     }
+    //上传头像成功
+    public static class uploadChatPictureSuccess {
+        public String path;
+
+        public uploadChatPictureSuccess(String path) {
+            this.path = path;
+        }
+    }
 
 
 

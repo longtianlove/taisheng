@@ -48,16 +48,16 @@ public class Constants {
 
 //        public static String Host = "http://192.168.1.12:8080/";
                 public static String Host = "http://192.168.1.17:8080/";
-
-
+//public static String Host = "http://192.168.1.18:8080/";
 //        public static String Host = "http://152.136.26.41:8080/";
 
 
         //        public static String File_Host = "http://120.24.152.121:9700/";
-        //        public static String Host = "http://120.76.208.90:9100/";
-        public static String File_Host = "http://152.136.26.41:8888/";
+//        public static String File_Host = "http://152.136.26.41:8888/";
+        public static String File_Host = "http://192.168.1.17:8080/jeecg-boot/";
 
 
+//        public static String WEB_SOCKET_URL="ws://192.168.1.18:8879";
         public static String WEB_SOCKET_URL="ws://192.168.1.17:8879";
 //        public static String WEB_SOCKET_URL = "ws://152.136.26.41:8879";
 

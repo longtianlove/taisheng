@@ -395,6 +395,12 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             />
+        <activity
+            android:name=".chat.ImageLookActivity"
+            android:theme="@style/MyDialogStyleBottom"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            />
 
         <activity android:name=".view.crop.CropImageActivity"
             android:configChanges="keyboardHidden|orientation"

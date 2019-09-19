@@ -81,6 +81,18 @@
                 android:background="@drawable/bg_popo_left"
                 android:text="mmm"
                 />
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdw_pic"
+                android:layout_width="100dp"
+                android:layout_height="140dp"
+                android:gravity="center"
+                android:scaleType="fitXY"
+                fresco:actualImageScaleType="focusCrop"
+                fresco:fadeDuration="50"
+                fresco:failureImage="@drawable/doctor_default"
+                fresco:failureImageScaleType="centerInside"
+                fresco:placeholderImage="@drawable/doctor_default"
+                fresco:placeholderImageScaleType="fitCenter" />
         </LinearLayout>
 
 

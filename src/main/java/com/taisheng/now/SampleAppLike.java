@@ -9,8 +9,10 @@ import android.os.Handler;
 import androidx.multidex.MultiDex;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.previewlibrary.ZoomMediaLoader;
 import com.taisheng.now.bussiness.MainActivity;
 import com.taisheng.now.util.Apputil;
+import com.taisheng.now.util.ImageLoader;
 import com.tencent.bugly.Bugly;
 
 import com.tencent.bugly.beta.Beta;
@@ -108,6 +110,8 @@ public class SampleAppLike extends DefaultApplicationLike {
             // 调试时，将第三个参数改为true
             // 调试时，将第三个参数改为true
             Bugly.init(getApplication(), Constants.BUGLY_APP_ID, true);
+
+            ZoomMediaLoader.getInstance().init(new ImageLoader());
         }
 
     }

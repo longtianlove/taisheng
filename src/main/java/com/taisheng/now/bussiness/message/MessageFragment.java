@@ -194,7 +194,13 @@ public class MessageFragment extends BaseFragment {
                 itemSelfHolder.sdv_header.setImageURI(uri);
             }
             itemSelfHolder.vTime.setText(historyBean.getLastTime());
-            itemSelfHolder.vMessage.setText(historyBean.getLastMsg());
+            String rawmessage=historyBean.getLastMsg();
+            if(rawmessage.startsWith("img[")&&rawmessage.endsWith("]")){
+                itemSelfHolder.vMessage.setText("[图片]");
+
+            }else{
+                itemSelfHolder.vMessage.setText(rawmessage);
+            }
             if (historyBean.getNewMsgCount() == 0) {
                 itemSelfHolder.vCount.setVisibility(View.INVISIBLE);
             } else {

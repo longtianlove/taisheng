@@ -110,4 +110,7 @@ dependencies {
 
 
     implementation 'com.neovisionaries:nv-websocket-client:2.9'
+
+    implementation 'com.ycjiang:imgepreviewlibrary:1.1.3'
+
 }
