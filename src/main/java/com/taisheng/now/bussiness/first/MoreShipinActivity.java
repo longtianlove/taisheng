@@ -334,12 +334,20 @@ public class MoreShipinActivity extends BaseActivity {
             //设置返回键
             util.gsyVideoPlayer.getBackButton().setVisibility(View.GONE);
             //设置全屏按键功能
-            util.gsyVideoPlayer.getFullscreenButton().setVisibility(View.GONE);
+            util.gsyVideoPlayer.getFullscreenButton().setVisibility(View.VISIBLE);
+            //设置全屏按键功能
+            Util finalUtil1 = util;
+            util.gsyVideoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finalUtil1.gsyVideoPlayer.startWindowFullscreen(MoreShipinActivity.this, false, true);
+                }
+            });
             //防止错位设置
             util.gsyVideoPlayer.setPlayTag(TAG);
             util.gsyVideoPlayer.setPlayPosition(position);
             //是否根据视频尺寸，自动选择竖屏全屏或者横屏全屏
-            util.gsyVideoPlayer.setAutoFullWithSize(true);
+            util.gsyVideoPlayer.setAutoFullWithSize(false);
             //音频焦点冲突时是否释放
             util.gsyVideoPlayer.setReleaseWhenLossAudio(false);
             //全屏动画

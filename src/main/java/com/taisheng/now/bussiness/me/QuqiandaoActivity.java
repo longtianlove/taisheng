@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,6 +14,8 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.util.Apputil;
+import com.taisheng.now.view.sign.OnSignedSuccess;
+import com.taisheng.now.view.sign.SignDate;
 
 /**
  * Created by dragon on 2019/6/28.
@@ -25,6 +28,9 @@ public class QuqiandaoActivity extends BaseActivity {
     TextView tv_nickname;
     TextView tv_jifen;
 
+
+
+    private SignDate signDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +50,13 @@ public class QuqiandaoActivity extends BaseActivity {
         sdv_header = (SimpleDraweeView) findViewById(R.id.sdv_header);
         tv_nickname=findViewById(R.id.tv_nickname);
         tv_jifen=findViewById(R.id.tv_jifen);
-
+        signDate = findViewById(R.id.signDate);
+        signDate.setOnSignedSuccess(new OnSignedSuccess() {
+            @Override
+            public void OnSignedSuccess() {
+                Log.e("wqf","Success");
+            }
+        });
 
 
     }

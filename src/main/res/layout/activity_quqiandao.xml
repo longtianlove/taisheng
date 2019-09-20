@@ -116,5 +116,17 @@
 
         </LinearLayout>
 
+
+
     </LinearLayout>
+
+
+
+
+
+    <com.taisheng.now.view.sign.SignDate
+        android:id="@+id/signDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.taisheng.now.view.sign.SignDate>
 </LinearLayout>

@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="112dp"
+        android:layout_height="120dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="11dp"
@@ -104,6 +104,8 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="14dp"
                 android:gravity="center"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:text="医术精湛，预测的病症很准，赞！医术精湛，预测的病症很
 准，赞！医术精湛，预测的病症很准，赞！"
                 android:textColor="#ff333333"

@@ -211,9 +211,37 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
                 if (DoubleClickUtil.isFastMiniDoubleClick()) {
                     return;
                 }
+                DialogUtil.showToChatDialog(DoctorDetailActivity.this, new View.OnClickListener() {
 
+                            @Override
+                            public void onClick(View v) {
+                                toChat();
+                            }
+                        },
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                chatType = "video";
 
-                toChat();
+                                connectDoctor();
+
+                            }
+                        },
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                chatType = "audio";
+                                connectDoctor();
+                            }
+                        },
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        }
+                );
+
 
             }
         });
@@ -221,16 +249,77 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
 
 
 
-    void toChat(){
-        Intent intent=new Intent(DoctorDetailActivity.this, C2CActivity.class);
-        intent.putExtra("targetId",doctorId);
-        intent.putExtra("doctorAvator",doctorAvator);
-        intent.putExtra("doctorName",doctorName);
+    public String chatType = "video";
 
-        intent.putExtra("nickName",doctorBean.nickName);
+    void connectDoctor() {
+        ConnectDoctorPostBean bean = new ConnectDoctorPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.doctorId = doctorId;
+        if ("video".equals(chatType)) {
+            bean.type = "1";
+        } else {
+            bean.type = "0";
+        }
+        ApiUtils.getApiService().connectDoctor(bean).enqueue(new TaiShengCallback<BaseBean<ConnectDoctorResultBean>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<ConnectDoctorResultBean>> response, BaseBean<ConnectDoctorResultBean> message) {
+                ConnectDoctorResultBean bean = message.result;
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        mUserSig = bean.userSign;
+                        onJoinRoomByTecent(bean.roomId, bean.userId);
+//                        onJoinRoomBySelf(bean.roomId, bean.userId);
+                        break;
+                    case Constants.DOCTOR_BUSY:
+                        ToastUtil.showTost("医生忙碌中,请稍后联系");
+                        break;
+                    case Constants.DOCTOR_NOEXIST:
+                        ToastUtil.showTost("医生不存在");
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<ConnectDoctorResultBean>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private String mUserId = "";
+    private String mUserSig = "";
+
+    private void onJoinRoomByTecent(final int roomId, final String userId) {
+        final Intent intent = new Intent(DoctorDetailActivity.this, TRTCMainActivity.class);
+        if (doctorBean != null) {
+            intent.putExtra("nickName", doctorBean.nickName);
+            intent.putExtra("title", doctorBean.title);
+            intent.putExtra("avatar", doctorBean.avatar);
+            intent.putExtra("doctorId", doctorBean.id);
+        }
+        intent.putExtra("roomId", roomId);
+        intent.putExtra("userId", userId);
+        intent.putExtra("AppScene", TRTCCloudDef.TRTC_APP_SCENE_VIDEOCALL);
+        intent.putExtra("sdkAppId", Constants.SDKAPPID);
+        intent.putExtra("userSig", mUserSig);
+        intent.putExtra("chatType", chatType);
+        startActivityForResult(intent, 1);
+    }
+
+
+    void toChat() {
+        Intent intent = new Intent(DoctorDetailActivity.this, C2CActivity.class);
+        intent.putExtra("targetId", doctorId);
+        intent.putExtra("doctorAvator", doctorAvator);
+        intent.putExtra("doctorName", doctorName);
+
+        intent.putExtra("nickName", doctorBean.nickName);
 //        intent.putExtra("title",doctorBean.title);
-        intent.putExtra("avatar",doctorBean.avatar);
-        intent.putExtra("doctorId",doctorBean.id);
+        intent.putExtra("avatar", doctorBean.avatar);
+        intent.putExtra("doctorId", doctorBean.id);
 
 
         startActivity(intent);
@@ -271,7 +360,7 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
                     case Constants.HTTP_SUCCESS:
                         doctorBean = message.result;
                         tv_doctor_name.setText(doctorBean.nickName);
-                        doctorName=doctorBean.nickName;
+                        doctorName = doctorBean.nickName;
 
                         if ("1".equals(doctorBean.onlineStatus)) {
                             tv_onlineStatus.setText("在线");
@@ -306,7 +395,7 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
                             Uri uri = Uri.parse(doctorBean.img);
                             sdv_doctor_header.setImageURI(uri);
                         }
-                        doctorAvator=doctorBean.avatar;
+                        doctorAvator = doctorBean.avatar;
                         break;
                 }
             }
@@ -540,13 +629,6 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
 
         }
     }
-
-
-
-
-
-
-
 
 
 }
