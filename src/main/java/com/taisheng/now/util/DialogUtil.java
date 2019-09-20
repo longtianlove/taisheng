@@ -221,6 +221,15 @@ public class DialogUtil {
 
         }
         zixunDialog = null;
+        if (zixunDialog1 != null && zixunDialog1.isShowing()) {
+            try {
+                zixunDialog1.dismiss();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        zixunDialog1 = null;
 
     }
 

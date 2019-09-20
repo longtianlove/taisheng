@@ -14,14 +14,22 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
+import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.article.ArticleCollectActivity;
+import com.taisheng.now.bussiness.bean.post.BasePostBean;
+import com.taisheng.now.bussiness.bean.result.IsSign;
 import com.taisheng.now.bussiness.doctor.DoctorCollectActivity;
 import com.taisheng.now.bussiness.healthfiles.HealthCheckHistoryActivity;
 import com.taisheng.now.bussiness.healthfiles.HealthFileSearchActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
 
 import org.greenrobot.eventbus.EventBus;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 
 /**
@@ -36,7 +44,7 @@ public class MeFragment extends BaseFragment {
     TextView tv_nickname;
     TextView tv_zhanghao;
     ImageView iv_jiantou;
-    View tv_qiandao;
+    TextView tv_qiandao;
 
     View ll_healthfile;
     View ll_zixunjilu;
@@ -83,6 +91,7 @@ public class MeFragment extends BaseFragment {
         tv_qiandao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tv_qiandao.setText("・已签到");
                 Intent intent = new Intent(getActivity(), QuqiandaoActivity.class);
                 startActivity(intent);
             }
@@ -177,7 +186,29 @@ public class MeFragment extends BaseFragment {
     }
 
     void initData() {
+        BasePostBean bean = new BasePostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        ApiUtils.getApiService().isSign(bean).enqueue(new TaiShengCallback<BaseBean<IsSign>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<IsSign>> response, BaseBean<IsSign> message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        if ("true".equals(message.result.signFlag)) {
+                            tv_qiandao.setText("・已签到");
+                        }else{
+                            tv_qiandao.setText("・去签到");
 
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<IsSign>> call, Throwable t) {
+
+            }
+        });
 
     }
 

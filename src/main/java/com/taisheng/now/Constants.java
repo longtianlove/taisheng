@@ -103,6 +103,12 @@ public class Constants {
             //邀请历史
             public static final String myrecommendshare = "jeecg-boot/app/extension/getExtensionManagement";
 
+
+
+            //签到
+            public static final String isSign = "jeecg-boot/app/sign/isSign";
+
+
         }
 
         //文章

@@ -48,6 +48,7 @@ import com.taisheng.now.bussiness.bean.result.DoctorNumberResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
 import com.taisheng.now.bussiness.bean.result.HotResultBean;
 import com.taisheng.now.bussiness.bean.post.LoginPostBean;
+import com.taisheng.now.bussiness.bean.result.IsSign;
 import com.taisheng.now.bussiness.bean.result.LoginResultBean;
 import com.taisheng.now.bussiness.bean.result.ModifyUserInfoResultBean;
 import com.taisheng.now.bussiness.bean.result.MyPingjiaResultBean;
@@ -149,17 +150,16 @@ public interface ApiService {
     Call<BaseBean> saveCollectionArticleLog(@Body ArticleCollectionBean bean);
 
 
-
     //文章收藏
     @POST(Constants.Url.Article.saveShareArticleLog)
     Call<BaseBean> saveShareArticleLog(@Body ArticleShareBean bean);
-
 
 
     /**
      * 推荐视频
      */
     public static final String recommendShiPin = "jeecg-boot/app/assessment/getExtractionSubjectDb";
+
     @POST(Constants.Url.ShiPin.recommendShiPin)
     Call<BaseBean<ShipinsResultBean>> recommendShiPin(@Body BasePostBean bean);
 
@@ -174,15 +174,14 @@ public interface ApiService {
      * 点赞
      */
     public static final String videoOperate = "jeecg-boot/app/video/operate";
+
     @POST(Constants.Url.ShiPin.videoOperate)
     Call<BaseBean> videoOperate(@Body VideoOperatePostBean bean);
-
 
 
     //获取所有医生
     @POST(Constants.Url.Doctor.doctorslist)
     Call<BaseBean<DoctorsResultBean>> doctorslist(@Body RecommendDoctorPostBean bean);
-
 
 
     //文章相关的医生
@@ -262,4 +261,9 @@ public interface ApiService {
     @POST(Constants.Url.feedback)
     Call<BaseBean> feedback(@Body FeedbackPostBean bean);
 
+
+    //签到
+//    public static final String isSign = "jeecg-boot/app/sign/isSign";
+    @POST(Constants.Url.User.isSign)
+    Call<BaseBean<IsSign>> isSign(@Body BasePostBean bean);
 }

@@ -50,8 +50,16 @@ public class AdapterDate extends BaseAdapter {
     }
 
     void qiandao() {
-        int position = DateUtil.getFirstDayOfMonth() - 1+DateUtil.getPostion();
-        status.set(position, true);
+//        int position = DateUtil.getFirstDayOfMonth() - 1+DateUtil.getPostion();
+//        status.set(position, true);
+        for (int i = 0; i < DateUtil.getFirstDayOfMonth() - 1; i++) {
+            //DateUtil.getFirstDayOfMonth()获取当月第一天是星期几，星期日是第一天，依次类推
+            days.add(0);
+            //0代表需要隐藏的item
+            status.add(false);
+            //false代表为签到状态
+        }
+
         notifyDataSetChanged();
     }
 
