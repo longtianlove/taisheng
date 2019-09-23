@@ -56,6 +56,7 @@ import com.taisheng.now.bussiness.bean.result.PictureBean;
 import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
 import com.taisheng.now.bussiness.bean.result.RecommendSharedResultBean;
 import com.taisheng.now.bussiness.bean.result.ShipinsResultBean;
+import com.taisheng.now.bussiness.bean.result.SignResultBean;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -266,4 +267,11 @@ public interface ApiService {
 //    public static final String isSign = "jeecg-boot/app/sign/isSign";
     @POST(Constants.Url.User.isSign)
     Call<BaseBean<IsSign>> isSign(@Body BasePostBean bean);
+
+
+
+//    public static final String nowSign="jeecg-boot/app/sign/user/sign";
+    @POST(Constants.Url.User.nowSign)
+    Call<BaseBean<SignResultBean>> nowSign(@Body BasePostBean bean);
+
 }

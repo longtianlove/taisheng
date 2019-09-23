@@ -45,6 +45,11 @@ public class SignDate extends LinearLayout {
         gvDate.setAdapter(adapterDate);
     }
 
+
+
+    public void qiandao() {
+        adapterDate.qiandao();
+    }
     /**
      * 签到成功的回调
      * @param onSignedSuccess

@@ -53,4 +53,15 @@ public class EventManage {
         public Object message;
     }
 
+
+    //签到完成
+    public static class qiaodaoSuccess{
+        public String tomorrowPoints;
+        public String points;
+        public qiaodaoSuccess(String tomorrowPoints,String points){
+            this.tomorrowPoints=tomorrowPoints;
+            this.points=points;
+        }
+    }
+
 }

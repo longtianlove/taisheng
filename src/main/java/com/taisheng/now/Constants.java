@@ -56,9 +56,19 @@ public class Constants {
 
 //        public static String WEB_SOCKET_URL="ws://192.168.1.18:8879";
 
-                public static String Host = "http://152.136.26.41:8080/";
-        public static String File_Host = "http://152.136.26.41:8888/";
-        public static String WEB_SOCKET_URL = "ws://152.136.26.41:8879";
+//        public static String Host = "http://152.136.26.41:8080/";
+//        public static String File_Host = "http://152.136.26.41:8888/";
+//        public static String WEB_SOCKET_URL = "ws://152.136.26.41:8879";
+
+
+        public static String Host = "http://192.168.1.12:8080/";
+        public static String File_Host = "http://192.168.1.12:8888/";
+        public static String WEB_SOCKET_URL = "ws://192.168.1.12:8879";
+
+
+
+
+
 
 //        public static String Host = "http://192.168.1.17:8080/";
 //        public static String File_Host = "http://192.168.1.17:8080/jeecg-boot/";
@@ -108,6 +118,9 @@ public class Constants {
 
             //签到
             public static final String isSign = "jeecg-boot/app/sign/isSign";
+
+            //当前签到的状态
+            public static final String nowSign="jeecg-boot/app/sign/user/sign";
 
 
         }

@@ -11,10 +11,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.taisheng.now.Constants;
+import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
+import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.bean.post.BasePostBean;
+import com.taisheng.now.bussiness.bean.result.SignBean;
+import com.taisheng.now.bussiness.bean.result.SignResultBean;
+import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by Administrator on 2017/8/16.
@@ -40,18 +54,23 @@ public class AdapterDate extends BaseAdapter {
             status.add(false);
             //false代表为签到状态
         }
-        //todo 获取签到信息
+
+
         for (int i = 0; i < maxDay; i++) {
             days.add(i + 1);
             //初始化日历数据
             status.add(false);
             //初始化日历签到状态
         }
+
+
     }
 
     void qiandao() {
 //        int position = DateUtil.getFirstDayOfMonth() - 1+DateUtil.getPostion();
 //        status.set(position, true);
+        days.clear();
+        status.clear();
         for (int i = 0; i < DateUtil.getFirstDayOfMonth() - 1; i++) {
             //DateUtil.getFirstDayOfMonth()获取当月第一天是星期几，星期日是第一天，依次类推
             days.add(0);
@@ -60,7 +79,47 @@ public class AdapterDate extends BaseAdapter {
             //false代表为签到状态
         }
 
-        notifyDataSetChanged();
+
+        BasePostBean bean = new BasePostBean();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.userId = UserInstance.getInstance().getUid();
+        ApiUtils.getApiService().nowSign(bean).enqueue(new TaiShengCallback<BaseBean<SignResultBean>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<SignResultBean>> response, BaseBean<SignResultBean> message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        ArrayList<SignBean> signArraylist = message.result.list;
+                        if (signArraylist != null && !signArraylist.isEmpty()) {
+                            for (int i = 0; i < signArraylist.size(); i++) {
+                                days.add(i + 1);
+
+                                if ("true".equals(signArraylist.get(i).signFlag)) {
+                                    //初始化日历数据
+                                    status.add(true);
+                                } else {
+                                    status.add(false);
+
+                                }
+
+                                //初始化日历签到状态
+                            }
+                            notifyDataSetChanged();
+                        }
+
+
+                        EventManage.qiaodaoSuccess event = new EventManage.qiaodaoSuccess(message.result.tomorrowPoints, message.result.points);
+                        EventBus.getDefault().post(event);
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<SignResultBean>> call, Throwable t) {
+
+            }
+        });
+
+
     }
 
 
