@@ -22,6 +22,7 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,9 +37,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.request.RequestOptions;
 import com.facebook.cache.common.SimpleCacheKey;
@@ -53,6 +58,8 @@ import com.taisheng.now.R;
 
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.base.BaseFragment;
+import com.taisheng.now.base.BaseFragmentActivity;
 import com.taisheng.now.bussiness.bean.post.ConnectDoctorPostBean;
 import com.taisheng.now.bussiness.bean.result.ConnectDoctorResultBean;
 import com.taisheng.now.bussiness.bean.result.PictureBean;
@@ -69,6 +76,8 @@ import com.taisheng.now.util.DoubleClickUtil;
 import com.taisheng.now.util.FileUtilcll;
 import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.AppDialog;
+import com.taisheng.now.view.biaoqing.EmotionMainFragment;
+import com.taisheng.now.view.chenjinshi.StatusBarUtil;
 import com.tencent.trtc.TRTCCloudDef;
 
 import org.greenrobot.eventbus.EventBus;
@@ -90,26 +99,24 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class C2CActivity extends BaseActivity implements AdapterView.OnItemLongClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
+public class C2CActivity extends FragmentActivity implements  ActivityCompat.OnRequestPermissionsResultCallback {
 
 
 
 
 
 
-    private EditText vEditText;
-    private TextView vTargetId;
-    private ListView vMsgList;
-    private View vSendBtn;
-    View iv_sendimg;
-
-    private String mTargetId;
-    public String doctorAvator;
-    public String doctorName;
-    private List<MessageBean> mDatas;
-    private MyChatroomListAdapter mAdapter;
 
 
+    public static String mTargetId;
+    public static String doctorAvator;
+    public static String doctorName;
+
+
+
+
+
+    EmotionMainFragment emotionMainFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,49 +162,12 @@ public class C2CActivity extends BaseActivity implements AdapterView.OnItemLongC
             }
         });
 
-        vSendBtn = findViewById(R.id.send_btn);
-        vSendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String txt = vEditText.getText().toString();
-                if (!TextUtils.isEmpty(txt)) {
-                    sendWenziMsg(txt);
-                    vEditText.setText("");
-                }
-            }
-        });
-        iv_sendimg = findViewById(R.id.iv_sendimg);
-        iv_sendimg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                modifyAvatar();
-            }
-        });
-        vEditText = (EditText) findViewById(R.id.id_input);
-        vEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() > 0) {
-                    vSendBtn.setVisibility(View.VISIBLE);
-                    iv_sendimg.setVisibility(View.GONE);
-                }else{
-                    vSendBtn.setVisibility(View.GONE);
-                    iv_sendimg.setVisibility(View.VISIBLE);
-                }
-            }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
 
-            }
-        });
-        mDatas = new ArrayList<>();
+
 
         mTargetId = getIntent().getStringExtra("targetId");
 
@@ -212,143 +182,49 @@ public class C2CActivity extends BaseActivity implements AdapterView.OnItemLongC
 
 
         ((TextView) findViewById(R.id.title_text)).setText(doctorName);
-        mAdapter = new MyChatroomListAdapter();
-        vMsgList = (ListView) findViewById(R.id.msg_list);
-        vMsgList.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-        vMsgList.setOnItemLongClickListener(this);
-        mAdapter = new MyChatroomListAdapter();
-        vMsgList.setAdapter(mAdapter);
-        vMsgList.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+        mTvContent = (TextView) findViewById(R.id.tv_input_content);
 
 
 
+        initBiaoqinng();
 
-        EventBus.getDefault().register(this);
 
 
     }
 
-
-    private final int REQ_CODE_PHOTO_SOURCE = 6;//选择方式
-    private final int REQ_CODE_GET_PHOTO_FROM_GALLERY = 10;//从相册获取
-    private final int REQ_CODE_GET_PHOTO_FROM_TAKEPHOTO = 11;//拍照完
+    private TextView mTvContent;
 
 
-    public void modifyAvatar() {
+    void initBiaoqinng(){
 
 
-        Intent intent = new Intent(this, SelectAvatarSourceDialog.class);
-        startActivityForResult(intent, REQ_CODE_PHOTO_SOURCE);
+        emotionMainFragment = EmotionMainFragment.newInstance(EmotionMainFragment.class, null);
+        emotionMainFragment.bindToContentView(mTvContent);//绑定当前页面控件
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fl_emotion_view_main, emotionMainFragment);
+//        transaction.addToBackStack(null);//fragment添加至回退栈中
+        transaction.commit();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setSystemBar();
+    }
 
-    private void onPhotoSource(int mode) {
-        if (mode == R.id.btn_pick_from_library) {
-            Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setDataAndType(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-            startActivityForResult(intent, REQ_CODE_GET_PHOTO_FROM_GALLERY);
-
-        } else if (mode == R.id.btn_take_photo) {
-
-
-            int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
-
-            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
-            } else {
-
-                permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-                if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITEEXTRENAL_STOR);
-                } else {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        Uri contentUri = FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
-                                .getExternalStorageDirectory(), "temp_picture.jpg"));
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
-                    } else {
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment
-                                .getExternalStorageDirectory(), "temp_picture.jpg")));
-                    }
-                    startActivityForResult(intent, REQ_CODE_GET_PHOTO_FROM_TAKEPHOTO);
-                }
-            }
-
-
+    public void setSystemBar(){
+        //当FitsSystemWindows设置 true 时，会在屏幕最上方预留出状态栏高度的 padding
+        StatusBarUtil.setRootViewFitsSystemWindows(this,true);
+        //设置状态栏透明
+        StatusBarUtil.setTranslucentStatus(this);
+        //一般的手机的状态栏文字和图标都是白色的, 可如果你的应用也是纯白色的, 或导致状态栏文字看不清
+        //所以如果你是这种情况,请使用以下代码, 设置状态使用深色文字图标风格, 否则你可以选择性注释掉这个if内容
+        if (!StatusBarUtil.setStatusBarDarkTheme(this, true)) {
+            //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
+            //这样半透明+白=灰, 状态栏的文字能看得清
+            StatusBarUtil.setStatusBarColor(this,0x55000000);
         }
-    }
-
-
-    private void sendWenziMsg(String msg) {
-        String rawMessage = ",fhadmin-msg," + UserInstance.getInstance().getUid() + ",fh," + mTargetId + ",fh,"
-                + UserInstance.getInstance().getNickname() + ",fh,普通用户,fh," + UserInstance.getInstance().getRealname()
-                + ",fh,friend,fh," + UserInstance.getInstance().userInfo.avatar + ",fh," + msg;
-
-        WebSocketManager.getInstance().sendMessage(rawMessage);
-
-        RemoteChatMessage message = new RemoteChatMessage();
-        message.contentData = msg;
-        message.targetId = mTargetId;
-        message.fromId = UserInstance.getInstance().getUid();
-
-        HistoryBean historyBean = new HistoryBean();
-        historyBean.setType(CoreDB.HISTORY_TYPE_C2C);
-        historyBean.setLastTime(new SimpleDateFormat("MM-dd HH:mm").format(new java.util.Date()));
-        historyBean.setLastMsg(message.contentData);
-        historyBean.setConversationId(message.targetId);
-        historyBean.setNewMsgCount(1);
-        historyBean.doctorAvator = doctorAvator;
-        historyBean.doctorName = doctorName;
-        MLOC.addHistory(historyBean, true);
-
-        MessageBean messageBean = new MessageBean();
-        messageBean.setConversationId(message.targetId);
-        messageBean.setTime(new SimpleDateFormat("MM-dd HH:mm").format(new java.util.Date()));
-        messageBean.setMsg(message.contentData);
-        messageBean.setFromId(message.fromId);
-        MLOC.saveMessage(messageBean);
-
-        ColorUtils.getColor(this, message.fromId);
-        mDatas.add(messageBean);
-        mAdapter.notifyDataSetChanged();
-    }
-
-    private void sendImgMsg(String path) {
-        String pathString = "img[" + path + "]";
-        String rawMessage = ",fhadmin-msg," + UserInstance.getInstance().getUid() + ",fh," + mTargetId + ",fh,"
-                + UserInstance.getInstance().getNickname() + ",fh,普通用户,fh," + UserInstance.getInstance().getRealname()
-                + ",fh,friend,fh," + UserInstance.getInstance().userInfo.avatar + ",fh," + pathString;
-
-        WebSocketManager.getInstance().sendMessage(rawMessage);
-
-        RemoteChatMessage message = new RemoteChatMessage();
-        message.contentData = pathString;
-        message.targetId = mTargetId;
-        message.fromId = UserInstance.getInstance().getUid();
-
-        HistoryBean historyBean = new HistoryBean();
-        historyBean.setType(CoreDB.HISTORY_TYPE_C2C);
-        historyBean.setLastTime(new SimpleDateFormat("MM-dd HH:mm").format(new java.util.Date()));
-        historyBean.setLastMsg(message.contentData);
-        historyBean.setConversationId(message.targetId);
-        historyBean.setNewMsgCount(1);
-        historyBean.doctorAvator = doctorAvator;
-        historyBean.doctorName = doctorName;
-        MLOC.addHistory(historyBean, true);
-
-        MessageBean messageBean = new MessageBean();
-        messageBean.setConversationId(message.targetId);
-        messageBean.setTime(new SimpleDateFormat("MM-dd HH:mm").format(new java.util.Date()));
-        messageBean.setMsg(message.contentData);
-        messageBean.setFromId(message.fromId);
-        MLOC.saveMessage(messageBean);
-
-        ColorUtils.getColor(this, message.fromId);
-        mDatas.add(messageBean);
-        mAdapter.notifyDataSetChanged();
     }
 
 
@@ -357,18 +233,7 @@ public class C2CActivity extends BaseActivity implements AdapterView.OnItemLongC
         super.onRestart();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mDatas.clear();
-        List<MessageBean> list = MLOC.getMessageList(mTargetId);
-        if (list != null && list.size() > 0) {
-            mDatas.addAll(list);
-        }
-        mAdapter.notifyDataSetChanged();
-        vMsgList.setSelection(mAdapter.getCount() - 1);
 
-    }
 
     @Override
     public void onStop() {
@@ -376,41 +241,6 @@ public class C2CActivity extends BaseActivity implements AdapterView.OnItemLongC
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 0)
-    public void recevieMessage(EventManage.AEVENT_C2C_REV_MSG eventObj) {
-        MLOC.d("IM_C2C", "||" + eventObj);
-        final RemoteChatMessage revMsg = (RemoteChatMessage) eventObj.message;
-        if (revMsg.fromId.equals(mTargetId)) {
-            HistoryBean historyBean = new HistoryBean();
-            historyBean.setType(CoreDB.HISTORY_TYPE_C2C);
-            historyBean.setLastTime(new SimpleDateFormat("MM-dd HH:mm").format(new java.util.Date()));
-            historyBean.setLastMsg(revMsg.contentData);
-            historyBean.setConversationId(revMsg.fromId);
-            historyBean.setNewMsgCount(1);
-            historyBean.doctorName = doctorName;
-            historyBean.doctorAvator = doctorAvator;
-            MLOC.addHistory(historyBean, true);
-
-            MessageBean messageBean = new MessageBean();
-            messageBean.setConversationId(revMsg.fromId);
-            messageBean.setTime(new SimpleDateFormat("MM-dd HH:mm").format(new java.util.Date()));
-            messageBean.setMsg(revMsg.contentData);
-            messageBean.setFromId(revMsg.fromId);
-            mDatas.add(messageBean);
-            mAdapter.notifyDataSetChanged();
-
-        }
-    }
-
-
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        // 将文本内容放到系统剪贴板里。
-        cm.setText(mDatas.get(position).getMsg());
-        Toast.makeText(this, "消息已复制", Toast.LENGTH_LONG).show();
-        return false;
-    }
 
 
 
@@ -419,284 +249,27 @@ public class C2CActivity extends BaseActivity implements AdapterView.OnItemLongC
 
 
 
-    public class MyChatroomListAdapter extends BaseAdapter {
-        private LayoutInflater mInflater;
-
-        public MyChatroomListAdapter() {
-            mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-
-        @Override
-        public int getCount() {
-            if (mDatas == null) return 0;
-            return mDatas.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            if (mDatas == null)
-                return null;
-            return mDatas.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            if (mDatas == null)
-                return 0;
-            return position;
-        }
-
-        @Override
-        public int getViewTypeCount() {
-            return 2;
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            return mDatas.get(position).getFromId().equals(MLOC.userId) ? 0 : 1;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            int currLayoutType = getItemViewType(position);
-            if (currLayoutType == 0) { //自己的信息
-                final ViewHolder itemSelfHolder;
-                if (convertView == null) {
-                    itemSelfHolder = new ViewHolder();
-                    convertView = mInflater.inflate(R.layout.item_chat_msg_list_right, null);
-                    itemSelfHolder.vUserId = (TextView) convertView.findViewById(R.id.item_user_id);
-                    itemSelfHolder.vMsg = (TextView) convertView.findViewById(R.id.item_msg);
-                    itemSelfHolder.sdw_pic = convertView.findViewById(R.id.sdw_pic);
-//                    itemSelfHolder.vHeadBg = convertView.findViewById(R.id.head_bg);
-                    itemSelfHolder.sdv_header = convertView.findViewById(R.id.sdv_header);
-//                    itemSelfHolder.vHeadCover = (CircularCoverView) convertView.findViewById(R.id.head_cover);
-//                    itemSelfHolder.vHeadImage = (ImageView) convertView.findViewById(R.id.head_img);
-                    convertView.setTag(itemSelfHolder);
-                } else {
-                    itemSelfHolder = (ViewHolder) convertView.getTag();
-                }
-                itemSelfHolder.vUserId.setText(UserInstance.getInstance().getNickname());
-                String rawmessage = mDatas.get(position).getMsg();
-                if (rawmessage.startsWith("img[") && rawmessage.endsWith("]")) {
-                    rawmessage = rawmessage.replace("img[", "");
-                    rawmessage = rawmessage.replace("]", "");
-                    itemSelfHolder.sdw_pic.setVisibility(View.VISIBLE);
-                    itemSelfHolder.vMsg.setVisibility(View.GONE);
 
 
 
-                    itemSelfHolder.sdw_pic.setImageURI(Uri.parse(Constants.Url.File_Host + rawmessage));
-                    String finalRawmessage = rawmessage;
-                    itemSelfHolder.sdw_pic.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                            //组织数据
-                            ArrayList<ThumbViewInfo> mThumbViewInfoList = new ArrayList<>(); // 这个最好定义成成员变量
-                            ThumbViewInfo item;
-                            mThumbViewInfoList.clear();
-//                            for (int i = 0;i < resultList.size(); i++) {
-                                Rect bounds = new Rect();
-                                //new ThumbViewInfo(图片地址);
-                                item=new ThumbViewInfo(Constants.Url.File_Host +finalRawmessage);
-                                item.setBounds(bounds);
-                                mThumbViewInfoList.add(item);
-//                            }
-
-//打开预览界面
-                            GPreviewBuilder.from(C2CActivity.this)
-                                    //是否使用自定义预览界面，当然8.0之后因为配置问题，必须要使用
-                                    .to(ImageLookActivity.class)
-                                    .setData(mThumbViewInfoList)
-                                    .setCurrentIndex(0)
-                                    .setSingleFling(true)
-                                    .setType(GPreviewBuilder.IndicatorType.Number)
-                                    // 小圆点
-//  .setType(GPreviewBuilder.IndicatorType.Dot)
-                                    .start();//启动
-
-                        }
-                    });
-
-                } else {
-                    itemSelfHolder.sdw_pic.setVisibility(View.GONE);
-                    itemSelfHolder.vMsg.setVisibility(View.VISIBLE);
-                    itemSelfHolder.vMsg.setText(mDatas.get(position).getMsg());
-                }
-
-                itemSelfHolder.sdv_header.setImageURI(Uri.parse(Constants.Url.File_Host + UserInstance.getInstance().userInfo.avatar));
-//                itemSelfHolder.vHeadBg.setBackgroundColor(ColorUtils.getColor(C2CActivity.this,mDatas.get(position).getFromId()));
-//                itemSelfHolder.vHeadCover.setCoverColor(Color.parseColor("#f6f6f6"));
-//                int cint = DensityUtil.dip2px(C2CActivity.this,20);
-//                itemSelfHolder.vHeadCover.setRadians(cint, cint, cint, cint,0);
-//                itemSelfHolder.vHeadImage.setImageResource(MLOC.getHeadImage(C2CActivity.this,mDatas.get(position).getFromId()));
-            } else if (currLayoutType == 1) {//别人的信息
-                final ViewHolder itemOtherHolder;
-                if (convertView == null) {
-                    itemOtherHolder = new ViewHolder();
-                    convertView = mInflater.inflate(R.layout.item_chat_msg_list_left, null);
-                    itemOtherHolder.vUserId = (TextView) convertView.findViewById(R.id.item_user_id);
-                    itemOtherHolder.vMsg = (TextView) convertView.findViewById(R.id.item_msg);
-                    itemOtherHolder.sdw_pic = convertView.findViewById(R.id.sdw_pic);
-//                    itemOtherHolder.vHeadBg = convertView.findViewById(R.id.head_bg);
-                    itemOtherHolder.sdv_header = convertView.findViewById(R.id.sdv_header);
-//                    itemOtherHolder.vHeadCover = (CircularCoverView) convertView.findViewById(R.id.head_cover);
-//                    itemOtherHolder.vHeadImage = (ImageView) convertView.findViewById(R.id.head_img);
-                    convertView.setTag(itemOtherHolder);
-                } else {
-                    itemOtherHolder = (ViewHolder) convertView.getTag();
-                }
-                itemOtherHolder.vUserId.setText(doctorName);
-                String rawmessage = mDatas.get(position).getMsg();
-                if (rawmessage.startsWith("img[") && rawmessage.endsWith("]")) {
-                    rawmessage = rawmessage.replace("img[", "");
-                    rawmessage = rawmessage.replace("]", "");
-                    itemOtherHolder.sdw_pic.setVisibility(View.VISIBLE);
-                    itemOtherHolder.vMsg.setVisibility(View.GONE);
-                    itemOtherHolder.sdw_pic.setImageURI(Uri.parse(Constants.Url.File_Host + rawmessage));
-                    String finalRawmessage = rawmessage;
-                    itemOtherHolder.sdw_pic.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            //组织数据
-                            ArrayList<ThumbViewInfo> mThumbViewInfoList = new ArrayList<>(); // 这个最好定义成成员变量
-                            ThumbViewInfo item;
-                            mThumbViewInfoList.clear();
-//                            for (int i = 0;i < resultList.size(); i++) {
-                            Rect bounds = new Rect();
-                            //new ThumbViewInfo(图片地址);
-                            item=new ThumbViewInfo(Constants.Url.File_Host +finalRawmessage);
-                            item.setBounds(bounds);
-                            mThumbViewInfoList.add(item);
-//                            }
-
-//打开预览界面
-                            GPreviewBuilder.from(C2CActivity.this)
-                                    //是否使用自定义预览界面，当然8.0之后因为配置问题，必须要使用
-                                    .to(ImageLookActivity.class)
-                                    .setData(mThumbViewInfoList)
-                                    .setCurrentIndex(0)
-                                    .setSingleFling(true)
-                                    .setType(GPreviewBuilder.IndicatorType.Number)
-                                    // 小圆点
-//  .setType(GPreviewBuilder.IndicatorType.Dot)
-                                    .start();//启动
-                        }
-                    });
-
-                } else {
-                    itemOtherHolder.sdw_pic.setVisibility(View.GONE);
-                    itemOtherHolder.vMsg.setVisibility(View.VISIBLE);
-                    itemOtherHolder.vMsg.setText(mDatas.get(position).getMsg());
-                }
-//                itemOtherHolder.vMsg.setText(mDatas.get(position).getMsg());
-                if (doctorAvator != null && !"".equals(doctorAvator)) {
-                    Uri uri = Uri.parse(doctorAvator);
-                    itemOtherHolder.sdv_header.setImageURI(uri);
-                }
-//                itemOtherHolder.vHeadBg.setBackgroundColor(ColorUtils.getColor(C2CActivity.this,mDatas.get(position).getFromId()));
-//                itemOtherHolder.vHeadCover.setCoverColor(Color.parseColor("#f6f6f6"));
-//                int cint = DensityUtil.dip2px(C2CActivity.this,20);
-//                itemOtherHolder.vHeadCover.setRadians(cint, cint, cint, cint,0);
-//                itemOtherHolder.vHeadImage.setImageResource(MLOC.getHeadImage(C2CActivity.this,mDatas.get(position).getFromId()));
-            }
-            return convertView;
-        }
 
 
-    }
-
-    public class ViewHolder {
-        public TextView vUserId;
-        public TextView vMsg;
-        public SimpleDraweeView sdw_pic;
-        public SimpleDraweeView sdv_header;
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
 
     //检查权限
     void check() {
-        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
 
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
-        } else {
-            permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITEEXTRENAL_STOR);
-            } else {
-                permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO);
-
-                if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_AUDIO);
-                } else {
                     connectDoctor();
-                }
-            }
-        }
     }
 
 
-    public final static int REQUEST_CAMERA = 1;
-
-    public final static int REQUEST_WRITEEXTRENAL_STOR = 2;
-
-    public final static int REQUEST_AUDIO = 3;
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_CAMERA:
-                int permissionCheck;
-
-                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-//                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITEEXTRENAL_STOR);
-                    permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-                    if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITEEXTRENAL_STOR);
-                    } else {
-                        permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO);
-
-                        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_AUDIO);
-                        } else {
-                            connectDoctor();
-                        }
-                    }
-                }
-                break;
-            case REQUEST_WRITEEXTRENAL_STOR:
-
-                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO);
-
-                    if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_AUDIO);
-                    } else {
-                        connectDoctor();
-                    }
-
-                }
-                break;
-            case REQUEST_AUDIO:
-                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    connectDoctor();
-                }
-                break;
-
-            default:
-                break;
-        }
-    }
 
 
     public String chatType = "video";
@@ -797,57 +370,7 @@ public class C2CActivity extends BaseActivity implements AdapterView.OnItemLongC
         super.onActivityResult(requestCode, resultCode, data);
 
 
-        switch (requestCode) {
-            case REQ_CODE_PHOTO_SOURCE:
-                if (data != null) {
-                    int mode = data.getIntExtra(SelectAvatarSourceDialog.TAG_MODE, -1);
-                    onPhotoSource(mode);
-                }
-                break;
-            case REQ_CODE_GET_PHOTO_FROM_GALLERY:
-                if (data != null && data.getData() != null) {
-                    Bundle bundle = new Bundle();
-                    // 选择图片后进入裁剪
-                    String path = data.getData().getPath();
-                    Uri source = data.getData();
 
-//                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-
-//                    String path = FileUtilcll.saveFile(this, "pic1.jpg", bitmap);
-                    getRealFilePath(this,source);
-
-                    uploadPicture( getRealFilePath(this,source));
-
-//                    beginCrop(source, bundle);
-
-                }
-                break;
-            case REQ_CODE_GET_PHOTO_FROM_TAKEPHOTO:
-                // 判断相机是否有返回
-
-                Uri source;
-                Bundle bundle = new Bundle();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    source = FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
-                            .getExternalStorageDirectory(), "temp_picture.jpg"));
-                } else {
-                    // 选择图片后进入裁剪
-                    File picture = new File(Environment.getExternalStorageDirectory()
-                            , "temp_picture.jpg");
-                    if (!picture.exists()) {
-                        return;
-                    }
-                    source = Uri.fromFile(picture);
-                }
-
-                uploadPicture(source.getPath());
-
-//                beginCrop(source, bundle);
-
-
-                break;
-
-        }
 
 
         switch (resultCode) {
@@ -862,74 +385,6 @@ public class C2CActivity extends BaseActivity implements AdapterView.OnItemLongC
 
 
 
-    /**
-     * Try to return the absolute file path from the given Uri
-     *
-     * @param context
-     * @param uri
-     * @return the file path or null
-     */
-    public static String getRealFilePath( final Context context, final Uri uri ) {
-        if ( null == uri ) return null;
-        final String scheme = uri.getScheme();
-        String data = null;
-        if ( scheme == null )
-            data = uri.getPath();
-        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
-            data = uri.getPath();
-        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
-            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
-            if ( null != cursor ) {
-                if ( cursor.moveToFirst() ) {
-                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
-                    if ( index > -1 ) {
-                        data = cursor.getString( index );
-                    }
-                }
-                cursor.close();
-            }
-        }
-        return data;
-    }
-
-    public void uploadPicture(String path) {
-        try {
-
-            //把Bitmap保存到sd卡中
-            File fImage = new File(path);
-
-            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), fImage);
-            MultipartBody.Part body = MultipartBody.Part.createFormData("file", fImage.getName(), requestFile);
-            ApiUtils.getApiService().uploadLogo(body).enqueue(new TaiShengCallback<BaseBean<PictureBean>>() {
-
-                                                                  @Override
-                                                                  public void onSuccess(Response<BaseBean<PictureBean>> response, BaseBean<PictureBean> message) {
-                                                                      switch (message.code) {
-                                                                          case Constants.HTTP_SUCCESS:
-                                                                              String path = message.result.path;
-
-
-                                                                              EventBus.getDefault().post(new EventManage.uploadChatPictureSuccess(path));
-
-                                                                              sendImgMsg(path);
-
-                                                                              break;
-                                                                      }
-
-
-                                                                  }
-
-                                                                  @Override
-                                                                  public void onFail(Call<BaseBean<PictureBean>> call, Throwable t) {
-
-                                                                  }
-                                                              }
-            );
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
 
@@ -937,21 +392,7 @@ public class C2CActivity extends BaseActivity implements AdapterView.OnItemLongC
 
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 0)
-    public void uploadImageSuccess(EventManage.uploadChatPictureSuccess event) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Uri source = FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
-                    .getExternalStorageDirectory(), "temp_picture.jpg"));
-            getContentResolver().delete(source, null, null);
-        } else {
 
-            File picture = new File(Environment.getExternalStorageDirectory()
-                    , "temp_picture.jpg");
-            if (picture.exists() && picture.isFile()) {
-                picture.delete();
-            }
-        }
-    }
 
 
     public void showGoRecommendDialog() {
@@ -986,5 +427,16 @@ public class C2CActivity extends BaseActivity implements AdapterView.OnItemLongC
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        /**
+         * 按下返回键，如果表情显示，则隐藏，没有显示则回退页面
+         */
+        if (!emotionMainFragment.isInterceptBackPress()) {
+            super.onBackPressed();
+        }
     }
 }

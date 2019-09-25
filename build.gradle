@@ -36,8 +36,8 @@ android {
         applicationId "com.taisheng.now"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 15
-        versionName "2.0"
+        versionCode 16
+        versionName "2.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 //        jackOptions {
@@ -45,7 +45,7 @@ android {
 //        }
 
         ndk {
-            abiFilters "armeabi","armeabi-v7a","arm64-v8a"
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
         }
 
     }
@@ -62,12 +62,16 @@ android {
     }
 
 
-
-
-
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
+    }
+}
+
+
+repositories {
+    flatDir {
+        dirs 'libs'
     }
 }
 
@@ -76,6 +80,9 @@ dependencies {
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    // 支付宝 SDK AAR 包所需的配置
+    api(name: 'alipaySdk-15.6.5-20190718211148', ext: 'aar')
+
     implementation 'androidx.appcompat:appcompat:1.0.0'
     //    testCompile 'junit:junit:4.12'
     implementation 'androidx.multidex:multidex:2.0.0'
@@ -112,5 +119,6 @@ dependencies {
     implementation 'com.neovisionaries:nv-websocket-client:2.9'
 
     implementation 'com.ycjiang:imgepreviewlibrary:1.1.3'
+
 
 }

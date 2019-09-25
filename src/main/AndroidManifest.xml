@@ -184,11 +184,7 @@
         </activity>
         <activity
             android:name="com.taisheng.now.chat.C2CActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:hardwareAccelerated="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat">
+     >
 
         </activity>
 

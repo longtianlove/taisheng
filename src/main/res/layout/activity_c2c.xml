@@ -53,66 +53,23 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/msg_list"
+
+
+
+
+    <TextView
+        android:id="@+id/tv_input_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="10dp"
         android:layout_weight="1"
-        android:divider="#00000000" />
+        android:focusable="true"
+        android:visibility="gone"
+        android:gravity="top" />
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/fl_emotion_view_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/id_input"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_round_corner_grey"
-            android:gravity="center_vertical"
-            android:hint="来聊吧~"
-            android:paddingLeft="15dp"
-            android:textColor="#141e41"
-            android:textColorHint="#ff999999"
-            android:textSize="12sp" />
-        <!--<RelativeLayout-->
-        <!--android:layout_width="75dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:layout_marginRight="15dp"-->
-        <!--android:layout_marginLeft="15dp"-->
-        <!--android:background="@drawable/bg_btn_orange_back">-->
-        <TextView
-            android:id="@+id/send_btn"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/xml_login_background"
-            android:gravity="center"
-            android:text="发送"
-            android:visibility="gone"
-            android:textColor="#ffffff"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:id="@+id/iv_sendimg"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:visibility="visible"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/send_img"
-            />
-        <!--</RelativeLayout>-->
-
-    </LinearLayout>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
