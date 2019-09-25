@@ -89,7 +89,7 @@ import static com.taisheng.now.chat.C2CActivity.mTargetId;
  * GitHub: https://github.com/SiberiaDante
  * 博客园： http://www.cnblogs.com/shen-hua/
  */
-public class EmotionMainFragment extends BaseFragment implements AdapterView.OnItemLongClickListener{
+public class EmotionMainFragment extends BaseFragment implements AdapterView.OnItemLongClickListener {
     private static final String TAG = EmotionMainFragment.class.getSimpleName();
     private CheckBox mCBEmotionBtn;
     private EditText vEditText;
@@ -111,7 +111,7 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
     private GlobalOnItemClickManagerUtils globalOnItemClickManager;
 
 
-
+    private View ll_emotion_layout;
     private List<MessageBean> mDatas;
 
     @Nullable
@@ -119,6 +119,7 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_emotion_main, container, false);
         initView(layout);
+        ll_emotion_layout = layout.findViewById(R.id.ll_emotion_layout);
         //初始化EmotionKeyboard
         mEmotionKeyboard = EmotionKeyboard.with(getActivity())
                 .setEmotionView(layout.findViewById(R.id.ll_emotion_layout))//绑定表情面板
@@ -135,6 +136,10 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
         return layout;
     }
 
+    public void yicangbiaoqingban() {
+        ll_emotion_layout.setVisibility(View.VISIBLE);
+
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 0)
     public void uploadImageSuccess(EventManage.uploadChatPictureSuccess event) {
@@ -163,13 +168,14 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
     }
 
     private MyChatroomListAdapter mAdapter;
+
     private void initView(View layout) {
 
         mCBEmotionBtn = ((CheckBox) layout.findViewById(R.id.emotion_button));
 
         vEditText = ((EditText) layout.findViewById(R.id.bar_edit_text));
         vSendBtn = ((Button) layout.findViewById(R.id.bar_btn_send));
-        vSendBtn.setOnClickListener(new View.OnClickListener(){
+        vSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: " + vEditText.getText().toString());
@@ -177,11 +183,11 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
 //                ((TextView) contentView).setText(SpanStringUtils.getEmotionContent(EmotionUtils.EMOTION_CLASSIC_TYPE,
 //                        getActivity(), ((TextView) contentView), mEdtContent.getText().toString()));
                 sendBiaoqingMsg((SpanStringUtils.megetEmotionContent(EmotionUtils.EMOTION_CLASSIC_TYPE,
-                      getActivity(), vEditText.getText().toString())).toString());
+                        getActivity(), vEditText.getText().toString())).toString());
                 vEditText.setText("");
             }
         });
-        iv_sendimg=layout.findViewById(R.id.iv_sendimg);
+        iv_sendimg = layout.findViewById(R.id.iv_sendimg);
         vEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -193,7 +199,7 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
                 if (charSequence.length() > 0) {
                     vSendBtn.setVisibility(View.VISIBLE);
                     iv_sendimg.setVisibility(View.GONE);
-                }else{
+                } else {
                     vSendBtn.setVisibility(View.GONE);
                     iv_sendimg.setVisibility(View.VISIBLE);
                 }
@@ -213,9 +219,6 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
                 modifyAvatar();
             }
         });
-
-
-
 
 
         mNoHorizontalVP = ((NoHorizontalScrollerViewPager) layout.findViewById(R.id.vp_emotionview_layout));
@@ -252,7 +255,6 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
         Intent intent = new Intent(getActivity(), SelectAvatarSourceDialog.class);
         startActivityForResult(intent, REQ_CODE_PHOTO_SOURCE);
     }
-
 
 
     public final static int REQUEST_CAMERA = 1;
@@ -320,9 +322,9 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
 //                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
 
 //                    String path = FileUtilcll.saveFile(this, "pic1.jpg", bitmap);
-                    getRealFilePath(getActivity(),source);
+                    getRealFilePath(getActivity(), source);
 
-                    uploadPicture( getRealFilePath(getActivity(),source));
+                    uploadPicture(getRealFilePath(getActivity(), source));
 
 //                    beginCrop(source, bundle);
 
@@ -357,7 +359,6 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
     }
 
 
-
     /**
      * Try to return the absolute file path from the given Uri
      *
@@ -365,21 +366,21 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
      * @param uri
      * @return the file path or null
      */
-    public static String getRealFilePath( final Context context, final Uri uri ) {
-        if ( null == uri ) return null;
+    public static String getRealFilePath(final Context context, final Uri uri) {
+        if (null == uri) return null;
         final String scheme = uri.getScheme();
         String data = null;
-        if ( scheme == null )
+        if (scheme == null)
             data = uri.getPath();
-        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
+        else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
             data = uri.getPath();
-        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
-            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
-            if ( null != cursor ) {
-                if ( cursor.moveToFirst() ) {
-                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
-                    if ( index > -1 ) {
-                        data = cursor.getString( index );
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        data = cursor.getString(index);
                     }
                 }
                 cursor.close();
@@ -426,7 +427,6 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
             e.printStackTrace();
         }
     }
-
 
 
     private void initData() {
@@ -531,7 +531,6 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
     }
 
 
-
     private void sendWenziMsg(String msg) {
         String rawMessage = ",fhadmin-msg," + UserInstance.getInstance().getUid() + ",fh," + mTargetId + ",fh,"
                 + UserInstance.getInstance().getNickname() + ",fh,普通用户,fh," + UserInstance.getInstance().getRealname()
@@ -602,9 +601,9 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
     }
 
 
-    private  void sendBiaoqingMsg(String biaoqing) {
+    private void sendBiaoqingMsg(String biaoqing) {
 
-        String pathString=biaoqing.replaceAll("\\[","face[");
+        String pathString = biaoqing.replaceAll("\\[", "face[");
         String rawMessage = ",fhadmin-msg," + UserInstance.getInstance().getUid() + ",fh," + mTargetId + ",fh,"
                 + UserInstance.getInstance().getNickname() + ",fh,普通用户,fh," + UserInstance.getInstance().getRealname()
                 + ",fh,friend,fh," + UserInstance.getInstance().userInfo.avatar + ",fh," + pathString;
@@ -637,12 +636,13 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
         mDatas.add(messageBean);
         mAdapter.notifyDataSetChanged();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 0)
     public void recevieMessage(EventManage.AEVENT_C2C_REV_MSG eventObj) {
         MLOC.d("IM_C2C", "||" + eventObj);
         final RemoteChatMessage revMsg = (RemoteChatMessage) eventObj.message;
         if (revMsg.fromId.equals(mTargetId)) {
-            String contentData=revMsg.contentData.replace("face[","[");
+            String contentData = revMsg.contentData.replace("face[", "[");
             HistoryBean historyBean = new HistoryBean();
             historyBean.setType(CoreDB.HISTORY_TYPE_C2C);
             historyBean.setLastTime(new SimpleDateFormat("MM-dd HH:mm").format(new java.util.Date()));
@@ -730,7 +730,6 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
                     itemSelfHolder.vMsg.setVisibility(View.GONE);
 
 
-
                     itemSelfHolder.sdw_pic.setImageURI(Uri.parse(Constants.Url.File_Host + rawmessage));
                     String finalRawmessage = rawmessage;
                     itemSelfHolder.sdw_pic.setOnClickListener(new View.OnClickListener() {
@@ -744,7 +743,7 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
 //                            for (int i = 0;i < resultList.size(); i++) {
                             Rect bounds = new Rect();
                             //new ThumbViewInfo(图片地址);
-                            item=new ThumbViewInfo(Constants.Url.File_Host +finalRawmessage);
+                            item = new ThumbViewInfo(Constants.Url.File_Host + finalRawmessage);
                             item.setBounds(bounds);
                             mThumbViewInfoList.add(item);
 //                            }
@@ -812,7 +811,7 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
 //                            for (int i = 0;i < resultList.size(); i++) {
                             Rect bounds = new Rect();
                             //new ThumbViewInfo(图片地址);
-                            item=new ThumbViewInfo(Constants.Url.File_Host +finalRawmessage);
+                            item = new ThumbViewInfo(Constants.Url.File_Host + finalRawmessage);
                             item.setBounds(bounds);
                             mThumbViewInfoList.add(item);
 //                            }
@@ -860,6 +859,7 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
         public SimpleDraweeView sdw_pic;
         public SimpleDraweeView sdv_header;
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
