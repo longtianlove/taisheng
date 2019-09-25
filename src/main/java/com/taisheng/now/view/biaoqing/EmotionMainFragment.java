@@ -19,8 +19,10 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -77,6 +79,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
 import static com.taisheng.now.chat.C2CActivity.doctorAvator;
 import static com.taisheng.now.chat.C2CActivity.doctorName;
 import static com.taisheng.now.chat.C2CActivity.mTargetId;
@@ -232,6 +235,22 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
         mAdapter = new MyChatroomListAdapter();
         vMsgList.setAdapter(mAdapter);
         vMsgList.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+
+
+        vMsgList.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(INPUT_METHOD_SERVICE);
+
+                if( (event.getAction() ==  MotionEvent.ACTION_DOWN)
+                        && (view.getId() == R.id.msg_list) ) {
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+                return false;
+            }
+        });
+
 
     }
 
