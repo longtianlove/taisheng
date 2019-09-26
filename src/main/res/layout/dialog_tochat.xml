@@ -16,35 +16,6 @@
         android:textColor="#ff999999"
         android:textSize="14sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#f8f8f8" />
-
-    <LinearLayout
-        android:id="@+id/ll_wenzi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="12dp"
-        android:paddingTop="12dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_tuwen" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="9dp"
-            android:gravity="center"
-            android:text="图文咨询"
-            android:textColor="#ff333333"
-            android:textSize="18sp" />
-
-    </LinearLayout>
 
 
     <View
@@ -108,6 +79,37 @@
 
     </LinearLayout>
 
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f8f8f8" />
+
+    <LinearLayout
+        android:id="@+id/ll_wenzi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_tuwen" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:gravity="center"
+            android:text="图文咨询"
+            android:textColor="#ff333333"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="7dp"
@@ -130,6 +132,9 @@
             android:text="取消"
             android:textColor="#ff333333"
             android:textSize="18sp" />
+
+
+
 
     </LinearLayout>
 
