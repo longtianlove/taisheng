@@ -477,6 +477,14 @@
             android:launchMode="singleInstance"
             android:screenOrientation="fullUser"
             android:theme="@style/Webrtc.AppTheme.NoActionBar" />
+
+
+        <activity
+            android:name="com.taisheng.now.bussiness.article.SecretActivity"
+            android:configChanges="orientation|smallestScreenSize|screenSize|screenLayout"
+            android:launchMode="singleInstance"
+            android:screenOrientation="fullUser"
+            android:theme="@style/Webrtc.AppTheme.NoActionBar" />
         <provider
             android:authorities="com.taisheng.now.fileprovider"
             android:name="androidx.core.content.FileProvider"

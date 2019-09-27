@@ -32,6 +32,7 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.MainActivity;
+import com.taisheng.now.bussiness.article.SecretActivity;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
 import com.taisheng.now.bussiness.bean.post.VideoOperatePostBean;
@@ -162,11 +163,13 @@ public class FirstFragment extends BaseFragment {
         ll_sushenhufu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).showFragment(2);
-                ((MainActivity) getActivity()).secretFragment.selectTab = 0;
-                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
-                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(0).select();
+//                ((MainActivity) getActivity()).showFragment(2);
+                SecretActivity.selectTab = 0;
+                if (SecretActivity.tl_tab != null) {
+                    (SecretActivity.tl_tab.getTabAt(0)).select();
                 }
+                Intent intent=new Intent(getActivity(), SecretActivity.class);
+                startActivity(intent);
             }
         });
         ll_yiliaoyangsheng = rootView.findViewById(R.id.ll_yiliaoyangsheng);
@@ -175,22 +178,38 @@ public class FirstFragment extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).showFragment(2);
-                ((MainActivity) getActivity()).secretFragment.selectTab = 2;
-                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
-                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(2).select();
+//                ((MainActivity) getActivity()).showFragment(2);
+//                ((MainActivity) getActivity()).secretFragment.selectTab = 2;
+//                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
+//                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(2).select();
+//                }
+
+
+                SecretActivity.selectTab = 2;
+                if (SecretActivity.tl_tab != null) {
+                    (SecretActivity.tl_tab.getTabAt(2)).select();
                 }
+                Intent intent=new Intent(getActivity(), SecretActivity.class);
+                startActivity(intent);
             }
         });
         ll_muyingyunyu = rootView.findViewById(R.id.ll_muyingyunyu);
         ll_muyingyunyu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).showFragment(2);
-                ((MainActivity) getActivity()).secretFragment.selectTab = 4;
-                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
-                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(4).select();
+//                ((MainActivity) getActivity()).showFragment(2);
+//                ((MainActivity) getActivity()).secretFragment.selectTab = 4;
+//                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
+//                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(4).select();
+//                }
+
+
+                SecretActivity.selectTab = 4;
+                if (SecretActivity.tl_tab != null) {
+                    (SecretActivity.tl_tab.getTabAt(4)).select();
                 }
+                Intent intent=new Intent(getActivity(), SecretActivity.class);
+                startActivity(intent);
             }
         });
         ll_yingjizixun = rootView.findViewById(R.id.ll_yingjizixun);
@@ -204,21 +223,37 @@ public class FirstFragment extends BaseFragment {
         ll_jianshenyundong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).showFragment(2);
-                ((MainActivity) getActivity()).secretFragment.selectTab = 1;
-                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
-                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(1).select();
+//                ((MainActivity) getActivity()).showFragment(2);
+//                ((MainActivity) getActivity()).secretFragment.selectTab = 1;
+//                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
+//                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(1).select();
+//                }
+
+
+
+                SecretActivity.selectTab = 1;
+                if (SecretActivity.tl_tab != null) {
+                    (SecretActivity.tl_tab.getTabAt(1)).select();
                 }
+                Intent intent=new Intent(getActivity(), SecretActivity.class);
+                startActivity(intent);
             }
         });
         ll_yongyaozhidao = rootView.findViewById(R.id.ll_yongyaozhidao);
         ll_yongyaozhidao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).showFragment(2);
-                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
-                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(3).select();
+//                ((MainActivity) getActivity()).showFragment(2);
+//                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
+//                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(3).select();
+//                }
+
+                SecretActivity.selectTab = 3;
+                if (SecretActivity.tl_tab != null) {
+                    (SecretActivity.tl_tab.getTabAt(3)).select();
                 }
+                Intent intent=new Intent(getActivity(), SecretActivity.class);
+                startActivity(intent);
             }
         });
         ll_jiankangceping = rootView.findViewById(R.id.ll_jiankangceping);
