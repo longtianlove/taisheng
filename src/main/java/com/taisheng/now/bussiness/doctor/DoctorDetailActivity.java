@@ -631,6 +631,60 @@ public class DoctorDetailActivity extends Activity implements ActivityCompat.OnR
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+
+
+
+        switch (resultCode) {
+            case TRTCMainActivity.TRTC_Normal_EXIT_RESULT:
+                showGoRecommendDialog();
+                break;
+
+
+        }
+    }
+
+
+
+    public void showGoRecommendDialog() {
+        final Dialog dialog = new AppDialog(this, R.layout.dialog_go_recommend, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, R.style.mystyle, Gravity.CENTER);
+        dialog.getWindow().setWindowAnimations(0);
+
+        Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        Button btn_go_recommend = (Button) dialog.findViewById(R.id.btn_go_recommend);
+
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        btn_go_recommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+                Intent intent = new Intent(DoctorDetailActivity.this, DoctorCommentActivity.class);
+                intent.putExtra("id", doctorId);
+                startActivity(intent);
+
+            }
+        });
+
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
+
+
 }
 
 
