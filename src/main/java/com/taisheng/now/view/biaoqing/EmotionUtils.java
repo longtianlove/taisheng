@@ -58,7 +58,7 @@ public class EmotionUtils {
         EMOTION_CLASSIC_MAP.put("[抱抱]", R.drawable.d_baobao);
         EMOTION_CLASSIC_MAP.put("[色]", R.drawable.d_se);
         EMOTION_CLASSIC_MAP.put("[互粉]", R.drawable.d_hufen);
-        EMOTION_CLASSIC_MAP.put("[心]", R.drawable.d_hufen);
+        EMOTION_CLASSIC_MAP.put("[心]", R.drawable.d_xin);
         EMOTION_CLASSIC_MAP.put("[伤心]", R.drawable.d_shangxin);
 
 
@@ -95,11 +95,11 @@ public class EmotionUtils {
 
 
 
-        EMOTION_CLASSIC_MAP.put("[呵呵]", R.drawable.d_hehe);
+        EMOTION_CLASSIC_MAP.put("[微笑]", R.drawable.d_hehe);
         EMOTION_CLASSIC_MAP.put("[嘻嘻]", R.drawable.d_xixi);
         EMOTION_CLASSIC_MAP.put("[哈哈]", R.drawable.d_haha);
         EMOTION_CLASSIC_MAP.put("[爱你]", R.drawable.d_aini);
-        EMOTION_CLASSIC_MAP.put("[挖鼻屎]", R.drawable.d_wabishi);
+        EMOTION_CLASSIC_MAP.put("[挖鼻]", R.drawable.d_wabishi);
         EMOTION_CLASSIC_MAP.put("[吃惊]", R.drawable.d_chijing);
         EMOTION_CLASSIC_MAP.put("[晕]", R.drawable.d_yun);
         EMOTION_CLASSIC_MAP.put("[泪]", R.drawable.d_lei);

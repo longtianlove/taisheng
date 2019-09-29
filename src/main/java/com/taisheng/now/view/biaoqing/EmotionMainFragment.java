@@ -852,8 +852,10 @@ public class EmotionMainFragment extends BaseFragment implements AdapterView.OnI
                 } else {
                     itemOtherHolder.sdw_pic.setVisibility(View.GONE);
                     itemOtherHolder.vMsg.setVisibility(View.VISIBLE);
+                    String faceWords=mDatas.get(position).getMsg().toString();
+                    faceWords=faceWords.replace("face[","[");
                     itemOtherHolder.vMsg.setText(SpanStringUtils.megetEmotionContent(EmotionUtils.EMOTION_CLASSIC_TYPE,
-                            getActivity(), (mDatas.get(position).getMsg()).toString()));
+                            getActivity(), (faceWords)));
                 }
 //                itemOtherHolder.vMsg.setText(mDatas.get(position).getMsg());
                 if (doctorAvator != null && !"".equals(doctorAvator)) {
