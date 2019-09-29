@@ -36,8 +36,8 @@ android {
         applicationId "com.taisheng.now"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 19
-        versionName "2.4"
+        versionCode 20
+        versionName "2.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 //        jackOptions {
