@@ -179,9 +179,9 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
 //                ((MainActivity) getActivity()).showFragment(2);
-//                ((MainActivity) getActivity()).secretFragment.selectTab = 2;
-//                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
-//                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(2).select();
+//                ((MainActivity) getActivity()).marketFragment.selectTab = 2;
+//                if (((MainActivity) getActivity()).marketFragment.tl_tab != null) {
+//                    ((MainActivity) getActivity()).marketFragment.tl_tab.getTabAt(2).select();
 //                }
 
 
@@ -198,9 +198,9 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
 //                ((MainActivity) getActivity()).showFragment(2);
-//                ((MainActivity) getActivity()).secretFragment.selectTab = 4;
-//                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
-//                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(4).select();
+//                ((MainActivity) getActivity()).marketFragment.selectTab = 4;
+//                if (((MainActivity) getActivity()).marketFragment.tl_tab != null) {
+//                    ((MainActivity) getActivity()).marketFragment.tl_tab.getTabAt(4).select();
 //                }
 
 
@@ -224,9 +224,9 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
 //                ((MainActivity) getActivity()).showFragment(2);
-//                ((MainActivity) getActivity()).secretFragment.selectTab = 1;
-//                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
-//                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(1).select();
+//                ((MainActivity) getActivity()).marketFragment.selectTab = 1;
+//                if (((MainActivity) getActivity()).marketFragment.tl_tab != null) {
+//                    ((MainActivity) getActivity()).marketFragment.tl_tab.getTabAt(1).select();
 //                }
 
 
@@ -244,8 +244,8 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
 //                ((MainActivity) getActivity()).showFragment(2);
-//                if (((MainActivity) getActivity()).secretFragment.tl_tab != null) {
-//                    ((MainActivity) getActivity()).secretFragment.tl_tab.getTabAt(3).select();
+//                if (((MainActivity) getActivity()).marketFragment.tl_tab != null) {
+//                    ((MainActivity) getActivity()).marketFragment.tl_tab.getTabAt(3).select();
 //                }
 
                 SecretActivity.selectTab = 3;

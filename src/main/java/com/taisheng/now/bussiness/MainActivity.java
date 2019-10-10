@@ -22,6 +22,7 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragmentActivity;
 import com.taisheng.now.bussiness.doctor.DoctorFragment;
 import com.taisheng.now.bussiness.first.FirstFragment;
+import com.taisheng.now.bussiness.market.MarketFragment;
 import com.taisheng.now.bussiness.me.MeFragment;
 import com.taisheng.now.bussiness.article.SecretFragment;
 import com.taisheng.now.bussiness.message.MessageFragment;
@@ -47,7 +48,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message,tv_tab_secret,tv_tab_
     private FirstFragment firstFragment;
     private DoctorFragment doctorFragment;
     private MessageFragment messageFragment;
-    public SecretFragment secretFragment;
+    public MarketFragment marketFragment;
     private MeFragment meFragment;
 
     View toolBar;
@@ -67,7 +68,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message,tv_tab_secret,tv_tab_
             firstFragment = (FirstFragment) getSupportFragmentManager().findFragmentByTag(FirstFragment.class.getName());
             doctorFragment = (DoctorFragment) getSupportFragmentManager().findFragmentByTag(DoctorFragment.class.getName());
             messageFragment= (MessageFragment) getSupportFragmentManager().findFragmentByTag(MessageFragment.class.getName());
-            secretFragment= (SecretFragment) getSupportFragmentManager().findFragmentByTag(SecretFragment.class.getName());
+            marketFragment = (MarketFragment) getSupportFragmentManager().findFragmentByTag(SecretFragment.class.getName());
             meFragment = (MeFragment) getSupportFragmentManager().findFragmentByTag(MeFragment.class.getName());
             if (firstFragment == null) {
                 firstFragment = new FirstFragment();
@@ -78,8 +79,8 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message,tv_tab_secret,tv_tab_
             if(messageFragment==null){
                 messageFragment=new MessageFragment();
             }
-            if(secretFragment==null){
-                secretFragment=new SecretFragment();
+            if(marketFragment ==null){
+                marketFragment =new MarketFragment();
             }
             if (meFragment == null) {
                 meFragment = new MeFragment();
@@ -88,7 +89,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message,tv_tab_secret,tv_tab_
                     .show(firstFragment)
                     .hide(doctorFragment)
                     .hide(messageFragment)
-                    .hide(secretFragment)
+                    .hide(marketFragment)
                     .hide(meFragment).commit();
         } else {
             firstFragment = new FirstFragment();
@@ -140,8 +141,8 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message,tv_tab_secret,tv_tab_
         if(null!=messageFragment){
             transaction.hide(messageFragment);
         }
-        if(null!=secretFragment){
-            transaction.hide(secretFragment);
+        if(null!= marketFragment){
+            transaction.hide(marketFragment);
         }
         if (null != meFragment) {
             transaction.hide(meFragment);
@@ -205,12 +206,12 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message,tv_tab_secret,tv_tab_
                 firstFragment.videoPlayer.onVideoPause();
                 break;
             case 2:
-                if(secretFragment==null){
-                    secretFragment=new SecretFragment();
-                    transaction.add(R.id.fragment_container,secretFragment,SecretFragment.class.getName());
+                if(marketFragment ==null){
+                    marketFragment =new MarketFragment();
+                    transaction.add(R.id.fragment_container, marketFragment,SecretFragment.class.getName());
                 }
                 select_index=2;
-                transaction.show(secretFragment).commit();
+                transaction.show(marketFragment).commit();
                 iv_tab_secret.setSelected(true);
                 tv_tab_secret.setTextColor(getResources().getColor(R.color.tv_tab_color_select));
                 firstFragment.videoPlayer.onVideoPause();
