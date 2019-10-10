@@ -214,6 +214,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message,tv_tab_secret,tv_tab_
                 transaction.show(marketFragment).commit();
                 iv_tab_secret.setSelected(true);
                 tv_tab_secret.setTextColor(getResources().getColor(R.color.tv_tab_color_select));
+                toolBar.setVisibility(View.GONE);
                 firstFragment.videoPlayer.onVideoPause();
                 break;
             case 3:
