@@ -121,4 +121,8 @@ dependencies {
     implementation 'com.ycjiang:imgepreviewlibrary:1.1.3'
 
 
+
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.33'
+
+
 }

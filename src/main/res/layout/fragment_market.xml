@@ -120,8 +120,7 @@
             android:layout_marginLeft="12dp"
             android:layout_marginTop="-50dp"
             android:layout_marginRight="12dp"
-            android:background="@drawable/me_kapian_background"
-            />
+            android:background="@drawable/me_kapian_background" />
 
 
         <LinearLayout
@@ -231,6 +230,48 @@
                     android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/hot_goods" />
+
+
+        <RelativeLayout
+            android:id="@+id/activity_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:background="#F0F0F0">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_hot_goods"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"></androidx.recyclerview.widget.RecyclerView>
+        </RelativeLayout>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/icon_cainixihuan" />
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/srl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_hot_cainixihuan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"></androidx.recyclerview.widget.RecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
 
     </LinearLayout>
 </ScrollView>

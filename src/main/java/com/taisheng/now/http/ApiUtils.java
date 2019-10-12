@@ -79,31 +79,6 @@ public class ApiUtils {
                         .header("X-App-Version", Apputil.getVersionName(SampleAppLike.mcontext))
                         .header("device_model", URLEncoder.encode(android.os.Build.MODEL.replaceAll(" ", ""), "UTF-8"))
                         .header("x_os_int",android.os.Build.VERSION.SDK_INT+"")
-//                        .header("versionCode", "Android_" + DeviceUtil.getVersionCode())
-//                        .header("versionName", "Android_" + DeviceUtil.getVersionName(ChrApplication.getContext()))
-//                        .header("UMengChannel", Constants.UMengChannel)
-//                        .header("uid", SPUtil.getUId())
-//                        .header("Cookie", SelectClientInstance.getSelectClientInstance().isSelectJobClient() ? "PPS=" + SPUtil.getPPS() : "bps=" + SPUtil.getBps())
-//                        .header("appSign", DeviceUtil.getAppSign(ChrApplication.getContext()))
-//                        .header("deviceID", DeviceUtil.getIMEI(ChrApplication.getContext()))
-//                        .header("deviceName", URLEncoder.encode(android.os.Build.MODEL.replaceAll(" ", ""), "UTF-8"))
-//                        .header("role", SPUtil.getRole())
-//                        .header("deviceModel", URLEncoder.encode(android.os.Build.MODEL.replaceAll(" ", ""), "UTF-8"))//备注okhttp不支持追传汉字，需要编码下。
-//                        .header("deviceVersion", android.os.Build.VERSION.RELEASE)
-//                        .header("pushVersion", "52")
-//                        .header("platform", "Android-" + android.os.Build.VERSION.SDK_INT)
-//                        .header("User-Agent", "ChinaHrAndroid" + DeviceUtil.getVersionName(ChrApplication.getContext()))
-//                        .header("extion", TextUtils.isEmpty(Constants.API_EXTION) ? "" : Constants.API_EXTION)
-//                        .header("pbi", PBINetCollection.getCollection())
-//                        .header("Brand", URLEncoder.encode(android.os.Build.BRAND, "UTF-8"))//备注okhttp不支持追传汉子，需要编码下。
-//                        .header("device_id", DeviceUtil.getIMEI(ChrApplication.getContext()))
-//                        .header("device_name", URLEncoder.encode(android.os.Build.MODEL.replaceAll(" ", ""), "UTF-8"))
-//                        .header("device_os", "Android")
-//                        .header("device_os_version", android.os.Build.VERSION.RELEASE)
-//                        .header("app_version", DeviceUtil.getVersionName(ChrApplication.getContext()))
-//                        .header("uidrole", SPUtil.getRole())
-//                        .header("utm_source", Constants.UMengChannel)
-//                        .header("tinkerLoadedSuccess", Tinker.with(ChrApplication.getContext()).isTinkerLoaded() + "")//标示Tinker是否成功加载。
                         .method(original.method(), original.body());
 
                 Request request = requestBuilder.build();
