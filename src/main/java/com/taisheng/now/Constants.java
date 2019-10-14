@@ -66,10 +66,6 @@ public class Constants {
 //        public static String WEB_SOCKET_URL = "ws://192.168.1.12:8879";
 
 
-
-
-
-
 //        public static String Host = "http://192.168.1.17:8080/";
 //        public static String File_Host = "http://192.168.1.17:8080/jeecg-boot/";
 //        public static String WEB_SOCKET_URL = "ws://192.168.1.17:8879";
@@ -120,7 +116,7 @@ public class Constants {
             public static final String isSign = "jeecg-boot/app/sign/isSign";
 
             //当前签到的状态
-            public static final String nowSign="jeecg-boot/app/sign/user/sign";
+            public static final String nowSign = "jeecg-boot/app/sign/user/sign";
 
 
         }
@@ -259,6 +255,16 @@ public class Constants {
              * 测评历史
              */
             public static final String answerRecordList = "jeecg-boot/app/assessment/answerRecordList";
+
+        }
+
+
+        //商城
+        public static class ShangCheng {
+            //todo 轮播图
+            public static final String banner = "jeecg-boot/app/assessment/getExtractionSubjectDb";
+            public static final String remenshangpin = "jeecg-boot/app/assessment/getExtractionSubjectDb";
+            public static final String cainixihuan="";
 
         }
 
