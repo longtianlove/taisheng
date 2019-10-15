@@ -50,7 +50,8 @@ import com.taisheng.now.bussiness.bean.result.HotResultBean;
 import com.taisheng.now.bussiness.bean.post.LoginPostBean;
 import com.taisheng.now.bussiness.bean.result.IsSign;
 import com.taisheng.now.bussiness.bean.result.LoginResultBean;
-import com.taisheng.now.bussiness.bean.result.MallResultBanner;
+import com.taisheng.now.bussiness.bean.result.MallBannerResultBanner;
+import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
 import com.taisheng.now.bussiness.bean.result.ModifyUserInfoResultBean;
 import com.taisheng.now.bussiness.bean.result.MyPingjiaResultBean;
 import com.taisheng.now.bussiness.bean.result.PictureBean;
@@ -277,6 +278,12 @@ public interface ApiService {
 
     //    public static final String banner = "jeecg-boot/app/mall/banner/list";
     @POST(Constants.Url.ShangCheng.banner)
-    Call<BaseBean<MallResultBanner>> banner(@Body BaseListPostBean bean);
+    Call<BaseBean<MallBannerResultBanner>> banner(@Body BaseListPostBean bean);
+
+
+//    public static final String coupon = "jeecg-boot/app/mall/coupon/list";
+    @POST(Constants.Url.ShangCheng.coupon)
+    Call<BaseBean<MallYouhuiquanResultBanner>> coupon(@Body BaseListPostBean bean);
+
 
 }

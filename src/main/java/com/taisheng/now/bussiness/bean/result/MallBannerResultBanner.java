@@ -3,7 +3,7 @@ package com.taisheng.now.bussiness.bean.result;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MallResultBanner {
+public class MallBannerResultBanner {
 
    public List<MallBannerBean> records=new ArrayList<>();
    public int total;

@@ -263,7 +263,7 @@ public class Constants {
         public static class ShangCheng {
             //todo 轮播图
             public static final String banner = "jeecg-boot/app/mall/banner/list";
-            public static final String remenshangpin = "jeecg-boot/app/assessment/getExtractionSubjectDb";
+            public static final String coupon = "jeecg-boot/app/mall/coupon/list";
             public static final String cainixihuan="";
 
         }

@@ -3,6 +3,7 @@ package com.taisheng.now.bussiness.market;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
@@ -25,24 +27,30 @@ import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.result.HotGoodsBean;
 import com.taisheng.now.bussiness.bean.result.MallBannerBean;
-import com.taisheng.now.bussiness.bean.result.MallResultBanner;
+import com.taisheng.now.bussiness.bean.result.MallBannerResultBanner;
+import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.view.banner.BannerViewPager;
+import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class MarketFragment extends BaseFragment {
+public class MarketFragment extends BaseFragment{
 
     View iv_gouwuche;
     EditText et_doctor_search;
     View iv_search_guanbi;
     View tv_search;
+
+    MaterialDesignPtrFrameLayout ptr_refresh;
 
     private FrameLayout bannerContaner;
     BannerViewPager bannerViewPager;
@@ -127,6 +135,20 @@ public class MarketFragment extends BaseFragment {
         });
 
 
+
+        ptr_refresh = (MaterialDesignPtrFrameLayout) rootView.findViewById(R.id.ptr_refresh);
+        /**
+         * 下拉刷新
+         */
+        ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
+
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                initData();
+            }
+        });
+//
+
         bannerContaner = (FrameLayout) rootView.findViewById(R.id.bannerContaner);
         bannerContaner.setVisibility(View.VISIBLE);
         bannerViewPager = new BannerViewPager(mActivity);
@@ -146,6 +168,7 @@ public class MarketFragment extends BaseFragment {
 
     void initData() {
         getBanner();
+        getYouhuiquan();
     }
 
 
@@ -155,9 +178,10 @@ public class MarketFragment extends BaseFragment {
         bean.token = UserInstance.getInstance().getToken();
         bean.pageNo = 1;
         bean.pageSize = 5;
-        ApiUtils.getApiService().banner(bean).enqueue(new TaiShengCallback<BaseBean<MallResultBanner>>() {
+        ApiUtils.getApiService().banner(bean).enqueue(new TaiShengCallback<BaseBean<MallBannerResultBanner>>() {
             @Override
-            public void onSuccess(Response<BaseBean<MallResultBanner>> response, BaseBean<MallResultBanner> message) {
+            public void onSuccess(Response<BaseBean<MallBannerResultBanner>> response, BaseBean<MallBannerResultBanner> message) {
+                ptr_refresh.refreshComplete();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         ArrayList<String> pictureUrls=new ArrayList<>();
@@ -183,11 +207,37 @@ public class MarketFragment extends BaseFragment {
             }
 
             @Override
-            public void onFail(Call<BaseBean<MallResultBanner>> call, Throwable t) {
+            public void onFail(Call<BaseBean<MallBannerResultBanner>> call, Throwable t) {
+                ptr_refresh.refreshComplete();
+            }
+        });
+    }
+
+    public void getYouhuiquan(){
+
+        BaseListPostBean bean = new BaseListPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.pageNo = 1;
+        bean.pageSize = 10;
+        ApiUtils.getApiService().coupon(bean).enqueue(new TaiShengCallback<BaseBean<MallYouhuiquanResultBanner>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<MallYouhuiquanResultBanner>> response, BaseBean<MallYouhuiquanResultBanner> message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<MallYouhuiquanResultBanner>> call, Throwable t) {
 
             }
         });
     }
+
+
 
 
     public class HotGoodsAdapter extends RecyclerView.Adapter {
