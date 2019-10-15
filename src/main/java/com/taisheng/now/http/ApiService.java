@@ -50,6 +50,7 @@ import com.taisheng.now.bussiness.bean.result.HotResultBean;
 import com.taisheng.now.bussiness.bean.post.LoginPostBean;
 import com.taisheng.now.bussiness.bean.result.IsSign;
 import com.taisheng.now.bussiness.bean.result.LoginResultBean;
+import com.taisheng.now.bussiness.bean.result.MallResultBanner;
 import com.taisheng.now.bussiness.bean.result.ModifyUserInfoResultBean;
 import com.taisheng.now.bussiness.bean.result.MyPingjiaResultBean;
 import com.taisheng.now.bussiness.bean.result.PictureBean;
@@ -269,9 +270,13 @@ public interface ApiService {
     Call<BaseBean<IsSign>> isSign(@Body BasePostBean bean);
 
 
-
-//    public static final String nowSign="jeecg-boot/app/sign/user/sign";
+    //    public static final String nowSign="jeecg-boot/app/sign/user/sign";
     @POST(Constants.Url.User.nowSign)
     Call<BaseBean<SignResultBean>> nowSign(@Body BasePostBean bean);
+
+
+    //    public static final String banner = "jeecg-boot/app/mall/banner/list";
+    @POST(Constants.Url.ShangCheng.banner)
+    Call<BaseBean<MallResultBanner>> banner(@Body BaseListPostBean bean);
 
 }

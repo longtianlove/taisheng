@@ -20,12 +20,22 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
+import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.base.BaseFragment;
+import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.result.HotGoodsBean;
+import com.taisheng.now.bussiness.bean.result.MallBannerBean;
+import com.taisheng.now.bussiness.bean.result.MallResultBanner;
 import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.view.banner.BannerViewPager;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class MarketFragment extends BaseFragment {
 
@@ -117,23 +127,13 @@ public class MarketFragment extends BaseFragment {
         });
 
 
-
         bannerContaner = (FrameLayout) rootView.findViewById(R.id.bannerContaner);
         bannerContaner.setVisibility(View.VISIBLE);
         bannerViewPager = new BannerViewPager(mActivity);
-        bannerViewPager.setLocalPictureIds();
-        bannerViewPager.setmScrollSpeed(500);
-        bannerViewPager.madapter.notifyDataSetChanged();
+
         bannerView = bannerViewPager.getContentView();
-        bannerViewPager.setOnItemClickListener(new BannerViewPager.ViewPagerItemListener() {
-            @Override
-            public void onViewPagerItemClick(int i) {
 
-            }
-        });
         bannerContaner.addView(bannerView);
-
-
 
 
         rv_hot_goods = rootView.findViewById(R.id.rv_hot_goods);
@@ -145,7 +145,48 @@ public class MarketFragment extends BaseFragment {
     }
 
     void initData() {
+        getBanner();
+    }
 
+
+    public void getBanner() {
+        BaseListPostBean bean = new BaseListPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.pageNo = 1;
+        bean.pageSize = 5;
+        ApiUtils.getApiService().banner(bean).enqueue(new TaiShengCallback<BaseBean<MallResultBanner>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<MallResultBanner>> response, BaseBean<MallResultBanner> message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        ArrayList<String> pictureUrls=new ArrayList<>();
+                        if(message.result.records!=null&&!message.result.records.isEmpty()) {
+
+                            for (MallBannerBean bean:
+                            message.result.records) {
+                                pictureUrls.add(bean.url);
+                            }
+                            bannerViewPager.setPictureUrls(pictureUrls);
+                            bannerViewPager.setmScrollSpeed(500);
+                            bannerViewPager.setOnItemClickListener(new BannerViewPager.ViewPagerItemListener() {
+                                @Override
+                                public void onViewPagerItemClick(int i) {
+
+                                }
+                            });
+                            bannerViewPager.madapter.notifyDataSetChanged();
+                        }
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<MallResultBanner>> call, Throwable t) {
+
+            }
+        });
     }
 
 
@@ -198,10 +239,9 @@ public class MarketFragment extends BaseFragment {
             public MyViewHolder(View itemView) {
                 super(itemView);
                 sdv_header = (SimpleDraweeView) itemView.findViewById(R.id.sdv_header);
-                tv_goods_name=itemView.findViewById(R.id.tv_goods_name);
-                tv_goods_jiage=itemView.findViewById(R.id.tv_goods_jiage);
-                iv_jifennduihuan=itemView.findViewById(R.id.iv_jifennduihuan);
-
+                tv_goods_name = itemView.findViewById(R.id.tv_goods_name);
+                tv_goods_jiage = itemView.findViewById(R.id.tv_goods_jiage);
+                iv_jifennduihuan = itemView.findViewById(R.id.iv_jifennduihuan);
 
 
             }

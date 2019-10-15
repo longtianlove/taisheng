@@ -56,14 +56,14 @@ public class Constants {
 
 //        public static String WEB_SOCKET_URL="ws://192.168.1.18:8879";
 
-        public static String Host = "http://152.136.26.41:8080/";
-        public static String File_Host = "http://152.136.26.41:8888/";
-        public static String WEB_SOCKET_URL = "ws://152.136.26.41:8879";
+////        public static String Host = "http://152.136.26.41:8080/";
+//        public static String File_Host = "http://152.136.26.41:8888/";
+//        public static String WEB_SOCKET_URL = "ws://152.136.26.41:8879";
 
 
-//        public static String Host = "http://192.168.1.12:8080/";
-//        public static String File_Host = "http://192.168.1.12:8888/";
-//        public static String WEB_SOCKET_URL = "ws://192.168.1.12:8879";
+        public static String Host = "http://192.168.1.12:8080/";
+        public static String File_Host = "http://192.168.1.12:8888/";
+        public static String WEB_SOCKET_URL = "ws://192.168.1.12:8879";
 
 
 //        public static String Host = "http://192.168.1.17:8080/";
@@ -262,7 +262,7 @@ public class Constants {
         //商城
         public static class ShangCheng {
             //todo 轮播图
-            public static final String banner = "jeecg-boot/app/assessment/getExtractionSubjectDb";
+            public static final String banner = "jeecg-boot/app/mall/banner/list";
             public static final String remenshangpin = "jeecg-boot/app/assessment/getExtractionSubjectDb";
             public static final String cainixihuan="";
 
