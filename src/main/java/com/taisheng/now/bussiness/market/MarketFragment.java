@@ -1,6 +1,7 @@
 package com.taisheng.now.bussiness.market;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -55,6 +56,8 @@ public class MarketFragment extends BaseFragment{
     private FrameLayout bannerContaner;
     BannerViewPager bannerViewPager;
     private View bannerView;
+
+    public View tv_moreyouhuijuan;
 
 
     RecyclerView rv_hot_goods;
@@ -157,6 +160,15 @@ public class MarketFragment extends BaseFragment{
 
         bannerContaner.addView(bannerView);
 
+
+        tv_moreyouhuijuan=rootView.findViewById(R.id.tv_moreyouhuijuan);
+        tv_moreyouhuijuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(),MoreYouhuijuanActivity.class);
+                startActivity(intent);
+            }
+        });
 
         rv_hot_goods = rootView.findViewById(R.id.rv_hot_goods);
         //设置布局管理器为2列，纵向
