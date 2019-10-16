@@ -84,7 +84,7 @@ public class MoreYouhuijuanActivity extends BaseActivity {
         });
 
 
-        lv_youhuijuans = (TaishengListView) findViewById(R.id.lv_doctors);
+        lv_youhuijuans = (TaishengListView) findViewById(R.id.lv_youhuijuans);
         madapter = new DoctorAdapter(this);
         lv_youhuijuans.setAdapter(madapter);
         lv_youhuijuans.setOnUpLoadListener(new TaishengListView.OnUpLoadListener() {
