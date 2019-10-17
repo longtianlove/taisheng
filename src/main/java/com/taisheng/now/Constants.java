@@ -56,7 +56,7 @@ public class Constants {
 
 //        public static String WEB_SOCKET_URL="ws://192.168.1.18:8879";
 
-////        public static String Host = "http://152.136.26.41:8080/";
+//        public static String Host = "http://152.136.26.41:8080/";
 //        public static String File_Host = "http://152.136.26.41:8888/";
 //        public static String WEB_SOCKET_URL = "ws://152.136.26.41:8879";
 
@@ -264,7 +264,7 @@ public class Constants {
             //todo 轮播图
             public static final String banner = "jeecg-boot/app/mall/banner/list";
             public static final String coupon = "jeecg-boot/app/mall/coupon/list";
-            public static final String cainixihuan="";
+            public static final String cainixihuan="jeecg-boot/app/mall/goods/hot/like/list";
 
         }
 
