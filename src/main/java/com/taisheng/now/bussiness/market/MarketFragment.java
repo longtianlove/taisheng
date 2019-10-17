@@ -36,6 +36,7 @@ import com.taisheng.now.bussiness.bean.result.HotGoodsBean;
 import com.taisheng.now.bussiness.bean.result.JifenzhuanquBean;
 import com.taisheng.now.bussiness.bean.result.MallBannerBean;
 import com.taisheng.now.bussiness.bean.result.MallBannerResultBanner;
+import com.taisheng.now.bussiness.bean.result.MallYouhuiquanBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
 import com.taisheng.now.bussiness.bean.result.RemenshangpinBean;
 import com.taisheng.now.bussiness.first.FirstFragment;
@@ -77,6 +78,7 @@ public class MarketFragment extends BaseFragment {
     com.taisheng.now.view.WithScrolleViewListView lv_articles;
     ArticleAdapter madapter;
 
+    WithScrolleViewListView lv_youhuijuans;
 
     @Nullable
     @Override
@@ -196,7 +198,11 @@ public class MarketFragment extends BaseFragment {
         lv_articles = (WithScrolleViewListView) rootView.findViewById(R.id.lv_jifenduihuan);
         madapter = new ArticleAdapter(mActivity);
         lv_articles.setAdapter(madapter);
-        initYouhuijuan(rootView);
+
+
+        lv_youhuijuans = rootView.findViewById(R.id.lv_youhuijuans);
+        youhuiquanAdapter = new YouhuiquanAdapter(getActivity());
+        lv_youhuijuans.setAdapter(youhuiquanAdapter);
     }
 
     void initData() {
@@ -248,10 +254,7 @@ public class MarketFragment extends BaseFragment {
     }
 
 
-
-    public void initYouhuijuan(View rootView) {
-
-    }
+    YouhuiquanAdapter youhuiquanAdapter;
 
     public void getYouhuiquan() {
 
@@ -265,7 +268,10 @@ public class MarketFragment extends BaseFragment {
             public void onSuccess(Response<BaseBean<MallYouhuiquanResultBanner>> response, BaseBean<MallYouhuiquanResultBanner> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-
+                        if (message.result.records != null && !message.result.records.isEmpty()) {
+                            youhuiquanAdapter.mData = message.result.records;
+                            youhuiquanAdapter.notifyDataSetChanged();
+                        }
                         break;
                 }
             }
@@ -275,6 +281,79 @@ public class MarketFragment extends BaseFragment {
 
             }
         });
+    }
+
+
+    class YouhuiquanAdapter extends BaseAdapter {
+
+        public Context mcontext;
+
+        List<MallYouhuiquanBean> mData = new ArrayList<MallYouhuiquanBean>();
+
+        public YouhuiquanAdapter(Context context) {
+            this.mcontext = context;
+        }
+
+        @Override
+        public int getCount() {
+            return mData.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mData.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // 声明内部类
+            Util util = null;
+            // 中间变量
+            final int flag = position;
+            if (convertView == null) {
+                util = new Util();
+                LayoutInflater inflater = LayoutInflater.from(mcontext);
+                convertView = inflater.inflate(R.layout.item_youhuijuan, null);
+                util.ll_all = convertView.findViewById(R.id.ll_all);
+                util.tv_discount = convertView.findViewById(R.id.tv_discount);
+                util.tv_name = convertView.findViewById(R.id.tv_name);
+                util.tv_tag = convertView.findViewById(R.id.tv_tag);
+                util.tv_usedate = convertView.findViewById(R.id.tv_usedate);
+                convertView.setTag(util);
+            } else {
+                util = (Util) convertView.getTag();
+            }
+            MallYouhuiquanBean bean = mData.get(position);
+            util.ll_all.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //todo 跳优惠券页
+//                    Intent intent = new Intent(mActivity, ArticleContentActivity.class);
+//                    startActivity(intent);
+                }
+            });
+            util.tv_discount.setText(bean.discount + "");
+            util.tv_name.setText(bean.name);
+            util.tv_tag.setText(bean.tag);
+            util.tv_usedate.setText(bean.useDate);
+
+            return convertView;
+        }
+
+
+        class Util {
+            View ll_all;
+
+            TextView tv_discount;
+            TextView tv_name;
+            TextView tv_tag;
+            TextView tv_usedate;
+        }
     }
 
     public void getHotGoodsJifenduihuan() {
@@ -434,7 +513,7 @@ public class MarketFragment extends BaseFragment {
             util.tv_name.setText(bean.name);
             util.tv_counterprice.setText(bean.counterPrice + "");
             util.tv_retailprice.setText(bean.retailPrice + "");
-            util.tv_retailprice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
+            util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
             return convertView;
         }

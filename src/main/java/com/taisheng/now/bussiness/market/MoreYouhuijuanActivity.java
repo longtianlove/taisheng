@@ -16,9 +16,13 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
+import com.taisheng.now.bussiness.bean.result.CainixihuanResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorBean;
 import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
+import com.taisheng.now.bussiness.bean.result.MallYouhuiquanBean;
+import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
 import com.taisheng.now.bussiness.doctor.DoctorDetailActivity;
 import com.taisheng.now.bussiness.doctor.DoctorFragment;
 import com.taisheng.now.bussiness.me.FuwuxieyiActivity;
@@ -51,7 +55,7 @@ public class MoreYouhuijuanActivity extends BaseActivity {
     MaterialDesignPtrFrameLayout ptr_refresh;
     TaishengListView lv_youhuijuans;
 
-    DoctorAdapter madapter;
+    YouhuiquanAdapter madapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +89,7 @@ public class MoreYouhuijuanActivity extends BaseActivity {
 
 
         lv_youhuijuans = (TaishengListView) findViewById(R.id.lv_youhuijuans);
-        madapter = new DoctorAdapter(this);
+        madapter = new YouhuiquanAdapter(this);
         lv_youhuijuans.setAdapter(madapter);
         lv_youhuijuans.setOnUpLoadListener(new TaishengListView.OnUpLoadListener() {
             @Override
@@ -93,6 +97,7 @@ public class MoreYouhuijuanActivity extends BaseActivity {
                 getDoctors();
             }
         });
+        getDoctors();
 
     }
 
@@ -104,16 +109,13 @@ public class MoreYouhuijuanActivity extends BaseActivity {
     String nickName;
 
     void getDoctors() {
-        RecommendDoctorPostBean bean = new RecommendDoctorPostBean();
+        BaseListPostBean bean = new BaseListPostBean();
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
-        bean.pageNo = PAGE_NO;
-        bean.pageSize = PAGE_SIZE;
-        bean.nickName = nickName;
         DialogUtil.showProgress(this, "");
-        ApiUtils.getApiService().doctorslist(bean).enqueue(new TaiShengCallback<BaseBean<DoctorsResultBean>>() {
+        ApiUtils.getApiService().coupon(bean).enqueue(new TaiShengCallback<BaseBean<MallYouhuiquanResultBanner>>() {
             @Override
-            public void onSuccess(Response<BaseBean<DoctorsResultBean>> response, BaseBean<DoctorsResultBean> message) {
+            public void onSuccess(Response<BaseBean<MallYouhuiquanResultBanner>> response, BaseBean<MallYouhuiquanResultBanner> message) {
                 ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
                 switch (message.code) {
@@ -145,7 +147,7 @@ public class MoreYouhuijuanActivity extends BaseActivity {
             }
 
             @Override
-            public void onFail(Call<BaseBean<DoctorsResultBean>> call, Throwable t) {
+            public void onFail(Call<BaseBean<MallYouhuiquanResultBanner>> call, Throwable t) {
                 ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
             }
@@ -155,23 +157,19 @@ public class MoreYouhuijuanActivity extends BaseActivity {
     }
 
 
-    class DoctorAdapter extends BaseAdapter {
+    class YouhuiquanAdapter extends BaseAdapter {
 
         public Context mcontext;
 
-        List<DoctorBean> mData = new ArrayList<DoctorBean>();
+        List<MallYouhuiquanBean> mData = new ArrayList<MallYouhuiquanBean>();
 
-        public DoctorAdapter(Context context) {
+        public YouhuiquanAdapter(Context context) {
             this.mcontext = context;
         }
 
         @Override
         public int getCount() {
-            if (mData == null) {
-                return 0;
-            } else {
-                return mData.size();
-            }
+            return mData.size();
         }
 
         @Override
@@ -187,78 +185,35 @@ public class MoreYouhuijuanActivity extends BaseActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // 声明内部类
-          DoctorAdapter.Util util = null;
+            YouhuiquanAdapter.Util util = null;
             // 中间变量
             final int flag = position;
             if (convertView == null) {
-                util = new Util();
+                util = new YouhuiquanAdapter.Util();
                 LayoutInflater inflater = LayoutInflater.from(mcontext);
-                convertView = inflater.inflate(R.layout.item_doctors, null);
+                convertView = inflater.inflate(R.layout.item_youhuijuan, null);
                 util.ll_all = convertView.findViewById(R.id.ll_all);
-                util.sdv_header = (SimpleDraweeView) convertView.findViewById(R.id.sdv_header);
-                util.tv_doctor_name = (TextView) convertView.findViewById(R.id.tv_doctor_name);
-                util.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
-                util.tv_onlineStatus = (TextView) convertView.findViewById(R.id.tv_onlineStatus);
-                util.tv_times = (TextView) convertView.findViewById(R.id.tv_times);
-                util.dlwl_doctor_label = (DoctorLabelWrapLayout) convertView.findViewById(R.id.dlwl_doctor_label);
-                util.scorestar = (ScoreStar) convertView.findViewById(R.id.scorestar);
-                util.btn_zixun = (TextView) convertView.findViewById(R.id.btn_zixun);
+                util.tv_discount = convertView.findViewById(R.id.tv_discount);
+                util.tv_name = convertView.findViewById(R.id.tv_name);
+                util.tv_tag = convertView.findViewById(R.id.tv_tag);
+                util.tv_usedate = convertView.findViewById(R.id.tv_usedate);
                 convertView.setTag(util);
             } else {
-                util = (Util) convertView.getTag();
+                util = (YouhuiquanAdapter.Util) convertView.getTag();
             }
-            DoctorBean bean = mData.get(position);
+            MallYouhuiquanBean bean = mData.get(position);
             util.ll_all.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MoreYouhuijuanActivity.this, DoctorDetailActivity.class);
-                    intent.putExtra("id", bean.id);
-                    intent.putExtra("nickName", bean.nickName);
-                    intent.putExtra("title", bean.title);
-                    intent.putExtra("fromMedicineTime", bean.fromMedicineTime);
-                    intent.putExtra("jobIntroduction", bean.jobIntroduction);
-                    intent.putExtra("score", bean.score);
-                    intent.putExtra("goodDiseases", bean.goodDiseases);
-                    startActivity(intent);
+                    //todo 跳优惠券页
+//                    Intent intent = new Intent(mActivity, ArticleContentActivity.class);
+//                    startActivity(intent);
                 }
             });
-            if (bean.avatar != null) {
-                Uri uri = Uri.parse(bean.avatar);
-                util.sdv_header.setImageURI(uri);
-            }
-            util.tv_doctor_name.setText(bean.nickName);
-            util.tv_title.setText(bean.title);
-            if ("1".equals(bean.onlineStatus)) {
-                util.tv_onlineStatus.setText("在线");
-                util.tv_onlineStatus.setTextColor(Color.parseColor("#ff0dd500"));
-            } else {
-                util.tv_onlineStatus.setText("忙碌");
-                util.tv_onlineStatus.setTextColor(Color.parseColor("#ffff554e"));
-            }
-            util.tv_times.setText(bean.servicesNum);
-            if (bean.goodDiseases != null) {
-                String[] doctorlabel = bean.goodDiseases.split(",");
-                util.dlwl_doctor_label.setData(doctorlabel, MoreYouhuijuanActivity.this, 10, 5, 1, 5, 1, 4, 4, 4, 8);
-
-            }
-
-            if (bean.score != null) {
-                util.scorestar.setScore(bean.score);
-            }
-            util.btn_zixun.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MoreYouhuijuanActivity.this, DoctorDetailActivity.class);
-                    intent.putExtra("id", bean.id);
-                    intent.putExtra("nickName", bean.nickName);
-                    intent.putExtra("title", bean.title);
-                    intent.putExtra("fromMedicineTime", bean.fromMedicineTime);
-                    intent.putExtra("jobIntroduction", bean.jobIntroduction);
-                    intent.putExtra("score", bean.score);
-                    intent.putExtra("goodDiseases", bean.goodDiseases);
-                    startActivity(intent);
-                }
-            });
+            util.tv_discount.setText(bean.discount + "");
+            util.tv_name.setText(bean.name);
+            util.tv_tag.setText(bean.tag);
+            util.tv_usedate.setText(bean.useDate);
 
             return convertView;
         }
@@ -266,14 +221,11 @@ public class MoreYouhuijuanActivity extends BaseActivity {
 
         class Util {
             View ll_all;
-            SimpleDraweeView sdv_header;
-            TextView tv_doctor_name;
-            TextView tv_onlineStatus;
-            TextView tv_title;
-            TextView tv_times;
-            DoctorLabelWrapLayout dlwl_doctor_label;
-            ScoreStar scorestar;
-            TextView btn_zixun;
+
+            TextView tv_discount;
+            TextView tv_name;
+            TextView tv_tag;
+            TextView tv_usedate;
         }
     }
 }
