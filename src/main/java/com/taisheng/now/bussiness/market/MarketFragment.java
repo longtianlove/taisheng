@@ -40,6 +40,7 @@ import com.taisheng.now.bussiness.bean.result.MallYouhuiquanBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
 import com.taisheng.now.bussiness.bean.result.RemenshangpinBean;
 import com.taisheng.now.bussiness.first.FirstFragment;
+import com.taisheng.now.bussiness.market.gouwuche.ShoppingCartActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
@@ -102,7 +103,7 @@ public class MarketFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
 //todo 进入购物车
-                Intent intent = new Intent(getActivity(), GouWuCheActivity.class);
+                Intent intent = new Intent(getActivity(), ShoppingCartActivity.class);
                 startActivity(intent);
 
             }

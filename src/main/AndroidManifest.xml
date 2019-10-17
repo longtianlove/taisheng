@@ -164,11 +164,11 @@
         </activity>
 
         <activity
-            android:name="com.taisheng.now.bussiness.market.GouWuCheActivity"
+            android:name="com.taisheng.now.bussiness.market.gouwuche.ShoppingCartActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateVisible|adjustResize">
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
 
         </activity>
