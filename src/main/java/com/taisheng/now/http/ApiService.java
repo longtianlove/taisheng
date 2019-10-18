@@ -267,33 +267,33 @@ public interface ApiService {
 
 
     //签到
-//    public static final String isSign = "jeecg-boot/app/sign/isSign";
     @POST(Constants.Url.User.isSign)
     Call<BaseBean<IsSign>> isSign(@Body BasePostBean bean);
 
 
-    //    public static final String nowSign="jeecg-boot/app/sign/user/sign";
     @POST(Constants.Url.User.nowSign)
     Call<BaseBean<SignResultBean>> nowSign(@Body BasePostBean bean);
 
 
-    //    public static final String banner = "jeecg-boot/app/mall/banner/list";
     @POST(Constants.Url.ShangCheng.banner)
     Call<BaseBean<MallBannerResultBanner>> banner(@Body BaseListPostBean bean);
 
 
-    //    public static final String coupon = "jeecg-boot/app/mall/coupon/list";
     @POST(Constants.Url.ShangCheng.coupon)
     Call<BaseBean<MallYouhuiquanResultBanner>> coupon(@Body BaseListPostBean bean);
 
 
-//    public static final String couponlist = "jeecg-boot/app/mall/coupon/list";
     @POST(Constants.Url.ShangCheng.couponlist)
     Call<BaseBean<MallYouhuiquanResultBanner>> couponlist(@Body BaseListPostBean bean);
 
-    //    public static final String cainixihuan="jeecg-boot/app/mall/goods/hot/like/list";
+
     @POST(Constants.Url.ShangCheng.cainixihuan)
     Call<BaseBean<CainixihuanResultBean>> cainixihuan(@Body BasePostBean bean);
+
+
+
+    @POST(Constants.Url.ShangCheng.gouwuchelist)
+    Call<BaseBean<MallYouhuiquanResultBanner>> gouwuchelist(@Body BaseListPostBean bean);
 
 
 }

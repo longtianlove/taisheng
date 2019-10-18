@@ -25,7 +25,7 @@ import java.util.List;
 public class ShoppingCartAdapter extends BaseAdapter {
 
     private boolean isShow = true;//是否显示编辑/完成
-    private List<ShoppingCartBean> shoppingCartBeanList;
+    public List<ShoppingCartBean> shoppingCartBeanList;
     private CheckInterface checkInterface;
     private ModifyCountInterface modifyCountInterface;
     private Context context;

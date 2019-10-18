@@ -112,7 +112,7 @@ public class MoreYouhuijuanActivity extends BaseActivity {
         BaseListPostBean bean = new BaseListPostBean();
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
-        bean.pageNo=1;
+        bean.pageNo=PAGE_NO;
         bean.pageSize=10;
         DialogUtil.showProgress(this, "");
 

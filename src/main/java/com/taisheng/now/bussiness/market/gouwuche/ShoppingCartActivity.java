@@ -12,12 +12,27 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.taisheng.now.Constants;
 import com.taisheng.now.R;
+import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
+import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
+import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
+import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.ToastUtil;
+import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
+import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by an on 2017/6/14.
@@ -36,7 +51,10 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
     //编辑
     TextView btnEdit;//tv_edit
 
-    ListView list_shopping_cart;
+
+
+    MaterialDesignPtrFrameLayout ptr_refresh;
+    com.taisheng.now.view.TaishengListView list_shopping_cart;
     private ShoppingCartAdapter shoppingCartAdapter;
     private boolean flag = false;
     private List<ShoppingCartBean> shoppingCartBeanList = new ArrayList<>();
@@ -60,44 +78,132 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
         tvShowPrice = (TextView) findViewById(R.id.tv_show_price);
         tvSettlement = (TextView) findViewById(R.id.tv_settlement);
         btnEdit = (TextView) findViewById(R.id.bt_header_right);
-        list_shopping_cart = (ListView) findViewById(R.id.list_shopping_cart);
+
+
+        ptr_refresh = (MaterialDesignPtrFrameLayout) findViewById(R.id.ptr_refresh);
+        /**
+         * 下拉刷新
+         */
+        ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                PAGE_NO = 1;
+                getDoctors();
+
+            }
+        });
+        list_shopping_cart = (com.taisheng.now.view.TaishengListView) findViewById(R.id.list_shopping_cart);
 
         btnEdit.setOnClickListener(this);
         ckAll.setOnClickListener(this);
         tvSettlement.setOnClickListener(this);
         btnBack.setOnClickListener(this);
 
+
+
         initData();
     }
 
+
+
+
     //初始化数据
     protected void initData() {
-
-        for (int i = 0; i < 2; i++) {
-            ShoppingCartBean shoppingCartBean = new ShoppingCartBean();
-            shoppingCartBean.setShoppingName("上档次的T桖");
-            shoppingCartBean.setDressSize(20);
-            shoppingCartBean.setId(i);
-            shoppingCartBean.setPrice(30.6);
-            shoppingCartBean.setCount(1);
-            shoppingCartBean.setImageUrl("https://img.alicdn.com/bao/uploaded/i2/TB1YfERKVXXXXanaFXXXXXXXXXX_!!0-item_pic.jpg_430x430q90.jpg");
-            shoppingCartBeanList.add(shoppingCartBean);
-        }
-        for (int i = 0; i < 2; i++) {
-            ShoppingCartBean shoppingCartBean = new ShoppingCartBean();
-            shoppingCartBean.setShoppingName("瑞士正品夜光男女士手表情侣精钢带男表防水石英学生非天王星机械");
-            shoppingCartBean.setAttribute("黑白色");
-            shoppingCartBean.setPrice(89);
-            shoppingCartBean.setId(i + 2);
-            shoppingCartBean.setCount(3);
-            shoppingCartBean.setImageUrl("https://gd1.alicdn.com/imgextra/i1/2160089910/TB2M_NSbB0kpuFjSsppXXcGTXXa_!!2160089910.jpg");
-            shoppingCartBeanList.add(shoppingCartBean);
-        }
+//
+//        for (int i = 0; i < 2; i++) {
+//            ShoppingCartBean shoppingCartBean = new ShoppingCartBean();
+//            shoppingCartBean.setShoppingName("上档次的T桖");
+//            shoppingCartBean.setDressSize(20);
+//            shoppingCartBean.setId(i);
+//            shoppingCartBean.setPrice(30.6);
+//            shoppingCartBean.setCount(1);
+//            shoppingCartBean.setImageUrl("https://img.alicdn.com/bao/uploaded/i2/TB1YfERKVXXXXanaFXXXXXXXXXX_!!0-item_pic.jpg_430x430q90.jpg");
+//            shoppingCartBeanList.add(shoppingCartBean);
+//        }
+//        for (int i = 0; i < 2; i++) {
+//            ShoppingCartBean shoppingCartBean = new ShoppingCartBean();
+//            shoppingCartBean.setShoppingName("瑞士正品夜光男女士手表情侣精钢带男表防水石英学生非天王星机械");
+//            shoppingCartBean.setAttribute("黑白色");
+//            shoppingCartBean.setPrice(89);
+//            shoppingCartBean.setId(i + 2);
+//            shoppingCartBean.setCount(3);
+//            shoppingCartBean.setImageUrl("https://gd1.alicdn.com/imgextra/i1/2160089910/TB2M_NSbB0kpuFjSsppXXcGTXXa_!!2160089910.jpg");
+//            shoppingCartBeanList.add(shoppingCartBean);
+//        }
         shoppingCartAdapter = new ShoppingCartAdapter(this);
         shoppingCartAdapter.setCheckInterface(this);
         shoppingCartAdapter.setModifyCountInterface(this);
         list_shopping_cart.setAdapter(shoppingCartAdapter);
-        shoppingCartAdapter.setShoppingCartBeanList(shoppingCartBeanList);
+        list_shopping_cart.setOnUpLoadListener(new TaishengListView.OnUpLoadListener() {
+            @Override
+            public void onUpLoad() {
+                getDoctors();
+            }
+        });
+
+
+//        shoppingCartAdapter.setShoppingCartBeanList(shoppingCartBeanList);
+    }
+
+
+
+
+    int PAGE_NO = 1;
+    int PAGE_SIZE = 10;
+
+    void getDoctors() {
+        BaseListPostBean bean = new BaseListPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.pageNo=PAGE_NO;
+        bean.pageSize=10;
+        DialogUtil.showProgress(this, "");
+
+        ApiUtils.getApiService().gouwuchelist(bean).enqueue(new TaiShengCallback<BaseBean<MallYouhuiquanResultBanner>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<MallYouhuiquanResultBanner>> response, BaseBean<MallYouhuiquanResultBanner> message) {
+                ptr_refresh.refreshComplete();
+                DialogUtil.closeProgress();
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        if (message.result.records != null && message.result.records.size() > 0) {
+                            list_shopping_cart.setLoading(false);
+                            if (PAGE_NO == 1) {
+                                shoppingCartAdapter.shoppingCartBeanList.clear();
+                            }
+                            //有消息
+                            PAGE_NO++;
+                            //todo 购物车返回结果
+//                            shoppingCartAdapter.shoppingCartBeanList.addAll(message.result.records);
+
+
+
+                            if (message.result.records.size() < 10) {
+                                list_shopping_cart.setHasLoadMore(false);
+                                list_shopping_cart.setLoadAllViewText("暂时只有这么多商品");
+                                list_shopping_cart.setLoadAllFooterVisible(true);
+                            } else {
+                                list_shopping_cart.setHasLoadMore(true);
+                            }
+                            shoppingCartAdapter.notifyDataSetChanged();
+                        } else {
+                            //没有消息
+                            list_shopping_cart.setHasLoadMore(false);
+                            list_shopping_cart.setLoadAllViewText("暂时只有这么多商品");
+                            list_shopping_cart.setLoadAllFooterVisible(true);
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<MallYouhuiquanResultBanner>> call, Throwable t) {
+                ptr_refresh.refreshComplete();
+                DialogUtil.closeProgress();
+            }
+        });
+
+
     }
 
     @Override
