@@ -264,6 +264,9 @@ public class Constants {
             //todo 轮播图
             public static final String banner = "jeecg-boot/app/mall/banner/list";
             public static final String coupon = "jeecg-boot/app/mall/coupon/list";
+            //优惠券列表
+            public static final String couponlist = "jeecg-boot/app/mall/coupon/more/list";
+
             public static final String cainixihuan="jeecg-boot/app/mall/goods/hot/like/list";
 
         }

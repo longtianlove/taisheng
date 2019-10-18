@@ -22,19 +22,18 @@ import java.util.List;
 /**
  * Created by an on 2017/6/14.
  * 购物车界面
- *
  */
 public class ShoppingCartActivity extends Activity implements View.OnClickListener
         , ShoppingCartAdapter.CheckInterface, ShoppingCartAdapter.ModifyCountInterface {
     private static final String TAG = "ShoppingCartActivity";
     View btnBack;
-   //全选
+    //全选
     CheckBox ckAll;
     //总额
     TextView tvShowPrice;
-   //结算
+    //结算
     TextView tvSettlement;
-   //编辑
+    //编辑
     TextView btnEdit;//tv_edit
 
     ListView list_shopping_cart;
@@ -44,6 +43,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
     private boolean mSelect;
     private double totalPrice = 0.00;// 购买的商品总价
     private int totalCount = 0;// 购买的商品总数量
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,22 +52,24 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
 //        ImageLoader imageLoader=ImageLoader.getInstance();
 //        imageLoader.init(ImageLoaderConfiguration.createDefault(this));
     }
+
     private void initView() {
 
-         btnBack= findViewById(R.id.btn_back);
-        ckAll= (CheckBox) findViewById(R.id.ck_all);
-        tvShowPrice= (TextView) findViewById(R.id.tv_show_price);
-        tvSettlement= (TextView) findViewById(R.id.tv_settlement);
-        btnEdit= (TextView) findViewById(R.id.bt_header_right);
-        list_shopping_cart= (ListView) findViewById(R.id.list_shopping_cart);
+        btnBack = findViewById(R.id.btn_back);
+        ckAll = (CheckBox) findViewById(R.id.ck_all);
+        tvShowPrice = (TextView) findViewById(R.id.tv_show_price);
+        tvSettlement = (TextView) findViewById(R.id.tv_settlement);
+        btnEdit = (TextView) findViewById(R.id.bt_header_right);
+        list_shopping_cart = (ListView) findViewById(R.id.list_shopping_cart);
 
-            btnEdit.setOnClickListener(this);
-            ckAll.setOnClickListener(this);
-            tvSettlement.setOnClickListener(this);
-            btnBack.setOnClickListener(this);
+        btnEdit.setOnClickListener(this);
+        ckAll.setOnClickListener(this);
+        tvSettlement.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
 
         initData();
     }
+
     //初始化数据
     protected void initData() {
 
@@ -86,7 +88,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
             shoppingCartBean.setShoppingName("瑞士正品夜光男女士手表情侣精钢带男表防水石英学生非天王星机械");
             shoppingCartBean.setAttribute("黑白色");
             shoppingCartBean.setPrice(89);
-            shoppingCartBean.setId(i+2);
+            shoppingCartBean.setId(i + 2);
             shoppingCartBean.setCount(3);
             shoppingCartBean.setImageUrl("https://gd1.alicdn.com/imgextra/i1/2160089910/TB2M_NSbB0kpuFjSsppXXcGTXXa_!!2160089910.jpg");
             shoppingCartBeanList.add(shoppingCartBean);
@@ -97,6 +99,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
         list_shopping_cart.setAdapter(shoppingCartAdapter);
         shoppingCartAdapter.setShoppingCartBeanList(shoppingCartBeanList);
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -140,25 +143,27 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
      * 结算订单、支付
      */
     private void lementOnder() {
-    //选中的需要提交的商品清单
-        for (ShoppingCartBean bean:shoppingCartBeanList ){
+        //选中的需要提交的商品清单
+        for (ShoppingCartBean bean : shoppingCartBeanList) {
             boolean choosed = bean.isChoosed();
-            if (choosed){
+            if (choosed) {
                 String shoppingName = bean.getShoppingName();
                 int count = bean.getCount();
                 double price = bean.getPrice();
                 int size = bean.getDressSize();
                 String attribute = bean.getAttribute();
                 int id = bean.getId();
-                Log.d(TAG,id+"----id---"+shoppingName+"---"+count+"---"+price+"--size----"+size+"--attr---"+attribute);
+                Log.d(TAG, id + "----id---" + shoppingName + "---" + count + "---" + price + "--size----" + size + "--attr---" + attribute);
             }
         }
-        ToastUtil.showAtCenter("总价："+totalPrice);
+        ToastUtil.showAtCenter("总价：" + totalPrice);
 
         //跳转到支付界面
     }
+
     /**
      * 单选
+     *
      * @param position  组元素位置
      * @param isChecked 组元素选中与否
      */
@@ -172,8 +177,10 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
         shoppingCartAdapter.notifyDataSetChanged();
         statistics();
     }
+
     /**
      * 遍历list集合
+     *
      * @return
      */
     private boolean isAllCheck() {
@@ -184,6 +191,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
         }
         return true;
     }
+
     /**
      * 统计操作
      * 1.先清空全局计数器<br>
@@ -203,8 +211,10 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
         tvShowPrice.setText("合计:" + totalPrice);
         tvSettlement.setText("结算(" + totalCount + ")");
     }
+
     /**
      * 增加
+     *
      * @param position      组元素位置
      * @param showCountView 用于展示变化后数量的View
      * @param isChecked     子元素选中与否
@@ -219,6 +229,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
         shoppingCartAdapter.notifyDataSetChanged();
         statistics();
     }
+
     /**
      * 删减
      *
@@ -239,6 +250,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
         shoppingCartAdapter.notifyDataSetChanged();
         statistics();
     }
+
     /**
      * 删除
      *
@@ -256,7 +268,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
     protected void onStart() {
         super.onStart();
         //当FitsSystemWindows设置 true 时，会在屏幕最上方预留出状态栏高度的 padding
-        StatusBarUtil.setRootViewFitsSystemWindows(this,true);
+        StatusBarUtil.setRootViewFitsSystemWindows(this, true);
         //设置状态栏透明
         StatusBarUtil.setTranslucentStatus(this);
         //一般的手机的状态栏文字和图标都是白色的, 可如果你的应用也是纯白色的, 或导致状态栏文字看不清
@@ -264,7 +276,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
         if (!StatusBarUtil.setStatusBarDarkTheme(this, true)) {
             //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
             //这样半透明+白=灰, 状态栏的文字能看得清
-            StatusBarUtil.setStatusBarColor(this,0x55000000);
+            StatusBarUtil.setStatusBarColor(this, 0x55000000);
         }
     }
 }

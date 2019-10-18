@@ -286,6 +286,11 @@ public interface ApiService {
     @POST(Constants.Url.ShangCheng.coupon)
     Call<BaseBean<MallYouhuiquanResultBanner>> coupon(@Body BaseListPostBean bean);
 
+
+//    public static final String couponlist = "jeecg-boot/app/mall/coupon/list";
+    @POST(Constants.Url.ShangCheng.couponlist)
+    Call<BaseBean<MallYouhuiquanResultBanner>> couponlist(@Body BaseListPostBean bean);
+
     //    public static final String cainixihuan="jeecg-boot/app/mall/goods/hot/like/list";
     @POST(Constants.Url.ShangCheng.cainixihuan)
     Call<BaseBean<CainixihuanResultBean>> cainixihuan(@Body BasePostBean bean);

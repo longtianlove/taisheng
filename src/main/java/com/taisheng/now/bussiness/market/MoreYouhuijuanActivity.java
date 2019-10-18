@@ -112,8 +112,11 @@ public class MoreYouhuijuanActivity extends BaseActivity {
         BaseListPostBean bean = new BaseListPostBean();
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
+        bean.pageNo=1;
+        bean.pageSize=10;
         DialogUtil.showProgress(this, "");
-        ApiUtils.getApiService().coupon(bean).enqueue(new TaiShengCallback<BaseBean<MallYouhuiquanResultBanner>>() {
+
+        ApiUtils.getApiService().couponlist(bean).enqueue(new TaiShengCallback<BaseBean<MallYouhuiquanResultBanner>>() {
             @Override
             public void onSuccess(Response<BaseBean<MallYouhuiquanResultBanner>> response, BaseBean<MallYouhuiquanResultBanner> message) {
                 ptr_refresh.refreshComplete();
