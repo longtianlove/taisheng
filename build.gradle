@@ -124,7 +124,8 @@ dependencies {
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.33'
 
-
+    /*微信支付集成*/
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
 
 
 }

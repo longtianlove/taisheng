@@ -145,6 +145,17 @@
             android:alwaysRetainTaskState="true"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait">
+
+
+        </activity>
+
+
+        <activity
+            android:name="com.taisheng.now.bussiness.TestActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -152,7 +163,7 @@
             </intent-filter>
 
         </activity>
-
+        <!--微信支付，回掉-->
 
         <activity
             android:name="com.taisheng.now.bussiness.user.LoginActivity"
@@ -184,6 +195,8 @@
 
 
         </activity>
+
+
 
         <activity
             android:name="com.taisheng.now.bussiness.market.ShangPinsActivity"
