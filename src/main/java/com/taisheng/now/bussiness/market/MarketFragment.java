@@ -410,7 +410,17 @@ public class MarketFragment extends BaseFragment {
             MyViewHolder holder2 = (MyViewHolder) holder;
             RemenshangpinBean hotGoodsBean = mData.get(position);
             if (hotGoodsBean != null) {
+                holder2.ll_all.setOnClickListener(new View.OnClickListener() {
 
+                    @Override
+                    public void onClick(View v) {
+//todo 进入商品详情
+
+                        Intent intent = new Intent(mActivity, ShangPinxiangqingActivity.class);
+
+                        startActivity(intent);
+                    }
+                });
                 Uri uri = Uri.parse(hotGoodsBean.picUrl);
                 holder2.sdv_header.setImageURI(uri);
                 holder2.tv_goods_name.setText(hotGoodsBean.name);
@@ -429,6 +439,7 @@ public class MarketFragment extends BaseFragment {
 
         //定义自己的ViewHolder，将View的控件引用在成员变量上
         public class MyViewHolder extends RecyclerView.ViewHolder {
+            public View ll_all;
             public SimpleDraweeView sdv_header;
             public TextView tv_goods_name;
             public TextView tv_goods_jiage;
@@ -437,6 +448,7 @@ public class MarketFragment extends BaseFragment {
 
             public MyViewHolder(View itemView) {
                 super(itemView);
+                ll_all = itemView.findViewById(R.id.ll_all);
                 sdv_header = (SimpleDraweeView) itemView.findViewById(R.id.sdv_header);
                 tv_goods_name = itemView.findViewById(R.id.tv_goods_name);
                 tv_goods_jiage = itemView.findViewById(R.id.tv_goods_jiage);
@@ -497,7 +509,9 @@ public class MarketFragment extends BaseFragment {
             util.ll_all.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mActivity, ArticleContentActivity.class);
+                    //todo 进入商品详情
+
+                    Intent intent = new Intent(mActivity, ShangPinxiangqingActivity.class);
 
                     startActivity(intent);
                 }
