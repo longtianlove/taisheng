@@ -124,6 +124,7 @@
                 android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/tv_goumai"
                 android:layout_width="80dp"
                 android:layout_height="35dp"
                 android:background="@drawable/lijigoumai_background"

@@ -25,6 +25,9 @@ public class ShangPinxiangqingActivity extends BaseActivity {
     BannerViewPager bannerViewPager;
     private View bannerView;
 
+
+    public View tv_goumai;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +45,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
         });
 
 
-
-        bannerContaner = (FrameLayout)findViewById(R.id.bannerContaner);
+        bannerContaner = (FrameLayout) findViewById(R.id.bannerContaner);
         bannerContaner.setVisibility(View.VISIBLE);
         bannerViewPager = new BannerViewPager(this);
         bannerViewPager.setLocalPictureIds();
@@ -59,5 +61,14 @@ public class ShangPinxiangqingActivity extends BaseActivity {
         bannerContaner.addView(bannerView);
 
 
+        tv_goumai = findViewById(R.id.tv_goumai);
+        tv_goumai.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShangPinxiangqingActivity.this, DingdanjiesuanActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
