@@ -147,7 +147,8 @@ public class MeFragment extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), MyKajuanActivity.class);
+                startActivity(intent);
             }
         });
 

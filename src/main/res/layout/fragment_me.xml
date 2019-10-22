@@ -241,7 +241,7 @@
                 android:layout_height="20dp"
                 android:layout_marginLeft="9dp"
                 android:gravity="center"
-                android:text="我的卡卷"
+                android:text="我的卡劵"
                 android:textColor="#ff666666"
                 android:textSize="14sp" />
 
