@@ -141,7 +141,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
             }
         });
 
-
+        getDoctors();
 //        shoppingCartAdapter.setShoppingCartBeanList(shoppingCartBeanList);
     }
 

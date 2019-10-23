@@ -417,7 +417,7 @@ public class MarketFragment extends BaseFragment {
 //todo 进入商品详情
 
                         Intent intent = new Intent(mActivity, ShangPinxiangqingActivity.class);
-
+                        intent.putExtra("goodsid", hotGoodsBean.id);
                         startActivity(intent);
                     }
                 });
@@ -512,6 +512,7 @@ public class MarketFragment extends BaseFragment {
                     //todo 进入商品详情
 
                     Intent intent = new Intent(mActivity, ShangPinxiangqingActivity.class);
+                    intent.putExtra("goodsid", bean.id);
 
                     startActivity(intent);
                 }

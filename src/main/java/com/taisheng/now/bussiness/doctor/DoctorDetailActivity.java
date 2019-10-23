@@ -42,7 +42,7 @@ import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.chat.C2CActivity;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
-import com.taisheng.now.selfshipin.util.WebrtcUtil;
+//import com.taisheng.now.selfshipin.util.WebrtcUtil;
 import com.taisheng.now.shipin.TRTCMainActivity;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.DoubleClickUtil;

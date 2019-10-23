@@ -25,6 +25,7 @@ import com.taisheng.now.bussiness.bean.post.MoreShipinPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendSharePostBean;
+import com.taisheng.now.bussiness.bean.post.ShangpinxaingqingPostBean;
 import com.taisheng.now.bussiness.bean.post.UpdateArticleReadCountPostBean;
 import com.taisheng.now.bussiness.bean.post.UpdatePswPostBean;
 import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
@@ -295,5 +296,8 @@ public interface ApiService {
     @POST(Constants.Url.ShangCheng.gouwuchelist)
     Call<BaseBean<MallYouhuiquanResultBanner>> gouwuchelist(@Body BaseListPostBean bean);
 
+//    public static final String shangpinxiangqing="jeecg-boot/app/mall/goods/goods/detail";
+    @POST(Constants.Url.ShangCheng.shangpinxiangqing)
+    Call<BaseBean> shangpinxiangqing(@Body ShangpinxaingqingPostBean bean);
 
 }

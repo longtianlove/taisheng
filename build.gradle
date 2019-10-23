@@ -103,7 +103,7 @@ dependencies {
     implementation 'com.zzhoujay.richtext:richtext:2.4.7'
     //下拉刷新
     implementation 'in.srain.cube:ultra-ptr:1.0.11'
-    implementation project(':libskywebrtc')
+//    implementation project(':libskywebrtc')
     //    implementation 'com.github.longtianlove:taisheng_webrtc:1.0.1'
     compile 'com.google.zxing:core:3.2.1'
     compile 'cn.bingoogolapple:bga-qrcodecore:1.1.7@aar'

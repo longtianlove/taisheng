@@ -267,6 +267,8 @@ public class Constants {
             //优惠券列表
             public static final String couponlist = "jeecg-boot/app/mall/coupon/more/list";
 
+            //商品详情
+            public static final String shangpinxiangqing="jeecg-boot/app/mall/goods/goods/detail";
 
             public static final String gouwuchelist="jeecg-boot/app/mall/cart/list";
 

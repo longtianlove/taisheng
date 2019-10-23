@@ -106,7 +106,6 @@ public class MoreYouhuijuanActivity extends BaseActivity {
 
     int PAGE_NO = 1;
     int PAGE_SIZE = 10;
-    String nickName;
 
     void getDoctors() {
         BaseListPostBean bean = new BaseListPostBean();
