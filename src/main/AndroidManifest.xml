@@ -536,19 +536,21 @@
             <!--android:theme="@style/Webrtc.AppTheme.NoActionBar" />-->
 
 
-        <!--<activity-->
-            <!--android:name="com.taisheng.now.bussiness.article.SecretActivity"-->
-            <!--android:configChanges="orientation|smallestScreenSize|screenSize|screenLayout"-->
-            <!--android:launchMode="singleInstance"-->
-            <!--android:screenOrientation="fullUser"-->
-            <!--android:theme="@style/Webrtc.AppTheme.NoActionBar" />-->
+        <activity
+            android:name="com.taisheng.now.bussiness.article.SecretActivity"
+            android:configChanges="orientation|smallestScreenSize|screenSize|screenLayout"
+            android:launchMode="singleInstance"
+            android:screenOrientation="fullUser"
 
-        <!--<activity-->
-            <!--android:name="com.taisheng.now.bussiness.market.MoreYouhuijuanActivity"-->
-            <!--android:configChanges="orientation|smallestScreenSize|screenSize|screenLayout"-->
-            <!--android:launchMode="singleInstance"-->
-            <!--android:screenOrientation="fullUser"-->
-            <!--android:theme="@style/Webrtc.AppTheme.NoActionBar" />-->
+          />
+
+        <activity
+            android:name="com.taisheng.now.bussiness.market.MoreYouhuijuanActivity"
+            android:configChanges="orientation|smallestScreenSize|screenSize|screenLayout"
+            android:launchMode="singleInstance"
+            android:screenOrientation="fullUser"
+
+           />
         <provider
             android:authorities="com.taisheng.now.fileprovider"
             android:name="androidx.core.content.FileProvider"
