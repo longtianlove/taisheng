@@ -111,7 +111,7 @@
                     android:layout_width="26dp"
                     android:layout_height="23dp"
 
-                    android:src="@drawable/main_bottombg_first" />
+                    android:src="@drawable/main_bottombg_chat" />
 
                 <TextView
                     android:id="@+id/tv_tab_message"
@@ -140,7 +140,7 @@
                     android:id="@+id/iv_tab_secret"
                     android:layout_width="26dp"
                     android:layout_height="23dp"
-                    android:src="@drawable/main_bottombg_secret" />
+                    android:src="@drawable/main_bottombg_market" />
 
                 <TextView
                     android:id="@+id/tv_tab_secret"

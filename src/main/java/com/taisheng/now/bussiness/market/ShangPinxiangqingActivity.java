@@ -75,7 +75,7 @@ public View tv_addgouwuche;
 
             @Override
             public void onClick(View v) {
-
+//todo 添加到购物车
             }
         });
 

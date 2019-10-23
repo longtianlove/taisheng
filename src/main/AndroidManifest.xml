@@ -221,13 +221,6 @@
         </activity>
 
         <activity
-            android:name="com.taisheng.now.bussiness.market.ShangPinsActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateVisible|adjustResize">
-        </activity>
-        <activity
             android:name="com.taisheng.now.bussiness.MainActivity"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"

@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:paddingRight="10dp"
+            android:paddingLeft="10dp"
             android:src="@drawable/icon_back_new" />
 
         <TextView
