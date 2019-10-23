@@ -11,7 +11,9 @@
         android:layout_height="wrap_content"
         android:background="#529FFB"
         android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp"
+        >
 
 
         <ImageView
@@ -34,19 +36,6 @@
             android:textColor="@color/white_c"
             android:textSize="16dp" />
 
-        <TextView
-            android:id="@+id/bt_header_right"
-            android:layout_width="50dip"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@null"
-            android:gravity="center"
-            android:text="管理"
-            android:textColor="@color/white_c"
-            android:textSize="14sp"
-            android:visibility="gone" />
-
 
     </RelativeLayout>
 
@@ -68,6 +57,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/ll_dizhi"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:gravity="center_vertical"
@@ -76,7 +66,9 @@
 
                     <ImageView
                         android:layout_width="35dp"
-                        android:layout_height="35dp" />
+                        android:layout_height="35dp"
+
+                        android:src="@drawable/icon_dizhi" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -463,9 +455,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:gravity="center"
             android:layout_marginBottom="8dp"
             android:background="#fff"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <LinearLayout

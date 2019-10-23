@@ -1,6 +1,7 @@
 package com.taisheng.now.bussiness.market;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,8 +43,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
     View btnBack;
 
 
-
-
+    View ll_dizhi;
 
 
     @Override
@@ -58,22 +58,23 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
         btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(this);
 
+        ll_dizhi = findViewById(R.id.ll_dizhi);
+        ll_dizhi.setOnClickListener(new View.OnClickListener() {
 
-
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DingdanjiesuanActivity.this,DizhiActivity.class);
+                startActivity(intent);
+            }
+        });
         initData();
     }
-
-
 
 
     //初始化数据
     protected void initData() {
 
     }
-
-
-
-
 
 
     @Override
@@ -84,8 +85,6 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                 break;
         }
     }
-
-
 
 
     @Override
