@@ -190,9 +190,14 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
-
-
         </activity>
+
+        <activity
+            android:name="com.taisheng.now.bussiness.market.DizhiBianjiActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         <activity
             android:name="com.taisheng.now.bussiness.me.MyKajuanActivity"
             android:configChanges="keyboardHidden|orientation"

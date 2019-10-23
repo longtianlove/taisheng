@@ -9,11 +9,10 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:background="#529FFB"
         android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:layout_marginBottom="10dp"
-        >
+        android:orientation="vertical">
 
 
         <ImageView
@@ -67,12 +66,13 @@
                     <ImageView
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-
+                        android:layout_marginLeft="10dp"
                         android:src="@drawable/icon_dizhi" />
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:orientation="vertical">
