@@ -61,6 +61,7 @@ import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
 import com.taisheng.now.bussiness.bean.result.RecommendSharedResultBean;
 import com.taisheng.now.bussiness.bean.result.ShipinsResultBean;
 import com.taisheng.now.bussiness.bean.result.SignResultBean;
+import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -298,6 +299,6 @@ public interface ApiService {
 
 //    public static final String shangpinxiangqing="jeecg-boot/app/mall/goods/goods/detail";
     @POST(Constants.Url.ShangCheng.shangpinxiangqing)
-    Call<BaseBean> shangpinxiangqing(@Body ShangpinxaingqingPostBean bean);
+    Call<BaseBean<JsonRootBean>> shangpinxiangqing(@Body ShangpinxaingqingPostBean bean);
 
 }
