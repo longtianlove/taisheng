@@ -11,6 +11,7 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.bean.post.AddgouwuchePostBean;
 import com.taisheng.now.bussiness.bean.post.ShangpinxaingqingPostBean;
 import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
 import com.taisheng.now.bussiness.me.FuwuxieyiActivity;
@@ -19,6 +20,7 @@ import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.Apputil;
+import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.banner.BannerViewPager;
 
 import java.util.ArrayList;
@@ -76,6 +78,29 @@ public class ShangPinxiangqingActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 //todo 添加到购物车
+                AddgouwuchePostBean bean = new AddgouwuchePostBean();
+                bean.userId = UserInstance.getInstance().getUid();
+                bean.token = UserInstance.getInstance().getToken();
+                bean.goodsId = "1181000";
+                bean.productId = "2";
+                bean.number = "2";
+                ApiUtils.getApiService().addgouwuche(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+                                ToastUtil.showAtCenter("添加成功");
+                                break;
+
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean> call, Throwable t) {
+
+                    }
+                });
+
             }
         });
 
@@ -89,15 +114,18 @@ public class ShangPinxiangqingActivity extends BaseActivity {
             }
         });
 
-        tv_counterprice=findViewById(R.id.tv_counterprice);
-        tv_retailprice=findViewById(R.id.tv_retailprice);
-        tv_name=findViewById(R.id.tv_name);
-        tv_jianjie=findViewById(R.id.tv_jianjie);
+        tv_counterprice = findViewById(R.id.tv_counterprice);
+        tv_retailprice = findViewById(R.id.tv_retailprice);
+        tv_name = findViewById(R.id.tv_name);
+        tv_jianjie = findViewById(R.id.tv_jianjie);
 
     }
 
 
     public String goodsid;
+    //todo 赋值
+    public String productid = 1 + "";
+    public String number = 1 + "";
 
     void initData() {
         Intent intent = getIntent();
@@ -128,13 +156,12 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                             });
                             bannerViewPager.madapter.notifyDataSetChanged();
 
-                            tv_counterprice.setText(message.result.goodsEntity.counterPrice+"");
-                            tv_retailprice.setText(message.result.goodsEntity.retailPrice+"");
+                            tv_counterprice.setText(message.result.goodsEntity.counterPrice + "");
+                            tv_retailprice.setText(message.result.goodsEntity.retailPrice + "");
                             tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                             tv_name.setText(message.result.goodsEntity.name);
                             tv_jianjie.setText(message.result.goodsEntity.brief);
                         }
-
 
 
                         break;

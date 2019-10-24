@@ -3,6 +3,7 @@ package com.taisheng.now.http;
 
 import com.taisheng.now.Constants;
 import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.bean.post.AddgouwuchePostBean;
 import com.taisheng.now.bussiness.bean.post.AnswerPostBean;
 import com.taisheng.now.bussiness.bean.post.ArticleCollectionBean;
 import com.taisheng.now.bussiness.bean.post.ArticleShareBean;
@@ -48,6 +49,7 @@ import com.taisheng.now.bussiness.bean.result.DoctorCollectListResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorNumberResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
+import com.taisheng.now.bussiness.bean.result.GouwucheResultBean;
 import com.taisheng.now.bussiness.bean.result.HotResultBean;
 import com.taisheng.now.bussiness.bean.post.LoginPostBean;
 import com.taisheng.now.bussiness.bean.result.IsSign;
@@ -295,10 +297,15 @@ public interface ApiService {
 
 
     @POST(Constants.Url.ShangCheng.gouwuchelist)
-    Call<BaseBean<MallYouhuiquanResultBanner>> gouwuchelist(@Body BaseListPostBean bean);
+    Call<BaseBean<GouwucheResultBean>> gouwuchelist(@Body BaseListPostBean bean);
 
 //    public static final String shangpinxiangqing="jeecg-boot/app/mall/goods/goods/detail";
     @POST(Constants.Url.ShangCheng.shangpinxiangqing)
     Call<BaseBean<JsonRootBean>> shangpinxiangqing(@Body ShangpinxaingqingPostBean bean);
+
+//    public static final String addgouwuche="jeecg-boot//app/mall/cart/add";
+    @POST(Constants.Url.ShangCheng.addgouwuche)
+Call<BaseBean> addgouwuche(@Body AddgouwuchePostBean bean);
+
 
 }

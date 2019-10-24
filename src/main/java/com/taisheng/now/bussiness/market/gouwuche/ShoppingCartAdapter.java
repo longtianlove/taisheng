@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.taisheng.now.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ import java.util.List;
 public class ShoppingCartAdapter extends BaseAdapter {
 
     private boolean isShow = true;//是否显示编辑/完成
-    public List<ShoppingCartBean> shoppingCartBeanList;
+    public List<ShoppingCartBean> shoppingCartBeanList=new ArrayList<>();
     private CheckInterface checkInterface;
     private ModifyCountInterface modifyCountInterface;
     private Context context;

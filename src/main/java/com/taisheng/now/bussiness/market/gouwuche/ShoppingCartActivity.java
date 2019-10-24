@@ -16,6 +16,7 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
+import com.taisheng.now.bussiness.bean.result.GouwucheResultBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
@@ -50,7 +51,6 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
     TextView tvSettlement;
     //编辑
     TextView btnEdit;//tv_edit
-
 
 
     MaterialDesignPtrFrameLayout ptr_refresh;
@@ -100,16 +100,13 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
         btnBack.setOnClickListener(this);
 
 
-
         initData();
     }
 
 
-
-
     //初始化数据
     protected void initData() {
-//
+
 //        for (int i = 0; i < 2; i++) {
 //            ShoppingCartBean shoppingCartBean = new ShoppingCartBean();
 //            shoppingCartBean.setShoppingName("上档次的T桖");
@@ -146,8 +143,6 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
     }
 
 
-
-
     int PAGE_NO = 1;
     int PAGE_SIZE = 10;
 
@@ -155,13 +150,13 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
         BaseListPostBean bean = new BaseListPostBean();
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
-        bean.pageNo=PAGE_NO;
-        bean.pageSize=10;
+        bean.pageNo = PAGE_NO;
+        bean.pageSize = 10;
         DialogUtil.showProgress(this, "");
 
-        ApiUtils.getApiService().gouwuchelist(bean).enqueue(new TaiShengCallback<BaseBean<MallYouhuiquanResultBanner>>() {
+        ApiUtils.getApiService().gouwuchelist(bean).enqueue(new TaiShengCallback<BaseBean<GouwucheResultBean>>() {
             @Override
-            public void onSuccess(Response<BaseBean<MallYouhuiquanResultBanner>> response, BaseBean<MallYouhuiquanResultBanner> message) {
+            public void onSuccess(Response<BaseBean<GouwucheResultBean>> response, BaseBean<GouwucheResultBean> message) {
                 ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
                 switch (message.code) {
@@ -174,9 +169,24 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
                             //有消息
                             PAGE_NO++;
                             //todo 购物车返回结果
-//                            shoppingCartAdapter.shoppingCartBeanList.addAll(message.result.records);
 
 
+                            for (NewShoppingCartBean bean : message.result.records) {
+
+                                ShoppingCartBean shoppingCartBean = new ShoppingCartBean();
+                                shoppingCartBean.setShoppingName(bean.goodsName);
+                                shoppingCartBean.setAttribute(bean.specifications);
+                                shoppingCartBean.setPrice(bean.price);
+                                shoppingCartBean.setId(bean.id);
+                                shoppingCartBean.setCount(bean.number);
+                                shoppingCartBean.setImageUrl(bean.picUrl);
+
+                                shoppingCartBeanList.add(shoppingCartBean);
+
+                            }
+
+
+                            shoppingCartAdapter.setShoppingCartBeanList(shoppingCartBeanList);
 
                             if (message.result.records.size() < 10) {
                                 list_shopping_cart.setHasLoadMore(false);
@@ -185,7 +195,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
                             } else {
                                 list_shopping_cart.setHasLoadMore(true);
                             }
-                            shoppingCartAdapter.notifyDataSetChanged();
+//                            shoppingCartAdapter.notifyDataSetChanged();
                         } else {
                             //没有消息
                             list_shopping_cart.setHasLoadMore(false);
@@ -197,7 +207,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
             }
 
             @Override
-            public void onFail(Call<BaseBean<MallYouhuiquanResultBanner>> call, Throwable t) {
+            public void onFail(Call<BaseBean<GouwucheResultBean>> call, Throwable t) {
                 ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
             }
@@ -258,7 +268,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
                 double price = bean.getPrice();
                 int size = bean.getDressSize();
                 String attribute = bean.getAttribute();
-                int id = bean.getId();
+                String id = bean.getId();
                 Log.d(TAG, id + "----id---" + shoppingName + "---" + count + "---" + price + "--size----" + size + "--attr---" + attribute);
             }
         }

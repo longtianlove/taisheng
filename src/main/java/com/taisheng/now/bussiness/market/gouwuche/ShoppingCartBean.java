@@ -7,7 +7,7 @@ package com.taisheng.now.bussiness.market.gouwuche;
  */
 public class ShoppingCartBean {
 
-    private int id;
+    private String id;
     private String imageUrl;
     private String shoppingName;
 
@@ -33,7 +33,7 @@ public class ShoppingCartBean {
     public ShoppingCartBean() {
     }
 
-    public ShoppingCartBean(int id, String shoppingName, String attribute, int dressSize,
+    public ShoppingCartBean(String id, String shoppingName, String attribute, int dressSize,
                             double price, int count) {
         this.id = id;
         this.shoppingName = shoppingName;
@@ -60,11 +60,11 @@ public class ShoppingCartBean {
         isChoosed = choosed;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -273,6 +273,8 @@ public class Constants {
             public static final String gouwuchelist="jeecg-boot/app/mall/cart/list";
 
             public static final String cainixihuan="jeecg-boot/app/mall/goods/hot/like/list";
+            //添加到购物车
+            public static final String addgouwuche="jeecg-boot//app/mall/cart/add";
 
         }
 
