@@ -168,9 +168,6 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
                             }
                             //有消息
                             PAGE_NO++;
-                            //todo 购物车返回结果
-
-
                             for (NewShoppingCartBean bean : message.result.records) {
 
                                 ShoppingCartBean shoppingCartBean = new ShoppingCartBean();
