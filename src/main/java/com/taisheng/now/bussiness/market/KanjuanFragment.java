@@ -44,7 +44,7 @@ public class KanjuanFragment extends BaseFragment {
     public String assessmentType;
 
 
-    MaterialDesignPtrFrameLayout ptr_refresh;
+//    MaterialDesignPtrFrameLayout ptr_refresh;
     com.taisheng.now.view.TaishengListView list_kajuan;
 
     YouhuiquanAdapter madapter;
@@ -60,18 +60,18 @@ public class KanjuanFragment extends BaseFragment {
     }
 
     void initView(View rootView) {
-        ptr_refresh = (MaterialDesignPtrFrameLayout) rootView.findViewById(R.id.ptr_refresh);
-        /**
-         * 下拉刷新
-         */
-        ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
-            @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-                PAGE_NO = 1;
-                getDoctors();
-
-            }
-        });
+//        ptr_refresh = (MaterialDesignPtrFrameLayout) rootView.findViewById(R.id.ptr_refresh);
+//        /**
+//         * 下拉刷新
+//         */
+//        ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
+//            @Override
+//            public void onRefreshBegin(PtrFrameLayout frame) {
+//                PAGE_NO = 1;
+//                getDoctors();
+//
+//            }
+//        });
         list_kajuan = (com.taisheng.now.view.TaishengListView) rootView.findViewById(R.id.list_kajuan);
 
 
@@ -117,7 +117,7 @@ public class KanjuanFragment extends BaseFragment {
         ApiUtils.getApiService().getCouponlist(bean).enqueue(new TaiShengCallback<BaseBean<MallYouhuiquanResultBanner>>() {
             @Override
             public void onSuccess(Response<BaseBean<MallYouhuiquanResultBanner>> response, BaseBean<MallYouhuiquanResultBanner> message) {
-                ptr_refresh.refreshComplete();
+//                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
@@ -127,7 +127,7 @@ public class KanjuanFragment extends BaseFragment {
                                 madapter.mData.clear();
                             }
                             //有消息
-                            PAGE_NO++;
+//                            PAGE_NO++;
                             madapter.mData.addAll(message.result.records);
                             if (message.result.records.size() < 10) {
                                 list_kajuan.setHasLoadMore(false);
@@ -149,7 +149,7 @@ public class KanjuanFragment extends BaseFragment {
 
             @Override
             public void onFail(Call<BaseBean<MallYouhuiquanResultBanner>> call, Throwable t) {
-                ptr_refresh.refreshComplete();
+//                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
             }
         });

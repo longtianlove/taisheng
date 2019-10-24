@@ -219,32 +219,32 @@ public class MoreYouhuijuanActivity extends BaseActivity {
             util.tv_name.setText(bean.name);
             util.tv_tag.setText(bean.tag);
             util.tv_usedate.setText(bean.useDate);
-            util.tv_lingqu.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    LingqukajuanPostBean bean1=new LingqukajuanPostBean();
-                    bean1.userId=UserInstance.getInstance().getUid();
-                    bean1.token=UserInstance.getInstance().getToken();
-                    bean1.id=bean.id;
-                    ApiUtils.getApiService().getCoupon(bean1).enqueue(new TaiShengCallback<BaseBean>() {
-                        @Override
-                        public void onSuccess(Response<BaseBean> response, BaseBean message) {
-                            switch (message.code) {
-                                case Constants.HTTP_SUCCESS:
-                                    getDoctors();
-                                    ToastUtil.showAtCenter(message.message);
-                                    break;
-                            }
-                        }
-
-                        @Override
-                        public void onFail(Call<BaseBean> call, Throwable t) {
-
-                        }
-                    });
-                }
-            });
+//            util.tv_lingqu.setOnClickListener(new View.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {
+//                    LingqukajuanPostBean bean1=new LingqukajuanPostBean();
+//                    bean1.userId=UserInstance.getInstance().getUid();
+//                    bean1.token=UserInstance.getInstance().getToken();
+//                    bean1.id=bean.id;
+//                    ApiUtils.getApiService().getCoupon(bean1).enqueue(new TaiShengCallback<BaseBean>() {
+//                        @Override
+//                        public void onSuccess(Response<BaseBean> response, BaseBean message) {
+//                            switch (message.code) {
+//                                case Constants.HTTP_SUCCESS:
+//                                    getDoctors();
+//                                    ToastUtil.showAtCenter(message.message);
+//                                    break;
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFail(Call<BaseBean> call, Throwable t) {
+//
+//                        }
+//                    });
+//                }
+//            });
             return convertView;
         }
 
