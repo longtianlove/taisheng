@@ -276,7 +276,9 @@ public class Constants {
 
             public static final String cainixihuan="jeecg-boot/app/mall/goods/hot/like/list";
             //添加到购物车
-            public static final String addgouwuche="jeecg-boot//app/mall/cart/add";
+            public static final String addgouwuche="jeecg-boot/app/mall/cart/add";
+            //商城首页优惠券-领取用户优惠券
+            public static final String getCoupon="jeecg-boot/app/mall/coupon/getCoupon";
 
         }
 

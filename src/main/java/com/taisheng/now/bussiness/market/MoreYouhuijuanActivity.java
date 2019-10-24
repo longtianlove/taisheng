@@ -17,6 +17,7 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
+import com.taisheng.now.bussiness.bean.post.LingqukajuanPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
 import com.taisheng.now.bussiness.bean.result.CainixihuanResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorBean;
@@ -32,6 +33,7 @@ import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.Apputil;
 import com.taisheng.now.util.DialogUtil;
+import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.DoctorLabelWrapLayout;
 import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.TaishengListView;
@@ -199,6 +201,7 @@ public class MoreYouhuijuanActivity extends BaseActivity {
                 util.tv_name = convertView.findViewById(R.id.tv_name);
                 util.tv_tag = convertView.findViewById(R.id.tv_tag);
                 util.tv_usedate = convertView.findViewById(R.id.tv_usedate);
+                util.tv_lingqu = convertView.findViewById(R.id.tv_lingqu);
                 convertView.setTag(util);
             } else {
                 util = (YouhuiquanAdapter.Util) convertView.getTag();
@@ -216,7 +219,32 @@ public class MoreYouhuijuanActivity extends BaseActivity {
             util.tv_name.setText(bean.name);
             util.tv_tag.setText(bean.tag);
             util.tv_usedate.setText(bean.useDate);
+            util.tv_lingqu.setOnClickListener(new View.OnClickListener() {
 
+                @Override
+                public void onClick(View v) {
+                    LingqukajuanPostBean bean1=new LingqukajuanPostBean();
+                    bean1.userId=UserInstance.getInstance().getUid();
+                    bean1.token=UserInstance.getInstance().getToken();
+                    bean1.id=bean.id;
+                    ApiUtils.getApiService().getCoupon(bean1).enqueue(new TaiShengCallback<BaseBean>() {
+                        @Override
+                        public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                            switch (message.code) {
+                                case Constants.HTTP_SUCCESS:
+                                    getDoctors();
+                                    ToastUtil.showAtCenter(message.message);
+                                    break;
+                            }
+                        }
+
+                        @Override
+                        public void onFail(Call<BaseBean> call, Throwable t) {
+
+                        }
+                    });
+                }
+            });
             return convertView;
         }
 
@@ -228,6 +256,7 @@ public class MoreYouhuijuanActivity extends BaseActivity {
             TextView tv_name;
             TextView tv_tag;
             TextView tv_usedate;
+            View tv_lingqu;
         }
     }
 }

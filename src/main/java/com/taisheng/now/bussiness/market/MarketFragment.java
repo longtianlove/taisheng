@@ -30,6 +30,7 @@ import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.article.ArticleContentActivity;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
+import com.taisheng.now.bussiness.bean.post.LingqukajuanPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.bussiness.bean.result.CainixihuanResultBean;
 import com.taisheng.now.bussiness.bean.result.HotGoodsBean;
@@ -44,6 +45,7 @@ import com.taisheng.now.bussiness.market.gouwuche.ShoppingCartActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
+import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.WithScrolleViewListView;
 import com.taisheng.now.view.banner.BannerViewPager;
 import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
@@ -325,6 +327,7 @@ public class MarketFragment extends BaseFragment {
                 util.tv_name = convertView.findViewById(R.id.tv_name);
                 util.tv_tag = convertView.findViewById(R.id.tv_tag);
                 util.tv_usedate = convertView.findViewById(R.id.tv_usedate);
+                util.tv_lingqu = convertView.findViewById(R.id.tv_lingqu);
                 convertView.setTag(util);
             } else {
                 util = (Util) convertView.getTag();
@@ -342,6 +345,32 @@ public class MarketFragment extends BaseFragment {
             util.tv_name.setText(bean.name);
             util.tv_tag.setText(bean.tag);
             util.tv_usedate.setText(bean.useDate);
+            util.tv_lingqu.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    LingqukajuanPostBean bean1=new LingqukajuanPostBean();
+                    bean1.userId=UserInstance.getInstance().getUid();
+                    bean1.token=UserInstance.getInstance().getToken();
+                    bean1.id=bean.id;
+                    ApiUtils.getApiService().getCoupon(bean1).enqueue(new TaiShengCallback<BaseBean>() {
+                        @Override
+                        public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                            switch (message.code) {
+                                case Constants.HTTP_SUCCESS:
+                                    getYouhuiquan();
+                                    ToastUtil.showAtCenter(message.message);
+                                    break;
+                            }
+                        }
+
+                        @Override
+                        public void onFail(Call<BaseBean> call, Throwable t) {
+
+                        }
+                    });
+                }
+            });
 
             return convertView;
         }
@@ -354,6 +383,7 @@ public class MarketFragment extends BaseFragment {
             TextView tv_name;
             TextView tv_tag;
             TextView tv_usedate;
+            View tv_lingqu;
         }
     }
 

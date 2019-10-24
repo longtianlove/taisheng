@@ -23,6 +23,7 @@ import com.taisheng.now.bussiness.bean.post.GuanzhuPostBean;
 import com.taisheng.now.bussiness.bean.post.HealthCheckListPostBean;
 import com.taisheng.now.bussiness.bean.post.HealthInfoPostBean;
 import com.taisheng.now.bussiness.bean.post.KanjuanPostBean;
+import com.taisheng.now.bussiness.bean.post.LingqukajuanPostBean;
 import com.taisheng.now.bussiness.bean.post.MoreShipinPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
@@ -296,21 +297,24 @@ public interface ApiService {
     Call<BaseBean<CainixihuanResultBean>> cainixihuan(@Body BasePostBean bean);
 
 
-
     @POST(Constants.Url.ShangCheng.gouwuchelist)
     Call<BaseBean<GouwucheResultBean>> gouwuchelist(@Body BaseListPostBean bean);
 
-//    public static final String shangpinxiangqing="jeecg-boot/app/mall/goods/goods/detail";
+    //    public static final String shangpinxiangqing="jeecg-boot/app/mall/goods/goods/detail";
     @POST(Constants.Url.ShangCheng.shangpinxiangqing)
     Call<BaseBean<JsonRootBean>> shangpinxiangqing(@Body ShangpinxaingqingPostBean bean);
 
-//    public static final String addgouwuche="jeecg-boot//app/mall/cart/add";
+    //    public static final String addgouwuche="jeecg-boot//app/mall/cart/add";
     @POST(Constants.Url.ShangCheng.addgouwuche)
-Call<BaseBean> addgouwuche(@Body AddgouwuchePostBean bean);
+    Call<BaseBean> addgouwuche(@Body AddgouwuchePostBean bean);
 
-//    public static final String getCouponlist="jeecg-boot/app/mall/coupon/getCouponList";
+    //    public static final String getCouponlist="jeecg-boot/app/mall/coupon/getCouponList";
     @POST(Constants.Url.ShangCheng.getCouponlist)
     Call<BaseBean<MallYouhuiquanResultBanner>> getCouponlist(@Body KanjuanPostBean bean);
+
+//    public static final String getCoupon="jeecg-boot/app/mall/coupon/getCoupon";
+    @POST(Constants.Url.ShangCheng.getCoupon)
+    Call<BaseBean> getCoupon(@Body LingqukajuanPostBean bean);
 
 
 
