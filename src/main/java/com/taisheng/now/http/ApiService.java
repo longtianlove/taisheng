@@ -316,6 +316,11 @@ public interface ApiService {
     @POST(Constants.Url.ShangCheng.getCoupon)
     Call<BaseBean> getCoupon(@Body LingqukajuanPostBean bean);
 
+//    public static final String addressList="jeecg-boot/app/mall/address/list";
+    @POST(Constants.Url.ShangCheng.addressList)
+    Call<BaseBean> addressList(@Body BaseListPostBean bean);
+
+
 
 
 }

@@ -12,19 +12,33 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.article.ArticleContentActivity;
+import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.bussiness.first.FirstFragment;
 import com.taisheng.now.bussiness.me.FuwuxieyiActivity;
 import com.taisheng.now.bussiness.me.YisixieyiActivity;
+import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.Apputil;
+import com.taisheng.now.util.DialogUtil;
+import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.WithScrolleViewListView;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
+import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by dragon on 2019/6/28.
@@ -34,12 +48,16 @@ public class DizhiActivity extends Activity {
     View iv_back;
 
 
-    WithScrolleViewListView  lv_dizhis;
+    MaterialDesignPtrFrameLayout ptr_refresh;
+    TaishengListView lv_dizhis;
+    DizhiAdapter madapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dizhi);
         initView();
+        initData();
     }
 
     void initView() {
@@ -50,13 +68,86 @@ public class DizhiActivity extends Activity {
                 finish();
             }
         });
+        ptr_refresh = (MaterialDesignPtrFrameLayout) findViewById(R.id.ptr_refresh);
 
+        /**
+         * 下拉刷新
+         */
+        ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                PAGE_NO = 1;
+                initData();
 
-        lv_dizhis=findViewById(R.id.lv_dizhis);
+            }
+        });
 
+        lv_dizhis = findViewById(R.id.lv_dizhis);
+        madapter = new DizhiAdapter(this);
+        lv_dizhis.setAdapter(madapter);
+        lv_dizhis.setOnUpLoadListener(new TaishengListView.OnUpLoadListener() {
+            @Override
+            public void onUpLoad() {
+                initData();
+            }
+        });
 
 
     }
+
+
+    int PAGE_NO = 1;
+    int PAGE_SIZE = 10;
+
+    void initData() {
+        BaseListPostBean bean = new BaseListPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.pageNo=PAGE_NO;
+        bean.pageSize=10;
+
+        DialogUtil.showProgress(this, "");
+        ApiUtils.getApiService().addressList(bean).enqueue(new TaiShengCallback<BaseBean>() {
+            @Override
+            public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                ptr_refresh.refreshComplete();
+                DialogUtil.closeProgress();
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+//                        if (message.result.records != null && message.result.records.size() > 0) {
+//                            lv_dizhis.setLoading(false);
+//                            if (PAGE_NO == 1) {
+//                                madapter.mData.clear();
+//                            }
+//                            //有消息
+//                            PAGE_NO++;
+//                            madapter.mData.addAll(message.result.records);
+//                            if (message.result.records.size() < 10) {
+//                                lv_dizhis.setHasLoadMore(false);
+//                                lv_dizhis.setLoadAllViewText("暂时只有这么多优惠券");
+//                                lv_dizhis.setLoadAllFooterVisible(true);
+//                            } else {
+//                                lv_dizhis.setHasLoadMore(true);
+//                            }
+//                            madapter.notifyDataSetChanged();
+//                        } else {
+//                            //没有消息
+//                            lv_dizhis.setHasLoadMore(false);
+//                            lv_dizhis.setLoadAllViewText("暂时只有这么多优惠券");
+//                            lv_dizhis.setLoadAllFooterVisible(true);
+//                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean> call, Throwable t) {
+                ptr_refresh.refreshComplete();
+                DialogUtil.closeProgress();
+            }
+        });
+    }
+
 
     class DizhiAdapter extends BaseAdapter {
 
@@ -107,7 +198,6 @@ public class DizhiActivity extends Activity {
                     startActivity(intent);
                 }
             });
-
 
 
             return convertView;

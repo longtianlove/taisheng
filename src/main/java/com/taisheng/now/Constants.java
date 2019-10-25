@@ -261,7 +261,6 @@ public class Constants {
 
         //商城
         public static class ShangCheng {
-            //todo 轮播图
             public static final String banner = "jeecg-boot/app/mall/banner/list";
             public static final String coupon = "jeecg-boot/app/mall/coupon/list";
             //优惠券列表
@@ -279,6 +278,8 @@ public class Constants {
             public static final String addgouwuche="jeecg-boot/app/mall/cart/add";
             //商城首页优惠券-领取用户优惠券
             public static final String getCoupon="jeecg-boot/app/mall/coupon/getCoupon";
+            //用户收货地址
+            public static final String addressList="jeecg-boot/app/mall/address/list";
 
         }
 
