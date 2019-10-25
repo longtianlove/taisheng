@@ -124,7 +124,7 @@ public class DizhiActivity extends Activity {
 //                            madapter.mData.addAll(message.result.records);
 //                            if (message.result.records.size() < 10) {
 //                                lv_dizhis.setHasLoadMore(false);
-//                                lv_dizhis.setLoadAllViewText("暂时只有这么多优惠券");
+//                                lv_dizhis.setLoadAllViewText("暂时只有这么多地址");
 //                                lv_dizhis.setLoadAllFooterVisible(true);
 //                            } else {
 //                                lv_dizhis.setHasLoadMore(true);
@@ -133,7 +133,7 @@ public class DizhiActivity extends Activity {
 //                        } else {
 //                            //没有消息
 //                            lv_dizhis.setHasLoadMore(false);
-//                            lv_dizhis.setLoadAllViewText("暂时只有这么多优惠券");
+//                            lv_dizhis.setLoadAllViewText("暂时只有这么多地址");
 //                            lv_dizhis.setLoadAllFooterVisible(true);
 //                        }
                         break;
