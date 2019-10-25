@@ -10,6 +10,7 @@ import com.taisheng.now.bussiness.bean.post.ArticleCollectionBean;
 import com.taisheng.now.bussiness.bean.post.ArticleShareBean;
 import com.taisheng.now.bussiness.bean.post.ArticleWithDoctorPostBean;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
+import com.taisheng.now.bussiness.bean.post.CartDetePostBean;
 import com.taisheng.now.bussiness.bean.post.CollectAddorRemovePostBean;
 import com.taisheng.now.bussiness.bean.post.CollectListPostBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
@@ -309,6 +310,11 @@ public interface ApiService {
     //    public static final String addgouwuche="jeecg-boot//app/mall/cart/add";
     @POST(Constants.Url.ShangCheng.addgouwuche)
     Call<BaseBean> addgouwuche(@Body AddgouwuchePostBean bean);
+
+
+    @POST(Constants.Url.ShangCheng.cartDelete)
+    Call<BaseBean> cartDelete(@Body CartDetePostBean bean);
+
 
     //    public static final String getCouponlist="jeecg-boot/app/mall/coupon/getCouponList";
     @POST(Constants.Url.ShangCheng.getCouponlist)

@@ -16,6 +16,7 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
+import com.taisheng.now.bussiness.bean.post.CartDetePostBean;
 import com.taisheng.now.bussiness.bean.result.GouwucheResultBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -353,6 +354,8 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
     @Override
     public void doDecrease(int position, View showCountView, boolean isChecked) {
         ShoppingCartBean shoppingCartBean = shoppingCartBeanList.get(position);
+
+
         int currentCount = shoppingCartBean.getCount();
         if (currentCount == 1) {
             return;
@@ -371,6 +374,23 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
      */
     @Override
     public void childDelete(int position) {
+        ShoppingCartBean shoppingCartBean = shoppingCartBeanList.get(position);
+
+        CartDetePostBean bean=new CartDetePostBean();
+        bean.userId=UserInstance.getInstance().getUid();
+        bean.token=UserInstance.getInstance().getToken();
+        bean.cartId=shoppingCartBean.getId()+",";
+        ApiUtils.getApiService().cartDelete(bean).enqueue(new TaiShengCallback<BaseBean>() {
+            @Override
+            public void onSuccess(Response<BaseBean> response, BaseBean message) {
+
+            }
+
+            @Override
+            public void onFail(Call<BaseBean> call, Throwable t) {
+
+            }
+        });
         shoppingCartBeanList.remove(position);
         shoppingCartAdapter.notifyDataSetChanged();
         statistics();
