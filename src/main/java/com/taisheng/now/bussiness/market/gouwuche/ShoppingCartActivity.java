@@ -187,7 +187,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
 
                             if (message.result.records.size() < 10) {
                                 list_shopping_cart.setHasLoadMore(false);
-                                list_shopping_cart.setLoadAllViewText("暂时只有这么多商品");
+                                list_shopping_cart.setLoadAllViewText("");
                                 list_shopping_cart.setLoadAllFooterVisible(true);
                             } else {
                                 list_shopping_cart.setHasLoadMore(true);
@@ -196,7 +196,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
                         } else {
                             //没有消息
                             list_shopping_cart.setHasLoadMore(false);
-                            list_shopping_cart.setLoadAllViewText("暂时只有这么多商品");
+                            list_shopping_cart.setLoadAllViewText("");
                             list_shopping_cart.setLoadAllFooterVisible(true);
                         }
                         break;
