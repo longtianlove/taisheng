@@ -7,27 +7,39 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.article.ArticleContentActivity;
+import com.taisheng.now.bussiness.bean.post.AddDizhiPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
+import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
+import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.WithScrolleViewListView;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
 import com.ywp.addresspickerlib.AddressPickerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by dragon on 2019/6/28.
@@ -41,6 +53,8 @@ public class DizhiBianjiActivity extends BaseActivity {
     View ll_dizhi;
     TextView et_dizhi;
     EditText et_xiangxidizhi;
+    View ll_dizhidefault;
+    ImageView iv_dizhidefault;
     View btn_save;
 
 
@@ -82,12 +96,53 @@ public class DizhiBianjiActivity extends BaseActivity {
         et_xiangxidizhi = findViewById(R.id.et_xiangxidizhi);
         et_xiangxidizhi.addTextChangedListener(watcher);
 
+
+        iv_dizhidefault=findViewById(R.id.iv_dizhidefault);
+        iv_dizhidefault.setSelected(false);
+        ll_dizhidefault=findViewById(R.id.ll_dizhidefault);
+        ll_dizhidefault.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(iv_dizhidefault.isSelected()){
+                    iv_dizhidefault.setSelected(false);
+                }else{
+                    iv_dizhidefault.setSelected(true);
+                }
+            }
+        });
+
         btn_save = findViewById(R.id.btn_save);
         btn_save.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-//todo 保存地址
+                AddDizhiPostBean bean=new AddDizhiPostBean();
+                bean.userId= UserInstance.getInstance().getUid();
+                bean.token=UserInstance.getInstance().getToken();
+                bean.addressDetail=et_xiangxidizhi.getText().toString();
+                bean.province=province;
+                bean.city=city;
+                bean.county=district;
+                bean.defaultAddress=(iv_dizhidefault.isSelected()?"0":"1");
+                bean.phone=et_phone.getText().toString();
+                bean.name=et_xingming.getText().toString();
+
+
+                ApiUtils.getApiService().addressAdd(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+                                ToastUtil.showAtCenter("添加成功");
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean> call, Throwable t) {
+
+                    }
+                });
             }
         });
     }
@@ -147,6 +202,11 @@ public class DizhiBianjiActivity extends BaseActivity {
     }
 
 
+    public String province;
+    public String city;
+    public String district;
+
+
     PopupWindow popupWindow;
     /**
      * 显示地址选择的pop
@@ -162,7 +222,11 @@ public class DizhiBianjiActivity extends BaseActivity {
         addressView.setOnAddressPickerSure(new AddressPickerView.OnAddressPickerSureListener() {
             @Override
             public void onSureClick(String address, String provinceCode, String cityCode, String districtCode) {
+                Log.e("lonngtianlove",provinceCode+":"+cityCode+":"+districtCode);
                 et_dizhi.setText(address);
+                province=provinceCode;
+                city=cityCode;
+                district=districtCode;
                 popupWindow.dismiss();
             }
         });
@@ -172,10 +236,5 @@ public class DizhiBianjiActivity extends BaseActivity {
         popupWindow.showAsDropDown(ll_dizhi);
 
     }
-    private void dismissPopwindow(){
-        if(popupWindow!=null&&popupWindow.isShowing()){
-            popupWindow.dismiss();
-        }
 
-    }
 }
