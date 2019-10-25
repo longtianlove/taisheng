@@ -19,6 +19,8 @@ import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.article.ArticleContentActivity;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
+import com.taisheng.now.bussiness.bean.result.market.DizhilistBean;
+import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
 import com.taisheng.now.bussiness.first.FirstFragment;
 import com.taisheng.now.bussiness.me.FuwuxieyiActivity;
 import com.taisheng.now.bussiness.me.YisixieyiActivity;
@@ -103,45 +105,45 @@ public class DizhiActivity extends Activity {
         BaseListPostBean bean = new BaseListPostBean();
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
-        bean.pageNo=PAGE_NO;
-        bean.pageSize=10;
+        bean.pageNo = PAGE_NO;
+        bean.pageSize = 10;
 
         DialogUtil.showProgress(this, "");
-        ApiUtils.getApiService().addressList(bean).enqueue(new TaiShengCallback<BaseBean>() {
+        ApiUtils.getApiService().addressList(bean).enqueue(new TaiShengCallback<BaseBean<DizhilistResultBean>>() {
             @Override
-            public void onSuccess(Response<BaseBean> response, BaseBean message) {
+            public void onSuccess(Response<BaseBean<DizhilistResultBean>> response, BaseBean<DizhilistResultBean> message) {
                 ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-//                        if (message.result.records != null && message.result.records.size() > 0) {
-//                            lv_dizhis.setLoading(false);
-//                            if (PAGE_NO == 1) {
-//                                madapter.mData.clear();
-//                            }
-//                            //有消息
-//                            PAGE_NO++;
-//                            madapter.mData.addAll(message.result.records);
-//                            if (message.result.records.size() < 10) {
-//                                lv_dizhis.setHasLoadMore(false);
-//                                lv_dizhis.setLoadAllViewText("暂时只有这么多地址");
-//                                lv_dizhis.setLoadAllFooterVisible(true);
-//                            } else {
-//                                lv_dizhis.setHasLoadMore(true);
-//                            }
-//                            madapter.notifyDataSetChanged();
-//                        } else {
-//                            //没有消息
-//                            lv_dizhis.setHasLoadMore(false);
-//                            lv_dizhis.setLoadAllViewText("暂时只有这么多地址");
-//                            lv_dizhis.setLoadAllFooterVisible(true);
-//                        }
+                        if (message.result.records != null && message.result.records.size() > 0) {
+                            lv_dizhis.setLoading(false);
+                            if (PAGE_NO == 1) {
+                                madapter.mData.clear();
+                            }
+                            //有消息
+                            PAGE_NO++;
+                            madapter.mData.addAll(message.result.records);
+                            if (message.result.records.size() < 10) {
+                                lv_dizhis.setHasLoadMore(false);
+                                lv_dizhis.setLoadAllViewText("暂时只有这么多地址");
+                                lv_dizhis.setLoadAllFooterVisible(true);
+                            } else {
+                                lv_dizhis.setHasLoadMore(true);
+                            }
+                            madapter.notifyDataSetChanged();
+                        } else {
+                            //没有消息
+                            lv_dizhis.setHasLoadMore(false);
+                            lv_dizhis.setLoadAllViewText("暂时只有这么多地址");
+                            lv_dizhis.setLoadAllFooterVisible(true);
+                        }
                         break;
                 }
             }
 
             @Override
-            public void onFail(Call<BaseBean> call, Throwable t) {
+            public void onFail(Call<BaseBean<DizhilistResultBean>> call, Throwable t) {
                 ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
             }
@@ -153,7 +155,7 @@ public class DizhiActivity extends Activity {
 
         public Context mcontext;
 
-        List<ArticleBean> mData = new ArrayList<ArticleBean>();
+        List<DizhilistBean> mData = new ArrayList<DizhilistBean>();
 
         public DizhiAdapter(Context context) {
             this.mcontext = context;
@@ -185,19 +187,30 @@ public class DizhiActivity extends Activity {
                 LayoutInflater inflater = LayoutInflater.from(mcontext);
                 convertView = inflater.inflate(R.layout.item_dizhi, null);
                 util.ll_all = convertView.findViewById(R.id.ll_all);
-
+                util.tv_name = convertView.findViewById(R.id.tv_name);
+                util.tv_phone=convertView.findViewById(R.id.tv_phone);
+                util.tv_address=convertView.findViewById(R.id.tv_address);
+                util.tv_ismdefault=convertView.findViewById(R.id.tv_ismdefault);
                 convertView.setTag(util);
             } else {
                 util = (DizhiAdapter.Util) convertView.getTag();
             }
-            ArticleBean bean = mData.get(position);
+            DizhilistBean bean = mData.get(position);
             util.ll_all.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(DizhiActivity.this, ArticleContentActivity.class);
+                    Intent intent = new Intent(DizhiActivity.this, DizhiBianjiActivity.class);
                     startActivity(intent);
                 }
             });
+            util.tv_name.setText(bean.name);
+            util.tv_phone.setText(bean.phone);
+            util.tv_address.setText(bean.province+bean.city+bean.addressDetail);
+            if(bean.isDefault==1){
+                util.tv_ismdefault.setVisibility(View.VISIBLE);
+            }else{
+                util.tv_ismdefault.setVisibility(View.GONE);
+            }
 
 
             return convertView;
@@ -206,6 +219,10 @@ public class DizhiActivity extends Activity {
 
         class Util {
             View ll_all;
+            TextView tv_name;
+            TextView tv_phone;
+            TextView tv_address;
+            View tv_ismdefault;
 
 
         }

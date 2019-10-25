@@ -280,6 +280,9 @@ public class Constants {
             public static final String getCoupon="jeecg-boot/app/mall/coupon/getCoupon";
             //用户收货地址
             public static final String addressList="jeecg-boot/app/mall/address/list";
+            //添加地址
+            public static final String addressAdd="jeecg-boot/app/mall/address/add";
+
 
         }
 

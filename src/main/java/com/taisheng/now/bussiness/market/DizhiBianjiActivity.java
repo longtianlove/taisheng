@@ -14,8 +14,12 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.taisheng.now.R;
+import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.bussiness.article.ArticleContentActivity;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.view.WithScrolleViewListView;
@@ -29,14 +33,15 @@ import java.util.List;
  * Created by dragon on 2019/6/28.
  */
 
-public class DizhiBianjiActivity extends Activity {
+
+public class DizhiBianjiActivity extends BaseActivity {
     View iv_back;
     EditText et_xingming;
     EditText et_phone;
     View ll_dizhi;
-    EditText et_dizhi;
+    TextView et_dizhi;
     EditText et_xiangxidizhi;
-    Button btn_save;
+    View btn_save;
 
 
     @Override
@@ -147,6 +152,10 @@ public class DizhiBianjiActivity extends Activity {
      * 显示地址选择的pop
      */
     private void showAddressPickerPop() {
+        if(popupWindow!=null&&popupWindow.isShowing()){
+            popupWindow.dismiss();
+            return;
+        }
         popupWindow = new PopupWindow(this);
         View rootView = LayoutInflater.from(this).inflate(R.layout.pop_address_picker, null, false);
         AddressPickerView addressView = rootView.findViewById(R.id.apvAddress);
@@ -161,6 +170,12 @@ public class DizhiBianjiActivity extends Activity {
         popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         popupWindow.showAsDropDown(ll_dizhi);
+
+    }
+    private void dismissPopwindow(){
+        if(popupWindow!=null&&popupWindow.isShowing()){
+            popupWindow.dismiss();
+        }
 
     }
 }

@@ -65,6 +65,7 @@ import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
 import com.taisheng.now.bussiness.bean.result.RecommendSharedResultBean;
 import com.taisheng.now.bussiness.bean.result.ShipinsResultBean;
 import com.taisheng.now.bussiness.bean.result.SignResultBean;
+import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
 import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
 
 import okhttp3.MultipartBody;
@@ -318,7 +319,12 @@ public interface ApiService {
 
 //    public static final String addressList="jeecg-boot/app/mall/address/list";
     @POST(Constants.Url.ShangCheng.addressList)
-    Call<BaseBean> addressList(@Body BaseListPostBean bean);
+    Call<BaseBean<DizhilistResultBean>> addressList(@Body BaseListPostBean bean);
+
+//    public static final String addressAdd="jeecg-boot/app/mall/address/add";
+//    @POST(Constants.Url.ShangCheng.addressAdd)
+
+
 
 
 

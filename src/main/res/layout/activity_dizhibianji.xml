@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#529FFB"
     android:orientation="vertical">
 
@@ -72,7 +72,7 @@
 
             <EditText
                 android:id="@+id/et_xingming"
-                android:layout_width="75dp"
+                android:layout_width="wrap_content"
                 android:layout_height="21dp"
                 android:layout_marginLeft="60dp"
                 android:background="@null"
@@ -111,15 +111,15 @@
 
             <EditText
                 android:id="@+id/et_phone"
-                android:layout_width="75dp"
+                android:layout_width="wrap_content"
                 android:layout_height="21dp"
                 android:layout_marginLeft="60dp"
                 android:background="@null"
-                android:maxLength="15"
                 android:hint="收货人联系方式"
+                android:inputType="phone"
+                android:maxLength="15"
                 android:textColor="#ff333333"
                 android:textColorHint="#ff999999"
-                android:inputType="phone"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -148,15 +148,15 @@
                 android:textSize="15sp" />
 
 
-            <EditText
+            <TextView
                 android:id="@+id/et_dizhi"
-                android:layout_width="75dp"
+                android:layout_width="wrap_content"
                 android:layout_height="21dp"
                 android:layout_marginLeft="60dp"
                 android:background="@null"
                 android:hint="选择省/市/区"
-                android:textColor="#ff333333"
                 android:maxLength="20"
+                android:textColor="#ff333333"
                 android:textColorHint="#ff999999"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -187,12 +187,12 @@
 
             <EditText
                 android:id="@+id/et_xiangxidizhi"
-                android:layout_width="75dp"
+                android:layout_width="wrap_content"
                 android:layout_height="21dp"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="40dp"
                 android:background="@null"
-                android:maxLength="60"
                 android:hint="街道门牌、楼层房间号等信息"
+                android:maxLength="60"
                 android:textColor="#ff333333"
                 android:textColorHint="#ff999999"
                 android:textSize="15sp" />
