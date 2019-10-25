@@ -1,38 +1,15 @@
-package com.taisheng.now.bussiness.market;
+package com.taisheng.now.bussiness.market.dingdan;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.taisheng.now.Constants;
 import com.taisheng.now.R;
-import com.taisheng.now.base.BaseBean;
-import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
-import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
-import com.taisheng.now.bussiness.market.gouwuche.ShoppingCartAdapter;
-import com.taisheng.now.bussiness.market.gouwuche.ShoppingCartBean;
-import com.taisheng.now.bussiness.user.UserInstance;
-import com.taisheng.now.http.ApiUtils;
-import com.taisheng.now.http.TaiShengCallback;
-import com.taisheng.now.util.DialogUtil;
-import com.taisheng.now.util.ToastUtil;
-import com.taisheng.now.view.TaishengListView;
+import com.taisheng.now.bussiness.market.dizhi.DizhiActivity;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
-import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import retrofit2.Call;
-import retrofit2.Response;
 
 /**
  * Created by an on 2017/6/14.
@@ -63,7 +40,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DingdanjiesuanActivity.this,DizhiActivity.class);
+                Intent intent = new Intent(DingdanjiesuanActivity.this, DizhiActivity.class);
                 startActivity(intent);
             }
         });

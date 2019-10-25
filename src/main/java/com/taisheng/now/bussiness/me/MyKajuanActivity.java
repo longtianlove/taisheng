@@ -1,6 +1,5 @@
 package com.taisheng.now.bussiness.me;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -14,12 +13,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.taisheng.now.R;
-import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseFragmentActivity;
-import com.taisheng.now.bussiness.healthfiles.HealthCheckHistoryActivity;
-import com.taisheng.now.bussiness.healthfiles.ZhongyitizhiFragment;
-import com.taisheng.now.bussiness.market.KanjuanFragment;
-import com.taisheng.now.util.Apputil;
+import com.taisheng.now.bussiness.market.youhuijuan.KanjuanFragment;
 import com.taisheng.now.util.DensityUtil;
 
 import java.lang.reflect.Field;

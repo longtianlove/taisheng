@@ -1,4 +1,4 @@
-package com.taisheng.now.bussiness.market;
+package com.taisheng.now.bussiness.market.dizhi;
 
 import android.app.Activity;
 import android.content.Context;
