@@ -4,16 +4,23 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.PopupWindow;
 
 import com.taisheng.now.R;
 import com.taisheng.now.bussiness.article.ArticleContentActivity;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.view.WithScrolleViewListView;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
+import com.ywp.addresspickerlib.AddressPickerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +31,12 @@ import java.util.List;
 
 public class DizhiBianjiActivity extends Activity {
     View iv_back;
-
+    EditText et_xingming;
+    EditText et_phone;
+    View ll_dizhi;
+    EditText et_dizhi;
+    EditText et_xiangxidizhi;
+    Button btn_save;
 
 
     @Override
@@ -43,12 +55,74 @@ public class DizhiBianjiActivity extends Activity {
             }
         });
 
+        et_xingming = findViewById(R.id.et_xingming);
+        et_xingming.addTextChangedListener(watcher);
+        et_phone = findViewById(R.id.et_phone);
+        et_phone.addTextChangedListener(watcher);
+        ll_dizhi=findViewById(R.id.ll_dizhi);
+        ll_dizhi.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                showAddressPickerPop();
+            }
+        });
+
+
+        et_dizhi = findViewById(R.id.et_dizhi);
+        et_dizhi.addTextChangedListener(watcher);
 
 
 
+        et_xiangxidizhi = findViewById(R.id.et_xiangxidizhi);
+        et_xiangxidizhi.addTextChangedListener(watcher);
+
+        btn_save = findViewById(R.id.btn_save);
+        btn_save.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+//todo 保存地址
+            }
+        });
     }
 
+    boolean check() {
+        if (TextUtils.isEmpty(et_xingming.getText())) {
+            return false;
+        }
+        if (TextUtils.isEmpty(et_phone.getText())) {
+            return false;
+        }
+        if (TextUtils.isEmpty(et_dizhi.getText())) {
+            return false;
+        }
+        if (TextUtils.isEmpty(et_xiangxidizhi.getText())) {
+            return false;
+        }
+        return true;
+    }
 
+    TextWatcher watcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (check()) {
+                btn_save.setEnabled(true);
+            } else {
+                btn_save.setEnabled(false);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
 
     @Override
@@ -65,5 +139,28 @@ public class DizhiBianjiActivity extends Activity {
             //这样半透明+白=灰, 状态栏的文字能看得清
             StatusBarUtil.setStatusBarColor(this, 0x55000000);
         }
+    }
+
+
+    PopupWindow popupWindow;
+    /**
+     * 显示地址选择的pop
+     */
+    private void showAddressPickerPop() {
+        popupWindow = new PopupWindow(this);
+        View rootView = LayoutInflater.from(this).inflate(R.layout.pop_address_picker, null, false);
+        AddressPickerView addressView = rootView.findViewById(R.id.apvAddress);
+        addressView.setOnAddressPickerSure(new AddressPickerView.OnAddressPickerSureListener() {
+            @Override
+            public void onSureClick(String address, String provinceCode, String cityCode, String districtCode) {
+                et_dizhi.setText(address);
+                popupWindow.dismiss();
+            }
+        });
+        popupWindow.setContentView(rootView);
+        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindow.showAsDropDown(ll_dizhi);
+
     }
 }

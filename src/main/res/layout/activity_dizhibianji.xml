@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#529FFB"
     android:orientation="vertical">
 
@@ -70,13 +71,15 @@
 
 
             <EditText
+                android:id="@+id/et_xingming"
                 android:layout_width="75dp"
                 android:layout_height="21dp"
                 android:layout_marginLeft="60dp"
                 android:background="@null"
                 android:hint="收货人姓名"
-                android:textColorHint="#ff999999"
+                android:maxLength="20"
                 android:textColor="#ff333333"
+                android:textColorHint="#ff999999"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -100,18 +103,23 @@
                 android:layout_marginLeft="10dp"
                 android:gravity="center|left"
                 android:text="电话"
+
+
                 android:textColor="#ff333333"
                 android:textSize="15sp" />
 
 
             <EditText
+                android:id="@+id/et_phone"
                 android:layout_width="75dp"
                 android:layout_height="21dp"
                 android:layout_marginLeft="60dp"
                 android:background="@null"
+                android:maxLength="15"
                 android:hint="收货人联系方式"
-                android:textColorHint="#ff999999"
                 android:textColor="#ff333333"
+                android:textColorHint="#ff999999"
+                android:inputType="phone"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -123,10 +131,8 @@
             android:background="#EEEEEE" />
 
 
-
-
-
         <LinearLayout
+            android:id="@+id/ll_dizhi"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
@@ -143,13 +149,15 @@
 
 
             <EditText
+                android:id="@+id/et_dizhi"
                 android:layout_width="75dp"
                 android:layout_height="21dp"
                 android:layout_marginLeft="60dp"
                 android:background="@null"
                 android:hint="选择省/市/区"
-                android:textColorHint="#ff999999"
                 android:textColor="#ff333333"
+                android:maxLength="20"
+                android:textColorHint="#ff999999"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -159,7 +167,6 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="#EEEEEE" />
-
 
 
         <LinearLayout
@@ -179,13 +186,15 @@
 
 
             <EditText
+                android:id="@+id/et_xiangxidizhi"
                 android:layout_width="75dp"
                 android:layout_height="21dp"
                 android:layout_marginLeft="60dp"
                 android:background="@null"
+                android:maxLength="60"
                 android:hint="街道门牌、楼层房间号等信息"
-                android:textColorHint="#ff999999"
                 android:textColor="#ff333333"
+                android:textColorHint="#ff999999"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -197,13 +206,12 @@
             android:background="#EEEEEE" />
 
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -214,16 +222,6 @@
                 android:textColor="#ff333333"
                 android:textSize="15sp" />
 
-
-            <!--<EditText-->
-                <!--android:layout_width="75dp"-->
-                <!--android:layout_height="21dp"-->
-                <!--android:layout_marginLeft="60dp"-->
-                <!--android:background="@null"-->
-                <!--android:hint="街道门牌、楼层房间号等信息"-->
-                <!--android:textColorHint="#ff999999"-->
-                <!--android:textColor="#ff333333"-->
-                <!--android:textSize="15sp" />-->
         </LinearLayout>
 
         <View
@@ -231,7 +229,23 @@
             android:layout_height="0.5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#EEEEEE" />
+            android:background="#EEEEEE"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/dizhibianji_save"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="14sp"></TextView>
+
 
     </LinearLayout>
 </LinearLayout>
