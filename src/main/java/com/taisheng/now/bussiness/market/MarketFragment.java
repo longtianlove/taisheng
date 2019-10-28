@@ -341,26 +341,26 @@ public class MarketFragment extends BaseFragment {
 
                 @Override
                 public void onClick(View v) {
-                    LingqukajuanPostBean bean1=new LingqukajuanPostBean();
-                    bean1.userId=UserInstance.getInstance().getUid();
-                    bean1.token=UserInstance.getInstance().getToken();
-                    bean1.id=bean.id;
-                    ApiUtils.getApiService().getCoupon(bean1).enqueue(new TaiShengCallback<BaseBean>() {
-                        @Override
-                        public void onSuccess(Response<BaseBean> response, BaseBean message) {
-                            switch (message.code) {
-                                case Constants.HTTP_SUCCESS:
-                                    getYouhuiquan();
-                                    ToastUtil.showAtCenter(message.message);
-                                    break;
+                        LingqukajuanPostBean bean1=new LingqukajuanPostBean();
+                        bean1.userId=UserInstance.getInstance().getUid();
+                        bean1.token=UserInstance.getInstance().getToken();
+                        bean1.id=bean.id;
+                        ApiUtils.getApiService().getCoupon(bean1).enqueue(new TaiShengCallback<BaseBean>() {
+                            @Override
+                            public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                                switch (message.code) {
+                                    case Constants.HTTP_SUCCESS:
+                                        getYouhuiquan();
+                                        ToastUtil.showAtCenter(message.message);
+                                        break;
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onFail(Call<BaseBean> call, Throwable t) {
+                            @Override
+                            public void onFail(Call<BaseBean> call, Throwable t) {
 
-                        }
-                    });
+                            }
+                        });
                 }
             });
 

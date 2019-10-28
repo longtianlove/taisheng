@@ -53,6 +53,7 @@ public class MeFragment extends BaseFragment {
 
 
     View ll_kajuan;
+    View ll_dingdan;
     View ll_mypingjia;
     View ll_tousuzhongxin;
     View ll_yijianfankui;
@@ -148,6 +149,15 @@ public class MeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MyKajuanActivity.class);
+                startActivity(intent);
+            }
+        });
+        ll_dingdan=rootView.findViewById(R.id.ll_dingdan);
+        ll_dingdan.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyDingdanActivity.class);
                 startActivity(intent);
             }
         });

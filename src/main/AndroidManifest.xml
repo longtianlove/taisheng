@@ -210,6 +210,17 @@
 
 
         <activity
+            android:name="com.taisheng.now.bussiness.me.MyDingdanActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+
+
+        </activity>
+
+
+
+        <activity
             android:name="com.taisheng.now.bussiness.market.ShangPinxiangqingActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"

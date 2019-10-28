@@ -1,9 +1,6 @@
-package com.taisheng.now.bussiness.market.youhuijuan;
+package com.taisheng.now.bussiness.market.dingdan;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Paint;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.base.BaseFragment;
-import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.KanjuanPostBean;
-import com.taisheng.now.bussiness.bean.result.JifenzhuanquBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -29,23 +23,20 @@ import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.view.TaishengListView;
-import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class KanjuanFragment extends BaseFragment {
+public class MyDingdanFragment extends BaseFragment {
 
     public String assessmentType;
 
 
 //    MaterialDesignPtrFrameLayout ptr_refresh;
-    com.taisheng.now.view.TaishengListView list_kajuan;
+    TaishengListView list_kajuan;
 
     YouhuiquanAdapter madapter;
 
@@ -72,7 +63,7 @@ public class KanjuanFragment extends BaseFragment {
 //
 //            }
 //        });
-        list_kajuan = (com.taisheng.now.view.TaishengListView) rootView.findViewById(R.id.list_kajuan);
+        list_kajuan = (TaishengListView) rootView.findViewById(R.id.list_kajuan);
 
 
         madapter = new YouhuiquanAdapter(getContext());
