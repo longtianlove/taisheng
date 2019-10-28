@@ -331,9 +331,6 @@ public class MarketFragment extends BaseFragment {
             util.ll_all.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //todo 跳优惠券页
-//                    Intent intent = new Intent(mActivity, ArticleContentActivity.class);
-//                    startActivity(intent);
                 }
             });
             util.tv_discount.setText(bean.discount + "");
