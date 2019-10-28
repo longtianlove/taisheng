@@ -63,6 +63,7 @@ public class DizhiBianjiActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dizhibianji);
         initView();
+        initData();
     }
 
     void initView() {
@@ -78,8 +79,8 @@ public class DizhiBianjiActivity extends BaseActivity {
         et_xingming.addTextChangedListener(watcher);
         et_phone = findViewById(R.id.et_phone);
         et_phone.addTextChangedListener(watcher);
-        ll_dizhi=findViewById(R.id.ll_dizhi);
-        ll_dizhi.setOnClickListener(new View.OnClickListener(){
+        ll_dizhi = findViewById(R.id.ll_dizhi);
+        ll_dizhi.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -92,20 +93,19 @@ public class DizhiBianjiActivity extends BaseActivity {
         et_dizhi.addTextChangedListener(watcher);
 
 
-
         et_xiangxidizhi = findViewById(R.id.et_xiangxidizhi);
         et_xiangxidizhi.addTextChangedListener(watcher);
 
 
-        iv_dizhidefault=findViewById(R.id.iv_dizhidefault);
+        iv_dizhidefault = findViewById(R.id.iv_dizhidefault);
         iv_dizhidefault.setSelected(false);
-        ll_dizhidefault=findViewById(R.id.ll_dizhidefault);
+        ll_dizhidefault = findViewById(R.id.ll_dizhidefault);
         ll_dizhidefault.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(iv_dizhidefault.isSelected()){
+                if (iv_dizhidefault.isSelected()) {
                     iv_dizhidefault.setSelected(false);
-                }else{
+                } else {
                     iv_dizhidefault.setSelected(true);
                 }
             }
@@ -116,16 +116,16 @@ public class DizhiBianjiActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-                AddDizhiPostBean bean=new AddDizhiPostBean();
-                bean.userId= UserInstance.getInstance().getUid();
-                bean.token=UserInstance.getInstance().getToken();
-                bean.addressDetail=et_xiangxidizhi.getText().toString();
-                bean.province=province;
-                bean.city=city;
-                bean.county=district;
-                bean.defaultAddress=(iv_dizhidefault.isSelected()?"0":"1");
-                bean.phone=et_phone.getText().toString();
-                bean.name=et_xingming.getText().toString();
+                AddDizhiPostBean bean = new AddDizhiPostBean();
+                bean.userId = UserInstance.getInstance().getUid();
+                bean.token = UserInstance.getInstance().getToken();
+                bean.addressDetail = et_xiangxidizhi.getText().toString();
+                bean.province = province;
+                bean.city = city;
+                bean.county = district;
+                bean.defaultAddress = (iv_dizhidefault.isSelected() ? "0" : "1");
+                bean.phone = et_phone.getText().toString();
+                bean.name = et_xingming.getText().toString();
 
 
                 ApiUtils.getApiService().addressAdd(bean).enqueue(new TaiShengCallback<BaseBean>() {
@@ -134,6 +134,7 @@ public class DizhiBianjiActivity extends BaseActivity {
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
                                 ToastUtil.showAtCenter("添加成功");
+                                finish();
                                 break;
                         }
                     }
@@ -145,6 +146,29 @@ public class DizhiBianjiActivity extends BaseActivity {
                 });
             }
         });
+    }
+
+    void initData() {
+        String name = getIntent().getStringExtra("name");
+        String phonne = getIntent().getStringExtra("phone");
+        String address = getIntent().getStringExtra("address");
+        String province1=getIntent().getStringExtra("province");
+        province=province1;
+        String city1=getIntent().getStringExtra("city");
+        city=city1;
+        String county1=getIntent().getStringExtra("county");
+        district=county1;
+        String xiangxidizhi = getIntent().getStringExtra("xiangxidizhi");
+        String isDeafult = getIntent().getStringExtra("isDefault");
+        et_xingming.setText(name);
+        et_phone.setText(phonne);
+        et_dizhi.setText(province1+" "+city1+" "+county1);
+        et_xiangxidizhi.setText(xiangxidizhi);
+        if (isDeafult == "1") {
+            iv_dizhidefault.setSelected(true);
+        } else {
+            iv_dizhidefault.setSelected(false);
+        }
     }
 
     boolean check() {
@@ -208,11 +232,12 @@ public class DizhiBianjiActivity extends BaseActivity {
 
 
     PopupWindow popupWindow;
+
     /**
      * 显示地址选择的pop
      */
     private void showAddressPickerPop() {
-        if(popupWindow!=null&&popupWindow.isShowing()){
+        if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
             return;
         }
@@ -222,11 +247,11 @@ public class DizhiBianjiActivity extends BaseActivity {
         addressView.setOnAddressPickerSure(new AddressPickerView.OnAddressPickerSureListener() {
             @Override
             public void onSureClick(String address, String provinceCode, String cityCode, String districtCode) {
-                Log.e("lonngtianlove",provinceCode+":"+cityCode+":"+districtCode);
+                Log.e("lonngtianlove", provinceCode + ":" + cityCode + ":" + districtCode);
                 et_dizhi.setText(address);
-                province=provinceCode;
-                city=cityCode;
-                district=districtCode;
+                province = provinceCode;
+                city = cityCode;
+                district = districtCode;
                 popupWindow.dismiss();
             }
         });

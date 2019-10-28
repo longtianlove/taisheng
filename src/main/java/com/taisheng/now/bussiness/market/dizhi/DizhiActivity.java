@@ -49,7 +49,7 @@ public class DizhiActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dizhi);
         initView();
-        initData();
+
     }
 
     void initView() {
@@ -181,6 +181,7 @@ public class DizhiActivity extends Activity {
                 util.tv_phone=convertView.findViewById(R.id.tv_phone);
                 util.tv_address=convertView.findViewById(R.id.tv_address);
                 util.tv_ismdefault=convertView.findViewById(R.id.tv_ismdefault);
+                util.tv_bianji=convertView.findViewById(R.id.tv_bianji);
                 convertView.setTag(util);
             } else {
                 util = (DizhiAdapter.Util) convertView.getTag();
@@ -189,18 +190,38 @@ public class DizhiActivity extends Activity {
             util.ll_all.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(DizhiActivity.this, DizhiBianjiActivity.class);
-                    startActivity(intent);
+                    Intent intent=new Intent();
+                    intent.putExtra("name",bean.name);
+                    intent.putExtra("phone",bean.phone);
+                    intent.putExtra("address",bean.province+bean.city+bean.county+bean.addressDetail);
+
+                    setResult(1,intent);
+                    finish();
                 }
             });
             util.tv_name.setText(bean.name);
             util.tv_phone.setText(bean.phone);
-            util.tv_address.setText(bean.province+bean.city+bean.addressDetail);
+            util.tv_address.setText(bean.province+bean.city+bean.county+bean.addressDetail);
             if(bean.isDefault==1){
                 util.tv_ismdefault.setVisibility(View.VISIBLE);
             }else{
                 util.tv_ismdefault.setVisibility(View.GONE);
             }
+
+            util.tv_bianji.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(DizhiActivity.this, DizhiBianjiActivity.class);
+                    intent.putExtra("name",bean.name);
+                    intent.putExtra("phone",bean.phone);
+                    intent.putExtra("province",bean.province);
+                    intent.putExtra("city",bean.city);
+                    intent.putExtra("county",bean.county);
+                    intent.putExtra("xiangxidizhi",bean.addressDetail);
+                    intent.putExtra("isDefault",bean.isDefault);
+                    startActivity(intent);
+                }
+            });
 
 
             return convertView;
@@ -213,6 +234,7 @@ public class DizhiActivity extends Activity {
             TextView tv_phone;
             TextView tv_address;
             View tv_ismdefault;
+            View tv_bianji;
 
 
         }
@@ -233,5 +255,8 @@ public class DizhiActivity extends Activity {
             //这样半透明+白=灰, 状态栏的文字能看得清
             StatusBarUtil.setStatusBarColor(this, 0x55000000);
         }
+
+
+        initData();
     }
 }

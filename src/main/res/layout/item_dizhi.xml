@@ -3,7 +3,7 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_all"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="60dp"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingTop="20dp"
@@ -13,7 +13,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="60dp"
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:orientation="vertical">
@@ -74,8 +74,9 @@
         android:background="#999999" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/tv_bianji"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
         android:layout_marginLeft="10dp"
         android:gravity="center"
         android:text="编辑"

@@ -111,31 +111,31 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-                //获取地址信息
+                        //获取地址信息
 
-                BaseListPostBean bean = new BaseListPostBean();
-                bean.userId = UserInstance.getInstance().getUid();
-                bean.token = UserInstance.getInstance().getToken();
-                bean.pageNo = 1;
-                bean.pageSize = 10;
+                        BaseListPostBean bean = new BaseListPostBean();
+                        bean.userId = UserInstance.getInstance().getUid();
+                        bean.token = UserInstance.getInstance().getToken();
+                        bean.pageNo = 1;
+                        bean.pageSize = 10;
 
-                ApiUtils.getApiService().addressList(bean).enqueue(new TaiShengCallback<BaseBean<DizhilistResultBean>>() {
-                    @Override
-                    public void onSuccess(Response<BaseBean<DizhilistResultBean>> response, BaseBean<DizhilistResultBean> message) {
+                        ApiUtils.getApiService().addressList(bean).enqueue(new TaiShengCallback<BaseBean<DizhilistResultBean>>() {
+                            @Override
+                            public void onSuccess(Response<BaseBean<DizhilistResultBean>> response, BaseBean<DizhilistResultBean> message) {
 
-                        DialogUtil.closeProgress();
-                        switch (message.code) {
-                            case Constants.HTTP_SUCCESS:
-                                if (message.result.records != null && message.result.records.size() > 0) {
-                                    Intent intent = new Intent(ShangPinxiangqingActivity.this, DingdanjiesuanActivity.class);
-                                    startActivity(intent);
-                                } else {
-                                    Intent intent = new Intent(ShangPinxiangqingActivity.this, DizhiBianjiActivity.class);
-                                    startActivity(intent);
+                                DialogUtil.closeProgress();
+                                switch (message.code) {
+                                    case Constants.HTTP_SUCCESS:
+                                        if (message.result.records != null && message.result.records.size() > 0) {
+                                            Intent intent = new Intent(ShangPinxiangqingActivity.this, DingdanjiesuanActivity.class);
+                                            startActivity(intent);
+                                        } else {
+                                            Intent intent = new Intent(ShangPinxiangqingActivity.this, DizhiBianjiActivity.class);
+                                            startActivity(intent);
+                                        }
+                                        break;
                                 }
-                                break;
-                        }
-                    }
+                            }
 
                     @Override
                     public void onFail(Call<BaseBean<DizhilistResultBean>> call, Throwable t) {
