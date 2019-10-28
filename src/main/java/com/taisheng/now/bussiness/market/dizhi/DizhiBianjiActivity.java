@@ -27,6 +27,7 @@ import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.article.ArticleContentActivity;
 import com.taisheng.now.bussiness.bean.post.AddDizhiPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
+import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
@@ -134,6 +135,8 @@ public class DizhiBianjiActivity extends BaseActivity {
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
                                 ToastUtil.showAtCenter("添加成功");
+                                Intent intent=new Intent(DizhiBianjiActivity.this, DingdanjiesuanActivity.class);
+                                startActivity(intent);
                                 finish();
                                 break;
                         }

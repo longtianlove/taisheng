@@ -180,6 +180,7 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
 
