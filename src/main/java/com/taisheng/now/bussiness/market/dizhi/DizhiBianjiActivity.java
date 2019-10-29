@@ -165,7 +165,9 @@ public class DizhiBianjiActivity extends BaseActivity {
         String isDeafult = getIntent().getStringExtra("isDefault");
         et_xingming.setText(name);
         et_phone.setText(phonne);
-        et_dizhi.setText(province1+" "+city1+" "+county1);
+        if(!TextUtils.isEmpty(province1)) {
+            et_dizhi.setText(province1 + " " + city1 + " " + county1);
+        }
         et_xiangxidizhi.setText(xiangxidizhi);
         if (isDeafult == "1") {
             iv_dizhidefault.setSelected(true);

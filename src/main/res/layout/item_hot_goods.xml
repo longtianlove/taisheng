@@ -5,8 +5,9 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="@drawable/me_hotgoods_background"
-    android:paddingLeft="10dp"
+    android:padding="10dp"
     android:id="@+id/ll_all"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <com.facebook.drawee.view.SimpleDraweeView
@@ -20,6 +21,7 @@
         fresco:failureImage="@drawable/icon_goods_nonetwork"
         fresco:failureImageScaleType="centerInside"
         fresco:placeholderImage="@drawable/icon_goods_nonetwork"
+        android:layout_gravity="center_horizontal"
         fresco:placeholderImageScaleType="fitCenter" />
 
     <TextView
@@ -28,6 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:text="桂圆红枣枸杞茶养生滋补首选佳品"
         android:textColor="#ff333333"
         android:textSize="15sp" />
