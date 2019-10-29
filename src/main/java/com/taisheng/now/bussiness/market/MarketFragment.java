@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -145,11 +146,12 @@ public class MarketFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 String searchkey = et_doctor_search.getText().toString();
-//                nickName = searchkey;
-//                PAGE_NO = 1;
-//                madapter.mData.clear();
-//                getDoctors();
-
+                if (TextUtils.isEmpty(searchkey)) {
+                    return;
+                }
+                Intent intent = new Intent(getActivity(), SearchResultActivity.class);
+                intent.putExtra("searchkey", searchkey);
+                startActivity(intent);
             }
         });
 
@@ -341,26 +343,26 @@ public class MarketFragment extends BaseFragment {
 
                 @Override
                 public void onClick(View v) {
-                        LingqukajuanPostBean bean1=new LingqukajuanPostBean();
-                        bean1.userId=UserInstance.getInstance().getUid();
-                        bean1.token=UserInstance.getInstance().getToken();
-                        bean1.id=bean.id;
-                        ApiUtils.getApiService().getCoupon(bean1).enqueue(new TaiShengCallback<BaseBean>() {
-                            @Override
-                            public void onSuccess(Response<BaseBean> response, BaseBean message) {
-                                switch (message.code) {
-                                    case Constants.HTTP_SUCCESS:
-                                        getYouhuiquan();
-                                        ToastUtil.showAtCenter(message.message);
-                                        break;
-                                }
+                    LingqukajuanPostBean bean1 = new LingqukajuanPostBean();
+                    bean1.userId = UserInstance.getInstance().getUid();
+                    bean1.token = UserInstance.getInstance().getToken();
+                    bean1.id = bean.id;
+                    ApiUtils.getApiService().getCoupon(bean1).enqueue(new TaiShengCallback<BaseBean>() {
+                        @Override
+                        public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                            switch (message.code) {
+                                case Constants.HTTP_SUCCESS:
+                                    getYouhuiquan();
+                                    ToastUtil.showAtCenter(message.message);
+                                    break;
                             }
+                        }
 
-                            @Override
-                            public void onFail(Call<BaseBean> call, Throwable t) {
+                        @Override
+                        public void onFail(Call<BaseBean> call, Throwable t) {
 
-                            }
-                        });
+                        }
+                    });
                 }
             });
 
@@ -436,7 +438,6 @@ public class MarketFragment extends BaseFragment {
 
                     @Override
                     public void onClick(View v) {
-//todo 进入商品详情
 
                         Intent intent = new Intent(mActivity, ShangPinxiangqingActivity.class);
                         intent.putExtra("goodsid", hotGoodsBean.id);

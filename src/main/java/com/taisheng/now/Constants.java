@@ -268,6 +268,10 @@ public class Constants {
             //我的优惠券
             public static final String getCouponlist="jeecg-boot/app/mall/coupon/getCouponList";
 
+            //商品列表
+            public static final String goodslist="jeecg-boot/app/mall/goods/list";
+
+
             //商品详情
             public static final String shangpinxiangqing="jeecg-boot/app/mall/goods/goods/detail";
 

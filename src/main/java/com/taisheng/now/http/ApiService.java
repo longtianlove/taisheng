@@ -26,6 +26,7 @@ import com.taisheng.now.bussiness.bean.post.HealthCheckListPostBean;
 import com.taisheng.now.bussiness.bean.post.HealthInfoPostBean;
 import com.taisheng.now.bussiness.bean.post.KanjuanPostBean;
 import com.taisheng.now.bussiness.bean.post.LingqukajuanPostBean;
+import com.taisheng.now.bussiness.bean.post.MarketPostBean;
 import com.taisheng.now.bussiness.bean.post.MoreShipinPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
@@ -69,6 +70,7 @@ import com.taisheng.now.bussiness.bean.result.ShipinsResultBean;
 import com.taisheng.now.bussiness.bean.result.SignResultBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
 import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
+import com.taisheng.now.bussiness.bean.result.market.ShangPinResultBeann;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -302,6 +304,12 @@ public interface ApiService {
 
     @POST(Constants.Url.ShangCheng.gouwuchelist)
     Call<BaseBean<GouwucheResultBean>> gouwuchelist(@Body BaseListPostBean bean);
+
+
+    //    public static final String goodslist="jeecg-boot/app/mall/goods/list";
+    @POST(Constants.Url.ShangCheng.goodslist)
+    Call<BaseBean<ShangPinResultBeann>> goodslist(@Body MarketPostBean bean);
+
 
     //    public static final String shangpinxiangqing="jeecg-boot/app/mall/goods/goods/detail";
     @POST(Constants.Url.ShangCheng.shangpinxiangqing)
