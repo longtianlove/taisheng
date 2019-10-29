@@ -194,7 +194,7 @@ public class DizhiActivity extends Activity {
                     intent.putExtra("name",bean.name);
                     intent.putExtra("phone",bean.phone);
                     intent.putExtra("address",bean.province+bean.city+bean.county+bean.addressDetail);
-
+//todo 列表id
                     setResult(1,intent);
                     finish();
                 }
