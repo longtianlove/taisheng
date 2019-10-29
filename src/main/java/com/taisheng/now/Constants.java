@@ -294,6 +294,9 @@ public class Constants {
             //不同类别下的商品列表
             public static final String goodsTtype="jeecg-boot/app/mall/goods/goods/type";
 
+//            订单信息-【订单列表】
+            public static final String orderList="jeecg-boot/app/mall/order/list";
+
         }
 
         /**
