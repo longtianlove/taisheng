@@ -48,11 +48,25 @@
         android:layout_height="1dp"
         android:background="#f8f8f8" />
 
-    <View
-        android:id="@+id/view_test"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#000"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="#fff"
+        >
+        <EditText
+            android:id="@+id/et_qian"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+
+        <TextView
+            android:id="@+id/tv_gozhifu"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="去支付"
+            />
+    </LinearLayout>
 
 </LinearLayout>

@@ -8,12 +8,12 @@ MobSDK {
         //平台配置信息
         devInfo {
             Wechat {
-                appId "wxe56f5507e7542127"
-                appSecret "wxe56f5507e7542127"
+                appId "wxa371cf7bae0024bf"
+                appSecret "75c38b2d0444704ec43e5c7309912a0b"
             }
             WechatMoments {
-                appId "wxe56f5507e7542127"
-                appSecret "wxe56f5507e7542127"
+                appId "wxa371cf7bae0024bf"
+                appSecret "75c38b2d0444704ec43e5c7309912a0b"
             }
 
         }
@@ -124,9 +124,10 @@ dependencies {
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.33'
 
-//
-//    /*微信支付集成*/
-//    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+
+   /*微信支付集成*/
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+
 
     implementation project(':addresspickerlib')
 
