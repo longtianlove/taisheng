@@ -1,8 +1,8 @@
-package com.taisheng.now.bussiness.market;
+package com.taisheng.now.bussiness.market.youhuijuan;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,29 +11,23 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
-import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
-import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
-import com.taisheng.now.bussiness.bean.result.CainixihuanResultBean;
-import com.taisheng.now.bussiness.bean.result.DoctorBean;
-import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
+import com.taisheng.now.bussiness.bean.post.KanjuanPostBean;
+import com.taisheng.now.bussiness.bean.result.JifenzhuanquBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
-import com.taisheng.now.bussiness.doctor.DoctorDetailActivity;
-import com.taisheng.now.bussiness.doctor.DoctorFragment;
-import com.taisheng.now.bussiness.me.FuwuxieyiActivity;
-import com.taisheng.now.bussiness.me.YisixieyiActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
-import com.taisheng.now.util.Apputil;
 import com.taisheng.now.util.DialogUtil;
-import com.taisheng.now.view.DoctorLabelWrapLayout;
-import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 
@@ -45,105 +39,109 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import retrofit2.Call;
 import retrofit2.Response;
 
-/**
- * Created by dragon on 2019/6/28.
- */
+public class KanjuanFragment extends BaseFragment {
 
-public class MoreYouhuijuanActivity extends BaseActivity {
-    View iv_back;
+    public String assessmentType;
 
-    MaterialDesignPtrFrameLayout ptr_refresh;
-    TaishengListView lv_youhuijuans;
+
+//    MaterialDesignPtrFrameLayout ptr_refresh;
+    com.taisheng.now.view.TaishengListView list_kajuan;
 
     YouhuiquanAdapter madapter;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_moreyouhuijuan);
-        initView();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View rootView = inflater.inflate(R.layout.fragment_kajuan, container, false);
+        initView(rootView);
+        initData();
+        return rootView;
     }
 
-    void initView() {
-        iv_back = findViewById(R.id.iv_back);
-        iv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        ptr_refresh = (MaterialDesignPtrFrameLayout) findViewById(R.id.ptr_refresh);
-
-        /**
-         * 下拉刷新
-         */
-        ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
-            @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-                PAGE_NO = 1;
-                getDoctors();
-
-            }
-        });
+    void initView(View rootView) {
+//        ptr_refresh = (MaterialDesignPtrFrameLayout) rootView.findViewById(R.id.ptr_refresh);
+//        /**
+//         * 下拉刷新
+//         */
+//        ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
+//            @Override
+//            public void onRefreshBegin(PtrFrameLayout frame) {
+//                PAGE_NO = 1;
+//                getDoctors();
+//
+//            }
+//        });
+        list_kajuan = (com.taisheng.now.view.TaishengListView) rootView.findViewById(R.id.list_kajuan);
 
 
-        lv_youhuijuans = (TaishengListView) findViewById(R.id.lv_youhuijuans);
-        madapter = new YouhuiquanAdapter(this);
-        lv_youhuijuans.setAdapter(madapter);
-        lv_youhuijuans.setOnUpLoadListener(new TaishengListView.OnUpLoadListener() {
+        madapter = new YouhuiquanAdapter(getContext());
+        list_kajuan.setAdapter(madapter);
+        list_kajuan.setOnUpLoadListener(new TaishengListView.OnUpLoadListener() {
             @Override
             public void onUpLoad() {
                 getDoctors();
             }
         });
-        getDoctors();
 
     }
 
-
+    void initData() {
+        getDoctors();
+    }
 
 
     int PAGE_NO = 1;
     int PAGE_SIZE = 10;
-    String nickName;
 
     void getDoctors() {
-        BaseListPostBean bean = new BaseListPostBean();
+        KanjuanPostBean bean = new KanjuanPostBean();
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
-        bean.pageNo=PAGE_NO;
-        bean.pageSize=10;
-        DialogUtil.showProgress(this, "");
+        bean.pageNo = PAGE_NO;
+        bean.pageSize = 10;
+        switch (assessmentType){
+            case "1":
+                bean.status="0";
+                break;
+            case "2":
+                bean.status="2";
+                break;
+            case "3":
+                bean.status="1";
+                break;
 
-        ApiUtils.getApiService().couponlist(bean).enqueue(new TaiShengCallback<BaseBean<MallYouhuiquanResultBanner>>() {
+        }
+        DialogUtil.showProgress(getActivity(), "");
+
+        ApiUtils.getApiService().getCouponlist(bean).enqueue(new TaiShengCallback<BaseBean<MallYouhuiquanResultBanner>>() {
             @Override
             public void onSuccess(Response<BaseBean<MallYouhuiquanResultBanner>> response, BaseBean<MallYouhuiquanResultBanner> message) {
-                ptr_refresh.refreshComplete();
+//                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         if (message.result.records != null && message.result.records.size() > 0) {
-                            lv_youhuijuans.setLoading(false);
+                            list_kajuan.setLoading(false);
                             if (PAGE_NO == 1) {
                                 madapter.mData.clear();
                             }
                             //有消息
-                            PAGE_NO++;
+//                            PAGE_NO++;
                             madapter.mData.addAll(message.result.records);
                             if (message.result.records.size() < 10) {
-                                lv_youhuijuans.setHasLoadMore(false);
-                                lv_youhuijuans.setLoadAllViewText("暂时只有这么多优惠券");
-                                lv_youhuijuans.setLoadAllFooterVisible(true);
+                                list_kajuan.setHasLoadMore(false);
+                                list_kajuan.setLoadAllViewText("暂时只有这么多优惠券");
+                                list_kajuan.setLoadAllFooterVisible(true);
                             } else {
-                                lv_youhuijuans.setHasLoadMore(true);
+                                list_kajuan.setHasLoadMore(true);
                             }
                             madapter.notifyDataSetChanged();
                         } else {
                             //没有消息
-                            lv_youhuijuans.setHasLoadMore(false);
-                            lv_youhuijuans.setLoadAllViewText("暂时只有这么多优惠券");
-                            lv_youhuijuans.setLoadAllFooterVisible(true);
+                            list_kajuan.setHasLoadMore(false);
+                            list_kajuan.setLoadAllViewText("暂时只有这么多优惠券");
+                            list_kajuan.setLoadAllFooterVisible(true);
                         }
                         break;
                 }
@@ -151,14 +149,13 @@ public class MoreYouhuijuanActivity extends BaseActivity {
 
             @Override
             public void onFail(Call<BaseBean<MallYouhuiquanResultBanner>> call, Throwable t) {
-                ptr_refresh.refreshComplete();
+//                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
             }
         });
 
 
     }
-
 
     class YouhuiquanAdapter extends BaseAdapter {
 
@@ -208,9 +205,6 @@ public class MoreYouhuijuanActivity extends BaseActivity {
             util.ll_all.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //todo 跳优惠券页
-//                    Intent intent = new Intent(mActivity, ArticleContentActivity.class);
-//                    startActivity(intent);
                 }
             });
             util.tv_discount.setText(bean.discount + "");

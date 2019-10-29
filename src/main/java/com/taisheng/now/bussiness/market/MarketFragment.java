@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -20,30 +19,28 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.base.BaseFragment;
-import com.taisheng.now.bussiness.article.ArticleContentActivity;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
-import com.taisheng.now.bussiness.bean.result.ArticleBean;
+import com.taisheng.now.bussiness.bean.post.LingqukajuanPostBean;
 import com.taisheng.now.bussiness.bean.result.CainixihuanResultBean;
-import com.taisheng.now.bussiness.bean.result.HotGoodsBean;
 import com.taisheng.now.bussiness.bean.result.JifenzhuanquBean;
 import com.taisheng.now.bussiness.bean.result.MallBannerBean;
 import com.taisheng.now.bussiness.bean.result.MallBannerResultBanner;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
 import com.taisheng.now.bussiness.bean.result.RemenshangpinBean;
-import com.taisheng.now.bussiness.first.FirstFragment;
 import com.taisheng.now.bussiness.market.gouwuche.ShoppingCartActivity;
+import com.taisheng.now.bussiness.market.youhuijuan.MoreYouhuijuanActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
+import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.WithScrolleViewListView;
 import com.taisheng.now.view.banner.BannerViewPager;
 import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
@@ -325,6 +322,7 @@ public class MarketFragment extends BaseFragment {
                 util.tv_name = convertView.findViewById(R.id.tv_name);
                 util.tv_tag = convertView.findViewById(R.id.tv_tag);
                 util.tv_usedate = convertView.findViewById(R.id.tv_usedate);
+                util.tv_lingqu = convertView.findViewById(R.id.tv_lingqu);
                 convertView.setTag(util);
             } else {
                 util = (Util) convertView.getTag();
@@ -333,15 +331,38 @@ public class MarketFragment extends BaseFragment {
             util.ll_all.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //todo 跳优惠券页
-//                    Intent intent = new Intent(mActivity, ArticleContentActivity.class);
-//                    startActivity(intent);
                 }
             });
             util.tv_discount.setText(bean.discount + "");
             util.tv_name.setText(bean.name);
             util.tv_tag.setText(bean.tag);
             util.tv_usedate.setText(bean.useDate);
+            util.tv_lingqu.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                        LingqukajuanPostBean bean1=new LingqukajuanPostBean();
+                        bean1.userId=UserInstance.getInstance().getUid();
+                        bean1.token=UserInstance.getInstance().getToken();
+                        bean1.id=bean.id;
+                        ApiUtils.getApiService().getCoupon(bean1).enqueue(new TaiShengCallback<BaseBean>() {
+                            @Override
+                            public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                                switch (message.code) {
+                                    case Constants.HTTP_SUCCESS:
+                                        getYouhuiquan();
+                                        ToastUtil.showAtCenter(message.message);
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void onFail(Call<BaseBean> call, Throwable t) {
+
+                            }
+                        });
+                }
+            });
 
             return convertView;
         }
@@ -354,6 +375,7 @@ public class MarketFragment extends BaseFragment {
             TextView tv_name;
             TextView tv_tag;
             TextView tv_usedate;
+            View tv_lingqu;
         }
     }
 
@@ -410,7 +432,17 @@ public class MarketFragment extends BaseFragment {
             MyViewHolder holder2 = (MyViewHolder) holder;
             RemenshangpinBean hotGoodsBean = mData.get(position);
             if (hotGoodsBean != null) {
+                holder2.ll_all.setOnClickListener(new View.OnClickListener() {
 
+                    @Override
+                    public void onClick(View v) {
+//todo 进入商品详情
+
+                        Intent intent = new Intent(mActivity, ShangPinxiangqingActivity.class);
+                        intent.putExtra("goodsid", hotGoodsBean.id);
+                        startActivity(intent);
+                    }
+                });
                 Uri uri = Uri.parse(hotGoodsBean.picUrl);
                 holder2.sdv_header.setImageURI(uri);
                 holder2.tv_goods_name.setText(hotGoodsBean.name);
@@ -429,6 +461,7 @@ public class MarketFragment extends BaseFragment {
 
         //定义自己的ViewHolder，将View的控件引用在成员变量上
         public class MyViewHolder extends RecyclerView.ViewHolder {
+            public View ll_all;
             public SimpleDraweeView sdv_header;
             public TextView tv_goods_name;
             public TextView tv_goods_jiage;
@@ -437,6 +470,7 @@ public class MarketFragment extends BaseFragment {
 
             public MyViewHolder(View itemView) {
                 super(itemView);
+                ll_all = itemView.findViewById(R.id.ll_all);
                 sdv_header = (SimpleDraweeView) itemView.findViewById(R.id.sdv_header);
                 tv_goods_name = itemView.findViewById(R.id.tv_goods_name);
                 tv_goods_jiage = itemView.findViewById(R.id.tv_goods_jiage);
@@ -497,7 +531,10 @@ public class MarketFragment extends BaseFragment {
             util.ll_all.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mActivity, ArticleContentActivity.class);
+                    //todo 进入商品详情
+
+                    Intent intent = new Intent(mActivity, ShangPinxiangqingActivity.class);
+                    intent.putExtra("goodsid", bean.id);
 
                     startActivity(intent);
                 }

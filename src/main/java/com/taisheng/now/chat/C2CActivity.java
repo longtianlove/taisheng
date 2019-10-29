@@ -71,7 +71,6 @@ import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.chat.websocket.WebSocketManager;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
-import com.taisheng.now.selfshipin.util.WebrtcUtil;
 import com.taisheng.now.shipin.TRTCMainActivity;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.DoubleClickUtil;
@@ -316,12 +315,12 @@ public class C2CActivity extends FragmentActivity implements  ActivityCompat.OnR
     }
 
 
-    private void onJoinRoomBySelf(final int roomId, final String userId) {
-        WebrtcUtil.callSingle(this,
-                "",
-                roomId + "",
-                "video".equals(chatType) ? true : false);
-    }
+//    private void onJoinRoomBySelf(final int roomId, final String userId) {
+//        WebrtcUtil.callSingle(this,
+//                "",
+//                roomId + "",
+//                "video".equals(chatType) ? true : false);
+//    }
 
 
     /**

@@ -134,9 +134,9 @@
                 <FrameLayout
                     android:id="@+id/bannerContaner"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="140dp"
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="-50dp"
+                    android:layout_marginTop="-70dp"
                     android:layout_marginRight="12dp"
                     android:background="@drawable/me_kapian_background" />
 
@@ -165,7 +165,7 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:src="@drawable/icon_jiankangdangan" />
+                            android:src="@drawable/icon_yingyangbaojian" />
 
                         <TextView
                             android:layout_width="65dp"
@@ -188,7 +188,7 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:src="@drawable/icon_message" />
+                            android:src="@drawable/icon_shipinzibu" />
 
                         <TextView
                             android:layout_width="65dp"
@@ -212,7 +212,7 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:src="@drawable/icon_colloct" />
+                            android:src="@drawable/icon_zhongyaocai" />
 
                         <TextView
                             android:id="@+id/textView"
@@ -237,7 +237,7 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:src="@drawable/icon_secret_collect" />
+                            android:src="@drawable/icon_jfdh" />
 
                         <TextView
                             android:layout_width="65dp"

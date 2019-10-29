@@ -3,11 +3,14 @@ package com.taisheng.now.http;
 
 import com.taisheng.now.Constants;
 import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.bean.post.AddDizhiPostBean;
+import com.taisheng.now.bussiness.bean.post.AddgouwuchePostBean;
 import com.taisheng.now.bussiness.bean.post.AnswerPostBean;
 import com.taisheng.now.bussiness.bean.post.ArticleCollectionBean;
 import com.taisheng.now.bussiness.bean.post.ArticleShareBean;
 import com.taisheng.now.bussiness.bean.post.ArticleWithDoctorPostBean;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
+import com.taisheng.now.bussiness.bean.post.CartDetePostBean;
 import com.taisheng.now.bussiness.bean.post.CollectAddorRemovePostBean;
 import com.taisheng.now.bussiness.bean.post.CollectListPostBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
@@ -21,10 +24,13 @@ import com.taisheng.now.bussiness.bean.post.FeedbackPostBean;
 import com.taisheng.now.bussiness.bean.post.GuanzhuPostBean;
 import com.taisheng.now.bussiness.bean.post.HealthCheckListPostBean;
 import com.taisheng.now.bussiness.bean.post.HealthInfoPostBean;
+import com.taisheng.now.bussiness.bean.post.KanjuanPostBean;
+import com.taisheng.now.bussiness.bean.post.LingqukajuanPostBean;
 import com.taisheng.now.bussiness.bean.post.MoreShipinPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendSharePostBean;
+import com.taisheng.now.bussiness.bean.post.ShangpinxaingqingPostBean;
 import com.taisheng.now.bussiness.bean.post.UpdateArticleReadCountPostBean;
 import com.taisheng.now.bussiness.bean.post.UpdatePswPostBean;
 import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
@@ -47,6 +53,7 @@ import com.taisheng.now.bussiness.bean.result.DoctorCollectListResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorNumberResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
+import com.taisheng.now.bussiness.bean.result.GouwucheResultBean;
 import com.taisheng.now.bussiness.bean.result.HotResultBean;
 import com.taisheng.now.bussiness.bean.post.LoginPostBean;
 import com.taisheng.now.bussiness.bean.result.IsSign;
@@ -60,6 +67,8 @@ import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
 import com.taisheng.now.bussiness.bean.result.RecommendSharedResultBean;
 import com.taisheng.now.bussiness.bean.result.ShipinsResultBean;
 import com.taisheng.now.bussiness.bean.result.SignResultBean;
+import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
+import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -291,9 +300,37 @@ public interface ApiService {
     Call<BaseBean<CainixihuanResultBean>> cainixihuan(@Body BasePostBean bean);
 
 
-
     @POST(Constants.Url.ShangCheng.gouwuchelist)
-    Call<BaseBean<MallYouhuiquanResultBanner>> gouwuchelist(@Body BaseListPostBean bean);
+    Call<BaseBean<GouwucheResultBean>> gouwuchelist(@Body BaseListPostBean bean);
+
+    //    public static final String shangpinxiangqing="jeecg-boot/app/mall/goods/goods/detail";
+    @POST(Constants.Url.ShangCheng.shangpinxiangqing)
+    Call<BaseBean<JsonRootBean>> shangpinxiangqing(@Body ShangpinxaingqingPostBean bean);
+
+    //    public static final String addgouwuche="jeecg-boot//app/mall/cart/add";
+    @POST(Constants.Url.ShangCheng.addgouwuche)
+    Call<BaseBean> addgouwuche(@Body AddgouwuchePostBean bean);
+
+
+    @POST(Constants.Url.ShangCheng.cartDelete)
+    Call<BaseBean> cartDelete(@Body CartDetePostBean bean);
+
+
+    //    public static final String getCouponlist="jeecg-boot/app/mall/coupon/getCouponList";
+    @POST(Constants.Url.ShangCheng.getCouponlist)
+    Call<BaseBean<MallYouhuiquanResultBanner>> getCouponlist(@Body KanjuanPostBean bean);
+
+    //    public static final String getCoupon="jeecg-boot/app/mall/coupon/getCoupon";
+    @POST(Constants.Url.ShangCheng.getCoupon)
+    Call<BaseBean> getCoupon(@Body LingqukajuanPostBean bean);
+
+    //    public static final String addressList="jeecg-boot/app/mall/address/list";
+    @POST(Constants.Url.ShangCheng.addressList)
+    Call<BaseBean<DizhilistResultBean>> addressList(@Body BaseListPostBean bean);
+
+    //    public static final String addressAdd="jeecg-boot/app/mall/address/add";
+    @POST(Constants.Url.ShangCheng.addressAdd)
+    Call<BaseBean> addressAdd(@Body AddDizhiPostBean bean);
 
 
 }

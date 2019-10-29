@@ -261,16 +261,31 @@ public class Constants {
 
         //商城
         public static class ShangCheng {
-            //todo 轮播图
             public static final String banner = "jeecg-boot/app/mall/banner/list";
             public static final String coupon = "jeecg-boot/app/mall/coupon/list";
             //优惠券列表
             public static final String couponlist = "jeecg-boot/app/mall/coupon/more/list";
+            //我的优惠券
+            public static final String getCouponlist="jeecg-boot/app/mall/coupon/getCouponList";
 
+            //商品详情
+            public static final String shangpinxiangqing="jeecg-boot/app/mall/goods/goods/detail";
 
             public static final String gouwuchelist="jeecg-boot/app/mall/cart/list";
 
             public static final String cainixihuan="jeecg-boot/app/mall/goods/hot/like/list";
+            //添加到购物车
+            public static final String addgouwuche="jeecg-boot/app/mall/cart/add";
+            //从购物车删除
+            public static final String cartDelete="jeecg-boot/app/mall/cart/delete";
+
+            //商城首页优惠券-领取用户优惠券
+            public static final String getCoupon="jeecg-boot/app/mall/coupon/getCoupon";
+            //用户收货地址
+            public static final String addressList="jeecg-boot/app/mall/address/list";
+            //添加地址
+            public static final String addressAdd="jeecg-boot/app/mall/address/add";
+
 
         }
 
