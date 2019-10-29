@@ -18,6 +18,7 @@ import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
 import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
 import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
 import com.taisheng.now.bussiness.market.dizhi.DizhiBianjiActivity;
+import com.taisheng.now.bussiness.market.gouwuche.ShoppingCartActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
@@ -46,6 +47,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
     public TextView tv_name;
     public TextView tv_jianjie;
 
+    public View iv_gouwuche;
     public View tv_addgouwuche;
     public View tv_goumai;
 
@@ -73,6 +75,15 @@ public class ShangPinxiangqingActivity extends BaseActivity {
         bannerViewPager = new BannerViewPager(this);
         bannerView = bannerViewPager.getContentView();
         bannerContaner.addView(bannerView);
+
+        iv_gouwuche=findViewById(R.id.iv_gouwuche);
+        iv_gouwuche.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShangPinxiangqingActivity.this, ShoppingCartActivity.class);
+                startActivity(intent);
+            }
+        });
 
         tv_addgouwuche = findViewById(R.id.tv_addgouwuche);
         tv_addgouwuche.setOnClickListener(new View.OnClickListener() {
