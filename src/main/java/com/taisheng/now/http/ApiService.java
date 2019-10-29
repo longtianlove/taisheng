@@ -27,6 +27,7 @@ import com.taisheng.now.bussiness.bean.post.HealthInfoPostBean;
 import com.taisheng.now.bussiness.bean.post.KanjuanPostBean;
 import com.taisheng.now.bussiness.bean.post.LingqukajuanPostBean;
 import com.taisheng.now.bussiness.bean.post.MarketPostBean;
+import com.taisheng.now.bussiness.bean.post.MarketTypePostBean;
 import com.taisheng.now.bussiness.bean.post.MoreShipinPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
@@ -339,6 +340,10 @@ public interface ApiService {
     //    public static final String addressAdd="jeecg-boot/app/mall/address/add";
     @POST(Constants.Url.ShangCheng.addressAdd)
     Call<BaseBean> addressAdd(@Body AddDizhiPostBean bean);
+
+//    public static final String goodsTtype="jeecg-boot/app/mall/goods/goods/type";
+    @POST(Constants.Url.ShangCheng.goodsTtype)
+    Call<BaseBean<ShangPinResultBeann>> goodsTtype(@Body MarketTypePostBean bean);
 
 
 }

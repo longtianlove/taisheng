@@ -527,6 +527,13 @@
 
         </activity>
         <activity
+            android:name=".bussiness.market.FenleiMarketActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+
+        </activity>
+        <activity
             android:name=".bussiness.article.ArticleContentActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"

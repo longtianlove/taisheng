@@ -178,7 +178,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/ll_zixunjilu"
+                        android:id="@+id/ll_shipinzibu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -201,7 +201,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/ll_doctorcollect"
+                        android:id="@+id/ll_zhongyaocai"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -226,7 +226,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/ll_articlecollect"
+                        android:id="@+id/ll_jifenduihuan"
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

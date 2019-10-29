@@ -26,6 +26,7 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.base.BaseFragment;
+import com.taisheng.now.bussiness.article.SecretActivity;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
 import com.taisheng.now.bussiness.bean.post.LingqukajuanPostBean;
@@ -60,6 +61,12 @@ public class MarketFragment extends BaseFragment {
     EditText et_doctor_search;
     View iv_search_guanbi;
     View tv_search;
+
+
+    View ll_healthfile;
+    View ll_shipinzibu;
+    View ll_zhongyaocai;
+    View ll_jifenduihuan;
 
     MaterialDesignPtrFrameLayout ptr_refresh;
 
@@ -100,10 +107,8 @@ public class MarketFragment extends BaseFragment {
 
             @Override
             public void onClick(View v) {
-//todo 进入购物车
                 Intent intent = new Intent(getActivity(), ShoppingCartActivity.class);
                 startActivity(intent);
-
             }
         });
 
@@ -155,6 +160,57 @@ public class MarketFragment extends BaseFragment {
             }
         });
 
+
+        ll_healthfile=rootView.findViewById(R.id.ll_healthfile);
+        ll_healthfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FenleiMarketActivity.selectTab = 0;
+                if (FenleiMarketActivity.tl_tab != null) {
+                    (FenleiMarketActivity.tl_tab.getTabAt(0)).select();
+                }
+                Intent intent=new Intent(getActivity(), FenleiMarketActivity.class);
+                startActivity(intent);
+            }
+        });
+        ll_shipinzibu=rootView.findViewById(R.id.ll_shipinzibu);
+        ll_shipinzibu.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                FenleiMarketActivity.selectTab = 1;
+                if (FenleiMarketActivity.tl_tab != null) {
+                    (FenleiMarketActivity.tl_tab.getTabAt(1)).select();
+                }
+                Intent intent=new Intent(getActivity(), FenleiMarketActivity.class);
+                startActivity(intent);
+            }
+        });
+        ll_zhongyaocai=rootView.findViewById(R.id.ll_zhongyaocai);
+        ll_zhongyaocai.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                FenleiMarketActivity.selectTab = 2;
+                if (FenleiMarketActivity.tl_tab != null) {
+                    (FenleiMarketActivity.tl_tab.getTabAt(2)).select();
+                }
+                Intent intent=new Intent(getActivity(), FenleiMarketActivity.class);
+                startActivity(intent);
+            }
+        });
+        ll_jifenduihuan=rootView.findViewById(R.id.ll_jifenduihuan);
+        ll_jifenduihuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FenleiMarketActivity.selectTab = 3;
+                if (FenleiMarketActivity.tl_tab != null) {
+                    (FenleiMarketActivity.tl_tab.getTabAt(3)).select();
+                }
+                Intent intent=new Intent(getActivity(), FenleiMarketActivity.class);
+                startActivity(intent);
+            }
+        });
 
         ptr_refresh = (MaterialDesignPtrFrameLayout) rootView.findViewById(R.id.ptr_refresh);
         /**
