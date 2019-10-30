@@ -97,6 +97,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:weightSum="1">
@@ -116,6 +117,7 @@
                         android:layout_weight="1" />
 
                     <TextView
+                        android:id="@+id/tv_guigeresult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="请选择"
@@ -140,6 +142,7 @@
                     android:layout_marginBottom="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:weightSum="1">
 
 

@@ -121,8 +121,8 @@ public class GuigeLabelWrapLayout extends ViewGroup {
     }
 
 
-    public static int selectedId=0;
-    public static String selectString="";
+    public  int selectedId=0;
+    public  String selectString="";
 
     private MarkClickListener markClickListener;
 

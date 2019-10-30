@@ -3,6 +3,7 @@ package com.taisheng.now.bussiness.market;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Gravity;
@@ -15,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
@@ -59,21 +61,25 @@ public class ShangPinxiangqingActivity extends BaseActivity {
     public TextView tv_jianjie;
 
 
+    public TextView tv_guigeresult;
     public View iv_gouwuche;
 
     public View ll_guige;
     private PopupWindow popupWindow;
     private View contentView;
+    public SimpleDraweeView sdv_shangpin;
+    public TextView tv_price;
+    public TextView tv_yixuan;
     public TextView tv_guige;
     public GuigeLabelWrapLayout guige_label;
     public List<String> guige_list;
-
     public TextView tv_yanse;
     public GuigeLabelWrapLayout yanse_label;
     public List<String> yanse_list;
     public View iv_sub;
     public TextView tv_commodity_show_num;
     public View iv_add;
+    public View tv_queding;
 
 
     public WebView wv_shangpinxiangqing;
@@ -105,6 +111,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
         bannerViewPager = new BannerViewPager(this);
         bannerView = bannerViewPager.getContentView();
         bannerContaner.addView(bannerView);
+        tv_guigeresult = findViewById(R.id.tv_guigeresult);
 
         iv_gouwuche = findViewById(R.id.iv_gouwuche);
         iv_gouwuche.setOnClickListener(new View.OnClickListener() {
@@ -139,12 +146,16 @@ public class ShangPinxiangqingActivity extends BaseActivity {
         popupWindow.setTouchable(true);
         //进入退出的动画，指定刚才定义的style
         popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
+        sdv_shangpin = contentView.findViewById(R.id.sdv_shangpin);
+        tv_price = contentView.findViewById(R.id.tv_price);
+        tv_yixuan = contentView.findViewById(R.id.tv_yixuan);
+
         tv_guige = contentView.findViewById(R.id.tv_guige);
         guige_label = contentView.findViewById(R.id.guige_label);
 
 
         tv_yanse = contentView.findViewById(R.id.tv_yanse);
-        yanse_label=contentView.findViewById(R.id.yanse_label);
+        yanse_label = contentView.findViewById(R.id.yanse_label);
 
         iv_sub = contentView.findViewById(R.id.iv_sub);
         iv_sub.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +180,18 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                 tv_commodity_show_num.setText((temp + 1) + "");
             }
         });
+        tv_queding = contentView.findViewById(R.id.tv_queding);
+        tv_queding.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+
+                if(popupWindow!=null&&popupWindow.isShowing()){
+                    popupWindow.dismiss();
+                }
+                tv_guigeresult.setText("已选" + guige_label.selectString + " " + yanse_label.selectString);
+            }
+        });
 
         wv_shangpinxiangqing = findViewById(R.id.wv_shangpinxiangqing);
         wv_shangpinxiangqing.getSettings().setJavaScriptEnabled(true);
@@ -181,6 +203,11 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
+                if ("请选择".equals(tv_guigeresult.getText().toString())) {
+                    ToastUtil.showAtCenter("请选择商品规格");
+                    return;
+                }
+
 //todo 添加到购物车
                 AddgouwuchePostBean bean = new AddgouwuchePostBean();
                 bean.userId = UserInstance.getInstance().getUid();
@@ -213,6 +240,12 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
+
+
+                if ("请选择".equals(tv_guigeresult.getText().toString())) {
+                    ToastUtil.showAtCenter("请选择商品规格");
+                    return;
+                }
                 //获取地址信息
 
                 BaseListPostBean bean = new BaseListPostBean();
@@ -297,30 +330,40 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                             tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                             tv_name.setText(message.result.goodsEntity.name);
                             tv_jianjie.setText(message.result.goodsEntity.brief);
-
                             wv_shangpinxiangqing.loadData(Html.fromHtml(message.result.goodsEntity.detail).toString(), "text/html", "UTF-8");
+
+
+                            Uri uri = Uri.parse(message.result.goodsEntity.picUrl);
+                            sdv_shangpin.setImageURI(uri);
+                            tv_price.setText(message.result.goodsEntity.counterPrice+"");
+
+
                         }
                         if (message.result.goodsSpecificationEntities != null && message.result.goodsSpecificationEntities.size() > 0) {
                             tv_guige.setText(message.result.goodsSpecificationEntities.get(0).getName());
-                            guige_list=new ArrayList<>();
-                            for(int i=0;i<message.result.goodsSpecificationEntities.get(0).getValueList().size();i++){
-                                ValueList tempVauleList=message.result.goodsSpecificationEntities.get(0).getValueList().get(i);
+                            guige_list = new ArrayList<>();
+                            for (int i = 0; i < message.result.goodsSpecificationEntities.get(0).getValueList().size(); i++) {
+                                ValueList tempVauleList = message.result.goodsSpecificationEntities.get(0).getValueList().get(i);
                                 guige_list.add(tempVauleList.getValue());
                             }
 
                             guige_label.setData(guige_list, ShangPinxiangqingActivity.this, 14, 15, 4, 14, 4, 24, 12, 24, 12);
+                            guige_label.selectString=guige_list.get(0);
+                            tv_yixuan.setText("已选" + guige_list.get(0));
 
                             guige_label.setMarkClickListener(new GuigeLabelWrapLayout.MarkClickListener() {
                                 @Override
                                 public void clickMark(int position) {
                                     guige_label.setData(guige_list, ShangPinxiangqingActivity.this, 14, 15, 4, 14, 4, 24, 12, 24, 12);
+                                    tv_yixuan.setText("已选" + guige_label.selectString + " " + yanse_label.selectString);
+
                                 }
                             });
                             if (message.result.goodsSpecificationEntities.size() == 2) {
                                 tv_yanse.setText(message.result.goodsSpecificationEntities.get(1).getName());
-                                yanse_list=new ArrayList<>();
-                                for(int i=0;i<message.result.goodsSpecificationEntities.get(1).getValueList().size();i++){
-                                    ValueList tempVauleList=message.result.goodsSpecificationEntities.get(1).getValueList().get(i);
+                                yanse_list = new ArrayList<>();
+                                for (int i = 0; i < message.result.goodsSpecificationEntities.get(1).getValueList().size(); i++) {
+                                    ValueList tempVauleList = message.result.goodsSpecificationEntities.get(1).getValueList().get(i);
                                     yanse_list.add(tempVauleList.getValue());
                                 }
                                 yanse_label.setData(yanse_list, ShangPinxiangqingActivity.this, 14, 15, 4, 14, 4, 24, 12, 24, 12);
@@ -329,10 +372,13 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                                     @Override
                                     public void clickMark(int position) {
                                         yanse_label.setData(yanse_list, ShangPinxiangqingActivity.this, 14, 15, 4, 14, 4, 24, 12, 24, 12);
+                                        tv_yixuan.setText("已选" + guige_label.selectString + " " + yanse_label.selectString);
                                     }
                                 });
-                            }
+                                yanse_label.selectString=yanse_list.get(0);
+                                tv_yixuan.setText("已选" + guige_label.selectString + " "+ yanse_list.get(0));
 
+                            }
 
 
                         }
