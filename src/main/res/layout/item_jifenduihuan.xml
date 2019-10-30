@@ -11,8 +11,8 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sdv_article"
-        android:layout_width="87dp"
-        android:layout_height="75dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:gravity="center"
         android:scaleType="fitXY"
         fresco:actualImageScaleType="focusCrop"

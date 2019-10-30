@@ -61,6 +61,9 @@ public class ShangPinxiangqingActivity extends BaseActivity {
     public View ll_guige;
     private PopupWindow popupWindow;
     private View contentView;
+    public View iv_sub;
+    public TextView tv_commodity_show_num;
+    public View iv_add;
 
 
 
@@ -129,7 +132,29 @@ public class ShangPinxiangqingActivity extends BaseActivity {
         //进入退出的动画，指定刚才定义的style
         popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
 
+        iv_sub=contentView.findViewById(R.id.iv_sub);
+        iv_sub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+
+                int temp=Integer.parseInt(tv_commodity_show_num.getText().toString());
+                if(temp==1){
+                    return;
+                }
+                tv_commodity_show_num.setText((temp-1)+"");
+            }
+        });
+        tv_commodity_show_num=contentView.findViewById(R.id.tv_commodity_show_num);
+        iv_add=contentView.findViewById(R.id.iv_add);
+        iv_add.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                int temp=Integer.parseInt(tv_commodity_show_num.getText().toString());
+                tv_commodity_show_num.setText((temp+1)+"");
+            }
+        });
 
 
 
