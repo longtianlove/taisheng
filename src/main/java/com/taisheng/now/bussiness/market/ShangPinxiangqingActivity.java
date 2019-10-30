@@ -24,6 +24,7 @@ import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.ShangpinxaingqingPostBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
 import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
+import com.taisheng.now.bussiness.bean.result.market.ValueList;
 import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
 import com.taisheng.now.bussiness.market.dizhi.DizhiBianjiActivity;
 import com.taisheng.now.bussiness.market.gouwuche.ShoppingCartActivity;
@@ -32,9 +33,11 @@ import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.ToastUtil;
+import com.taisheng.now.view.GuigeLabelWrapLayout;
 import com.taisheng.now.view.banner.BannerViewPager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -61,11 +64,16 @@ public class ShangPinxiangqingActivity extends BaseActivity {
     public View ll_guige;
     private PopupWindow popupWindow;
     private View contentView;
+    public TextView tv_guige;
+    public GuigeLabelWrapLayout guige_label;
+    public List<String> guige_list;
+
+    public TextView tv_yanse;
+    public GuigeLabelWrapLayout yanse_label;
+    public List<String> yanse_list;
     public View iv_sub;
     public TextView tv_commodity_show_num;
     public View iv_add;
-
-
 
 
     public WebView wv_shangpinxiangqing;
@@ -98,7 +106,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
         bannerView = bannerViewPager.getContentView();
         bannerContaner.addView(bannerView);
 
-        iv_gouwuche=findViewById(R.id.iv_gouwuche);
+        iv_gouwuche = findViewById(R.id.iv_gouwuche);
         iv_gouwuche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,8 +114,8 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-        ll_guige=findViewById(R.id.ll_guige);
-        ll_guige.setOnClickListener(new View.OnClickListener(){
+        ll_guige = findViewById(R.id.ll_guige);
+        ll_guige.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -131,43 +139,41 @@ public class ShangPinxiangqingActivity extends BaseActivity {
         popupWindow.setTouchable(true);
         //进入退出的动画，指定刚才定义的style
         popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
+        tv_guige = contentView.findViewById(R.id.tv_guige);
+        guige_label = contentView.findViewById(R.id.guige_label);
 
-        iv_sub=contentView.findViewById(R.id.iv_sub);
+
+        tv_yanse = contentView.findViewById(R.id.tv_yanse);
+        yanse_label=contentView.findViewById(R.id.yanse_label);
+
+        iv_sub = contentView.findViewById(R.id.iv_sub);
         iv_sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                int temp=Integer.parseInt(tv_commodity_show_num.getText().toString());
-                if(temp==1){
+                int temp = Integer.parseInt(tv_commodity_show_num.getText().toString());
+                if (temp == 1) {
                     return;
                 }
-                tv_commodity_show_num.setText((temp-1)+"");
+                tv_commodity_show_num.setText((temp - 1) + "");
             }
         });
-        tv_commodity_show_num=contentView.findViewById(R.id.tv_commodity_show_num);
-        iv_add=contentView.findViewById(R.id.iv_add);
-        iv_add.setOnClickListener(new View.OnClickListener(){
+        tv_commodity_show_num = contentView.findViewById(R.id.tv_commodity_show_num);
+        iv_add = contentView.findViewById(R.id.iv_add);
+        iv_add.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                int temp=Integer.parseInt(tv_commodity_show_num.getText().toString());
-                tv_commodity_show_num.setText((temp+1)+"");
+                int temp = Integer.parseInt(tv_commodity_show_num.getText().toString());
+                tv_commodity_show_num.setText((temp + 1) + "");
             }
         });
 
 
-
-
-
-        wv_shangpinxiangqing=findViewById(R.id.wv_shangpinxiangqing);
+        wv_shangpinxiangqing = findViewById(R.id.wv_shangpinxiangqing);
         wv_shangpinxiangqing.getSettings().setJavaScriptEnabled(true);
         wv_shangpinxiangqing.setWebViewClient(new WebViewClient());
-
-
-
-
-
 
 
         tv_addgouwuche = findViewById(R.id.tv_addgouwuche);
@@ -207,31 +213,31 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-                        //获取地址信息
+                //获取地址信息
 
-                        BaseListPostBean bean = new BaseListPostBean();
-                        bean.userId = UserInstance.getInstance().getUid();
-                        bean.token = UserInstance.getInstance().getToken();
-                        bean.pageNo = 1;
-                        bean.pageSize = 10;
+                BaseListPostBean bean = new BaseListPostBean();
+                bean.userId = UserInstance.getInstance().getUid();
+                bean.token = UserInstance.getInstance().getToken();
+                bean.pageNo = 1;
+                bean.pageSize = 10;
 
-                        ApiUtils.getApiService().addressList(bean).enqueue(new TaiShengCallback<BaseBean<DizhilistResultBean>>() {
-                            @Override
-                            public void onSuccess(Response<BaseBean<DizhilistResultBean>> response, BaseBean<DizhilistResultBean> message) {
+                ApiUtils.getApiService().addressList(bean).enqueue(new TaiShengCallback<BaseBean<DizhilistResultBean>>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean<DizhilistResultBean>> response, BaseBean<DizhilistResultBean> message) {
 
-                                DialogUtil.closeProgress();
-                                switch (message.code) {
-                                    case Constants.HTTP_SUCCESS:
-                                        if (message.result.records != null && message.result.records.size() > 0) {
-                                            Intent intent = new Intent(ShangPinxiangqingActivity.this, DingdanjiesuanActivity.class);
-                                            startActivity(intent);
-                                        } else {
-                                            Intent intent = new Intent(ShangPinxiangqingActivity.this, DizhiBianjiActivity.class);
-                                            startActivity(intent);
-                                        }
-                                        break;
+                        DialogUtil.closeProgress();
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+                                if (message.result.records != null && message.result.records.size() > 0) {
+                                    Intent intent = new Intent(ShangPinxiangqingActivity.this, DingdanjiesuanActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(ShangPinxiangqingActivity.this, DizhiBianjiActivity.class);
+                                    startActivity(intent);
                                 }
-                            }
+                                break;
+                        }
+                    }
 
                     @Override
                     public void onFail(Call<BaseBean<DizhilistResultBean>> call, Throwable t) {
@@ -293,6 +299,42 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                             tv_jianjie.setText(message.result.goodsEntity.brief);
 
                             wv_shangpinxiangqing.loadData(Html.fromHtml(message.result.goodsEntity.detail).toString(), "text/html", "UTF-8");
+                        }
+                        if (message.result.goodsSpecificationEntities != null && message.result.goodsSpecificationEntities.size() > 0) {
+                            tv_guige.setText(message.result.goodsSpecificationEntities.get(0).getName());
+                            guige_list=new ArrayList<>();
+                            for(int i=0;i<message.result.goodsSpecificationEntities.get(0).getValueList().size();i++){
+                                ValueList tempVauleList=message.result.goodsSpecificationEntities.get(0).getValueList().get(i);
+                                guige_list.add(tempVauleList.getValue());
+                            }
+
+                            guige_label.setData(guige_list, ShangPinxiangqingActivity.this, 14, 15, 4, 14, 4, 24, 12, 24, 12);
+
+                            guige_label.setMarkClickListener(new GuigeLabelWrapLayout.MarkClickListener() {
+                                @Override
+                                public void clickMark(int position) {
+                                    guige_label.setData(guige_list, ShangPinxiangqingActivity.this, 14, 15, 4, 14, 4, 24, 12, 24, 12);
+                                }
+                            });
+                            if (message.result.goodsSpecificationEntities.size() == 2) {
+                                tv_yanse.setText(message.result.goodsSpecificationEntities.get(1).getName());
+                                yanse_list=new ArrayList<>();
+                                for(int i=0;i<message.result.goodsSpecificationEntities.get(1).getValueList().size();i++){
+                                    ValueList tempVauleList=message.result.goodsSpecificationEntities.get(1).getValueList().get(i);
+                                    yanse_list.add(tempVauleList.getValue());
+                                }
+                                yanse_label.setData(yanse_list, ShangPinxiangqingActivity.this, 14, 15, 4, 14, 4, 24, 12, 24, 12);
+
+                                yanse_label.setMarkClickListener(new GuigeLabelWrapLayout.MarkClickListener() {
+                                    @Override
+                                    public void clickMark(int position) {
+                                        yanse_label.setData(yanse_list, ShangPinxiangqingActivity.this, 14, 15, 4, 14, 4, 24, 12, 24, 12);
+                                    }
+                                });
+                            }
+
+
+
                         }
 
 

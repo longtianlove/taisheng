@@ -55,11 +55,46 @@
     </LinearLayout>
 
 
+    <TextView
+        android:id="@+id/tv_guige"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="规格"
+        android:textColor="#ff333333"
+        android:textSize="15sp"
+        />
+    <com.taisheng.now.view.GuigeLabelWrapLayout
+        android:id="@+id/guige_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="14dp"
+        android:gravity="center"></com.taisheng.now.view.GuigeLabelWrapLayout>
+
+    <TextView
+        android:id="@+id/tv_yanse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="颜色"
+        android:textColor="#ff333333"
+        android:textSize="15sp"
+        />
+    <com.taisheng.now.view.GuigeLabelWrapLayout
+        android:id="@+id/yanse_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="14dp"
+        android:gravity="center"></com.taisheng.now.view.GuigeLabelWrapLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:weightSum="1">
 
         <TextView
