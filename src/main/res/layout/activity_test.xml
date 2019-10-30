@@ -69,4 +69,13 @@
             />
     </LinearLayout>
 
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/tv_goshouye"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="去首页"
+        />
+
 </LinearLayout>

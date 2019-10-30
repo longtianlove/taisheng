@@ -69,6 +69,7 @@ import com.taisheng.now.bussiness.bean.result.ShipinsResultBean;
 import com.taisheng.now.bussiness.bean.result.SignResultBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
 import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
+import com.taisheng.now.test.WechatResultBean;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -331,6 +332,11 @@ public interface ApiService {
     //    public static final String addressAdd="jeecg-boot/app/mall/address/add";
     @POST(Constants.Url.ShangCheng.addressAdd)
     Call<BaseBean> addressAdd(@Body AddDizhiPostBean bean);
+
+
+
+    @POST(Constants.Url.Test.weChatPay)
+    Call<WechatResultBean> weChatPay(@Body BasePostBean bean);
 
 
 }
