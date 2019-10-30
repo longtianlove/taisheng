@@ -3,7 +3,10 @@ package com.taisheng.now.bussiness.market;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -46,6 +49,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
     public TextView tv_name;
     public TextView tv_jianjie;
 
+    public WebView wv_shangpinxiangqing;
     public View tv_addgouwuche;
     public View tv_goumai;
 
@@ -73,6 +77,10 @@ public class ShangPinxiangqingActivity extends BaseActivity {
         bannerViewPager = new BannerViewPager(this);
         bannerView = bannerViewPager.getContentView();
         bannerContaner.addView(bannerView);
+
+        wv_shangpinxiangqing=findViewById(R.id.wv_shangpinxiangqing);
+        wv_shangpinxiangqing.getSettings().setJavaScriptEnabled(true);
+        wv_shangpinxiangqing.setWebViewClient(new WebViewClient());
 
         tv_addgouwuche = findViewById(R.id.tv_addgouwuche);
         tv_addgouwuche.setOnClickListener(new View.OnClickListener() {
@@ -195,6 +203,8 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                             tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                             tv_name.setText(message.result.goodsEntity.name);
                             tv_jianjie.setText(message.result.goodsEntity.brief);
+
+                            wv_shangpinxiangqing.loadData(Html.fromHtml(message.result.goodsEntity.detail).toString(), "text/html", "UTF-8");
                         }
 
 
