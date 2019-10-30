@@ -91,12 +91,17 @@
         <item name="android:windowExitAnimation">@anim/push_top_out2</item>
     </style>
     <style name="mystyle" parent="android:Animation">
-        <item name="@android:windowEnterAnimation">@anim/popwindows_in</item>  //进入时的动画
-        <item name="@android:windowExitAnimation">@anim/popwindows_exit</item>    //退出时的动画
+        <item name="android:windowEnterAnimation">@anim/popwindows_in</item>  //进入时的动画
+        <item name="android:windowExitAnimation">@anim/popwindows_exit</item>    //退出时的动画
     </style>
 
+    <style name="mypopwindow_anim_style">
+        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
+        <!-- 指定显示的动画xml -->
+        <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
+        <!-- 指定消失的动画xml -->
+    </style>
 
-    <!--截图-->
     <style name="Crop"></style>
 
     <style name="Crop.DoneCancelBar">

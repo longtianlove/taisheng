@@ -2,12 +2,17 @@ package com.taisheng.now.bussiness.market;
 
 import android.content.Intent;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.taisheng.now.Constants;
@@ -53,6 +58,13 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 
     public View iv_gouwuche;
 
+    public View ll_guige;
+    private PopupWindow popupWindow;
+    private View contentView;
+
+
+
+
     public WebView wv_shangpinxiangqing;
 
     public View tv_addgouwuche;
@@ -91,10 +103,46 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        ll_guige=findViewById(R.id.ll_guige);
+        ll_guige.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+//从底部显示
+                popupWindow.showAtLocation(contentView, Gravity.BOTTOM, 0, 0);
+            }
+        });
+
+        //加载弹出框的布局
+        contentView = LayoutInflater.from(ShangPinxiangqingActivity.this).inflate(
+                R.layout.pop, null);
+        popupWindow = new PopupWindow(contentView,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setFocusable(true);// 取得焦点
+        //注意  要是点击外部空白处弹框消息  那么必须给弹框设置一个背景色  不然是不起作用的
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        //点击外部消失
+        popupWindow.setOutsideTouchable(true);
+        //设置可以点击
+        popupWindow.setTouchable(true);
+        //进入退出的动画，指定刚才定义的style
+        popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
+
+
+
+
+
+
 
         wv_shangpinxiangqing=findViewById(R.id.wv_shangpinxiangqing);
         wv_shangpinxiangqing.getSettings().setJavaScriptEnabled(true);
         wv_shangpinxiangqing.setWebViewClient(new WebViewClient());
+
+
+
+
+
 
 
         tv_addgouwuche = findViewById(R.id.tv_addgouwuche);
