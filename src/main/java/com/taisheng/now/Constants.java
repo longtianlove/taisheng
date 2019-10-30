@@ -14,6 +14,9 @@ public class Constants {
     //腾讯视频appid
     public final static int SDKAPPID = 1400229730;
 
+    //微信支付appid
+    public final static String WXAPPID="wxa371cf7bae0024bf";
+
 
     //访问成功
     public final static int HTTP_SUCCESS = 200;
@@ -64,6 +67,11 @@ public class Constants {
         public static String Host = "http://192.168.1.12:8080/";
         public static String File_Host = "http://192.168.1.12:8888/";
         public static String WEB_SOCKET_URL = "ws://192.168.1.12:8879";
+
+
+//                public static String Host = "http://192.168.1.18:8080/";
+//        public static String File_Host = "http://192.168.1.18:8888/";
+//        public static String WEB_SOCKET_URL = "ws://192.168.1.18:8879";
 
 
 //        public static String Host = "http://192.168.1.17:8080/";
@@ -299,11 +307,21 @@ public class Constants {
 
         }
 
+
+
         /**
          * 投诉中心
          */
 
         public static final String feedback = "jeecg-boot/app/feedback/add";
+
+
+
+
+        public static class Test{
+            public static final String weChatPay = "jeecg-boot/app/pay/payment/wxpay/weChatPay";
+
+        }
 
     }
 

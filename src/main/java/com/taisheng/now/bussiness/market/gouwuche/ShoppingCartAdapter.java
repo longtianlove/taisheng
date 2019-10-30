@@ -3,6 +3,7 @@ package com.taisheng.now.bussiness.market.gouwuche;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.R;
 
 import java.util.ArrayList;
@@ -100,6 +102,17 @@ public class ShoppingCartAdapter extends BaseAdapter {
         }else{
             holder.ckOneChose.setChecked(false);
         }
+
+        String temp_url = shoppingCartBean.imageUrl;
+        if (temp_url == null || "".equals(temp_url)) {
+            holder.sdv_article.setBackgroundResource(R.drawable.article_default);
+
+        } else {
+            Uri uri = Uri.parse(temp_url);
+            holder.sdv_article.setImageURI(uri);
+        }
+
+
         String attribute = shoppingCartBean.getAttribute();
         if (!StringUtil.isEmpty(attribute)){
             holder.tvCommodityAttr.setText(attribute);
@@ -178,13 +191,13 @@ public class ShoppingCartAdapter extends BaseAdapter {
     }
     //初始化控件
     class ViewHolder {
-        ImageView ivShowPic,tvCommodityDelete;
+        ImageView tvCommodityDelete;
         TextView tvCommodityName, tvCommodityAttr, tvCommodityPrice, tvCommodityNum, tvCommodityShowNum,ivSub, ivAdd;
         CheckBox ckOneChose;
         LinearLayout rlEdit;
+        SimpleDraweeView sdv_article;;
         public ViewHolder(View itemView) {
             ckOneChose = (CheckBox) itemView.findViewById(R.id.ck_chose);
-            ivShowPic = (ImageView) itemView.findViewById(R.id.iv_show_pic);
             ivSub = (TextView) itemView.findViewById(R.id.iv_sub);
             ivAdd = (TextView) itemView.findViewById(R.id.iv_add);
             tvCommodityName = (TextView) itemView.findViewById(R.id.tv_commodity_name);
@@ -194,7 +207,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
             tvCommodityShowNum = (TextView) itemView.findViewById(R.id.tv_commodity_show_num);
             tvCommodityDelete = (ImageView) itemView.findViewById(R.id.tv_commodity_delete);
             rlEdit = (LinearLayout) itemView.findViewById(R.id.rl_edit);
-
+            sdv_article=itemView.findViewById(R.id.sdv_article);
 
         }
     }

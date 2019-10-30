@@ -7,18 +7,18 @@ package com.taisheng.now.bussiness.market.gouwuche;
  */
 public class ShoppingCartBean {
 
-    private String id;
-    private String imageUrl;
-    private String shoppingName;
+    public  String id;
+    public  String imageUrl;
+    public  String shoppingName;
 
-    private int dressSize;
-    private String attribute;
+    public  int dressSize;
+    public  String attribute;
 
-    private double price;
+    public  double price;
 
     public boolean isChoosed;
     public boolean isCheck = false;
-    private int count;
+    public  int count;
 
 
 

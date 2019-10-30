@@ -72,8 +72,12 @@ import com.taisheng.now.bussiness.bean.result.ShipinsResultBean;
 import com.taisheng.now.bussiness.bean.result.SignResultBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
 import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
+
 import com.taisheng.now.bussiness.bean.result.market.OrderListResultBean;
 import com.taisheng.now.bussiness.bean.result.market.ShangPinResultBeann;
+
+import com.taisheng.now.test.WechatResultBean;
+
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -353,6 +357,11 @@ public interface ApiService {
 
 
 
+
+
+
+    @POST(Constants.Url.Test.weChatPay)
+    Call<WechatResultBean> weChatPay(@Body BasePostBean bean);
 
 
 }
