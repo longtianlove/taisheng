@@ -2,6 +2,7 @@ package com.taisheng.now.bussiness.market.youhuijuan;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
@@ -44,7 +45,7 @@ public class KanjuanFragment extends BaseFragment {
     public String assessmentType;
 
 
-//    MaterialDesignPtrFrameLayout ptr_refresh;
+    //    MaterialDesignPtrFrameLayout ptr_refresh;
     com.taisheng.now.view.TaishengListView list_kajuan;
 
     YouhuiquanAdapter madapter;
@@ -100,15 +101,15 @@ public class KanjuanFragment extends BaseFragment {
         bean.token = UserInstance.getInstance().getToken();
         bean.pageNo = PAGE_NO;
         bean.pageSize = 10;
-        switch (assessmentType){
+        switch (assessmentType) {
             case "1":
-                bean.status="0";
+                bean.status = "0";
                 break;
             case "2":
-                bean.status="2";
+                bean.status = "2";
                 break;
             case "3":
-                bean.status="1";
+                bean.status = "1";
                 break;
 
         }
@@ -191,26 +192,46 @@ public class KanjuanFragment extends BaseFragment {
             if (convertView == null) {
                 util = new YouhuiquanAdapter.Util();
                 LayoutInflater inflater = LayoutInflater.from(mcontext);
-                convertView = inflater.inflate(R.layout.item_youhuijuan, null);
+                convertView = inflater.inflate(R.layout.item_wodeyouhuijuan, null);
                 util.ll_all = convertView.findViewById(R.id.ll_all);
+                util.tv_yiguoqi=convertView.findViewById(R.id.tv_yiguoqi);
                 util.tv_discount = convertView.findViewById(R.id.tv_discount);
                 util.tv_name = convertView.findViewById(R.id.tv_name);
                 util.tv_tag = convertView.findViewById(R.id.tv_tag);
                 util.tv_usedate = convertView.findViewById(R.id.tv_usedate);
+                util.tv_shiyong=convertView.findViewById(R.id.tv_shiyong);
                 convertView.setTag(util);
             } else {
                 util = (YouhuiquanAdapter.Util) convertView.getTag();
             }
             MallYouhuiquanBean bean = mData.get(position);
-            util.ll_all.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                }
-            });
-            util.tv_discount.setText("¥"+bean.discount + "");
+            util.tv_discount.setText("¥" + bean.discount + "");
             util.tv_name.setText(bean.name);
             util.tv_tag.setText(bean.tag);
             util.tv_usedate.setText(bean.useDate);
+
+
+            switch (assessmentType) {
+                case "1":
+                    util.tv_discount.setTextColor(Color.parseColor("#FF3B30"));
+                    util.tv_shiyong.setBackgroundResource(R.drawable.youhuijuanweishiyong_back);
+                    util.tv_shiyong.setTextColor(Color.parseColor("#FFFFFF"));
+                    util.tv_yiguoqi.setVisibility(View.GONE);
+                    break;
+                case "2":
+                    util.tv_discount.setTextColor(Color.parseColor("#FF3B30"));
+                    util.tv_shiyong.setBackgroundResource(R.drawable.youhuijuanyishiyong_back);
+                    util.tv_shiyong.setTextColor(Color.parseColor("#FFFFFF"));
+                    util.tv_yiguoqi.setVisibility(View.GONE);
+                    break;
+                case "3":
+                    util.tv_discount.setTextColor(Color.parseColor("#999999"));
+                    util.tv_shiyong.setBackgroundResource(R.drawable.youhuijuanyiguoqi_back);
+                    util.tv_shiyong.setTextColor(Color.parseColor("#999999"));
+                    util.tv_yiguoqi.setVisibility(View.VISIBLE);
+                    break;
+
+            }
 
             return convertView;
         }
@@ -219,10 +240,12 @@ public class KanjuanFragment extends BaseFragment {
         class Util {
             View ll_all;
 
+            View tv_yiguoqi;
             TextView tv_discount;
             TextView tv_name;
             TextView tv_tag;
             TextView tv_usedate;
+            TextView tv_shiyong;
         }
     }
 }
