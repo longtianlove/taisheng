@@ -28,6 +28,7 @@ import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
 import com.taisheng.now.bussiness.bean.result.market.GoodsProductEntities;
 import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
 import com.taisheng.now.bussiness.bean.result.market.ValueList;
+import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
 import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
 import com.taisheng.now.bussiness.market.dizhi.DizhiBianjiActivity;
 import com.taisheng.now.bussiness.market.gouwuche.ShoppingCartActivity;
@@ -263,6 +264,17 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                     ToastUtil.showAtCenter("请选择商品规格");
                     return;
                 }
+
+                DingdanInstance.getInstance().dingdanList.clear();
+                xiadanshangpinBean xbean=new xiadanshangpinBean();
+                xbean.id=goodsid;
+                xbean.name=name;
+                xbean.counterPrice=counterPrice;
+                xbean.retailPrice=retailPrice;
+                xbean.number=number;
+                xbean.picUrl=picUrl;
+                DingdanInstance.getInstance().dingdanList.add(xbean);
+
                 //获取地址信息
 
                 BaseListPostBean bean = new BaseListPostBean();
@@ -278,6 +290,8 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                         DialogUtil.closeProgress();
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
+
+
                                 if (message.result.records != null && message.result.records.size() > 0) {
                                     Intent intent = new Intent(ShangPinxiangqingActivity.this, DingdanjiesuanActivity.class);
                                     startActivity(intent);
@@ -307,6 +321,12 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 
     }
 
+
+
+    public String name;
+    public int counterPrice;
+    public int retailPrice;
+    public String picUrl;
 
     public String goodsid;
     public List<GoodsProductEntities> goodsProductEntities;
@@ -344,15 +364,21 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                             });
                             bannerViewPager.madapter.notifyDataSetChanged();
 
+
+
                             tv_counterprice.setText(message.result.goodsEntity.counterPrice + "");
+                            counterPrice=message.result.goodsEntity.counterPrice;
                             tv_retailprice.setText(message.result.goodsEntity.retailPrice + "");
                             tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                            retailPrice=message.result.goodsEntity.retailPrice;
+                            name=message.result.goodsEntity.name;
                             tv_name.setText(message.result.goodsEntity.name);
                             tv_jianjie.setText(message.result.goodsEntity.brief);
                             wv_shangpinxiangqing.loadData(Html.fromHtml(message.result.goodsEntity.detail).toString(), "text/html", "UTF-8");
 
 
                             Uri uri = Uri.parse(message.result.goodsEntity.picUrl);
+                            picUrl=message.result.goodsEntity.picUrl;
                             sdv_shangpin.setImageURI(uri);
                             tv_price.setText(message.result.goodsEntity.counterPrice + "");
 

@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
+            android:padding="20dp"
             android:button="@drawable/check_box_style"
             android:scaleX="0.6"
             android:scaleY="0.6" />
