@@ -135,6 +135,7 @@ public class DizhiBianjiActivity extends BaseActivity {
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
                                 ToastUtil.showAtCenter("添加成功");
+                                //todo 获取地址id
                                 Intent intent=new Intent(DizhiBianjiActivity.this, DingdanjiesuanActivity.class);
                                 startActivity(intent);
                                 finish();

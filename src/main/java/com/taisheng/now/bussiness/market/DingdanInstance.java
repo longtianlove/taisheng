@@ -26,5 +26,7 @@ public class DingdanInstance {
     public List<xiadanshangpinBean> dingdanList=new ArrayList<>();
     public String zongjia;
 
+    public String addressId;
+
 
 }
