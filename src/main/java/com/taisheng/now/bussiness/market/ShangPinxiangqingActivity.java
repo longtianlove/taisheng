@@ -25,6 +25,7 @@ import com.taisheng.now.bussiness.bean.post.AddgouwuchePostBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.ShangpinxaingqingPostBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
+import com.taisheng.now.bussiness.bean.result.market.GoodsProductEntities;
 import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
 import com.taisheng.now.bussiness.bean.result.market.ValueList;
 import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
@@ -168,6 +169,8 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                     return;
                 }
                 tv_commodity_show_num.setText((temp - 1) + "");
+                number = (temp - 1) + "";
+
             }
         });
         tv_commodity_show_num = contentView.findViewById(R.id.tv_commodity_show_num);
@@ -178,6 +181,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
             public void onClick(View v) {
                 int temp = Integer.parseInt(tv_commodity_show_num.getText().toString());
                 tv_commodity_show_num.setText((temp + 1) + "");
+                number = (temp + 1) + "";
             }
         });
         tv_queding = contentView.findViewById(R.id.tv_queding);
@@ -186,10 +190,23 @@ public class ShangPinxiangqingActivity extends BaseActivity {
             public void onClick(View v) {
 
 
-                if(popupWindow!=null&&popupWindow.isShowing()){
+                if (popupWindow != null && popupWindow.isShowing()) {
                     popupWindow.dismiss();
                 }
                 tv_guigeresult.setText("已选" + guige_label.selectString + " " + yanse_label.selectString);
+
+                if (goodsProductEntities != null) {
+
+                    for (int i = 0; i < goodsProductEntities.size(); i++) {
+                        GoodsProductEntities bean = goodsProductEntities.get(i);
+                        if (bean.getSpecifications().contains(guige_label.selectString) && bean.getSpecifications().contains(yanse_label.selectString)) {
+                            productid = bean.getId();
+                            return;
+                        }
+                    }
+                }
+
+
             }
         });
 
@@ -208,13 +225,13 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                     return;
                 }
 
-//todo 添加到购物车
+                // 添加到购物车
                 AddgouwuchePostBean bean = new AddgouwuchePostBean();
                 bean.userId = UserInstance.getInstance().getUid();
                 bean.token = UserInstance.getInstance().getToken();
-                bean.goodsId = "1181000";
-                bean.productId = "2";
-                bean.number = "2";
+                bean.goodsId = goodsid;
+                bean.productId = productid;
+                bean.number = number;
                 ApiUtils.getApiService().addgouwuche(bean).enqueue(new TaiShengCallback<BaseBean>() {
                     @Override
                     public void onSuccess(Response<BaseBean> response, BaseBean message) {
@@ -292,8 +309,10 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 
 
     public String goodsid;
-    //todo 赋值
+    public List<GoodsProductEntities> goodsProductEntities;
     public String productid = 1 + "";
+
+
     public String number = 1 + "";
 
     void initData() {
@@ -335,7 +354,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 
                             Uri uri = Uri.parse(message.result.goodsEntity.picUrl);
                             sdv_shangpin.setImageURI(uri);
-                            tv_price.setText(message.result.goodsEntity.counterPrice+"");
+                            tv_price.setText(message.result.goodsEntity.counterPrice + "");
 
 
                         }
@@ -347,8 +366,10 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                                 guige_list.add(tempVauleList.getValue());
                             }
 
+
+                            goodsProductEntities = message.result.goodsProductEntities;
                             guige_label.setData(guige_list, ShangPinxiangqingActivity.this, 14, 15, 4, 14, 4, 24, 12, 24, 12);
-                            guige_label.selectString=guige_list.get(0);
+                            guige_label.selectString = guige_list.get(0);
                             tv_yixuan.setText("已选" + guige_list.get(0));
 
                             guige_label.setMarkClickListener(new GuigeLabelWrapLayout.MarkClickListener() {
@@ -375,8 +396,8 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                                         tv_yixuan.setText("已选" + guige_label.selectString + " " + yanse_label.selectString);
                                     }
                                 });
-                                yanse_label.selectString=yanse_list.get(0);
-                                tv_yixuan.setText("已选" + guige_label.selectString + " "+ yanse_list.get(0));
+                                yanse_label.selectString = yanse_list.get(0);
+                                tv_yixuan.setText("已选" + guige_label.selectString + " " + yanse_list.get(0));
 
                             }
 
