@@ -61,7 +61,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
     TextView btnEdit;//tv_edit
 
 
-    MaterialDesignPtrFrameLayout ptr_refresh;
+//    MaterialDesignPtrFrameLayout ptr_refresh;
     com.taisheng.now.view.TaishengListView list_shopping_cart;
     private ShoppingCartAdapter shoppingCartAdapter;
     private boolean flag = false;
@@ -88,18 +88,18 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
         btnEdit = (TextView) findViewById(R.id.bt_header_right);
 
 
-        ptr_refresh = (MaterialDesignPtrFrameLayout) findViewById(R.id.ptr_refresh);
-        /**
-         * 下拉刷新
-         */
-        ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
-            @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-                PAGE_NO = 1;
-                getDoctors();
-
-            }
-        });
+//        ptr_refresh = (MaterialDesignPtrFrameLayout) findViewById(R.id.ptr_refresh);
+//        /**
+//         * 下拉刷新
+//         */
+//        ptr_refresh.setPtrHandler(new PtrDefaultHandler() {
+//            @Override
+//            public void onRefreshBegin(PtrFrameLayout frame) {
+//                PAGE_NO = 1;
+////                getDoctors();
+//
+//            }
+//        });
         DingdanInstance.getInstance().dingdanList.clear();
         list_shopping_cart = (com.taisheng.now.view.TaishengListView) findViewById(R.id.list_shopping_cart);
 
@@ -166,7 +166,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
         ApiUtils.getApiService().gouwuchelist(bean).enqueue(new TaiShengCallback<BaseBean<GouwucheResultBean>>() {
             @Override
             public void onSuccess(Response<BaseBean<GouwucheResultBean>> response, BaseBean<GouwucheResultBean> message) {
-                ptr_refresh.refreshComplete();
+//                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
@@ -214,7 +214,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
 
             @Override
             public void onFail(Call<BaseBean<GouwucheResultBean>> call, Throwable t) {
-                ptr_refresh.refreshComplete();
+//                ptr_refresh.refreshComplete();
                 DialogUtil.closeProgress();
             }
         });
