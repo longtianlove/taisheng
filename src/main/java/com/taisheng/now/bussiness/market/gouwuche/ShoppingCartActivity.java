@@ -21,6 +21,7 @@ import com.taisheng.now.bussiness.bean.post.CartDetePostBean;
 import com.taisheng.now.bussiness.bean.result.GouwucheResultBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
+import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
 import com.taisheng.now.bussiness.market.DingdanInstance;
 import com.taisheng.now.bussiness.market.ShangPinxiangqingActivity;
 import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
@@ -227,9 +228,18 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
             //全选按钮
             case R.id.ck_all:
                 if (shoppingCartBeanList.size() != 0) {
+                    DingdanInstance.getInstance().dingdanList.clear();
                     if (ckAll.isChecked()) {
                         for (int i = 0; i < shoppingCartBeanList.size(); i++) {
                             shoppingCartBeanList.get(i).setChoosed(true);
+                            ShoppingCartBean beanA=shoppingCartBeanList.get(i);
+                            xiadanshangpinBean beanB=new xiadanshangpinBean();
+                            beanB.picUrl=beanA.imageUrl;
+                            beanB.number=beanA.count+"";
+                            beanB.counterPrice=beanA.price+"";
+                            beanB.name=beanA.shoppingName;
+                            beanB.id=beanA.id;
+                            DingdanInstance.getInstance().dingdanList.add(beanB);
                         }
                         shoppingCartAdapter.notifyDataSetChanged();
                     } else {
@@ -264,6 +274,11 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
      * 结算订单、支付
      */
     private void lementOnder() {
+        if(DingdanInstance.getInstance().dingdanList.isEmpty()){
+            ToastUtil.showAtCenter("请选择商品");
+            return;
+        }
+
         //选中的需要提交的商品清单
         for (ShoppingCartBean bean : shoppingCartBeanList) {
             boolean choosed = bean.isChoosed();
