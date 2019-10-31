@@ -277,7 +277,9 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
                 Log.d(TAG, id + "----id---" + shoppingName + "---" + count + "---" + price + "--size----" + size + "--attr---" + attribute);
             }
         }
-        ToastUtil.showAtCenter("总价：" + totalPrice);
+//        ToastUtil.showAtCenter("总价：" + totalPrice);
+        DingdanInstance.getInstance().zongjia=totalPrice+"";
+
 
         //跳转到支付界面
         //获取地址信息

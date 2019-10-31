@@ -144,16 +144,18 @@
                         android:layout_weight="1" />
 
                     <LinearLayout
+                        android:id="@+id/ll_youhuijuan"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/tv_youhuijuan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="-￥10.00元"
+                            android:text="请选择"
                             android:textColor="#ff999999"
                             android:textSize="15sp" />
 
@@ -213,6 +215,7 @@
                         android:layout_weight="1" />
 
                     <TextView
+                        android:id="@+id/tv_jianyouhuijuan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
@@ -254,6 +257,7 @@
                         android:layout_weight="1" />
 
                     <TextView
+                        android:id="@+id/tv_youfei"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
@@ -340,6 +344,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv_zongjia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="￥0.00"

@@ -304,6 +304,8 @@ public class Constants {
 
 //            订单信息-【订单列表】
             public static final String orderList="jeecg-boot/app/mall/order/list";
+//            快递费用显示】
+            public static final String getPostage="jeecg-boot/app/mall/postage/getPostage";
 
         }
 

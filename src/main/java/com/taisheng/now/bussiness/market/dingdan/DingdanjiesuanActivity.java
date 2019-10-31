@@ -19,15 +19,18 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
+import com.taisheng.now.bussiness.bean.post.BasePostBean;
 import com.taisheng.now.bussiness.bean.result.JifenzhuanquBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
+import com.taisheng.now.bussiness.bean.result.market.OrderListResultBean;
 import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
 import com.taisheng.now.bussiness.market.DingdanInstance;
 import com.taisheng.now.bussiness.market.MarketFragment;
 import com.taisheng.now.bussiness.market.ShangPinxiangqingActivity;
 import com.taisheng.now.bussiness.market.dizhi.DizhiActivity;
 import com.taisheng.now.bussiness.market.dizhi.DizhiBianjiActivity;
+import com.taisheng.now.bussiness.market.youhuijuan.MyYouhuijuanActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
@@ -55,9 +58,18 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
     TextView tv_phone;
     TextView tv_address;
 
+
+    View ll_youhuijuan;
+    TextView tv_youhuijuan;
+
+
     public WithScrolleViewListView lv_jiesuan;
     ArticleAdapter madapter;
 
+
+    TextView tv_jianyouhuijuan;
+    TextView tv_youfei;
+    TextView tv_zongjia;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,7 +89,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DingdanjiesuanActivity.this, DizhiActivity.class);
-                startActivityForResult(intent,1);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -85,12 +97,30 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
         tv_phone = findViewById(R.id.tv_phone);
         tv_address = findViewById(R.id.tv_address);
 
+        ll_youhuijuan = findViewById(R.id.ll_youhuijuan);
+        ll_youhuijuan.setOnClickListener(new View.OnClickListener() {
 
-        lv_jiesuan=findViewById(R.id.lv_jiesuan);
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DingdanjiesuanActivity.this, MyYouhuijuanActivity.class);
+                startActivityForResult(intent, 2);
+            }
+        });
+        tv_youhuijuan = findViewById(R.id.tv_youhuijuan);
+
+        lv_jiesuan = findViewById(R.id.lv_jiesuan);
         madapter = new ArticleAdapter(DingdanjiesuanActivity.this);
-        madapter.mData= DingdanInstance.getInstance().dingdanList;
+        madapter.mData = DingdanInstance.getInstance().dingdanList;
         lv_jiesuan.setAdapter(madapter);
 
+
+        tv_jianyouhuijuan = findViewById(R.id.tv_jianyouhuijuan);
+        tv_jianyouhuijuan.setText("-¥0");
+        tv_youfei=findViewById(R.id.tv_youfei);
+        tv_youfei.setText("￥0");
+
+        tv_zongjia = findViewById(R.id.tv_zongjia);
+        tv_zongjia.setText(DingdanInstance.getInstance().zongjia);
         initData();
     }
 
@@ -98,7 +128,6 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
     //初始化数据
     protected void initData() {
 //获取地址信息
-
         BaseListPostBean bean = new BaseListPostBean();
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
@@ -129,7 +158,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                             }
                             tv_dizhiname.setText(bean.name);
                             tv_phone.setText(bean.phone);
-                            tv_address.setText(bean.province + bean.city +bean.county+ bean.addressDetail);
+                            tv_address.setText(bean.province + bean.city + bean.county + bean.addressDetail);
 
                         } else {
 
@@ -142,6 +171,32 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
             public void onFail(Call<BaseBean<DizhilistResultBean>> call, Throwable t) {
 
                 DialogUtil.closeProgress();
+            }
+        });
+
+
+        BasePostBean basePostBean = new BasePostBean();
+        basePostBean.userId = UserInstance.getInstance().getUid();
+        basePostBean.token = UserInstance.getInstance().getToken();
+
+
+        //获取邮费
+        ApiUtils.getApiService().getPostage(basePostBean).enqueue(new TaiShengCallback<BaseBean<String>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<String>> response, BaseBean<String> message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        youfei = message.result + "";
+                        tv_youfei.setText("￥"+youfei);
+                        tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount)+Double.parseDouble(youfei)));
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<String>> call, Throwable t) {
+
             }
         });
     }
@@ -157,17 +212,26 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
     }
 
 
+    String discount = "0";
+    String youfei = "0";
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode){
+        switch (resultCode) {
             case 1:
-                String name=data.getStringExtra("name");
-                String phone=data.getStringExtra("phone");
-                String address=data.getStringExtra("address");
+                String name = data.getStringExtra("name");
+                String phone = data.getStringExtra("phone");
+                String address = data.getStringExtra("address");
                 tv_dizhiname.setText(name);
                 tv_phone.setText(phone);
                 tv_address.setText(address);
+                break;
+            case 2:
+                discount = data.getStringExtra("tv_discount");
+                tv_youhuijuan.setText("¥" + discount);
+                tv_jianyouhuijuan.setText("-¥" + discount);
+                tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount)+Double.parseDouble(youfei)));
                 break;
         }
     }
@@ -187,7 +251,6 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
             StatusBarUtil.setStatusBarColor(this, 0x55000000);
         }
     }
-
 
 
     class ArticleAdapter extends BaseAdapter {
@@ -230,7 +293,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                 util.tv_name = convertView.findViewById(R.id.tv_name);
                 util.tv_counterprice = convertView.findViewById(R.id.tv_counterprice);
 //                util.tv_retailprice = convertView.findViewById(R.id.tv_retailprice);
-                util.tv_number=convertView.findViewById(R.id.tv_number);
+                util.tv_number = convertView.findViewById(R.id.tv_number);
 
                 convertView.setTag(util);
             } else {
@@ -261,7 +324,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
             util.tv_counterprice.setText(bean.counterPrice + "");
 //            util.tv_retailprice.setText(bean.retailPrice + "");
 //            util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-            util.tv_number.setText("x "+bean.number);
+            util.tv_number.setText("x " + bean.number);
             return convertView;
         }
 

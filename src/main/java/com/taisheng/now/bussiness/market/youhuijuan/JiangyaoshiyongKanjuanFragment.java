@@ -2,8 +2,6 @@ package com.taisheng.now.bussiness.market.youhuijuan;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.base.BaseFragment;
-import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.KanjuanPostBean;
-import com.taisheng.now.bussiness.bean.result.JifenzhuanquBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -29,23 +24,20 @@ import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.view.TaishengListView;
-import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class KanjuanFragment extends BaseFragment {
+public class JiangyaoshiyongKanjuanFragment extends BaseFragment {
 
     public String assessmentType;
 
 
-//    MaterialDesignPtrFrameLayout ptr_refresh;
-    com.taisheng.now.view.TaishengListView list_kajuan;
+    //    MaterialDesignPtrFrameLayout ptr_refresh;
+    TaishengListView list_kajuan;
 
     YouhuiquanAdapter madapter;
 
@@ -53,7 +45,7 @@ public class KanjuanFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.fragment_kajuan, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_jiangyaoshiyongkajuan, container, false);
         initView(rootView);
         initData();
         return rootView;
@@ -72,7 +64,7 @@ public class KanjuanFragment extends BaseFragment {
 //
 //            }
 //        });
-        list_kajuan = (com.taisheng.now.view.TaishengListView) rootView.findViewById(R.id.list_kajuan);
+        list_kajuan = (TaishengListView) rootView.findViewById(R.id.list_kajuan);
 
 
         madapter = new YouhuiquanAdapter(getContext());
@@ -100,15 +92,15 @@ public class KanjuanFragment extends BaseFragment {
         bean.token = UserInstance.getInstance().getToken();
         bean.pageNo = PAGE_NO;
         bean.pageSize = 10;
-        switch (assessmentType){
+        switch (assessmentType) {
             case "1":
-                bean.status="0";
+                bean.status = "0";
                 break;
             case "2":
-                bean.status="2";
+                bean.status = "2";
                 break;
             case "3":
-                bean.status="1";
+                bean.status = "1";
                 break;
 
         }
@@ -202,9 +194,19 @@ public class KanjuanFragment extends BaseFragment {
                 util = (YouhuiquanAdapter.Util) convertView.getTag();
             }
             MallYouhuiquanBean bean = mData.get(position);
+            Util finalUtil = util;
             util.ll_all.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    if ("1".equals(assessmentType)) {
+                        Intent intent = new Intent();
+                        intent.putExtra("tv_discount", bean.discount);
+                        getActivity().setResult(2, intent);
+                        getActivity().finish();
+                    }
+
+
                 }
             });
             util.tv_discount.setText("¥"+bean.discount + "");

@@ -391,7 +391,7 @@ public class MarketFragment extends BaseFragment {
                 public void onClick(View v) {
                 }
             });
-            util.tv_discount.setText(bean.discount + "");
+            util.tv_discount.setText("¥"+bean.discount + "");
             util.tv_name.setText(bean.name);
             util.tv_tag.setText(bean.tag);
             util.tv_usedate.setText(bean.useDate);

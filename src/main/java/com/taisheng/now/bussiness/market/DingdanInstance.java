@@ -11,6 +11,7 @@ public class DingdanInstance {
 
     private static DingdanInstance dingdanInstance;
 
+
     private DingdanInstance() {
     }
 
@@ -23,6 +24,7 @@ public class DingdanInstance {
 
 
     public List<xiadanshangpinBean> dingdanList=new ArrayList<>();
+    public String zongjia;
 
 
 }

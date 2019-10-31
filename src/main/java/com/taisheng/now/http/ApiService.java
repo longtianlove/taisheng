@@ -347,17 +347,18 @@ public interface ApiService {
     @POST(Constants.Url.ShangCheng.addressAdd)
     Call<BaseBean> addressAdd(@Body AddDizhiPostBean bean);
 
-//    public static final String goodsTtype="jeecg-boot/app/mall/goods/goods/type";
+    //    public static final String goodsTtype="jeecg-boot/app/mall/goods/goods/type";
     @POST(Constants.Url.ShangCheng.goodsTtype)
     Call<BaseBean<ShangPinResultBeann>> goodsTtype(@Body MarketTypePostBean bean);
 
-//    public static final String orderList="jeecg-boot/app/mall/order/list";
+    //    public static final String orderList="jeecg-boot/app/mall/order/list";
     @POST(Constants.Url.ShangCheng.orderList)
     Call<BaseBean<OrderListResultBean>> orderList(@Body OrderListPostBean bean);
 
 
-
-
+    //    public static final String getPostage="jeecg-boot/app/mall/postage/getPostage";
+    @POST(Constants.Url.ShangCheng.getPostage)
+    Call<BaseBean<String>> getPostage(@Body BasePostBean bean);
 
 
     @POST(Constants.Url.Test.weChatPay)

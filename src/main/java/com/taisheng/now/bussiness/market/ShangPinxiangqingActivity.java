@@ -275,6 +275,8 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                 xbean.picUrl=picUrl;
                 DingdanInstance.getInstance().dingdanList.add(xbean);
 
+                DingdanInstance.getInstance().zongjia=counterPrice+"";
+
                 //获取地址信息
 
                 BaseListPostBean bean = new BaseListPostBean();
