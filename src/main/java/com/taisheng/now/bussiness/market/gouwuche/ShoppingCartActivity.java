@@ -1,6 +1,7 @@
 package com.taisheng.now.bussiness.market.gouwuche;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -19,6 +20,11 @@ import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.CartDetePostBean;
 import com.taisheng.now.bussiness.bean.result.GouwucheResultBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
+import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
+import com.taisheng.now.bussiness.market.DingdanInstance;
+import com.taisheng.now.bussiness.market.ShangPinxiangqingActivity;
+import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
+import com.taisheng.now.bussiness.market.dizhi.DizhiBianjiActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
@@ -93,6 +99,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
 
             }
         });
+        DingdanInstance.getInstance().dingdanList.clear();
         list_shopping_cart = (com.taisheng.now.view.TaishengListView) findViewById(R.id.list_shopping_cart);
 
         btnEdit.setOnClickListener(this);
@@ -273,6 +280,40 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
         ToastUtil.showAtCenter("总价：" + totalPrice);
 
         //跳转到支付界面
+        //获取地址信息
+
+        BaseListPostBean bean = new BaseListPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.pageNo = 1;
+        bean.pageSize = 10;
+
+        ApiUtils.getApiService().addressList(bean).enqueue(new TaiShengCallback<BaseBean<DizhilistResultBean>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<DizhilistResultBean>> response, BaseBean<DizhilistResultBean> message) {
+
+                DialogUtil.closeProgress();
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+
+
+                        if (message.result.records != null && message.result.records.size() > 0) {
+                            Intent intent = new Intent(ShoppingCartActivity.this, DingdanjiesuanActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(ShoppingCartActivity.this, DizhiBianjiActivity.class);
+                            startActivity(intent);
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<DizhilistResultBean>> call, Throwable t) {
+
+                DialogUtil.closeProgress();
+            }
+        });
     }
 
     /**

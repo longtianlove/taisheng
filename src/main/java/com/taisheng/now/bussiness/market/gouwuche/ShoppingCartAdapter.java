@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.R;
+import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
+import com.taisheng.now.bussiness.market.DingdanInstance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,6 +98,16 @@ public class ShoppingCartAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         final ShoppingCartBean shoppingCartBean = shoppingCartBeanList.get(position);
+        xiadanshangpinBean xbean=new xiadanshangpinBean();
+        xbean.id=shoppingCartBean.id;
+        xbean.name=shoppingCartBean.shoppingName;
+        xbean.counterPrice=shoppingCartBean.price+"";
+//        xbean.retailPrice=retailPrice;
+        xbean.number=shoppingCartBean.count+"";
+        xbean.picUrl=shoppingCartBean.imageUrl;
+
+
+
         boolean choosed = shoppingCartBean.isChoosed();
         if (choosed){
             holder.ckOneChose.setChecked(true);
@@ -131,6 +143,21 @@ public class ShoppingCartAdapter extends BaseAdapter {
                     public void onClick(View v) {
                         shoppingCartBean.setChoosed(((CheckBox) v).isChecked());
                         checkInterface.checkGroup(position, ((CheckBox) v).isChecked());//向外暴露接口
+                        if(((CheckBox) v).isChecked()){
+                            for(xiadanshangpinBean bean:DingdanInstance.getInstance().dingdanList) {
+                                if(bean.id==xbean.id){
+                                    DingdanInstance.getInstance().dingdanList.remove(bean);
+                                }
+                            }
+                            DingdanInstance.getInstance().dingdanList.add(xbean);
+
+                        }else{
+                            for(xiadanshangpinBean bean:DingdanInstance.getInstance().dingdanList) {
+                                if(bean.id==xbean.id){
+                                    DingdanInstance.getInstance().dingdanList.remove(bean);
+                                }
+                            }
+                        }
                     }
                 }
         );

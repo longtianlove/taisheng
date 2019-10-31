@@ -229,7 +229,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                 util.sdv_article = convertView.findViewById(R.id.sdv_article);
                 util.tv_name = convertView.findViewById(R.id.tv_name);
                 util.tv_counterprice = convertView.findViewById(R.id.tv_counterprice);
-                util.tv_retailprice = convertView.findViewById(R.id.tv_retailprice);
+//                util.tv_retailprice = convertView.findViewById(R.id.tv_retailprice);
                 util.tv_number=convertView.findViewById(R.id.tv_number);
 
                 convertView.setTag(util);
@@ -259,8 +259,8 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
             }
             util.tv_name.setText(bean.name);
             util.tv_counterprice.setText(bean.counterPrice + "");
-            util.tv_retailprice.setText(bean.retailPrice + "");
-            util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+//            util.tv_retailprice.setText(bean.retailPrice + "");
+//            util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             util.tv_number.setText("x "+bean.number);
             return convertView;
         }

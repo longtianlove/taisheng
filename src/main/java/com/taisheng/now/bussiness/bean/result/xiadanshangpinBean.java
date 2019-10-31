@@ -8,7 +8,7 @@ public class xiadanshangpinBean {
     public String picUrl;
     public boolean newGoods;
     public boolean hotGoods;
-    public int counterPrice;
+    public String counterPrice;
     public int retailPrice;
     public String number;
 }
