@@ -347,6 +347,12 @@ public interface ApiService {
     @POST(Constants.Url.ShangCheng.addressAdd)
     Call<BaseBean> addressAdd(@Body AddDizhiPostBean bean);
 
+
+//    public static final String updateAddressById = "jeecg-boot/app/mall/address/updateAddressById";
+    @POST(Constants.Url.ShangCheng.updateAddressById)
+    Call<BaseBean> updateAddressById(@Body AddDizhiPostBean bean);
+
+
     //    public static final String goodsTtype="jeecg-boot/app/mall/goods/goods/type";
     @POST(Constants.Url.ShangCheng.goodsTtype)
     Call<BaseBean<ShangPinResultBeann>> goodsTtype(@Body MarketTypePostBean bean);

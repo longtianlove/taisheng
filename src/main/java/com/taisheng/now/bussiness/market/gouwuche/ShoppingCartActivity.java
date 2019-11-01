@@ -321,6 +321,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
                             Intent intent = new Intent(ShoppingCartActivity.this, DingdanjiesuanActivity.class);
                             startActivity(intent);
                         } else {
+                            DingdanInstance.getInstance().fromDizhi="2";
                             Intent intent = new Intent(ShoppingCartActivity.this, DizhiBianjiActivity.class);
                             startActivity(intent);
                         }

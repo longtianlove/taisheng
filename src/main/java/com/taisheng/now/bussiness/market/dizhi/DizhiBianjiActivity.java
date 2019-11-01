@@ -29,6 +29,7 @@ import com.taisheng.now.bussiness.bean.post.AddDizhiPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.bussiness.market.DingdanInstance;
 import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
+import com.taisheng.now.bussiness.market.gouwuche.StringUtil;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
@@ -58,6 +59,8 @@ public class DizhiBianjiActivity extends BaseActivity {
     View ll_dizhidefault;
     ImageView iv_dizhidefault;
     View btn_save;
+
+    public String dizhiid;
 
 
     @Override
@@ -118,42 +121,89 @@ public class DizhiBianjiActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-                AddDizhiPostBean bean = new AddDizhiPostBean();
-                bean.userId = UserInstance.getInstance().getUid();
-                bean.token = UserInstance.getInstance().getToken();
-                bean.addressDetail = et_xiangxidizhi.getText().toString();
-                bean.province = province;
-                bean.city = city;
-                bean.county = district;
-                bean.defaultAddress = (iv_dizhidefault.isSelected() ? "0" : "1");
-                bean.phone = et_phone.getText().toString();
-                bean.name = et_xingming.getText().toString();
+                if(StringUtil.isEmpty(dizhiid)) {
 
 
-                ApiUtils.getApiService().addressAdd(bean).enqueue(new TaiShengCallback<BaseBean>() {
-                    @Override
-                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
-                        switch (message.code) {
-                            case Constants.HTTP_SUCCESS:
-                                ToastUtil.showAtCenter("添加成功");
-                                DingdanInstance.getInstance().addressId = message.message;
-                                Intent intent=new Intent(DizhiBianjiActivity.this, DingdanjiesuanActivity.class);
-                                startActivity(intent);
-                                finish();
-                                break;
+                    AddDizhiPostBean bean = new AddDizhiPostBean();
+                    bean.userId = UserInstance.getInstance().getUid();
+                    bean.token = UserInstance.getInstance().getToken();
+                    bean.addressDetail = et_xiangxidizhi.getText().toString();
+                    bean.province = province;
+                    bean.city = city;
+                    bean.county = district;
+                    bean.defaultAddress = (iv_dizhidefault.isSelected() ? "0" : "1");
+                    bean.phone = et_phone.getText().toString();
+                    bean.name = et_xingming.getText().toString();
+
+
+                    ApiUtils.getApiService().addressAdd(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                        @Override
+                        public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                            switch (message.code) {
+                                case Constants.HTTP_SUCCESS:
+                                    ToastUtil.showAtCenter("添加成功");
+                                    DingdanInstance.getInstance().addressId = message.message;
+                                    DingdanInstance.getInstance().name=bean.name;
+                                    DingdanInstance.getInstance().phone=bean.phone;
+                                    DingdanInstance.getInstance().address=bean.province + bean.city + bean.county + bean.addressDetail;
+                                    if( "1".equals(DingdanInstance.getInstance().fromDizhi)){
+                                        finish();
+                                    }else{
+                                        Intent intent=new Intent(DizhiBianjiActivity.this,DingdanjiesuanActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+
+                                    break;
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFail(Call<BaseBean> call, Throwable t) {
+                        @Override
+                        public void onFail(Call<BaseBean> call, Throwable t) {
 
-                    }
-                });
+                        }
+                    });
+
+                }else{
+
+
+                    AddDizhiPostBean bean = new AddDizhiPostBean();
+                    bean.id=dizhiid;
+                    bean.userId = UserInstance.getInstance().getUid();
+                    bean.token = UserInstance.getInstance().getToken();
+                    bean.addressDetail = et_xiangxidizhi.getText().toString();
+                    bean.province = province;
+                    bean.city = city;
+                    bean.county = district;
+                    bean.defaultAddress = (iv_dizhidefault.isSelected() ? "0" : "1");
+                    bean.phone = et_phone.getText().toString();
+                    bean.name = et_xingming.getText().toString();
+
+
+                    ApiUtils.getApiService().updateAddressById(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                        @Override
+                        public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                            switch (message.code) {
+                                case Constants.HTTP_SUCCESS:
+                                    ToastUtil.showAtCenter("更新成功");
+                                    DingdanInstance.getInstance().addressId =dizhiid;
+                                    finish();
+                                    break;
+                            }
+                        }
+
+                        @Override
+                        public void onFail(Call<BaseBean> call, Throwable t) {
+
+                        }
+                    });
+                }
             }
         });
     }
 
     void initData() {
+        dizhiid=getIntent().getStringExtra("dizhiid");
         String name = getIntent().getStringExtra("name");
         String phonne = getIntent().getStringExtra("phone");
         String address = getIntent().getStringExtra("address");

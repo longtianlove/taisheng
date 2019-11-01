@@ -15,7 +15,7 @@ public class Constants {
     public final static int SDKAPPID = 1400229730;
 
     //微信支付appid
-    public final static String WXAPPID="wxa371cf7bae0024bf";
+    public final static String WXAPPID = "wxa371cf7bae0024bf";
 
 
     //访问成功
@@ -274,41 +274,42 @@ public class Constants {
             //优惠券列表
             public static final String couponlist = "jeecg-boot/app/mall/coupon/more/list";
             //我的优惠券
-            public static final String getCouponlist="jeecg-boot/app/mall/coupon/getCouponList";
+            public static final String getCouponlist = "jeecg-boot/app/mall/coupon/getCouponList";
 
             //商品列表
-            public static final String goodslist="jeecg-boot/app/mall/goods/list";
+            public static final String goodslist = "jeecg-boot/app/mall/goods/list";
 
 
             //商品详情
-            public static final String shangpinxiangqing="jeecg-boot/app/mall/goods/goods/detail";
+            public static final String shangpinxiangqing = "jeecg-boot/app/mall/goods/goods/detail";
 
-            public static final String gouwuchelist="jeecg-boot/app/mall/cart/list";
+            public static final String gouwuchelist = "jeecg-boot/app/mall/cart/list";
 
-            public static final String cainixihuan="jeecg-boot/app/mall/goods/hot/like/list";
+            public static final String cainixihuan = "jeecg-boot/app/mall/goods/hot/like/list";
             //添加到购物车
-            public static final String addgouwuche="jeecg-boot/app/mall/cart/add";
+            public static final String addgouwuche = "jeecg-boot/app/mall/cart/add";
             //从购物车删除
-            public static final String cartDelete="jeecg-boot/app/mall/cart/delete";
+            public static final String cartDelete = "jeecg-boot/app/mall/cart/delete";
 
             //商城首页优惠券-领取用户优惠券
-            public static final String getCoupon="jeecg-boot/app/mall/coupon/getCoupon";
+            public static final String getCoupon = "jeecg-boot/app/mall/coupon/getCoupon";
             //用户收货地址
-            public static final String addressList="jeecg-boot/app/mall/address/list";
+            public static final String addressList = "jeecg-boot/app/mall/address/list";
             //添加地址
-            public static final String addressAdd="jeecg-boot/app/mall/address/add";
+            public static final String addressAdd = "jeecg-boot/app/mall/address/add";
+            //            用户收货地址接口-编辑收货地址
+            public static final String updateAddressById = "jeecg-boot/app/mall/address/updateAddressById";
 
 
             //不同类别下的商品列表
-            public static final String goodsTtype="jeecg-boot/app/mall/goods/goods/type";
+            public static final String goodsTtype = "jeecg-boot/app/mall/goods/goods/type";
 
-//            订单信息-【订单列表】
-            public static final String orderList="jeecg-boot/app/mall/order/list";
-//            快递费用显示】
-            public static final String getPostage="jeecg-boot/app/mall/postage/getPostage";
+            //            订单信息-【订单列表】
+            public static final String orderList = "jeecg-boot/app/mall/order/list";
+            //            快递费用显示】
+            public static final String getPostage = "jeecg-boot/app/mall/postage/getPostage";
 
         }
-
 
 
         /**
@@ -318,9 +319,7 @@ public class Constants {
         public static final String feedback = "jeecg-boot/app/feedback/add";
 
 
-
-
-        public static class Test{
+        public static class Test {
             public static final String weChatPay = "jeecg-boot/app/pay/payment/wxpay/weChatPay";
 
         }

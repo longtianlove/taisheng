@@ -76,6 +76,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_diandanjiesuan);
         initView();
+
     }
 
     private void initView() {
@@ -116,7 +117,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
 
         tv_jianyouhuijuan = findViewById(R.id.tv_jianyouhuijuan);
         tv_jianyouhuijuan.setText("-¥0");
-        tv_youfei=findViewById(R.id.tv_youfei);
+        tv_youfei = findViewById(R.id.tv_youfei);
         tv_youfei.setText("￥0");
 
         tv_zongjia = findViewById(R.id.tv_zongjia);
@@ -187,8 +188,8 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         youfei = message.result + "";
-                        tv_youfei.setText("￥"+youfei);
-                        tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount)+Double.parseDouble(youfei)));
+                        tv_youfei.setText("￥" + youfei);
+                        tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount) + Double.parseDouble(youfei)));
 
                         break;
                 }
@@ -228,10 +229,10 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                 tv_address.setText(address);
                 break;
             case 2:
-                discount =  DingdanInstance.getInstance().tv_discount;
+                discount = DingdanInstance.getInstance().tv_discount;
                 tv_youhuijuan.setText("¥" + discount);
                 tv_jianyouhuijuan.setText("-¥" + discount);
-                tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount)+Double.parseDouble(youfei)));
+                tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount) + Double.parseDouble(youfei)));
                 break;
         }
     }
@@ -250,6 +251,11 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
             //这样半透明+白=灰, 状态栏的文字能看得清
             StatusBarUtil.setStatusBarColor(this, 0x55000000);
         }
+
+
+        tv_dizhiname.setText(DingdanInstance.getInstance().name);
+        tv_phone.setText(DingdanInstance.getInstance().phone);
+        tv_address.setText(DingdanInstance.getInstance().address);
     }
 
 

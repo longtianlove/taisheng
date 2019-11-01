@@ -299,6 +299,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                                     Intent intent = new Intent(ShangPinxiangqingActivity.this, DingdanjiesuanActivity.class);
                                     startActivity(intent);
                                 } else {
+                                    DingdanInstance.getInstance().fromDizhi="2";
                                     Intent intent = new Intent(ShangPinxiangqingActivity.this, DizhiBianjiActivity.class);
                                     startActivity(intent);
                                 }

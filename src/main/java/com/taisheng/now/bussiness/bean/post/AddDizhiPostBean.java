@@ -15,7 +15,7 @@ public class AddDizhiPostBean extends BasePostBean {
 //            "province": "string",
 //            "token": "string",
 //            "userId": "string"
-
+public String id;
     public String province;
     public String phone;
     public String name;

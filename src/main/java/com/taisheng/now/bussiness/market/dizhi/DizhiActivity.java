@@ -44,6 +44,7 @@ public class DizhiActivity extends Activity {
     MaterialDesignPtrFrameLayout ptr_refresh;
     TaishengListView lv_dizhis;
     DizhiAdapter madapter;
+    View tv_adddizhi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,15 @@ public class DizhiActivity extends Activity {
                 initData();
             }
         });
-
+        tv_adddizhi=findViewById(R.id.tv_adddizhi);
+        tv_adddizhi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DingdanInstance.getInstance().fromDizhi="1";
+                Intent intent = new Intent(DizhiActivity.this, DizhiBianjiActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -192,6 +201,10 @@ public class DizhiActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent();
+                    DingdanInstance.getInstance().name=bean.name;
+                    DingdanInstance.getInstance().phone=bean.phone;
+                    DingdanInstance.getInstance().address=bean.province + bean.city + bean.county + bean.addressDetail;
+
                     intent.putExtra("name", bean.name);
                     intent.putExtra("phone", bean.phone);
                     intent.putExtra("address", bean.province + bean.city + bean.county + bean.addressDetail);
@@ -220,6 +233,7 @@ public class DizhiActivity extends Activity {
                     intent.putExtra("county", bean.county);
                     intent.putExtra("xiangxidizhi", bean.addressDetail);
                     intent.putExtra("isDefault", bean.isDefault);
+                    intent.putExtra("dizhiid",bean.id);
                     startActivity(intent);
                 }
             });
@@ -256,8 +270,21 @@ public class DizhiActivity extends Activity {
             //这样半透明+白=灰, 状态栏的文字能看得清
             StatusBarUtil.setStatusBarColor(this, 0x55000000);
         }
-
-
         initData();
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        PAGE_NO=1;
     }
 }
