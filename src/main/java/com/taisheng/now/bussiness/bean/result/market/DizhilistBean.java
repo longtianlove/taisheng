@@ -15,7 +15,7 @@ public class DizhilistBean {
 
 
     public String areaCode;
-    public int isDefault;
+    public int defaultAddress;
     public String addressDetail;
     public String province;
     public String city;
@@ -33,12 +33,12 @@ public class DizhilistBean {
         return areaCode;
     }
 
-    public void setIsDefault(int isDefault) {
-        this.isDefault = isDefault;
+    public void setDefaultAddress(int defaultAddress) {
+        this.defaultAddress = defaultAddress;
     }
 
-    public int getIsDefault() {
-        return isDefault;
+    public int getDefaultAddress() {
+        return defaultAddress;
     }
 
     public void setAddressDetail(String addressDetail) {

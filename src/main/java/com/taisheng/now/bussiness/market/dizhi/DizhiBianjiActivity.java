@@ -131,7 +131,7 @@ public class DizhiBianjiActivity extends BaseActivity {
                     bean.province = province;
                     bean.city = city;
                     bean.county = district;
-                    bean.defaultAddress = (iv_dizhidefault.isSelected() ? "0" : "1");
+                    bean.defaultAddress = (iv_dizhidefault.isSelected() ? "1" : "0");
                     bean.phone = et_phone.getText().toString();
                     bean.name = et_xingming.getText().toString();
 
@@ -175,7 +175,7 @@ public class DizhiBianjiActivity extends BaseActivity {
                     bean.province = province;
                     bean.city = city;
                     bean.county = district;
-                    bean.defaultAddress = (iv_dizhidefault.isSelected() ? "0" : "1");
+                    bean.defaultAddress = (iv_dizhidefault.isSelected() ? "1" : "0");
                     bean.phone = et_phone.getText().toString();
                     bean.name = et_xingming.getText().toString();
 
@@ -214,14 +214,17 @@ public class DizhiBianjiActivity extends BaseActivity {
         String county1=getIntent().getStringExtra("county");
         district=county1;
         String xiangxidizhi = getIntent().getStringExtra("xiangxidizhi");
-        String isDeafult = getIntent().getStringExtra("isDefault");
+        String isDeafult = getIntent().getStringExtra("defaultAddress");
+
         et_xingming.setText(name);
+        et_xingming.setSelection(et_xingming.getText().length());
+
         et_phone.setText(phonne);
         if(!TextUtils.isEmpty(province1)) {
             et_dizhi.setText(province1 + " " + city1 + " " + county1);
         }
         et_xiangxidizhi.setText(xiangxidizhi);
-        if (isDeafult == "1") {
+        if ("1".equals(isDeafult)) {
             iv_dizhidefault.setSelected(true);
         } else {
             iv_dizhidefault.setSelected(false);

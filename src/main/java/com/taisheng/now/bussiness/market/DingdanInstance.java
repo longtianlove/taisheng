@@ -25,7 +25,7 @@ public class DingdanInstance {
 
     public List<xiadanshangpinBean> dingdanList = new ArrayList<>();
 
-    public String zongjia;
+
 
     public String addressId;
 
@@ -36,12 +36,17 @@ public class DingdanInstance {
     public String tv_discount;
 
 
+    public String zongjia;
+
+
     //地址相关
     //进列表新增地址，还是手动在DizhiActivity中新增地址
     public String fromDizhi = "1";
     public String name;
     public String phone;
     public String address;
+
+//    public String defaultAddress="0";
 
 
 }

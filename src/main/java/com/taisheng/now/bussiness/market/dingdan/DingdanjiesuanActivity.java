@@ -3,7 +3,6 @@ package com.taisheng.now.bussiness.market.dingdan;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,16 +19,12 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
-import com.taisheng.now.bussiness.bean.result.JifenzhuanquBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
-import com.taisheng.now.bussiness.bean.result.market.OrderListResultBean;
 import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
 import com.taisheng.now.bussiness.market.DingdanInstance;
-import com.taisheng.now.bussiness.market.MarketFragment;
 import com.taisheng.now.bussiness.market.ShangPinxiangqingActivity;
 import com.taisheng.now.bussiness.market.dizhi.DizhiActivity;
-import com.taisheng.now.bussiness.market.dizhi.DizhiBianjiActivity;
 import com.taisheng.now.bussiness.market.youhuijuan.MyYouhuijuanActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
@@ -147,7 +142,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                             int i = 0;
                             for (DizhilistBean tempbean : message.result.records) {
                                 i++;
-                                if (tempbean.isDefault == 1) {
+                                if (tempbean.defaultAddress == 1) {
                                     bean = tempbean;
                                     break;
                                 }

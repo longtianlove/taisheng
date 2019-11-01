@@ -216,7 +216,7 @@ public class DizhiActivity extends Activity {
             util.tv_name.setText(bean.name);
             util.tv_phone.setText(bean.phone);
             util.tv_address.setText(bean.province + bean.city + bean.county + bean.addressDetail);
-            if (bean.isDefault == 1) {
+            if (bean.defaultAddress == 1) {
                 util.tv_ismdefault.setVisibility(View.VISIBLE);
             } else {
                 util.tv_ismdefault.setVisibility(View.GONE);
@@ -232,7 +232,7 @@ public class DizhiActivity extends Activity {
                     intent.putExtra("city", bean.city);
                     intent.putExtra("county", bean.county);
                     intent.putExtra("xiangxidizhi", bean.addressDetail);
-                    intent.putExtra("isDefault", bean.isDefault);
+                    intent.putExtra("defaultAddress", bean.defaultAddress+"");
                     intent.putExtra("dizhiid",bean.id);
                     startActivity(intent);
                 }
