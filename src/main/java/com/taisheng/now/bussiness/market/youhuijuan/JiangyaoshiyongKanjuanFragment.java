@@ -204,6 +204,7 @@ public class JiangyaoshiyongKanjuanFragment extends BaseFragment {
                         Intent intent = new Intent();
                         intent.putExtra("tv_discount", bean.discount);
                         DingdanInstance.getInstance().tv_discount=bean.discount+"";
+                        DingdanInstance.getInstance().couponId=bean.id;
                         getActivity().setResult(2, intent);
                         getActivity().finish();
                     }

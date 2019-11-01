@@ -239,7 +239,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
                             beanB.number=beanA.count+"";
                             beanB.counterPrice=beanA.price+"";
                             beanB.name=beanA.shoppingName;
-                            beanB.id=beanA.id;
+                            beanB.goodsId=beanA.id;
                             beanB.productId=beanA.productId;
 
                             DingdanInstance.getInstance().dingdanList.add(beanB);

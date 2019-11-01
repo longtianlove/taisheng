@@ -31,6 +31,10 @@ public class DingdanInstance {
 
     public String flag;
 
+    public String postFeeId;
+
+    public String couponId;
+
 
     //    优惠券返回值问题
     public String tv_discount;

@@ -2,7 +2,7 @@ package com.taisheng.now.bussiness.bean.result;
 
 public class xiadanshangpinBean {
 
-    public String id;
+    public String goodsId;
     public String name;
     public String brief;
     public String picUrl;

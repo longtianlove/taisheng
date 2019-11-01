@@ -309,6 +309,9 @@ public class Constants {
             //            快递费用显示】
             public static final String getPostage = "jeecg-boot/app/mall/postage/getPostage";
 
+
+            public static final String createOrder = "jeecg-boot/app/mall/order/createOrder";
+
         }
 
 

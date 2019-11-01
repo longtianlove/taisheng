@@ -267,7 +267,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 
                 DingdanInstance.getInstance().dingdanList.clear();
                 xiadanshangpinBean xbean=new xiadanshangpinBean();
-                xbean.id=goodsid;
+                xbean.goodsId=goodsid;
                 xbean.name=name;
                 xbean.counterPrice=counterPrice+"";
 //                xbean.retailPrice=retailPrice;

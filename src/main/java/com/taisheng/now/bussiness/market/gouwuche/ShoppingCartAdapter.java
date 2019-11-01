@@ -99,7 +99,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
         }
         final ShoppingCartBean shoppingCartBean = shoppingCartBeanList.get(position);
         xiadanshangpinBean xbean=new xiadanshangpinBean();
-        xbean.id=shoppingCartBean.id;
+        xbean.goodsId=shoppingCartBean.id;
         xbean.name=shoppingCartBean.shoppingName;
         xbean.counterPrice=shoppingCartBean.price+"";
 //        xbean.retailPrice=retailPrice;
@@ -146,7 +146,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
                         checkInterface.checkGroup(position, ((CheckBox) v).isChecked());//向外暴露接口
                         if(((CheckBox) v).isChecked()){
                             for(xiadanshangpinBean bean:DingdanInstance.getInstance().dingdanList) {
-                                if(bean.id==xbean.id){
+                                if(bean.goodsId==xbean.goodsId){
                                     DingdanInstance.getInstance().dingdanList.remove(bean);
                                 }
                             }
@@ -154,7 +154,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
 
                         }else{
                             for(xiadanshangpinBean bean:DingdanInstance.getInstance().dingdanList) {
-                                if(bean.id==xbean.id){
+                                if(bean.goodsId==xbean.goodsId){
                                     DingdanInstance.getInstance().dingdanList.remove(bean);
                                 }
                             }

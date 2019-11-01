@@ -295,6 +295,7 @@
                         android:textSize="15sp" />
 
                     <EditText
+                        android:id="@+id/et_beizhu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"

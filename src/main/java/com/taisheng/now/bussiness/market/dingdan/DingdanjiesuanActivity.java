@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -19,6 +20,9 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
+import com.taisheng.now.bussiness.bean.post.CreateOrderPostBean;
+import com.taisheng.now.bussiness.bean.result.CreateOrderResultBean;
+import com.taisheng.now.bussiness.bean.result.PostageResultBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
 import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
@@ -65,6 +69,10 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
     TextView tv_jianyouhuijuan;
     TextView tv_youfei;
     TextView tv_zongjia;
+
+
+    EditText et_beizhu;
+    View btn_qujiesuan;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,6 +125,42 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
 
         tv_zongjia = findViewById(R.id.tv_zongjia);
         tv_zongjia.setText(DingdanInstance.getInstance().zongjia);
+
+        et_beizhu = findViewById(R.id.et_beizhu);
+        btn_qujiesuan = findViewById(R.id.btn_qujiesuan);
+        btn_qujiesuan.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if ("请选择".equals(tv_youhuijuan.getText())) {
+                    DingdanInstance.getInstance().couponId = "";
+                }
+
+                CreateOrderPostBean bean=new CreateOrderPostBean();
+                bean.userId=UserInstance.getInstance().getUid();
+                bean.token=UserInstance.getInstance().getToken();
+                bean.addressId=DingdanInstance.getInstance().addressId;
+                bean.couponId=DingdanInstance.getInstance().couponId;
+                bean.flag=DingdanInstance.getInstance().flag;
+                bean.goodsList=DingdanInstance.getInstance().dingdanList;
+                bean.postFeeId=DingdanInstance.getInstance().postFeeId;
+                bean.message=et_beizhu.getText().toString();
+                ApiUtils.getApiService().createOrder(bean).enqueue(new TaiShengCallback<BaseBean<CreateOrderResultBean>>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean<CreateOrderResultBean>> response, BaseBean<CreateOrderResultBean> message) {
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean<CreateOrderResultBean>> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
         initData();
     }
 
@@ -152,6 +196,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                                 }
 
                             }
+                            DingdanInstance.getInstance().addressId=bean.id;
                             tv_dizhiname.setText(bean.name);
                             tv_phone.setText(bean.phone);
                             tv_address.setText(bean.province + bean.city + bean.county + bean.addressDetail);
@@ -177,12 +222,13 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
 
 
         //获取邮费
-        ApiUtils.getApiService().getPostage(basePostBean).enqueue(new TaiShengCallback<BaseBean<String>>() {
+        ApiUtils.getApiService().getPostage(basePostBean).enqueue(new TaiShengCallback<BaseBean<PostageResultBean>>() {
             @Override
-            public void onSuccess(Response<BaseBean<String>> response, BaseBean<String> message) {
+            public void onSuccess(Response<BaseBean<PostageResultBean>> response, BaseBean<PostageResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-                        youfei = message.result + "";
+                        youfei = message.result.money + "";
+                        DingdanInstance.getInstance().postFeeId = message.result.id;
                         tv_youfei.setText("￥" + youfei);
                         tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount) + Double.parseDouble(youfei)));
 
@@ -191,7 +237,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
             }
 
             @Override
-            public void onFail(Call<BaseBean<String>> call, Throwable t) {
+            public void onFail(Call<BaseBean<PostageResultBean>> call, Throwable t) {
 
             }
         });
@@ -307,7 +353,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                     //todo 进入商品详情
 
                     Intent intent = new Intent(DingdanjiesuanActivity.this, ShangPinxiangqingActivity.class);
-                    intent.putExtra("goodsid", bean.id);
+                    intent.putExtra("goodsid", bean.goodsId);
 
                     startActivity(intent);
                 }

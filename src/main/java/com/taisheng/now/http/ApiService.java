@@ -15,6 +15,7 @@ import com.taisheng.now.bussiness.bean.post.CollectAddorRemovePostBean;
 import com.taisheng.now.bussiness.bean.post.CollectListPostBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.ConnectDoctorPostBean;
+import com.taisheng.now.bussiness.bean.post.CreateOrderPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorCommentPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorDetailPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorNumberPostBean;
@@ -51,6 +52,7 @@ import com.taisheng.now.bussiness.bean.result.CollectAddorRemoveResultBean;
 import com.taisheng.now.bussiness.bean.result.ArticleCollectListResultBean;
 import com.taisheng.now.bussiness.bean.result.ConnectDoctorResultBean;
 import com.taisheng.now.bussiness.bean.result.ConsultListResultBean;
+import com.taisheng.now.bussiness.bean.result.CreateOrderResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCollectListResultBean;
 import com.taisheng.now.bussiness.bean.result.DoctorCommentResultBean;
@@ -66,6 +68,7 @@ import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
 import com.taisheng.now.bussiness.bean.result.ModifyUserInfoResultBean;
 import com.taisheng.now.bussiness.bean.result.MyPingjiaResultBean;
 import com.taisheng.now.bussiness.bean.result.PictureBean;
+import com.taisheng.now.bussiness.bean.result.PostageResultBean;
 import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
 import com.taisheng.now.bussiness.bean.result.RecommendSharedResultBean;
 import com.taisheng.now.bussiness.bean.result.ShipinsResultBean;
@@ -364,8 +367,12 @@ public interface ApiService {
 
     //    public static final String getPostage="jeecg-boot/app/mall/postage/getPostage";
     @POST(Constants.Url.ShangCheng.getPostage)
-    Call<BaseBean<String>> getPostage(@Body BasePostBean bean);
+    Call<BaseBean<PostageResultBean>> getPostage(@Body BasePostBean bean);
 
+
+
+    @POST(Constants.Url.ShangCheng.createOrder)
+    Call<BaseBean<CreateOrderResultBean>> createOrder(@Body CreateOrderPostBean bean);
 
     @POST(Constants.Url.Test.weChatPay)
     Call<WechatResultBean> weChatPay(@Body BasePostBean bean);
