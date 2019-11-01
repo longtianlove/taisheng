@@ -19,6 +19,7 @@ import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.bean.post.KanjuanPostBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
+import com.taisheng.now.bussiness.market.DingdanInstance;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
@@ -202,6 +203,7 @@ public class JiangyaoshiyongKanjuanFragment extends BaseFragment {
                     if ("1".equals(assessmentType)) {
                         Intent intent = new Intent();
                         intent.putExtra("tv_discount", bean.discount);
+                        DingdanInstance.getInstance().tv_discount=bean.discount+"";
                         getActivity().setResult(2, intent);
                         getActivity().finish();
                     }

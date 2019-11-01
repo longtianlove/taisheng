@@ -48,7 +48,9 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#f8f8f8" />
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ptr_refresh"
         android:layout_width="match_parent"
@@ -67,7 +69,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="30dp"
             android:background="#fff"
             android:divider="#fff"
             android:dividerHeight="9dp"
@@ -77,5 +79,13 @@
             android:scrollbars="none" />
 
     </com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout>
+    <TextView
+        android:layout_width="351dp"
+        android:layout_height="42dp"
+        android:text="新增收货地址"
+        android:textColor="#ffffffff"
+        android:textSize="15sp"
+        />
+</FrameLayout>
 
 </LinearLayout>

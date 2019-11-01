@@ -29,4 +29,6 @@ public class DingdanInstance {
     public String addressId;
 
 
+    public String tv_discount;
+
 }

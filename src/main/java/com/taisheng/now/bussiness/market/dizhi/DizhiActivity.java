@@ -16,6 +16,7 @@ import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
+import com.taisheng.now.bussiness.market.DingdanInstance;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
@@ -178,10 +179,10 @@ public class DizhiActivity extends Activity {
                 convertView = inflater.inflate(R.layout.item_dizhi, null);
                 util.ll_all = convertView.findViewById(R.id.ll_all);
                 util.tv_name = convertView.findViewById(R.id.tv_name);
-                util.tv_phone=convertView.findViewById(R.id.tv_phone);
-                util.tv_address=convertView.findViewById(R.id.tv_address);
-                util.tv_ismdefault=convertView.findViewById(R.id.tv_ismdefault);
-                util.tv_bianji=convertView.findViewById(R.id.tv_bianji);
+                util.tv_phone = convertView.findViewById(R.id.tv_phone);
+                util.tv_address = convertView.findViewById(R.id.tv_address);
+                util.tv_ismdefault = convertView.findViewById(R.id.tv_ismdefault);
+                util.tv_bianji = convertView.findViewById(R.id.tv_bianji);
                 convertView.setTag(util);
             } else {
                 util = (DizhiAdapter.Util) convertView.getTag();
@@ -190,21 +191,21 @@ public class DizhiActivity extends Activity {
             util.ll_all.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent();
-                    intent.putExtra("name",bean.name);
-                    intent.putExtra("phone",bean.phone);
-                    intent.putExtra("address",bean.province+bean.city+bean.county+bean.addressDetail);
-//todo 列表id
-                    setResult(1,intent);
+                    Intent intent = new Intent();
+                    intent.putExtra("name", bean.name);
+                    intent.putExtra("phone", bean.phone);
+                    intent.putExtra("address", bean.province + bean.city + bean.county + bean.addressDetail);
+                    DingdanInstance.getInstance().addressId = bean.id;
+                    setResult(1, intent);
                     finish();
                 }
             });
             util.tv_name.setText(bean.name);
             util.tv_phone.setText(bean.phone);
-            util.tv_address.setText(bean.province+bean.city+bean.county+bean.addressDetail);
-            if(bean.isDefault==1){
+            util.tv_address.setText(bean.province + bean.city + bean.county + bean.addressDetail);
+            if (bean.isDefault == 1) {
                 util.tv_ismdefault.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 util.tv_ismdefault.setVisibility(View.GONE);
             }
 
@@ -212,13 +213,13 @@ public class DizhiActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(DizhiActivity.this, DizhiBianjiActivity.class);
-                    intent.putExtra("name",bean.name);
-                    intent.putExtra("phone",bean.phone);
-                    intent.putExtra("province",bean.province);
-                    intent.putExtra("city",bean.city);
-                    intent.putExtra("county",bean.county);
-                    intent.putExtra("xiangxidizhi",bean.addressDetail);
-                    intent.putExtra("isDefault",bean.isDefault);
+                    intent.putExtra("name", bean.name);
+                    intent.putExtra("phone", bean.phone);
+                    intent.putExtra("province", bean.province);
+                    intent.putExtra("city", bean.city);
+                    intent.putExtra("county", bean.county);
+                    intent.putExtra("xiangxidizhi", bean.addressDetail);
+                    intent.putExtra("isDefault", bean.isDefault);
                     startActivity(intent);
                 }
             });

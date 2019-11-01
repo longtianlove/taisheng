@@ -228,7 +228,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                 tv_address.setText(address);
                 break;
             case 2:
-                discount = data.getStringExtra("tv_discount");
+                discount =  DingdanInstance.getInstance().tv_discount;
                 tv_youhuijuan.setText("¥" + discount);
                 tv_jianyouhuijuan.setText("-¥" + discount);
                 tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount)+Double.parseDouble(youfei)));
