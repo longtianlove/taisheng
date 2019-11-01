@@ -294,6 +294,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                             case Constants.HTTP_SUCCESS:
 
 
+                                DingdanInstance.getInstance().flag="N";
                                 if (message.result.records != null && message.result.records.size() > 0) {
                                     Intent intent = new Intent(ShangPinxiangqingActivity.this, DingdanjiesuanActivity.class);
                                     startActivity(intent);

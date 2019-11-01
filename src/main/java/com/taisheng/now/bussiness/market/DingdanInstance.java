@@ -29,9 +29,12 @@ public class DingdanInstance {
 
     public String addressId;
 
+    public  String flag;
 
 
 //    优惠券返回值问题
     public String tv_discount;
+
+
 
 }

@@ -316,7 +316,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
 
-
+                        DingdanInstance.getInstance().flag="Y";
                         if (message.result.records != null && message.result.records.size() > 0) {
                             Intent intent = new Intent(ShoppingCartActivity.this, DingdanjiesuanActivity.class);
                             startActivity(intent);
