@@ -21,6 +21,7 @@ import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
 import com.taisheng.now.bussiness.bean.post.CreateOrderPostBean;
+import com.taisheng.now.bussiness.bean.post.WexinZhifuPostBean;
 import com.taisheng.now.bussiness.bean.result.CreateOrderResultBean;
 import com.taisheng.now.bussiness.bean.result.PostageResultBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistBean;
@@ -33,9 +34,14 @@ import com.taisheng.now.bussiness.market.youhuijuan.MyYouhuijuanActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
+import com.taisheng.now.test.TestActivity;
+import com.taisheng.now.test.WechatResultBean;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.view.WithScrolleViewListView;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,6 +156,38 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                     public void onSuccess(Response<BaseBean<CreateOrderResultBean>> response, BaseBean<CreateOrderResultBean> message) {
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
+
+                                //请求支付接口
+//                                String orderId=message.message;
+                                WexinZhifuPostBean bean1=new WexinZhifuPostBean();
+                                bean1.orderId=message.message;
+                                bean1.userId=UserInstance.getInstance().getUid();
+                                bean1.token=UserInstance.getInstance().getToken();
+                                ApiUtils.getApiService().weChatPay(bean1).enqueue(new TaiShengCallback<WechatResultBean>() {
+                                    @Override
+                                    public void onSuccess(Response<WechatResultBean> response, WechatResultBean message) {
+
+                                        IWXAPI api = WXAPIFactory.createWXAPI(DingdanjiesuanActivity.this, Constants.WXAPPID, false);//填写自己的APPIDapi.registerApp("wxAPPID");//填写自己的APPID，注册本身
+                                        PayReq req = new PayReq();//PayReq就是订单信息对象
+                                        req.appId = Constants.WXAPPID;//你的微信appid
+                                        req.partnerId = message.partnerid;//商户号
+                                        req.prepayId = message.prepayid;//预支付交易会话ID
+                                        req.nonceStr = message.noncestr;//随机字符串
+                                        req.timeStamp = message.timestamp + "";//时间戳
+                                        req.packageValue = "Sign=WXPay";//扩展字段,这里固定填写Sign=WXPay
+                                        req.sign = message.sign;//签名
+                                        api.sendReq(req);//将订单信息对象发送给微信服务器，即发送支付请求
+
+
+
+                                    }
+
+                                    @Override
+                                    public void onFail(Call<WechatResultBean> call, Throwable t) {
+
+                                    }
+                                });
+
                                 break;
                         }
                     }
@@ -197,12 +235,15 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
 
                             }
                             DingdanInstance.getInstance().addressId=bean.id;
+                            DingdanInstance.getInstance().name=bean.name;
+                            DingdanInstance.getInstance().phone=bean.phone;
+                            DingdanInstance.getInstance().address=bean.province + bean.city + bean.county + bean.addressDetail;
                             tv_dizhiname.setText(bean.name);
                             tv_phone.setText(bean.phone);
                             tv_address.setText(bean.province + bean.city + bean.county + bean.addressDetail);
 
                         } else {
-
+//todo 什么逻辑
                         }
                         break;
                 }

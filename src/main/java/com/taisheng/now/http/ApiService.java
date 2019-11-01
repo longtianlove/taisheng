@@ -39,6 +39,7 @@ import com.taisheng.now.bussiness.bean.post.UpdateArticleReadCountPostBean;
 import com.taisheng.now.bussiness.bean.post.UpdatePswPostBean;
 import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
 import com.taisheng.now.bussiness.bean.post.VideoOperatePostBean;
+import com.taisheng.now.bussiness.bean.post.WexinZhifuPostBean;
 import com.taisheng.now.bussiness.bean.result.AnswerResultBean;
 import com.taisheng.now.bussiness.bean.result.ArticleContentBean;
 import com.taisheng.now.bussiness.bean.post.ArticleContentPostBean;
@@ -374,8 +375,8 @@ public interface ApiService {
     @POST(Constants.Url.ShangCheng.createOrder)
     Call<BaseBean<CreateOrderResultBean>> createOrder(@Body CreateOrderPostBean bean);
 
-    @POST(Constants.Url.Test.weChatPay)
-    Call<WechatResultBean> weChatPay(@Body BasePostBean bean);
+    @POST(Constants.Url.ShangCheng.weChatPay)
+    Call<WechatResultBean> weChatPay(@Body WexinZhifuPostBean bean);
 
 
 }
