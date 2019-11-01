@@ -24,11 +24,14 @@ public class DingdanInstance {
 
 
     public List<xiadanshangpinBean> dingdanList=new ArrayList<>();
+
     public String zongjia;
 
     public String addressId;
 
 
+
+//    优惠券返回值问题
     public String tv_discount;
 
 }

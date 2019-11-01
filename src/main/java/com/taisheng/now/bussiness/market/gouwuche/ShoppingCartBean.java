@@ -20,6 +20,8 @@ public class ShoppingCartBean {
     public boolean isCheck = false;
     public  int count;
 
+    public String productId;
+
 
 
     public String getAttribute() {

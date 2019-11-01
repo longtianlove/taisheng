@@ -11,4 +11,5 @@ public class xiadanshangpinBean {
     public String counterPrice;
     public int retailPrice;
     public String number;
+    public String productId;
 }

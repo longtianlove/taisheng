@@ -105,6 +105,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
 //        xbean.retailPrice=retailPrice;
         xbean.number=shoppingCartBean.count+"";
         xbean.picUrl=shoppingCartBean.imageUrl;
+        xbean.productId=shoppingCartBean.productId;
 
 
 
