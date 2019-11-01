@@ -99,7 +99,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
         }
         final ShoppingCartBean shoppingCartBean = shoppingCartBeanList.get(position);
         xiadanshangpinBean xbean=new xiadanshangpinBean();
-        xbean.goodsId=shoppingCartBean.id;
+        xbean.goodsId=shoppingCartBean.goodsId;
         xbean.name=shoppingCartBean.shoppingName;
         xbean.counterPrice=shoppingCartBean.price+"";
 //        xbean.retailPrice=retailPrice;

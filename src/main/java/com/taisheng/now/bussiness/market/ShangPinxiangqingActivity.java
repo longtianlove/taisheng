@@ -273,6 +273,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 //                xbean.retailPrice=retailPrice;
                 xbean.number=number;
                 xbean.picUrl=picUrl;
+                xbean.productId=productid;
                 DingdanInstance.getInstance().dingdanList.add(xbean);
 
                 DingdanInstance.getInstance().zongjia=counterPrice+"";

@@ -11,6 +11,8 @@ public class ShoppingCartBean {
     public  String imageUrl;
     public  String shoppingName;
 
+    public String goodsId;
+
     public  int dressSize;
     public  String attribute;
 

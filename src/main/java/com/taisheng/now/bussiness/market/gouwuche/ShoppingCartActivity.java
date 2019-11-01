@@ -184,6 +184,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
                                 shoppingCartBean.setAttribute(bean.specifications);
                                 shoppingCartBean.setPrice(bean.price);
                                 shoppingCartBean.setId(bean.id);
+                                shoppingCartBean.goodsId=bean.goodsId;
                                 shoppingCartBean.setCount(bean.number);
                                 shoppingCartBean.setImageUrl(bean.picUrl);
                                 shoppingCartBean.productId=bean.productId;
@@ -239,7 +240,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
                             beanB.number=beanA.count+"";
                             beanB.counterPrice=beanA.price+"";
                             beanB.name=beanA.shoppingName;
-                            beanB.goodsId=beanA.id;
+                            beanB.goodsId=beanA.goodsId;
                             beanB.productId=beanA.productId;
 
                             DingdanInstance.getInstance().dingdanList.add(beanB);
