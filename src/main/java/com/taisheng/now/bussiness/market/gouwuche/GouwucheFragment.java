@@ -44,6 +44,7 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
 
     private static final String TAG = "ShoppingCartActivity";
     public String assessmentType;
+    public int scoreGoods;
 
 
 //    View btnBack;
@@ -160,9 +161,11 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
         switch (assessmentType) {
             case "1":
                 bean.scoreGoods = 1;
+                scoreGoods=1;
                 break;
             case "2":
                 bean.scoreGoods = 0;
+                scoreGoods=0;
                 break;
 
         }
@@ -308,6 +311,7 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
 //        ToastUtil.showAtCenter("总价：" + totalPrice);
         DingdanInstance.getInstance().zongjia=totalPrice+"";
 
+        DingdanInstance.getInstance().scoreGoods= scoreGoods;
 
         //跳转到支付界面
         //获取地址信息

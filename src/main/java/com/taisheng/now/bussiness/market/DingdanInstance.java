@@ -28,9 +28,15 @@ public class DingdanInstance {
 
 
 
+
     public String addressId;
 
+
+    //从哪里来
     public String flag;
+
+    //什么类型的产品，是否可以积分兑换 0是 1否',
+    public int scoreGoods;
 
     public String postFeeId;
 
