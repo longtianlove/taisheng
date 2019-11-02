@@ -491,6 +491,11 @@ public class MarketFragment extends BaseFragment {
             MyViewHolder holder2 = (MyViewHolder) holder;
             RemenshangpinBean hotGoodsBean = mData.get(position);
             if (hotGoodsBean != null) {
+
+                Uri uri = Uri.parse(hotGoodsBean.picUrl);
+                holder2.sdv_header.setImageURI(uri);
+                holder2.tv_goods_name.setText(hotGoodsBean.name);
+                holder2.tv_goods_jiage.setText("¥" + hotGoodsBean.counterPrice + "");
                 holder2.ll_all.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -501,10 +506,6 @@ public class MarketFragment extends BaseFragment {
                         startActivity(intent);
                     }
                 });
-                Uri uri = Uri.parse(hotGoodsBean.picUrl);
-                holder2.sdv_header.setImageURI(uri);
-                holder2.tv_goods_name.setText(hotGoodsBean.name);
-                holder2.tv_goods_jiage.setText("¥" + hotGoodsBean.counterPrice + "");
             }
 
         }
