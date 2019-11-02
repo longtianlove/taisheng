@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.bean.post.DeleteOrderPostBean;
 import com.taisheng.now.bussiness.bean.post.OrderListPostBean;
+import com.taisheng.now.bussiness.bean.post.WexinZhifuPostBean;
 import com.taisheng.now.bussiness.bean.result.market.OrderBean;
 import com.taisheng.now.bussiness.bean.result.market.OrderGoodsBean;
 import com.taisheng.now.bussiness.bean.result.market.OrderListResultBean;
@@ -28,8 +30,13 @@ import com.taisheng.now.bussiness.market.ShangPinxiangqingActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
+import com.taisheng.now.test.WechatResultBean;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.view.TaishengListView;
+import com.taisheng.now.view.WithScrolleViewListView;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +62,7 @@ public class MyDingdanFragment extends BaseFragment {
 
 
         initView(rootView);
-        initData();
+
         return rootView;
     }
 
@@ -72,6 +79,12 @@ public class MyDingdanFragment extends BaseFragment {
             }
         });
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initData();
     }
 
     void initData() {
@@ -231,6 +244,43 @@ public class MyDingdanFragment extends BaseFragment {
                         }
                     });
 
+                    util.tv_quzhifu.setOnClickListener(new View.OnClickListener(){
+
+                        @Override
+                        public void onClick(View v) {
+                            WexinZhifuPostBean bean1 = new WexinZhifuPostBean();
+                            bean1.orderId = bean.orderId;
+                            bean1.userId = UserInstance.getInstance().getUid();
+                            bean1.token = UserInstance.getInstance().getToken();
+                            ApiUtils.getApiService().weChatPay(bean1).enqueue(new TaiShengCallback<BaseBean<WechatResultBean>>() {
+                                @Override
+                                public void onSuccess(Response<BaseBean<WechatResultBean>> response, BaseBean<WechatResultBean> message) {
+                                    switch (message.code) {
+                                        case Constants.HTTP_SUCCESS:
+                                            IWXAPI api = WXAPIFactory.createWXAPI(getActivity(), Constants.WXAPPID, false);//填写自己的APPIDapi.registerApp("wxAPPID");//填写自己的APPID，注册本身
+                                            PayReq req = new PayReq();//PayReq就是订单信息对象
+                                            req.appId = Constants.WXAPPID;//你的微信appid
+                                            req.partnerId = message.result.partnerid;//商户号
+                                            req.prepayId = message.result.prepayid;//预支付交易会话ID
+                                            req.nonceStr = message.result.noncestr;//随机字符串
+                                            req.timeStamp = message.result.timestamp + "";//时间戳
+                                            req.packageValue = "Sign=WXPay";//扩展字段,这里固定填写Sign=WXPay
+                                            req.sign = message.result.sign;//签名
+                                            api.sendReq(req);//将订单信息对象发送给微信服务器，即发送支付请求
+                                            break;
+                                    }
+
+
+                                }
+
+                                @Override
+                                public void onFail(Call<BaseBean<WechatResultBean>> call, Throwable t) {
+
+                                }
+                            });
+                        }
+                    });
+
 
                     break;
 
@@ -243,12 +293,23 @@ public class MyDingdanFragment extends BaseFragment {
                         util1 = new Util();
                         LayoutInflater inflater = LayoutInflater.from(mcontext);
                         convertView = inflater.inflate(R.layout.item_dingdandaifahuo, null);
-
+                        util1.tv_orderid = convertView.findViewById(R.id.tv_orderid);
+                        util1.list_goods = convertView.findViewById(R.id.list_goods);
+                        util1.tv_gouyou = convertView.findViewById(R.id.tv_gouyou);
+                        util1.tv_zongjia = convertView.findViewById(R.id.tv_zongjia);
                         convertView.setTag(util1);
                     } else {
                         util1 = (Util) convertView.getTag();
                     }
+                    OrderBean bean1 = mData.get(position);
+                    util1.tv_orderid.setText(bean1.orderId);
 
+                    DingdanShangpinAdapter adapter1=new DingdanShangpinAdapter(getActivity());
+                    adapter1.mData=bean1.list;
+                    util1.list_goods.setAdapter(adapter1);
+
+                    util1.tv_gouyou.setText("共有" + bean1.goodsNumber + "件商品");
+                    util1.tv_zongjia.setText("¥" + bean1.totalPrice);
 
                     break;
                 case "3":
@@ -259,10 +320,11 @@ public class MyDingdanFragment extends BaseFragment {
                     if (convertView == null) {
                         util2 = new Util();
                         LayoutInflater inflater = LayoutInflater.from(mcontext);
-
-
                         convertView = inflater.inflate(R.layout.item_dingdandaisouhuo, null);
-
+                        util2.tv_orderid = convertView.findViewById(R.id.tv_orderid);
+                        util2.list_goods = convertView.findViewById(R.id.list_goods);
+                        util2.tv_gouyou = convertView.findViewById(R.id.tv_gouyou);
+                        util2.tv_zongjia = convertView.findViewById(R.id.tv_zongjia);
                         convertView.setTag(util2);
                     } else {
                         util2 = (Util) convertView.getTag();
@@ -381,8 +443,9 @@ public class MyDingdanFragment extends BaseFragment {
 
 
         class Util {
+            View ll_all;
             TextView tv_orderid;
-            TaishengListView list_goods;
+            WithScrolleViewListView list_goods;
             TextView tv_gouyou;
             TextView tv_zongjia;
             View tv_quxiaodingdan;
