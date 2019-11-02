@@ -18,9 +18,12 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.base.BaseFragment;
+import com.taisheng.now.bussiness.bean.post.DeleteOrderPostBean;
 import com.taisheng.now.bussiness.bean.post.OrderListPostBean;
 import com.taisheng.now.bussiness.bean.result.market.OrderBean;
+import com.taisheng.now.bussiness.bean.result.market.OrderGoodsBean;
 import com.taisheng.now.bussiness.bean.result.market.OrderListResultBean;
+import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
 import com.taisheng.now.bussiness.market.ShangPinxiangqingActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
@@ -179,192 +182,211 @@ public class MyDingdanFragment extends BaseFragment {
                     if (convertView == null) {
                         util = new Util();
                         LayoutInflater inflater = LayoutInflater.from(mcontext);
-
-
                         convertView = inflater.inflate(R.layout.item_dingdandaifukuan, null);
-                        util.ll_all = convertView.findViewById(R.id.ll_all);
-                        util.sdv_article = convertView.findViewById(R.id.sdv_article);
-                        util.tv_name = convertView.findViewById(R.id.tv_name);
-                        util.tv_counterprice = convertView.findViewById(R.id.tv_counterprice);
-                        util.tv_number = convertView.findViewById(R.id.tv_number);
+                        util.tv_orderid = convertView.findViewById(R.id.tv_orderid);
+                        util.list_goods = convertView.findViewById(R.id.list_goods);
+                        util.tv_gouyou = convertView.findViewById(R.id.tv_gouyou);
+                        util.tv_zongjia = convertView.findViewById(R.id.tv_zongjia);
+                        util.tv_quxiaodingdan = convertView.findViewById(R.id.tv_quxiaodingdan);
+                        util.tv_quzhifu = convertView.findViewById(R.id.tv_quzhifu);
+
                         convertView.setTag(util);
                     } else {
                         util = (Util) convertView.getTag();
                     }
+
                     OrderBean bean = mData.get(position);
-                    util.ll_all.setOnClickListener(new View.OnClickListener() {
+                    util.tv_orderid.setText(bean.orderId);
+
+                    DingdanShangpinAdapter adapter=new DingdanShangpinAdapter(getActivity());
+                    adapter.mData=bean.list;
+                    util.list_goods.setAdapter(adapter);
+
+                    util.tv_gouyou.setText("共有" + bean.goodsNumber + "件商品");
+                    util.tv_zongjia.setText("¥" + bean.totalPrice);
+
+                    util.tv_quxiaodingdan.setOnClickListener(new View.OnClickListener() {
+
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(mActivity, ShangPinxiangqingActivity.class);
-                            intent.putExtra("goodsid", bean.id);
+                            DeleteOrderPostBean deleteOrderPostBean = new DeleteOrderPostBean();
+                            deleteOrderPostBean.userId = UserInstance.getInstance().getUid();
+                            deleteOrderPostBean.token = UserInstance.getInstance().getToken();
+                            deleteOrderPostBean.orderId = bean.orderId;
+                            ApiUtils.getApiService().deleteOrder(deleteOrderPostBean).enqueue(new TaiShengCallback<BaseBean>() {
+                                @Override
+                                public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                                    switch (message.code) {
+                                        case Constants.HTTP_SUCCESS:
+                                            getDoctors();
+                                            break;
+                                    }
+                                }
 
-                            startActivity(intent);
+                                @Override
+                                public void onFail(Call<BaseBean> call, Throwable t) {
+
+                                }
+                            });
                         }
                     });
 
-                    String temp_url = bean.picUrl;
-                    if (temp_url == null || "".equals(temp_url)) {
-                        util.sdv_article.setBackgroundResource(R.drawable.article_default);
 
+                    break;
+
+                case "2":
+                    // 声明内部类
+                    Util util1 = null;
+                    // 中间变量
+                    final int flag1 = position;
+                    if (convertView == null) {
+                        util1 = new Util();
+                        LayoutInflater inflater = LayoutInflater.from(mcontext);
+                        convertView = inflater.inflate(R.layout.item_dingdandaifahuo, null);
+
+                        convertView.setTag(util1);
                     } else {
-                        Uri uri = Uri.parse(temp_url);
-                        util.sdv_article.setImageURI(uri);
+                        util1 = (Util) convertView.getTag();
                     }
-                    util.tv_name.setText(bean.goodsName);
-                    util.tv_counterprice.setText(bean.price + "");
-
-                    util.tv_number.setText("x " + bean.number);
 
 
-
-                        break;
-
-                    case "2":
-                        // 声明内部类
-                        Util util1 = null;
-                        // 中间变量
-                        final int flag1 = position;
-                        if (convertView == null) {
-                            util1 = new Util();
-                            LayoutInflater inflater = LayoutInflater.from(mcontext);
+                    break;
+                case "3":
+                    // 声明内部类
+                    Util util2 = null;
+                    // 中间变量
+                    final int flag2 = position;
+                    if (convertView == null) {
+                        util2 = new Util();
+                        LayoutInflater inflater = LayoutInflater.from(mcontext);
 
 
-                            convertView = inflater.inflate(R.layout.item_dingdandaifahuo, null);
-                            util1.ll_all = convertView.findViewById(R.id.ll_all);
-                            util1.sdv_article = convertView.findViewById(R.id.sdv_article);
-                            util1.tv_name = convertView.findViewById(R.id.tv_name);
-                            util1.tv_counterprice = convertView.findViewById(R.id.tv_counterprice);
-                            util1.tv_number = convertView.findViewById(R.id.tv_number);
-                            convertView.setTag(util1);
-                        } else {
-                            util1 = (Util) convertView.getTag();
-                        }
-                        OrderBean bean1 = mData.get(position);
-                        util1.ll_all.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(mActivity, ShangPinxiangqingActivity.class);
-                                intent.putExtra("goodsid", bean1.id);
+                        convertView = inflater.inflate(R.layout.item_dingdandaisouhuo, null);
 
-                                startActivity(intent);
-                            }
-                        });
+                        convertView.setTag(util2);
+                    } else {
+                        util2 = (Util) convertView.getTag();
+                    }
 
-                        String temp_url1 = bean1.picUrl;
-                        if (temp_url1 == null || "".equals(temp_url1)) {
-                            util1.sdv_article.setBackgroundResource(R.drawable.article_default);
-
-                        } else {
-                            Uri uri1 = Uri.parse(temp_url1);
-                            util1.sdv_article.setImageURI(uri1);
-                        }
-                        util1.tv_name.setText(bean1.goodsName);
-                        util1.tv_counterprice.setText(bean1.price + "");
-
-                        util1.tv_number.setText("x " + bean1.number);
-
-                        break;
-                    case "3":
-                        // 声明内部类
-                        Util util2 = null;
-                        // 中间变量
-                        final int flag2 = position;
-                        if (convertView == null) {
-                            util2 = new Util();
-                            LayoutInflater inflater = LayoutInflater.from(mcontext);
+                    break;
+                case "4":
+                    // 声明内部类
+                    Util util3 = null;
+                    // 中间变量
+                    final int flag3 = position;
+                    if (convertView == null) {
+                        util3 = new Util();
+                        LayoutInflater inflater = LayoutInflater.from(mcontext);
 
 
-                            convertView = inflater.inflate(R.layout.item_dingdandaisouhuo, null);
-                            util2.ll_all = convertView.findViewById(R.id.ll_all);
-                            util2.sdv_article = convertView.findViewById(R.id.sdv_article);
-                            util2.tv_name = convertView.findViewById(R.id.tv_name);
-                            util2.tv_counterprice = convertView.findViewById(R.id.tv_counterprice);
-                            util2.tv_number = convertView.findViewById(R.id.tv_number);
-                            convertView.setTag(util2);
-                        } else {
-                            util2 = (Util) convertView.getTag();
-                        }
-                        OrderBean bean2 = mData.get(position);
-                        util2.ll_all.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(mActivity, ShangPinxiangqingActivity.class);
-                                intent.putExtra("goodsid", bean2.id);
+                        convertView = inflater.inflate(R.layout.item_dingdanyiwancheng, null);
 
-                                startActivity(intent);
-                            }
-                        });
+                        convertView.setTag(util3);
+                    } else {
+                        util3 = (Util) convertView.getTag();
+                    }
 
-                        String temp_url2 = bean2.picUrl;
-                        if (temp_url2 == null || "".equals(temp_url2)) {
-                            util2.sdv_article.setBackgroundResource(R.drawable.article_default);
+                    break;
 
-                        } else {
-                            Uri uri2 = Uri.parse(temp_url2);
-                            util2.sdv_article.setImageURI(uri2);
-                        }
-                        util2.tv_name.setText(bean2.goodsName);
-                        util2.tv_counterprice.setText(bean2.price + "");
+            }
 
-                        util2.tv_number.setText("x " + bean2.number);
-                        break;
-                    case "4":
-                        // 声明内部类
-                        Util util3 = null;
-                        // 中间变量
-                        final int flag3 = position;
-                        if (convertView == null) {
-                            util3 = new Util();
-                            LayoutInflater inflater = LayoutInflater.from(mcontext);
+            return convertView;
+        }
 
 
-                            convertView = inflater.inflate(R.layout.item_dingdanyiwancheng, null);
-                            util3.ll_all = convertView.findViewById(R.id.ll_all);
-                            util3.sdv_article = convertView.findViewById(R.id.sdv_article);
-                            util3.tv_name = convertView.findViewById(R.id.tv_name);
-                            util3.tv_counterprice = convertView.findViewById(R.id.tv_counterprice);
-                            util3.tv_number = convertView.findViewById(R.id.tv_number);
-                            convertView.setTag(util3);
-                        } else {
-                            util3 = (Util) convertView.getTag();
-                        }
-                        OrderBean bean3 = mData.get(position);
-                        util3.ll_all.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(mActivity, ShangPinxiangqingActivity.class);
-                                intent.putExtra("goodsid", bean3.id);
+        class DingdanShangpinAdapter extends BaseAdapter {
 
-                                startActivity(intent);
-                            }
-                        });
+            public Context mcontext;
 
-                        String temp_url3 = bean3.picUrl;
-                        if (temp_url3 == null || "".equals(temp_url3)) {
-                            util3.sdv_article.setBackgroundResource(R.drawable.article_default);
+            List<OrderGoodsBean> mData = new ArrayList<OrderGoodsBean>();
 
-                        } else {
-                            Uri uri3 = Uri.parse(temp_url3);
-                            util3.sdv_article.setImageURI(uri3);
-                        }
-                        util3.tv_name.setText(bean3.goodsName);
-                        util3.tv_counterprice.setText(bean3.price + "");
+            public DingdanShangpinAdapter(Context context) {
+                this.mcontext = context;
+            }
 
-                        util3.tv_number.setText("x " + bean3.number);
-                        break;
+            @Override
+            public int getCount() {
+                return mData.size();
+            }
 
+            @Override
+            public Object getItem(int position) {
+                return mData.get(position);
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return position;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // 声明内部类
+                DingdanShangpinAdapter.Util util = null;
+                // 中间变量
+                final int flag = position;
+                if (convertView == null) {
+                    util = new DingdanShangpinAdapter.Util();
+                    LayoutInflater inflater = LayoutInflater.from(mcontext);
+                    convertView = inflater.inflate(R.layout.item_dingdannshangpinn, null);
+                    util.ll_all = convertView.findViewById(R.id.ll_all);
+                    util.sdv_article = convertView.findViewById(R.id.sdv_article);
+                    util.tv_name = convertView.findViewById(R.id.tv_name);
+                    util.tv_counterprice = convertView.findViewById(R.id.tv_counterprice);
+//                util.tv_retailprice = convertView.findViewById(R.id.tv_retailprice);
+                    util.tv_number = convertView.findViewById(R.id.tv_number);
+
+                    convertView.setTag(util);
+                } else {
+                    util = (DingdanShangpinAdapter.Util) convertView.getTag();
                 }
+                OrderGoodsBean bean = mData.get(position);
+                util.ll_all.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                        Intent intent = new Intent(getActivity(), ShangPinxiangqingActivity.class);
+                        intent.putExtra("goodsid", bean.id);
+
+                        startActivity(intent);
+                    }
+                });
+
+                String temp_url = bean.picUrl;
+                if (temp_url == null || "".equals(temp_url)) {
+                    util.sdv_article.setBackgroundResource(R.drawable.article_default);
+
+                } else {
+                    Uri uri = Uri.parse(temp_url);
+                    util.sdv_article.setImageURI(uri);
+                }
+                util.tv_name.setText(bean.name);
+                util.tv_counterprice.setText(bean.price + "");
+//            util.tv_retailprice.setText(bean.retailPrice + "");
+//            util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                util.tv_number.setText("x " + bean.number);
                 return convertView;
+            }
+
+
+            class Util {
+                View ll_all;
+                SimpleDraweeView sdv_article;
+                TextView tv_name;
+                TextView tv_counterprice;
+                TextView tv_number;
+
+            }
         }
 
 
         class Util {
-            View ll_all;
-            SimpleDraweeView sdv_article;
-            TextView tv_name;
-            TextView tv_counterprice;
-            TextView tv_number;
+            TextView tv_orderid;
+            TaishengListView list_goods;
+            TextView tv_gouyou;
+            TextView tv_zongjia;
+            View tv_quxiaodingdan;
+            View tv_quzhifu;
         }
     }
 }

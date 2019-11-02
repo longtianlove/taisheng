@@ -2,7 +2,7 @@ package com.taisheng.now.test;
 
 import com.taisheng.now.base.BaseBean;
 
-public class WechatResultBean  extends BaseBean {
+public class WechatResultBean {
     public String appid;
     public String sign;
     public String partnerid;

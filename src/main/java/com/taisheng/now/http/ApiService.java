@@ -16,6 +16,7 @@ import com.taisheng.now.bussiness.bean.post.CollectListPostBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.ConnectDoctorPostBean;
 import com.taisheng.now.bussiness.bean.post.CreateOrderPostBean;
+import com.taisheng.now.bussiness.bean.post.DeleteOrderPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorCommentPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorDetailPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorNumberPostBean;
@@ -375,8 +376,14 @@ public interface ApiService {
     @POST(Constants.Url.ShangCheng.createOrder)
     Call<BaseBean<CreateOrderResultBean>> createOrder(@Body CreateOrderPostBean bean);
 
+
+    @POST(Constants.Url.ShangCheng.deleteOrder)
+    Call<BaseBean> deleteOrder(@Body DeleteOrderPostBean bean);
+
+
+
     @POST(Constants.Url.ShangCheng.weChatPay)
-    Call<WechatResultBean> weChatPay(@Body WexinZhifuPostBean bean);
+    Call<BaseBean<WechatResultBean>> weChatPay(@Body WexinZhifuPostBean bean);
 
 
 }

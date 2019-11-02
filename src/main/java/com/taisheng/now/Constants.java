@@ -309,8 +309,13 @@ public class Constants {
             //            快递费用显示】
             public static final String getPostage = "jeecg-boot/app/mall/postage/getPostage";
 
-
+            //创建订单
             public static final String createOrder = "jeecg-boot/app/mall/order/createOrder";
+
+
+            //            订单信息-【取消订单信息】
+            public static final String deleteOrder = "jeecg-boot/app/mall/order/deleteOrder";
+
 
             public static final String weChatPay = "jeecg-boot/app/pay/payment/wxpay/weChatPay";
 

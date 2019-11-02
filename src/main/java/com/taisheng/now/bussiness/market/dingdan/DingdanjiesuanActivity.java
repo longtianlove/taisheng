@@ -163,20 +163,20 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                                 bean1.orderId = message.message;
                                 bean1.userId = UserInstance.getInstance().getUid();
                                 bean1.token = UserInstance.getInstance().getToken();
-                                ApiUtils.getApiService().weChatPay(bean1).enqueue(new TaiShengCallback<WechatResultBean>() {
+                                ApiUtils.getApiService().weChatPay(bean1).enqueue(new TaiShengCallback<BaseBean<WechatResultBean>>() {
                                     @Override
-                                    public void onSuccess(Response<WechatResultBean> response, WechatResultBean message) {
+                                    public void onSuccess(Response<BaseBean<WechatResultBean>> response, BaseBean<WechatResultBean> message) {
                                         switch (message.code) {
                                             case Constants.HTTP_SUCCESS:
                                                 IWXAPI api = WXAPIFactory.createWXAPI(DingdanjiesuanActivity.this, Constants.WXAPPID, false);//填写自己的APPIDapi.registerApp("wxAPPID");//填写自己的APPID，注册本身
                                                 PayReq req = new PayReq();//PayReq就是订单信息对象
                                                 req.appId = Constants.WXAPPID;//你的微信appid
-                                                req.partnerId = message.partnerid;//商户号
-                                                req.prepayId = message.prepayid;//预支付交易会话ID
-                                                req.nonceStr = message.noncestr;//随机字符串
-                                                req.timeStamp = message.timestamp + "";//时间戳
+                                                req.partnerId = message.result.partnerid;//商户号
+                                                req.prepayId = message.result.prepayid;//预支付交易会话ID
+                                                req.nonceStr = message.result.noncestr;//随机字符串
+                                                req.timeStamp = message.result.timestamp + "";//时间戳
                                                 req.packageValue = "Sign=WXPay";//扩展字段,这里固定填写Sign=WXPay
-                                                req.sign = message.sign;//签名
+                                                req.sign = message.result.sign;//签名
                                                 api.sendReq(req);//将订单信息对象发送给微信服务器，即发送支付请求
                                                 break;
                                         }
@@ -185,7 +185,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                                     }
 
                                     @Override
-                                    public void onFail(Call<WechatResultBean> call, Throwable t) {
+                                    public void onFail(Call<BaseBean<WechatResultBean>> call, Throwable t) {
 
                                     }
                                 });
