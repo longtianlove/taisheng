@@ -29,6 +29,7 @@ import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
 import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
 import com.taisheng.now.bussiness.market.DingdanInstance;
 import com.taisheng.now.bussiness.market.ShangPinxiangqingActivity;
+import com.taisheng.now.bussiness.market.ZhifuchenggongActivity;
 import com.taisheng.now.bussiness.market.dizhi.DizhiActivity;
 import com.taisheng.now.bussiness.market.youhuijuan.MyYouhuijuanActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -36,6 +37,7 @@ import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.test.WechatResultBean;
 import com.taisheng.now.util.DialogUtil;
+import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.WithScrolleViewListView;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
@@ -64,7 +66,10 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
 
     View ll_youhuijuan_all;
     View ll_youhuijuan;
+    View view_youhuijuanlabel;
     TextView tv_youhuijuan;
+
+    View view_youfei_label;
 
 
     public WithScrolleViewListView lv_jiesuan;
@@ -75,6 +80,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
     View ll_youfei;
     TextView tv_youfei;
     TextView tv_zongjia;
+    View ll_youhuijuan2;
 
 
     EditText et_beizhu;
@@ -124,13 +130,22 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
             }
         });
         tv_youhuijuan = findViewById(R.id.tv_youhuijuan);
+        ll_youhuijuan2 = findViewById(R.id.ll_youhuijuan2);
+        view_youhuijuanlabel = findViewById(R.id.view_youhuijuanlabel);
+        view_youfei_label = findViewById(R.id.view_youfei_label);
 
         lv_jiesuan = findViewById(R.id.lv_jiesuan);
         madapter = new ArticleAdapter(DingdanjiesuanActivity.this);
         if (DingdanInstance.getInstance().scoreGoods == 1) {
             madapter.mData = DingdanInstance.getInstance().putongshangpindingdanList;
+            view_youfei_label.setVisibility(View.VISIBLE);
+            ll_youhuijuan2.setVisibility(View.VISIBLE);
+            view_youhuijuanlabel.setVisibility(View.VISIBLE);
         } else {
             madapter.mData = DingdanInstance.getInstance().jifenshangpindingdanList;
+            view_youfei_label.setVisibility(View.GONE);
+            ll_youhuijuan2.setVisibility(View.GONE);
+            view_youhuijuanlabel.setVisibility(View.GONE);
         }
         lv_jiesuan.setAdapter(madapter);
 
@@ -178,12 +193,12 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                     public void onSuccess(Response<BaseBean<CreateOrderResultBean>> response, BaseBean<CreateOrderResultBean> message) {
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
-                                if (DingdanInstance.getInstance().scoreGoods == 1) {
+                                if ("1".equals(message.result.scoreType)) {
                                     //请求支付接口
 //                                String orderId=message.message;
                                     WexinZhifuPostBean bean1 = new WexinZhifuPostBean();
-                                    bean1.orderId = message.message;
-                                    DingdanInstance.getInstance().orderId = message.message;
+                                    bean1.orderId = message.result.orderId;
+                                    DingdanInstance.getInstance().orderId = message.result.orderId;
                                     bean1.userId = UserInstance.getInstance().getUid();
                                     bean1.token = UserInstance.getInstance().getToken();
                                     ApiUtils.getApiService().weChatPay(bean1).enqueue(new TaiShengCallback<BaseBean<WechatResultBean>>() {
@@ -212,10 +227,18 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
 
                                         }
                                     });
-                                }else{
+                                } else {
+                                    DingdanInstance.getInstance().orderId = message.result.orderId;
+                                    Intent intent = new Intent(DingdanjiesuanActivity.this, ZhifuchenggongActivity.class);
+                                    startActivity(intent);
+                                    finish();
 
                                 }
 
+                                break;
+
+                            case 6000:
+                                ToastUtil.showAtCenter(message.message);
                                 break;
                         }
                     }
@@ -289,27 +312,31 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
         basePostBean.userId = UserInstance.getInstance().getUid();
         basePostBean.token = UserInstance.getInstance().getToken();
 
+        if (DingdanInstance.getInstance().scoreGoods == 1) {
 
-        //获取邮费
-        ApiUtils.getApiService().getPostage(basePostBean).enqueue(new TaiShengCallback<BaseBean<PostageResultBean>>() {
-            @Override
-            public void onSuccess(Response<BaseBean<PostageResultBean>> response, BaseBean<PostageResultBean> message) {
-                switch (message.code) {
-                    case Constants.HTTP_SUCCESS:
-                        youfei = message.result.money + "";
-                        DingdanInstance.getInstance().postFeeId = message.result.id;
-                        tv_youfei.setText("￥" + youfei);
-                        tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount) + Double.parseDouble(youfei)));
+            //获取邮费
+            ApiUtils.getApiService().getPostage(basePostBean).enqueue(new TaiShengCallback<BaseBean<PostageResultBean>>() {
+                @Override
+                public void onSuccess(Response<BaseBean<PostageResultBean>> response, BaseBean<PostageResultBean> message) {
+                    switch (message.code) {
+                        case Constants.HTTP_SUCCESS:
+                            youfei = message.result.money + "";
+                            DingdanInstance.getInstance().postFeeId = message.result.id;
+                            tv_youfei.setText("￥" + youfei);
+                            tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount) + Double.parseDouble(youfei)));
 
-                        break;
+                            break;
+                    }
                 }
-            }
 
-            @Override
-            public void onFail(Call<BaseBean<PostageResultBean>> call, Throwable t) {
+                @Override
+                public void onFail(Call<BaseBean<PostageResultBean>> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        } else {
+//            tv_zongjia.setText(DingdanInstance.getInstance().zongjia);
+        }
     }
 
 
@@ -437,7 +464,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                 util.sdv_article.setImageURI(uri);
             }
             util.tv_name.setText(bean.name);
-            util.tv_counterprice.setText(bean.counterPrice + "");
+            util.tv_counterprice.setText("¥" + bean.counterPrice + "");
 //            util.tv_retailprice.setText(bean.retailPrice + "");
 //            util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             util.tv_number.setText("x " + bean.number);

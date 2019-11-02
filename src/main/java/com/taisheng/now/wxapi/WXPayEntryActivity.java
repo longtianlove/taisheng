@@ -52,13 +52,13 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_result);
-        btn_back = findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        btn_back = findViewById(R.id.btn_back);
+//        btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
         tv_title = findViewById(R.id.tv_title);
         ll_chenggong = findViewById(R.id.ll_chenggong);
         btn_chakandingdan = findViewById(R.id.btn_chakandingdan);
@@ -155,5 +155,16 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
             }
         }
     }
+
+
+
+    String LOG_TAG="TAG";
+    @Override
+    public void onBackPressed() {
+        // super.onBackPressed();//注释掉这行,back键不退出activity
+
+        Log.i(LOG_TAG, "onBackPressed");
+    }
+
 }
 

@@ -195,6 +195,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/ll_youhuijuan2"
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
                     android:layout_marginTop="10dp"
@@ -228,6 +229,7 @@
                 </LinearLayout>
 
                 <View
+                    android:id="@+id/view_youhuijuanlabel"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="10dp"
@@ -271,6 +273,7 @@
                 </LinearLayout>
 
                 <View
+                    android:id="@+id/view_youfei_label"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="10dp"
