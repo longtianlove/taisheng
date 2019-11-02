@@ -200,6 +200,12 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 
                     for (int i = 0; i < goodsProductEntities.size(); i++) {
                         GoodsProductEntities bean = goodsProductEntities.get(i);
+                        if ("".equals(yanse_label.selectString)) {
+                            if (bean.getSpecifications().contains(guige_label.selectString)) {
+                                productid = bean.getId();
+                                return;
+                            }
+                        }
                         if (bean.getSpecifications().contains(guige_label.selectString) && bean.getSpecifications().contains(yanse_label.selectString)) {
                             productid = bean.getId();
                             return;
@@ -266,17 +272,17 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                 }
 
                 DingdanInstance.getInstance().dingdanList.clear();
-                xiadanshangpinBean xbean=new xiadanshangpinBean();
-                xbean.goodsId=goodsid;
-                xbean.name=name;
-                xbean.counterPrice=counterPrice+"";
+                xiadanshangpinBean xbean = new xiadanshangpinBean();
+                xbean.goodsId = goodsid;
+                xbean.name = name;
+                xbean.counterPrice = counterPrice + "";
 //                xbean.retailPrice=retailPrice;
-                xbean.number=number;
-                xbean.picUrl=picUrl;
-                xbean.productId=productid;
+                xbean.number = number;
+                xbean.picUrl = picUrl;
+                xbean.productId = productid;
                 DingdanInstance.getInstance().dingdanList.add(xbean);
 
-                DingdanInstance.getInstance().zongjia=counterPrice+"";
+                DingdanInstance.getInstance().zongjia = counterPrice + "";
 
                 //获取地址信息
 
@@ -295,12 +301,12 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                             case Constants.HTTP_SUCCESS:
 
 
-                                DingdanInstance.getInstance().flag="N";
+                                DingdanInstance.getInstance().flag = "N";
                                 if (message.result.records != null && message.result.records.size() > 0) {
                                     Intent intent = new Intent(ShangPinxiangqingActivity.this, DingdanjiesuanActivity.class);
                                     startActivity(intent);
                                 } else {
-                                    DingdanInstance.getInstance().fromDizhi="2";
+                                    DingdanInstance.getInstance().fromDizhi = "2";
                                     Intent intent = new Intent(ShangPinxiangqingActivity.this, DizhiBianjiActivity.class);
                                     startActivity(intent);
                                 }
@@ -325,7 +331,6 @@ public class ShangPinxiangqingActivity extends BaseActivity {
         tv_jianjie = findViewById(R.id.tv_jianjie);
 
     }
-
 
 
     public String name;
@@ -370,20 +375,19 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                             bannerViewPager.madapter.notifyDataSetChanged();
 
 
-
                             tv_counterprice.setText(message.result.goodsEntity.counterPrice + "");
-                            counterPrice=message.result.goodsEntity.counterPrice;
+                            counterPrice = message.result.goodsEntity.counterPrice;
                             tv_retailprice.setText(message.result.goodsEntity.retailPrice + "");
                             tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                            retailPrice=message.result.goodsEntity.retailPrice;
-                            name=message.result.goodsEntity.name;
+                            retailPrice = message.result.goodsEntity.retailPrice;
+                            name = message.result.goodsEntity.name;
                             tv_name.setText(message.result.goodsEntity.name);
                             tv_jianjie.setText(message.result.goodsEntity.brief);
                             wv_shangpinxiangqing.loadData(Html.fromHtml(message.result.goodsEntity.detail).toString(), "text/html", "UTF-8");
 
 
                             Uri uri = Uri.parse(message.result.goodsEntity.picUrl);
-                            picUrl=message.result.goodsEntity.picUrl;
+                            picUrl = message.result.goodsEntity.picUrl;
                             sdv_shangpin.setImageURI(uri);
                             tv_price.setText(message.result.goodsEntity.counterPrice + "");
 
