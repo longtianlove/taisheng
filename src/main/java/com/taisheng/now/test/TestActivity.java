@@ -11,6 +11,8 @@ import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.SplashActivity;
 import com.taisheng.now.bussiness.bean.post.BasePostBean;
+import com.taisheng.now.bussiness.bean.post.WexinZhifuPostBean;
+import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiService;
 import com.taisheng.now.http.ApiUtils;
@@ -63,30 +65,38 @@ public class TestActivity extends BaseActivity {
                 bean.token = UserInstance.getInstance().getToken();
 
 
-//                ApiUtils.getApiService().weChatPay(bean).enqueue(new TaiShengCallback<WechatResultBean>() {
-//                    @Override
-//                    public void onSuccess(Response<WechatResultBean> response, WechatResultBean message) {
-//
-//                                IWXAPI api = WXAPIFactory.createWXAPI(TestActivity.this, Constants.WXAPPID, false);//填写自己的APPIDapi.registerApp("wxAPPID");//填写自己的APPID，注册本身
-//                                PayReq req = new PayReq();//PayReq就是订单信息对象
-//                                req.appId = Constants.WXAPPID;//你的微信appid
-//                                req.partnerId = message.partnerid;//商户号
-//                                req.prepayId = message.prepayid;//预支付交易会话ID
-//                                req.nonceStr = message.noncestr;//随机字符串
-//                                req.timeStamp = message.timestamp + "";//时间戳
-//                                req.packageValue = "Sign=WXPay";//扩展字段,这里固定填写Sign=WXPay
-//                                req.sign = message.sign;//签名
-//                                api.sendReq(req);//将订单信息对象发送给微信服务器，即发送支付请求
-//
-//
-//
-//                    }
-//
-//                    @Override
-//                    public void onFail(Call<WechatResultBean> call, Throwable t) {
-//
-//                    }
-//                });
+//请求支付接口
+//                                String orderId=message.message;
+                WexinZhifuPostBean bean1 = new WexinZhifuPostBean();
+                bean1.orderId = "a85aeda490de49d2993b1f230df44f7f";
+                bean1.userId = UserInstance.getInstance().getUid();
+                bean1.token = UserInstance.getInstance().getToken();
+                ApiUtils.getApiService().weChatPay(bean1).enqueue(new TaiShengCallback<WechatResultBean>() {
+                    @Override
+                    public void onSuccess(Response<WechatResultBean> response, WechatResultBean message) {
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+                                IWXAPI api = WXAPIFactory.createWXAPI(TestActivity.this, Constants.WXAPPID, false);//填写自己的APPIDapi.registerApp("wxAPPID");//填写自己的APPID，注册本身
+                                PayReq req = new PayReq();//PayReq就是订单信息对象
+                                req.appId = Constants.WXAPPID;//你的微信appid
+                                req.partnerId = message.partnerid;//商户号
+                                req.prepayId = message.prepayid;//预支付交易会话ID
+                                req.nonceStr = message.noncestr;//随机字符串
+                                req.timeStamp = message.timestamp + "";//时间戳
+                                req.packageValue = "Sign=WXPay";//扩展字段,这里固定填写Sign=WXPay
+                                req.sign = message.sign;//签名
+                                api.sendReq(req);//将订单信息对象发送给微信服务器，即发送支付请求
+                                break;
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFail(Call<WechatResultBean> call, Throwable t) {
+
+                    }
+                });
 
 
             }
