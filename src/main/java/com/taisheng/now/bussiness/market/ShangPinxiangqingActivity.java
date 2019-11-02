@@ -203,11 +203,13 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                         if ("".equals(yanse_label.selectString)) {
                             if (bean.getSpecifications().contains(guige_label.selectString)) {
                                 productid = bean.getId();
+                                counterPrice=bean.getPrice();
                                 return;
                             }
                         }
                         if (bean.getSpecifications().contains(guige_label.selectString) && bean.getSpecifications().contains(yanse_label.selectString)) {
                             productid = bean.getId();
+                            counterPrice=bean.getPrice();
                             return;
                         }
                     }
