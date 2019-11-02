@@ -228,7 +228,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                                         }
                                     });
                                 } else {
-                                    DingdanInstance.getInstance().orderId = message.result.orderId;
+//                                    DingdanInstance.getInstance().orderId = message.result.orderId;
                                     Intent intent = new Intent(DingdanjiesuanActivity.this, ZhifuchenggongActivity.class);
                                     startActivity(intent);
                                     finish();

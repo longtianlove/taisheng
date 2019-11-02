@@ -60,7 +60,7 @@
 
             </LinearLayout>
             <com.taisheng.now.view.WithScrolleViewListView
-                android:id="@+id/list_kajuan"
+                android:id="@+id/list_goods"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

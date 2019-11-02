@@ -119,6 +119,7 @@ public class ZhifuchenggongActivity extends BaseActivity {
         tv_title.setText("支付成功");
         ll_chenggong.setVisibility(View.VISIBLE);
         ll_shibai.setVisibility(View.GONE);
+        btn_chakandingdan.setVisibility(View.GONE);
 
 //        api = WXAPIFactory.createWXAPI(this, "你的appid");
 //        api.handleIntent(getIntent(), this);
