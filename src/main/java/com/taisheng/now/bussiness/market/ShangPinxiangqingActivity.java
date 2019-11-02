@@ -282,7 +282,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                 xbean.productId = productid;
                 DingdanInstance.getInstance().dingdanList.add(xbean);
 
-                DingdanInstance.getInstance().zongjia = counterPrice + "";
+                DingdanInstance.getInstance().zongjia = counterPrice *(Integer.parseInt(number))+ "";
 
                 //获取地址信息
 

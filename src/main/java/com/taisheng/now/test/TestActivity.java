@@ -62,6 +62,7 @@ public class TestActivity extends BaseActivity {
                 bean.userId = UserInstance.getInstance().getUid();
                 bean.token = UserInstance.getInstance().getToken();
 
+
 //                ApiUtils.getApiService().weChatPay(bean).enqueue(new TaiShengCallback<WechatResultBean>() {
 //                    @Override
 //                    public void onSuccess(Response<WechatResultBean> response, WechatResultBean message) {

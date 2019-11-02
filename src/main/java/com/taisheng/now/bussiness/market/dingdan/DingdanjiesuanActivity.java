@@ -142,15 +142,15 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                     DingdanInstance.getInstance().couponId = "";
                 }
 
-                CreateOrderPostBean bean=new CreateOrderPostBean();
-                bean.userId=UserInstance.getInstance().getUid();
-                bean.token=UserInstance.getInstance().getToken();
-                bean.addressId=DingdanInstance.getInstance().addressId;
-                bean.couponId=DingdanInstance.getInstance().couponId;
-                bean.flag=DingdanInstance.getInstance().flag;
-                bean.goodsList=DingdanInstance.getInstance().dingdanList;
-                bean.postFeeId=DingdanInstance.getInstance().postFeeId;
-                bean.message=et_beizhu.getText().toString();
+                CreateOrderPostBean bean = new CreateOrderPostBean();
+                bean.userId = UserInstance.getInstance().getUid();
+                bean.token = UserInstance.getInstance().getToken();
+                bean.addressId = DingdanInstance.getInstance().addressId;
+                bean.couponId = DingdanInstance.getInstance().couponId;
+                bean.flag = DingdanInstance.getInstance().flag;
+                bean.goodsList = DingdanInstance.getInstance().dingdanList;
+                bean.postFeeId = DingdanInstance.getInstance().postFeeId;
+                bean.message = et_beizhu.getText().toString();
                 ApiUtils.getApiService().createOrder(bean).enqueue(new TaiShengCallback<BaseBean<CreateOrderResultBean>>() {
                     @Override
                     public void onSuccess(Response<BaseBean<CreateOrderResultBean>> response, BaseBean<CreateOrderResultBean> message) {
@@ -159,25 +159,27 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
 
                                 //请求支付接口
 //                                String orderId=message.message;
-                                WexinZhifuPostBean bean1=new WexinZhifuPostBean();
-                                bean1.orderId=message.message;
-                                bean1.userId=UserInstance.getInstance().getUid();
-                                bean1.token=UserInstance.getInstance().getToken();
+                                WexinZhifuPostBean bean1 = new WexinZhifuPostBean();
+                                bean1.orderId = message.message;
+                                bean1.userId = UserInstance.getInstance().getUid();
+                                bean1.token = UserInstance.getInstance().getToken();
                                 ApiUtils.getApiService().weChatPay(bean1).enqueue(new TaiShengCallback<WechatResultBean>() {
                                     @Override
                                     public void onSuccess(Response<WechatResultBean> response, WechatResultBean message) {
-
-                                        IWXAPI api = WXAPIFactory.createWXAPI(DingdanjiesuanActivity.this, Constants.WXAPPID, false);//填写自己的APPIDapi.registerApp("wxAPPID");//填写自己的APPID，注册本身
-                                        PayReq req = new PayReq();//PayReq就是订单信息对象
-                                        req.appId = Constants.WXAPPID;//你的微信appid
-                                        req.partnerId = message.partnerid;//商户号
-                                        req.prepayId = message.prepayid;//预支付交易会话ID
-                                        req.nonceStr = message.noncestr;//随机字符串
-                                        req.timeStamp = message.timestamp + "";//时间戳
-                                        req.packageValue = "Sign=WXPay";//扩展字段,这里固定填写Sign=WXPay
-                                        req.sign = message.sign;//签名
-                                        api.sendReq(req);//将订单信息对象发送给微信服务器，即发送支付请求
-
+                                        switch (message.code) {
+                                            case Constants.HTTP_SUCCESS:
+                                                IWXAPI api = WXAPIFactory.createWXAPI(DingdanjiesuanActivity.this, Constants.WXAPPID, false);//填写自己的APPIDapi.registerApp("wxAPPID");//填写自己的APPID，注册本身
+                                                PayReq req = new PayReq();//PayReq就是订单信息对象
+                                                req.appId = Constants.WXAPPID;//你的微信appid
+                                                req.partnerId = message.partnerid;//商户号
+                                                req.prepayId = message.prepayid;//预支付交易会话ID
+                                                req.nonceStr = message.noncestr;//随机字符串
+                                                req.timeStamp = message.timestamp + "";//时间戳
+                                                req.packageValue = "Sign=WXPay";//扩展字段,这里固定填写Sign=WXPay
+                                                req.sign = message.sign;//签名
+                                                api.sendReq(req);//将订单信息对象发送给微信服务器，即发送支付请求
+                                                break;
+                                        }
 
 
                                     }
@@ -234,10 +236,10 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                                 }
 
                             }
-                            DingdanInstance.getInstance().addressId=bean.id;
-                            DingdanInstance.getInstance().name=bean.name;
-                            DingdanInstance.getInstance().phone=bean.phone;
-                            DingdanInstance.getInstance().address=bean.province + bean.city + bean.county + bean.addressDetail;
+                            DingdanInstance.getInstance().addressId = bean.id;
+                            DingdanInstance.getInstance().name = bean.name;
+                            DingdanInstance.getInstance().phone = bean.phone;
+                            DingdanInstance.getInstance().address = bean.province + bean.city + bean.county + bean.addressDetail;
                             tv_dizhiname.setText(bean.name);
                             tv_phone.setText(bean.phone);
                             tv_address.setText(bean.province + bean.city + bean.county + bean.addressDetail);
