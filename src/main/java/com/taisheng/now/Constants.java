@@ -315,6 +315,8 @@ public class Constants {
 
             //            订单信息-【取消订单信息】
             public static final String deleteOrder = "jeecg-boot/app/mall/order/deleteOrder";
+            //            订单信息-【确认收货】
+            public static final String confirmReceiveGoods = "jeecg-boot/app/mall/order/confirmReceiveGoods";
 
 
             public static final String weChatPay = "jeecg-boot/app/pay/payment/wxpay/weChatPay";

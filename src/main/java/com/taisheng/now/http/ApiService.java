@@ -380,6 +380,11 @@ public interface ApiService {
     @POST(Constants.Url.ShangCheng.deleteOrder)
     Call<BaseBean> deleteOrder(@Body DeleteOrderPostBean bean);
 
+//    public static final String confirmReceiveGoods = "jeecg-boot/app/mall/order/confirmReceiveGoods";
+    @POST(Constants.Url.ShangCheng.confirmReceiveGoods)
+    Call<BaseBean> confirmReceiveGoods(@Body DeleteOrderPostBean bean);
+
+
 
 
     @POST(Constants.Url.ShangCheng.weChatPay)

@@ -32,6 +32,7 @@ import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.test.WechatResultBean;
 import com.taisheng.now.util.DialogUtil;
+import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.WithScrolleViewListView;
 import com.tencent.mm.opensdk.modelpay.PayReq;
@@ -211,8 +212,8 @@ public class MyDingdanFragment extends BaseFragment {
                     OrderBean bean = mData.get(position);
                     util.tv_orderid.setText(bean.orderId);
 
-                    DingdanShangpinAdapter adapter=new DingdanShangpinAdapter(getActivity());
-                    adapter.mData=bean.list;
+                    DingdanShangpinAdapter adapter = new DingdanShangpinAdapter(getActivity());
+                    adapter.mData = bean.list;
                     util.list_goods.setAdapter(adapter);
 
                     util.tv_gouyou.setText("共有" + bean.goodsNumber + "件商品");
@@ -244,7 +245,7 @@ public class MyDingdanFragment extends BaseFragment {
                         }
                     });
 
-                    util.tv_quzhifu.setOnClickListener(new View.OnClickListener(){
+                    util.tv_quzhifu.setOnClickListener(new View.OnClickListener() {
 
                         @Override
                         public void onClick(View v) {
@@ -304,8 +305,8 @@ public class MyDingdanFragment extends BaseFragment {
                     OrderBean bean1 = mData.get(position);
                     util1.tv_orderid.setText(bean1.orderId);
 
-                    DingdanShangpinAdapter adapter1=new DingdanShangpinAdapter(getActivity());
-                    adapter1.mData=bean1.list;
+                    DingdanShangpinAdapter adapter1 = new DingdanShangpinAdapter(getActivity());
+                    adapter1.mData = bean1.list;
                     util1.list_goods.setAdapter(adapter1);
 
                     util1.tv_gouyou.setText("共有" + bean1.goodsNumber + "件商品");
@@ -325,10 +326,49 @@ public class MyDingdanFragment extends BaseFragment {
                         util2.list_goods = convertView.findViewById(R.id.list_goods);
                         util2.tv_gouyou = convertView.findViewById(R.id.tv_gouyou);
                         util2.tv_zongjia = convertView.findViewById(R.id.tv_zongjia);
+                        util2.tv_querensouhuo = convertView.findViewById(R.id.tv_querensouhuo);
                         convertView.setTag(util2);
                     } else {
                         util2 = (Util) convertView.getTag();
                     }
+
+
+                    OrderBean bean2 = mData.get(position);
+                    util2.tv_orderid.setText(bean2.orderId);
+
+                    DingdanShangpinAdapter adapter2 = new DingdanShangpinAdapter(getActivity());
+                    adapter2.mData = bean2.list;
+                    util2.list_goods.setAdapter(adapter2);
+
+                    util2.tv_gouyou.setText("共有" + bean2.goodsNumber + "件商品");
+                    util2.tv_zongjia.setText("¥" + bean2.totalPrice);
+                    util2.tv_querensouhuo.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                            DeleteOrderPostBean deleteOrderPostBean = new DeleteOrderPostBean();
+                            deleteOrderPostBean.userId = UserInstance.getInstance().getUid();
+                            deleteOrderPostBean.token = UserInstance.getInstance().getToken();
+                            deleteOrderPostBean.orderId = bean2.orderId;
+                            ApiUtils.getApiService().confirmReceiveGoods(deleteOrderPostBean).enqueue(new TaiShengCallback<BaseBean>() {
+                                @Override
+                                public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                                    switch (message.code) {
+                                        case Constants.HTTP_SUCCESS:
+                                            ToastUtil.showAtCenter("已确认");
+                                            getDoctors();
+                                            break;
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(Call<BaseBean> call, Throwable t) {
+
+                                }
+                            });
+                        }
+                    });
+
 
                     break;
                 case "4":
@@ -339,14 +379,24 @@ public class MyDingdanFragment extends BaseFragment {
                     if (convertView == null) {
                         util3 = new Util();
                         LayoutInflater inflater = LayoutInflater.from(mcontext);
-
-
-                        convertView = inflater.inflate(R.layout.item_dingdanyiwancheng, null);
-
+                        convertView = inflater.inflate(R.layout.item_dingdandaifahuo, null);
+                        util3.tv_orderid = convertView.findViewById(R.id.tv_orderid);
+                        util3.list_goods = convertView.findViewById(R.id.list_goods);
+                        util3.tv_gouyou = convertView.findViewById(R.id.tv_gouyou);
+                        util3.tv_zongjia = convertView.findViewById(R.id.tv_zongjia);
                         convertView.setTag(util3);
                     } else {
                         util3 = (Util) convertView.getTag();
                     }
+                    OrderBean bean3 = mData.get(position);
+                    util3.tv_orderid.setText(bean3.orderId);
+
+                    DingdanShangpinAdapter adapter3 = new DingdanShangpinAdapter(getActivity());
+                    adapter3.mData = bean3.list;
+                    util3.list_goods.setAdapter(adapter3);
+
+                    util3.tv_gouyou.setText("共有" + bean3.goodsNumber + "件商品");
+                    util3.tv_zongjia.setText("¥" + bean3.totalPrice);
 
                     break;
 
@@ -450,6 +500,8 @@ public class MyDingdanFragment extends BaseFragment {
             TextView tv_zongjia;
             View tv_quxiaodingdan;
             View tv_quzhifu;
+
+            View tv_querensouhuo;
         }
     }
 }
