@@ -26,6 +26,7 @@ import com.taisheng.now.bussiness.bean.result.market.OrderBean;
 import com.taisheng.now.bussiness.bean.result.market.OrderGoodsBean;
 import com.taisheng.now.bussiness.bean.result.market.OrderListResultBean;
 import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
+import com.taisheng.now.bussiness.market.DingdanInstance;
 import com.taisheng.now.bussiness.market.ShangPinxiangqingActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
@@ -251,6 +252,8 @@ public class MyDingdanFragment extends BaseFragment {
                         public void onClick(View v) {
                             WexinZhifuPostBean bean1 = new WexinZhifuPostBean();
                             bean1.orderId = bean.orderId;
+                            DingdanInstance.getInstance().orderId=bean.orderId;
+
                             bean1.userId = UserInstance.getInstance().getUid();
                             bean1.token = UserInstance.getInstance().getToken();
                             ApiUtils.getApiService().weChatPay(bean1).enqueue(new TaiShengCallback<BaseBean<WechatResultBean>>() {

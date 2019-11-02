@@ -27,6 +27,7 @@ public class DingdanInstance {
 
 
 
+
     public String addressId;
 
     public String flag;
@@ -41,6 +42,10 @@ public class DingdanInstance {
 
 
     public String zongjia;
+
+
+    //订单id
+    public String orderId;
 
 
     //地址相关
