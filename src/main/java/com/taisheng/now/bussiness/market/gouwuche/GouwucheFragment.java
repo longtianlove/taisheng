@@ -31,7 +31,6 @@ import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.TaishengListView;
-import com.taisheng.now.view.chenjinshi.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,14 +39,14 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class GouwucheFragment extends BaseFragment implements View.OnClickListener
-        , ShoppingCartAdapter.CheckInterface, ShoppingCartAdapter.ModifyCountInterface{
+        , ShoppingCartAdapter.CheckInterface, ShoppingCartAdapter.ModifyCountInterface {
 
     private static final String TAG = "ShoppingCartActivity";
     public String assessmentType;
     public int scoreGoods;
 
 
-//    View btnBack;
+    //    View btnBack;
     //全选
     CheckBox ckAll;
     //总额
@@ -70,7 +69,7 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         super.onCreateView(inflater, container, savedInstanceState);
+        super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.layout_shopping_cart_activity, container, false);
 
 
@@ -99,7 +98,13 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
 //
 //            }
 //        });
-        DingdanInstance.getInstance().dingdanList.clear();
+        if (DingdanInstance.getInstance().scoreGoods == 1) {
+            DingdanInstance.getInstance().putongshangpindingdanList.clear();
+        } else {
+            DingdanInstance.getInstance().jifenshangpindingdanList.clear();
+        }
+
+
         list_shopping_cart = (com.taisheng.now.view.TaishengListView) rootView.findViewById(R.id.list_shopping_cart);
 
 //        btnEdit.setOnClickListener(this);
@@ -161,11 +166,11 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
         switch (assessmentType) {
             case "1":
                 bean.scoreGoods = 1;
-                scoreGoods=1;
+                scoreGoods = 1;
                 break;
             case "2":
                 bean.scoreGoods = 0;
-                scoreGoods=0;
+                scoreGoods = 0;
                 break;
 
         }
@@ -192,10 +197,10 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
                                 shoppingCartBean.setAttribute(bean.specifications);
                                 shoppingCartBean.setPrice(bean.price);
                                 shoppingCartBean.setId(bean.id);
-                                shoppingCartBean.goodsId=bean.goodsId;
+                                shoppingCartBean.goodsId = bean.goodsId;
                                 shoppingCartBean.setCount(bean.number);
                                 shoppingCartBean.setImageUrl(bean.picUrl);
-                                shoppingCartBean.productId=bean.productId;
+                                shoppingCartBean.productId = bean.productId;
 
                                 shoppingCartBeanList.add(shoppingCartBean);
 
@@ -239,20 +244,31 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
             //全选按钮
             case R.id.ck_all:
                 if (shoppingCartBeanList.size() != 0) {
-                    DingdanInstance.getInstance().dingdanList.clear();
+                    if (DingdanInstance.getInstance().scoreGoods == 1) {
+                        DingdanInstance.getInstance().putongshangpindingdanList.clear();
+                    } else {
+                        DingdanInstance.getInstance().jifenshangpindingdanList.clear();
+                    }
                     if (ckAll.isChecked()) {
-                        for (int i = 0; i < shoppingCartBeanList.size(); i++) {
-                            shoppingCartBeanList.get(i).setChoosed(true);
-                            ShoppingCartBean beanA=shoppingCartBeanList.get(i);
-                            xiadanshangpinBean beanB=new xiadanshangpinBean();
-                            beanB.picUrl=beanA.imageUrl;
-                            beanB.number=beanA.count+"";
-                            beanB.counterPrice=beanA.price+"";
-                            beanB.name=beanA.shoppingName;
-                            beanB.goodsId=beanA.goodsId;
-                            beanB.productId=beanA.productId;
+                        synchronized (DingdanInstance.getInstance()) {
+                            for (int i = 0; i < shoppingCartBeanList.size(); i++) {
+                                shoppingCartBeanList.get(i).setChoosed(true);
+                                ShoppingCartBean beanA = shoppingCartBeanList.get(i);
+                                xiadanshangpinBean beanB = new xiadanshangpinBean();
+                                beanB.picUrl = beanA.imageUrl;
+                                beanB.number = beanA.count + "";
+                                beanB.counterPrice = beanA.price + "";
+                                beanB.name = beanA.shoppingName;
+                                beanB.goodsId = beanA.goodsId;
+                                beanB.productId = beanA.productId;
 
-                            DingdanInstance.getInstance().dingdanList.add(beanB);
+
+                                if (DingdanInstance.getInstance().scoreGoods == 1) {
+                                    DingdanInstance.getInstance().putongshangpindingdanList.add(beanB);
+                                } else {
+                                    DingdanInstance.getInstance().jifenshangpindingdanList.add(beanB);
+                                }
+                            }
                         }
                         shoppingCartAdapter.notifyDataSetChanged();
                     } else {
@@ -284,16 +300,23 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
     }
 
 
-
-
     /**
      * 结算订单、支付
      */
     private void lementOnder() {
-        if(DingdanInstance.getInstance().dingdanList.isEmpty()){
-            ToastUtil.showAtCenter("请选择商品");
-            return;
+
+        if (DingdanInstance.getInstance().scoreGoods == 1) {
+            if (DingdanInstance.getInstance().putongshangpindingdanList.isEmpty()) {
+                ToastUtil.showAtCenter("请选择商品");
+                return;
+            }
+        } else {
+            if (DingdanInstance.getInstance().jifenshangpindingdanList.isEmpty()) {
+                ToastUtil.showAtCenter("请选择商品");
+                return;
+            }
         }
+
 
         //选中的需要提交的商品清单
         for (ShoppingCartBean bean : shoppingCartBeanList) {
@@ -309,9 +332,9 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
             }
         }
 //        ToastUtil.showAtCenter("总价：" + totalPrice);
-        DingdanInstance.getInstance().zongjia=totalPrice+"";
+        DingdanInstance.getInstance().zongjia = totalPrice + "";
 
-        DingdanInstance.getInstance().scoreGoods= scoreGoods;
+        DingdanInstance.getInstance().scoreGoods = scoreGoods;
 
         //跳转到支付界面
         //获取地址信息
@@ -330,12 +353,12 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
 
-                        DingdanInstance.getInstance().flag="Y";
+                        DingdanInstance.getInstance().flag = "Y";
                         if (message.result.records != null && message.result.records.size() > 0) {
                             Intent intent = new Intent(getActivity(), DingdanjiesuanActivity.class);
                             startActivity(intent);
                         } else {
-                            DingdanInstance.getInstance().fromDizhi="2";
+                            DingdanInstance.getInstance().fromDizhi = "2";
                             Intent intent = new Intent(getActivity(), DizhiBianjiActivity.class);
                             startActivity(intent);
                         }
@@ -452,10 +475,10 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
     public void childDelete(int position) {
         ShoppingCartBean shoppingCartBean = shoppingCartBeanList.get(position);
 
-        CartDetePostBean bean=new CartDetePostBean();
-        bean.userId=UserInstance.getInstance().getUid();
-        bean.token=UserInstance.getInstance().getToken();
-        bean.cartId=shoppingCartBean.getId()+",";
+        CartDetePostBean bean = new CartDetePostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.cartId = shoppingCartBean.getId() + ",";
         ApiUtils.getApiService().cartDelete(bean).enqueue(new TaiShengCallback<BaseBean>() {
             @Override
             public void onSuccess(Response<BaseBean> response, BaseBean message) {
@@ -471,7 +494,6 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
         shoppingCartAdapter.notifyDataSetChanged();
         statistics();
     }
-
 
 
 }

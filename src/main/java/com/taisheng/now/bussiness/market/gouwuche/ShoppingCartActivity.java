@@ -6,9 +6,7 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -18,12 +16,9 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.CartDetePostBean;
-import com.taisheng.now.bussiness.bean.result.GouwucheResultBean;
-import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
 import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
 import com.taisheng.now.bussiness.market.DingdanInstance;
-import com.taisheng.now.bussiness.market.ShangPinxiangqingActivity;
 import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
 import com.taisheng.now.bussiness.market.dizhi.DizhiBianjiActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -33,13 +28,10 @@ import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
-import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -100,7 +92,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
 //
 //            }
 //        });
-        DingdanInstance.getInstance().dingdanList.clear();
+        DingdanInstance.getInstance().putongshangpindingdanList.clear();
         list_shopping_cart = (com.taisheng.now.view.TaishengListView) findViewById(R.id.list_shopping_cart);
 
         btnEdit.setOnClickListener(this);
@@ -230,7 +222,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
             //全选按钮
             case R.id.ck_all:
                 if (shoppingCartBeanList.size() != 0) {
-                    DingdanInstance.getInstance().dingdanList.clear();
+                    DingdanInstance.getInstance().putongshangpindingdanList.clear();
                     if (ckAll.isChecked()) {
                         for (int i = 0; i < shoppingCartBeanList.size(); i++) {
                             shoppingCartBeanList.get(i).setChoosed(true);
@@ -243,7 +235,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
                             beanB.goodsId=beanA.goodsId;
                             beanB.productId=beanA.productId;
 
-                            DingdanInstance.getInstance().dingdanList.add(beanB);
+                            DingdanInstance.getInstance().putongshangpindingdanList.add(beanB);
                         }
                         shoppingCartAdapter.notifyDataSetChanged();
                     } else {
@@ -278,7 +270,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
      * 结算订单、支付
      */
     private void lementOnder() {
-        if(DingdanInstance.getInstance().dingdanList.isEmpty()){
+        if(DingdanInstance.getInstance().putongshangpindingdanList.isEmpty()){
             ToastUtil.showAtCenter("请选择商品");
             return;
         }

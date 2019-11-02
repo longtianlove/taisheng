@@ -23,8 +23,9 @@ public class DingdanInstance {
     }
 
 
-    public List<xiadanshangpinBean> dingdanList = new ArrayList<>();
+    public List<xiadanshangpinBean> putongshangpindingdanList = new ArrayList<>();
 
+    public List<xiadanshangpinBean> jifenshangpindingdanList = new ArrayList<>();
 
 
 

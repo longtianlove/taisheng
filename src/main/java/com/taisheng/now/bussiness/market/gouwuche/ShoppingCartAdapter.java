@@ -1,8 +1,6 @@
 package com.taisheng.now.bussiness.market.gouwuche;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -145,17 +143,39 @@ public class ShoppingCartAdapter extends BaseAdapter {
                         shoppingCartBean.setChoosed(((CheckBox) v).isChecked());
                         checkInterface.checkGroup(position, ((CheckBox) v).isChecked());//向外暴露接口
                         if(((CheckBox) v).isChecked()){
-                            for(xiadanshangpinBean bean:DingdanInstance.getInstance().dingdanList) {
-                                if(bean.goodsId==xbean.goodsId){
-                                    DingdanInstance.getInstance().dingdanList.remove(bean);
+                            synchronized (DingdanInstance.getInstance()) {
+                                if (DingdanInstance.getInstance().scoreGoods == 1) {
+
+                                    for (xiadanshangpinBean bean : DingdanInstance.getInstance().putongshangpindingdanList) {
+                                        if (bean.goodsId == xbean.goodsId) {
+                                            DingdanInstance.getInstance().putongshangpindingdanList.remove(bean);
+                                        }
+                                    }
+                                    DingdanInstance.getInstance().putongshangpindingdanList.add(xbean);
+                                } else {
+                                    for (xiadanshangpinBean bean : DingdanInstance.getInstance().jifenshangpindingdanList) {
+                                        if (bean.goodsId == xbean.goodsId) {
+                                            DingdanInstance.getInstance().jifenshangpindingdanList.remove(bean);
+                                        }
+                                    }
+                                    DingdanInstance.getInstance().jifenshangpindingdanList.add(xbean);
                                 }
                             }
-                            DingdanInstance.getInstance().dingdanList.add(xbean);
 
                         }else{
-                            for(xiadanshangpinBean bean:DingdanInstance.getInstance().dingdanList) {
-                                if(bean.goodsId==xbean.goodsId){
-                                    DingdanInstance.getInstance().dingdanList.remove(bean);
+                            synchronized (DingdanInstance.getInstance()) {
+                                if (DingdanInstance.getInstance().scoreGoods == 1) {
+                                    for (xiadanshangpinBean bean : DingdanInstance.getInstance().putongshangpindingdanList) {
+                                        if (bean.goodsId == xbean.goodsId) {
+                                            DingdanInstance.getInstance().putongshangpindingdanList.remove(bean);
+                                        }
+                                    }
+                                } else {
+                                    for (xiadanshangpinBean bean : DingdanInstance.getInstance().jifenshangpindingdanList) {
+                                        if (bean.goodsId == xbean.goodsId) {
+                                            DingdanInstance.getInstance().jifenshangpindingdanList.remove(bean);
+                                        }
+                                    }
                                 }
                             }
                         }

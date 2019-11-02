@@ -34,7 +34,6 @@ import com.taisheng.now.bussiness.market.youhuijuan.MyYouhuijuanActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
-import com.taisheng.now.test.TestActivity;
 import com.taisheng.now.test.WechatResultBean;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.view.WithScrolleViewListView;
@@ -63,7 +62,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
     TextView tv_phone;
     TextView tv_address;
 
-
+    View ll_youhuijuan_all;
     View ll_youhuijuan;
     TextView tv_youhuijuan;
 
@@ -73,6 +72,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
 
 
     TextView tv_jianyouhuijuan;
+    View ll_youfei;
     TextView tv_youfei;
     TextView tv_zongjia;
 
@@ -107,6 +107,13 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
         tv_phone = findViewById(R.id.tv_phone);
         tv_address = findViewById(R.id.tv_address);
 
+
+        ll_youhuijuan_all = findViewById(R.id.ll_youhuijuan_all);
+        if (DingdanInstance.getInstance().scoreGoods == 0) {
+            ll_youhuijuan_all.setVisibility(View.GONE);
+        } else {
+            ll_youhuijuan_all.setVisibility(View.VISIBLE);
+        }
         ll_youhuijuan = findViewById(R.id.ll_youhuijuan);
         ll_youhuijuan.setOnClickListener(new View.OnClickListener() {
 
@@ -120,14 +127,25 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
 
         lv_jiesuan = findViewById(R.id.lv_jiesuan);
         madapter = new ArticleAdapter(DingdanjiesuanActivity.this);
-        madapter.mData = DingdanInstance.getInstance().dingdanList;
+        if (DingdanInstance.getInstance().scoreGoods == 1) {
+            madapter.mData = DingdanInstance.getInstance().putongshangpindingdanList;
+        } else {
+            madapter.mData = DingdanInstance.getInstance().jifenshangpindingdanList;
+        }
         lv_jiesuan.setAdapter(madapter);
 
 
         tv_jianyouhuijuan = findViewById(R.id.tv_jianyouhuijuan);
         tv_jianyouhuijuan.setText("-¥0");
+        ll_youfei = findViewById(R.id.ll_youfei);
         tv_youfei = findViewById(R.id.tv_youfei);
         tv_youfei.setText("￥0");
+
+        if (DingdanInstance.getInstance().scoreGoods == 0) {
+            ll_youfei.setVisibility(View.GONE);
+        } else {
+            ll_youfei.setVisibility(View.VISIBLE);
+        }
 
         tv_zongjia = findViewById(R.id.tv_zongjia);
         tv_zongjia.setText(DingdanInstance.getInstance().zongjia);
@@ -148,7 +166,11 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                 bean.addressId = DingdanInstance.getInstance().addressId;
                 bean.couponId = DingdanInstance.getInstance().couponId;
                 bean.flag = DingdanInstance.getInstance().flag;
-                bean.goodsList = DingdanInstance.getInstance().dingdanList;
+                if (DingdanInstance.getInstance().scoreGoods == 1) {
+                    bean.goodsList = DingdanInstance.getInstance().putongshangpindingdanList;
+                } else {
+                    bean.goodsList = DingdanInstance.getInstance().jifenshangpindingdanList;
+                }
                 bean.postFeeId = DingdanInstance.getInstance().postFeeId;
                 bean.message = et_beizhu.getText().toString();
                 ApiUtils.getApiService().createOrder(bean).enqueue(new TaiShengCallback<BaseBean<CreateOrderResultBean>>() {
@@ -156,40 +178,43 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                     public void onSuccess(Response<BaseBean<CreateOrderResultBean>> response, BaseBean<CreateOrderResultBean> message) {
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
-
-                                //请求支付接口
+                                if (DingdanInstance.getInstance().scoreGoods == 1) {
+                                    //请求支付接口
 //                                String orderId=message.message;
-                                WexinZhifuPostBean bean1 = new WexinZhifuPostBean();
-                                bean1.orderId = message.message;
-                                DingdanInstance.getInstance().orderId=message.message;
-                                bean1.userId = UserInstance.getInstance().getUid();
-                                bean1.token = UserInstance.getInstance().getToken();
-                                ApiUtils.getApiService().weChatPay(bean1).enqueue(new TaiShengCallback<BaseBean<WechatResultBean>>() {
-                                    @Override
-                                    public void onSuccess(Response<BaseBean<WechatResultBean>> response, BaseBean<WechatResultBean> message) {
-                                        switch (message.code) {
-                                            case Constants.HTTP_SUCCESS:
-                                                IWXAPI api = WXAPIFactory.createWXAPI(DingdanjiesuanActivity.this, Constants.WXAPPID, false);//填写自己的APPIDapi.registerApp("wxAPPID");//填写自己的APPID，注册本身
-                                                PayReq req = new PayReq();//PayReq就是订单信息对象
-                                                req.appId = Constants.WXAPPID;//你的微信appid
-                                                req.partnerId = message.result.partnerid;//商户号
-                                                req.prepayId = message.result.prepayid;//预支付交易会话ID
-                                                req.nonceStr = message.result.noncestr;//随机字符串
-                                                req.timeStamp = message.result.timestamp + "";//时间戳
-                                                req.packageValue = "Sign=WXPay";//扩展字段,这里固定填写Sign=WXPay
-                                                req.sign = message.result.sign;//签名
-                                                api.sendReq(req);//将订单信息对象发送给微信服务器，即发送支付请求
-                                                break;
+                                    WexinZhifuPostBean bean1 = new WexinZhifuPostBean();
+                                    bean1.orderId = message.message;
+                                    DingdanInstance.getInstance().orderId = message.message;
+                                    bean1.userId = UserInstance.getInstance().getUid();
+                                    bean1.token = UserInstance.getInstance().getToken();
+                                    ApiUtils.getApiService().weChatPay(bean1).enqueue(new TaiShengCallback<BaseBean<WechatResultBean>>() {
+                                        @Override
+                                        public void onSuccess(Response<BaseBean<WechatResultBean>> response, BaseBean<WechatResultBean> message) {
+                                            switch (message.code) {
+                                                case Constants.HTTP_SUCCESS:
+                                                    IWXAPI api = WXAPIFactory.createWXAPI(DingdanjiesuanActivity.this, Constants.WXAPPID, false);//填写自己的APPIDapi.registerApp("wxAPPID");//填写自己的APPID，注册本身
+                                                    PayReq req = new PayReq();//PayReq就是订单信息对象
+                                                    req.appId = Constants.WXAPPID;//你的微信appid
+                                                    req.partnerId = message.result.partnerid;//商户号
+                                                    req.prepayId = message.result.prepayid;//预支付交易会话ID
+                                                    req.nonceStr = message.result.noncestr;//随机字符串
+                                                    req.timeStamp = message.result.timestamp + "";//时间戳
+                                                    req.packageValue = "Sign=WXPay";//扩展字段,这里固定填写Sign=WXPay
+                                                    req.sign = message.result.sign;//签名
+                                                    api.sendReq(req);//将订单信息对象发送给微信服务器，即发送支付请求
+                                                    break;
+                                            }
+
+
                                         }
 
+                                        @Override
+                                        public void onFail(Call<BaseBean<WechatResultBean>> call, Throwable t) {
 
-                                    }
+                                        }
+                                    });
+                                }else{
 
-                                    @Override
-                                    public void onFail(Call<BaseBean<WechatResultBean>> call, Throwable t) {
-
-                                    }
-                                });
+                                }
 
                                 break;
                         }

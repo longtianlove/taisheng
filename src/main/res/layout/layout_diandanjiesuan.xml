@@ -124,6 +124,7 @@
                     android:background="#fff6f6f6" />
 
                 <LinearLayout
+                    android:id="@+id/ll_youhuijuan_all"
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
                     android:gravity="center_vertical"
@@ -236,6 +237,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/ll_youfei"
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
                     android:layout_marginTop="10dp"

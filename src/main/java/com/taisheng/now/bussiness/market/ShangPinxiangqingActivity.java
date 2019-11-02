@@ -32,7 +32,6 @@ import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
 import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
 import com.taisheng.now.bussiness.market.dizhi.DizhiBianjiActivity;
 import com.taisheng.now.bussiness.market.gouwuche.GouwucheActivity;
-import com.taisheng.now.bussiness.market.gouwuche.ShoppingCartActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
@@ -204,13 +203,13 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                         if ("".equals(yanse_label.selectString)) {
                             if (bean.getSpecifications().contains(guige_label.selectString)) {
                                 productid = bean.getId();
-                                counterPrice=bean.getPrice();
+                                counterPrice = bean.getPrice();
                                 return;
                             }
                         }
                         if (bean.getSpecifications().contains(guige_label.selectString) && bean.getSpecifications().contains(yanse_label.selectString)) {
                             productid = bean.getId();
-                            counterPrice=bean.getPrice();
+                            counterPrice = bean.getPrice();
                             return;
                         }
                     }
@@ -275,21 +274,35 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                 }
 
 
-                DingdanInstance.getInstance().scoreGoods= scoreGoods;
+                DingdanInstance.getInstance().scoreGoods = scoreGoods;
 
-
-                DingdanInstance.getInstance().dingdanList.clear();
-                xiadanshangpinBean xbean = new xiadanshangpinBean();
-                xbean.goodsId = goodsid;
-                xbean.name = name;
-                xbean.counterPrice = counterPrice + "";
+                if (DingdanInstance.getInstance().scoreGoods == 1) {
+                    DingdanInstance.getInstance().putongshangpindingdanList.clear();
+                    xiadanshangpinBean xbean = new xiadanshangpinBean();
+                    xbean.goodsId = goodsid;
+                    xbean.name = name;
+                    xbean.counterPrice = counterPrice + "";
 //                xbean.retailPrice=retailPrice;
-                xbean.number = number;
-                xbean.picUrl = picUrl;
-                xbean.productId = productid;
-                DingdanInstance.getInstance().dingdanList.add(xbean);
+                    xbean.number = number;
+                    xbean.picUrl = picUrl;
+                    xbean.productId = productid;
+                    DingdanInstance.getInstance().putongshangpindingdanList.add(xbean);
 
-                DingdanInstance.getInstance().zongjia = counterPrice *(Integer.parseInt(number))+ "";
+                    DingdanInstance.getInstance().zongjia = counterPrice * (Integer.parseInt(number)) + "";
+                }else{
+                    DingdanInstance.getInstance().jifenshangpindingdanList.clear();
+                    xiadanshangpinBean xbean = new xiadanshangpinBean();
+                    xbean.goodsId = goodsid;
+                    xbean.name = name;
+                    xbean.counterPrice = counterPrice + "";
+//                xbean.retailPrice=retailPrice;
+                    xbean.number = number;
+                    xbean.picUrl = picUrl;
+                    xbean.productId = productid;
+                    DingdanInstance.getInstance().jifenshangpindingdanList.add(xbean);
+
+                    DingdanInstance.getInstance().zongjia = counterPrice * (Integer.parseInt(number)) + "";
+                }
 
                 //获取地址信息
 
@@ -346,7 +359,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
     public String picUrl;
 
     public String goodsid;
-    public int  scoreGoods;
+    public int scoreGoods;
 
     public List<GoodsProductEntities> goodsProductEntities;
     public String productid = 1 + "";
@@ -393,7 +406,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                             tv_name.setText(message.result.goodsEntity.name);
                             tv_jianjie.setText(message.result.goodsEntity.brief);
                             wv_shangpinxiangqing.loadData(Html.fromHtml(message.result.goodsEntity.detail).toString(), "text/html", "UTF-8");
-                            scoreGoods=message.result.goodsEntity.scoreGoods;
+                            scoreGoods = message.result.goodsEntity.scoreGoods;
 
                             Uri uri = Uri.parse(message.result.goodsEntity.picUrl);
                             picUrl = message.result.goodsEntity.picUrl;
