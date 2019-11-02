@@ -31,6 +31,7 @@ import com.taisheng.now.bussiness.bean.result.market.ValueList;
 import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
 import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
 import com.taisheng.now.bussiness.market.dizhi.DizhiBianjiActivity;
+import com.taisheng.now.bussiness.market.gouwuche.GouwucheActivity;
 import com.taisheng.now.bussiness.market.gouwuche.ShoppingCartActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
@@ -119,7 +120,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
         iv_gouwuche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShangPinxiangqingActivity.this, ShoppingCartActivity.class);
+                Intent intent = new Intent(ShangPinxiangqingActivity.this, GouwucheActivity.class);
                 startActivity(intent);
             }
         });

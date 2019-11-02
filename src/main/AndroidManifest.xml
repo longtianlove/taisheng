@@ -188,6 +188,13 @@
             android:windowSoftInputMode="stateVisible|adjustResize">
 
         </activity>
+        <activity
+            android:name="com.taisheng.now.bussiness.market.gouwuche.GouwucheActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+        >
+
+        </activity>
 
         <activity
             android:name="com.taisheng.now.bussiness.market.gouwuche.ShoppingCartActivity"

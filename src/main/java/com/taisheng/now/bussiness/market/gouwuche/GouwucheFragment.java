@@ -1,29 +1,28 @@
 package com.taisheng.now.bussiness.market.gouwuche;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.CartDetePostBean;
+import com.taisheng.now.bussiness.bean.post.GouwucheListPostBean;
 import com.taisheng.now.bussiness.bean.result.GouwucheResultBean;
-import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
 import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
 import com.taisheng.now.bussiness.market.DingdanInstance;
-import com.taisheng.now.bussiness.market.ShangPinxiangqingActivity;
 import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
 import com.taisheng.now.bussiness.market.dizhi.DizhiBianjiActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -33,24 +32,21 @@ import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
-import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
 import retrofit2.Call;
 import retrofit2.Response;
 
-/**
- * Created by an on 2017/6/14.
- * 购物车界面
- */
-public class ShoppingCartActivity extends Activity implements View.OnClickListener
-        , ShoppingCartAdapter.CheckInterface, ShoppingCartAdapter.ModifyCountInterface {
+public class GouwucheFragment extends BaseFragment implements View.OnClickListener
+        , ShoppingCartAdapter.CheckInterface, ShoppingCartAdapter.ModifyCountInterface{
+
     private static final String TAG = "ShoppingCartActivity";
-    View btnBack;
+    public String assessmentType;
+
+
+//    View btnBack;
     //全选
     CheckBox ckAll;
     //总额
@@ -58,10 +54,10 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
     //结算
     TextView tvSettlement;
     //编辑
-    TextView btnEdit;//tv_edit
+//    TextView btnEdit;//tv_edit
 
 
-//    MaterialDesignPtrFrameLayout ptr_refresh;
+    //    MaterialDesignPtrFrameLayout ptr_refresh;
     com.taisheng.now.view.TaishengListView list_shopping_cart;
     private ShoppingCartAdapter shoppingCartAdapter;
     private boolean flag = false;
@@ -70,22 +66,24 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
     private double totalPrice = 0.00;// 购买的商品总价
     private int totalCount = 0;// 购买的商品总数量
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_shopping_cart_activity);
-        initView();
-//        ImageLoader imageLoader=ImageLoader.getInstance();
-//        imageLoader.init(ImageLoaderConfiguration.createDefault(this));
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+         super.onCreateView(inflater, container, savedInstanceState);
+        View rootView = inflater.inflate(R.layout.layout_shopping_cart_activity, container, false);
+
+
+        initView(rootView);
+        return rootView;
     }
 
-    private void initView() {
+    private void initView(View rootView) {
 
-        btnBack = findViewById(R.id.btn_back);
-        ckAll = (CheckBox) findViewById(R.id.ck_all);
-        tvShowPrice = (TextView) findViewById(R.id.tv_show_price);
-        tvSettlement = (TextView) findViewById(R.id.tv_settlement);
-        btnEdit = (TextView) findViewById(R.id.bt_header_right);
+//        btnBack = rootView.findViewById(R.id.btn_back);
+        ckAll = (CheckBox) rootView.findViewById(R.id.ck_all);
+        tvShowPrice = (TextView) rootView.findViewById(R.id.tv_show_price);
+        tvSettlement = (TextView) rootView.findViewById(R.id.tv_settlement);
+//        btnEdit = (TextView) rootView.findViewById(R.id.bt_header_right);
 
 
 //        ptr_refresh = (MaterialDesignPtrFrameLayout) findViewById(R.id.ptr_refresh);
@@ -101,17 +99,16 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
 //            }
 //        });
         DingdanInstance.getInstance().dingdanList.clear();
-        list_shopping_cart = (com.taisheng.now.view.TaishengListView) findViewById(R.id.list_shopping_cart);
+        list_shopping_cart = (com.taisheng.now.view.TaishengListView) rootView.findViewById(R.id.list_shopping_cart);
 
-        btnEdit.setOnClickListener(this);
+//        btnEdit.setOnClickListener(this);
         ckAll.setOnClickListener(this);
         tvSettlement.setOnClickListener(this);
-        btnBack.setOnClickListener(this);
+//        btnBack.setOnClickListener(this);
 
 
         initData();
     }
-
 
     //初始化数据
     protected void initData() {
@@ -136,7 +133,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
 //            shoppingCartBean.setImageUrl("https://gd1.alicdn.com/imgextra/i1/2160089910/TB2M_NSbB0kpuFjSsppXXcGTXXa_!!2160089910.jpg");
 //            shoppingCartBeanList.add(shoppingCartBean);
 //        }
-        shoppingCartAdapter = new ShoppingCartAdapter(this);
+        shoppingCartAdapter = new ShoppingCartAdapter(getActivity());
         shoppingCartAdapter.setCheckInterface(this);
         shoppingCartAdapter.setModifyCountInterface(this);
         list_shopping_cart.setAdapter(shoppingCartAdapter);
@@ -151,78 +148,87 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
 //        shoppingCartAdapter.setShoppingCartBeanList(shoppingCartBeanList);
     }
 
-
     int PAGE_NO = 1;
     int PAGE_SIZE = 10;
 
     void getDoctors() {
-        BaseListPostBean bean = new BaseListPostBean();
+        GouwucheListPostBean bean = new GouwucheListPostBean();
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
         bean.pageNo = PAGE_NO;
         bean.pageSize = 10;
-        DialogUtil.showProgress(this, "");
+        switch (assessmentType) {
+            case "1":
+                bean.scoreGoods = 1;
+                break;
+            case "2":
+                bean.scoreGoods = 0;
+                break;
 
-//        ApiUtils.getApiService().gouwuchelist(bean).enqueue(new TaiShengCallback<BaseBean<GouwucheResultBean>>() {
-//            @Override
-//            public void onSuccess(Response<BaseBean<GouwucheResultBean>> response, BaseBean<GouwucheResultBean> message) {
-////                ptr_refresh.refreshComplete();
-//                DialogUtil.closeProgress();
-//                switch (message.code) {
-//                    case Constants.HTTP_SUCCESS:
-//                        if (message.result.records != null && message.result.records.size() > 0) {
-//                            list_shopping_cart.setLoading(false);
-//                            if (PAGE_NO == 1) {
-//                                shoppingCartAdapter.shoppingCartBeanList.clear();
-//                            }
-//                            //有消息
-//                            PAGE_NO++;
-//                            for (NewShoppingCartBean bean : message.result.records) {
-//
-//                                ShoppingCartBean shoppingCartBean = new ShoppingCartBean();
-//                                shoppingCartBean.setShoppingName(bean.goodsName);
-//                                shoppingCartBean.setAttribute(bean.specifications);
-//                                shoppingCartBean.setPrice(bean.price);
-//                                shoppingCartBean.setId(bean.id);
-//                                shoppingCartBean.goodsId=bean.goodsId;
-//                                shoppingCartBean.setCount(bean.number);
-//                                shoppingCartBean.setImageUrl(bean.picUrl);
-//                                shoppingCartBean.productId=bean.productId;
-//
-//                                shoppingCartBeanList.add(shoppingCartBean);
-//
-//                            }
-//
-//
-//                            shoppingCartAdapter.setShoppingCartBeanList(shoppingCartBeanList);
-//
-//                            if (message.result.records.size() < 10) {
-//                                list_shopping_cart.setHasLoadMore(false);
-//                                list_shopping_cart.setLoadAllViewText("");
-//                                list_shopping_cart.setLoadAllFooterVisible(true);
-//                            } else {
-//                                list_shopping_cart.setHasLoadMore(true);
-//                            }
-////                            shoppingCartAdapter.notifyDataSetChanged();
-//                        } else {
-//                            //没有消息
-//                            list_shopping_cart.setHasLoadMore(false);
-//                            list_shopping_cart.setLoadAllViewText("");
-//                            list_shopping_cart.setLoadAllFooterVisible(true);
-//                        }
-//                        break;
-//                }
-//            }
-//
-//            @Override
-//            public void onFail(Call<BaseBean<GouwucheResultBean>> call, Throwable t) {
-////                ptr_refresh.refreshComplete();
-//                DialogUtil.closeProgress();
-//            }
-//        });
+        }
+        DialogUtil.showProgress(getActivity(), "");
+
+        ApiUtils.getApiService().gouwuchelist(bean).enqueue(new TaiShengCallback<BaseBean<GouwucheResultBean>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<GouwucheResultBean>> response, BaseBean<GouwucheResultBean> message) {
+//                ptr_refresh.refreshComplete();
+                DialogUtil.closeProgress();
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        if (message.result.records != null && message.result.records.size() > 0) {
+                            list_shopping_cart.setLoading(false);
+                            if (PAGE_NO == 1) {
+                                shoppingCartAdapter.shoppingCartBeanList.clear();
+                            }
+                            //有消息
+                            PAGE_NO++;
+                            for (NewShoppingCartBean bean : message.result.records) {
+
+                                ShoppingCartBean shoppingCartBean = new ShoppingCartBean();
+                                shoppingCartBean.setShoppingName(bean.goodsName);
+                                shoppingCartBean.setAttribute(bean.specifications);
+                                shoppingCartBean.setPrice(bean.price);
+                                shoppingCartBean.setId(bean.id);
+                                shoppingCartBean.goodsId=bean.goodsId;
+                                shoppingCartBean.setCount(bean.number);
+                                shoppingCartBean.setImageUrl(bean.picUrl);
+                                shoppingCartBean.productId=bean.productId;
+
+                                shoppingCartBeanList.add(shoppingCartBean);
+
+                            }
+
+
+                            shoppingCartAdapter.setShoppingCartBeanList(shoppingCartBeanList);
+
+                            if (message.result.records.size() < 10) {
+                                list_shopping_cart.setHasLoadMore(false);
+                                list_shopping_cart.setLoadAllViewText("");
+                                list_shopping_cart.setLoadAllFooterVisible(true);
+                            } else {
+                                list_shopping_cart.setHasLoadMore(true);
+                            }
+//                            shoppingCartAdapter.notifyDataSetChanged();
+                        } else {
+                            //没有消息
+                            list_shopping_cart.setHasLoadMore(false);
+                            list_shopping_cart.setLoadAllViewText("");
+                            list_shopping_cart.setLoadAllFooterVisible(true);
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<GouwucheResultBean>> call, Throwable t) {
+//                ptr_refresh.refreshComplete();
+                DialogUtil.closeProgress();
+            }
+        });
 
 
     }
+
 
     @Override
     public void onClick(View v) {
@@ -257,22 +263,25 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
                 break;
             case R.id.bt_header_right:
                 flag = !flag;
-                if (flag) {
-                    btnEdit.setText("完成");
-                    shoppingCartAdapter.isShow(false);
-                } else {
-                    btnEdit.setText("管理");
-                    shoppingCartAdapter.isShow(true);
-                }
+//                if (flag) {
+//                    btnEdit.setText("完成");
+//                    shoppingCartAdapter.isShow(false);
+//                } else {
+//                    btnEdit.setText("管理");
+//                    shoppingCartAdapter.isShow(true);
+//                }
                 break;
             case R.id.tv_settlement: //结算
                 lementOnder();
                 break;
             case R.id.btn_back:
-                finish();
+                getActivity().finish();
                 break;
         }
     }
+
+
+
 
     /**
      * 结算订单、支付
@@ -319,11 +328,11 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
 
                         DingdanInstance.getInstance().flag="Y";
                         if (message.result.records != null && message.result.records.size() > 0) {
-                            Intent intent = new Intent(ShoppingCartActivity.this, DingdanjiesuanActivity.class);
+                            Intent intent = new Intent(getActivity(), DingdanjiesuanActivity.class);
                             startActivity(intent);
                         } else {
                             DingdanInstance.getInstance().fromDizhi="2";
-                            Intent intent = new Intent(ShoppingCartActivity.this, DizhiBianjiActivity.class);
+                            Intent intent = new Intent(getActivity(), DizhiBianjiActivity.class);
                             startActivity(intent);
                         }
                         break;
@@ -460,19 +469,5 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //当FitsSystemWindows设置 true 时，会在屏幕最上方预留出状态栏高度的 padding
-        StatusBarUtil.setRootViewFitsSystemWindows(this, true);
-        //设置状态栏透明
-        StatusBarUtil.setTranslucentStatus(this);
-        //一般的手机的状态栏文字和图标都是白色的, 可如果你的应用也是纯白色的, 或导致状态栏文字看不清
-        //所以如果你是这种情况,请使用以下代码, 设置状态使用深色文字图标风格, 否则你可以选择性注释掉这个if内容
-        if (!StatusBarUtil.setStatusBarDarkTheme(this, true)) {
-            //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
-            //这样半透明+白=灰, 状态栏的文字能看得清
-            StatusBarUtil.setStatusBarColor(this, 0x55000000);
-        }
-    }
+
 }

@@ -23,6 +23,7 @@ import com.taisheng.now.bussiness.bean.post.DoctorNumberPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorScorePostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorUpdateStatePostBean;
 import com.taisheng.now.bussiness.bean.post.FeedbackPostBean;
+import com.taisheng.now.bussiness.bean.post.GouwucheListPostBean;
 import com.taisheng.now.bussiness.bean.post.GuanzhuPostBean;
 import com.taisheng.now.bussiness.bean.post.HealthCheckListPostBean;
 import com.taisheng.now.bussiness.bean.post.HealthInfoPostBean;
@@ -315,7 +316,7 @@ public interface ApiService {
 
 
     @POST(Constants.Url.ShangCheng.gouwuchelist)
-    Call<BaseBean<GouwucheResultBean>> gouwuchelist(@Body BaseListPostBean bean);
+    Call<BaseBean<GouwucheResultBean>> gouwuchelist(@Body GouwucheListPostBean bean);
 
 
     //    public static final String goodslist="jeecg-boot/app/mall/goods/list";
