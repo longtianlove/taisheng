@@ -106,13 +106,13 @@ public class MyDingdanFragment extends BaseFragment {
                 bean.status = 1;
                 break;
             case "2":
-                bean.status = 2;
-                break;
-            case "3":
                 bean.status = 3;
                 break;
-            case "4":
+            case "3":
                 bean.status = 4;
+                break;
+            case "4":
+                bean.status = 5;
                 break;
 
         }
@@ -382,7 +382,7 @@ public class MyDingdanFragment extends BaseFragment {
                     if (convertView == null) {
                         util3 = new Util();
                         LayoutInflater inflater = LayoutInflater.from(mcontext);
-                        convertView = inflater.inflate(R.layout.item_dingdandaifahuo, null);
+                        convertView = inflater.inflate(R.layout.item_dingdanyiwancheng, null);
                         util3.tv_orderid = convertView.findViewById(R.id.tv_orderid);
                         util3.list_goods = convertView.findViewById(R.id.list_goods);
                         util3.tv_gouyou = convertView.findViewById(R.id.tv_gouyou);
