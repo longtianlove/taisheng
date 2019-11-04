@@ -457,6 +457,28 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                                 yanse_label.selectString = yanse_list.get(0);
                                 tv_yixuan.setText("已选" + guige_label.selectString + " " + yanse_list.get(0));
 
+
+                                //选择默认值
+                                tv_guigeresult.setText("已选" + guige_label.selectString + " " + yanse_label.selectString);
+                                if (goodsProductEntities != null) {
+
+                                    for (int i = 0; i < goodsProductEntities.size(); i++) {
+                                        GoodsProductEntities bean = goodsProductEntities.get(i);
+                                        if ("".equals(yanse_label.selectString)) {
+                                            if (bean.getSpecifications().contains(guige_label.selectString)) {
+                                                productid = bean.getId();
+                                                counterPrice = bean.getPrice();
+                                                return;
+                                            }
+                                        }
+                                        if (bean.getSpecifications().contains(guige_label.selectString) && bean.getSpecifications().contains(yanse_label.selectString)) {
+                                            productid = bean.getId();
+                                            counterPrice = bean.getPrice();
+                                            return;
+                                        }
+                                    }
+                                }
+
                             }
 
 
