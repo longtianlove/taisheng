@@ -199,7 +199,7 @@ public class SearchResultActivity extends BaseActivity {
             util.ll_all.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //todo 进入商品详情
+                    // 进入商品详情
 
                     Intent intent = new Intent(SearchResultActivity.this, ShangPinxiangqingActivity.class);
                     intent.putExtra("goodsid", bean.id);

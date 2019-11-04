@@ -234,7 +234,7 @@ public class FenleiMarketTabFragment extends BaseFragment {
             util.ll_all.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //todo 进入商品详情
+                    // 进入商品详情
 
                     Intent intent = new Intent(getActivity(), ShangPinxiangqingActivity.class);
                     intent.putExtra("goodsid", bean.id);
