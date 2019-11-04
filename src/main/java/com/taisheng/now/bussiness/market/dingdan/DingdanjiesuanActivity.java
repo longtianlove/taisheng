@@ -464,7 +464,9 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                 util.sdv_article.setImageURI(uri);
             }
             util.tv_name.setText(bean.name);
-            util.tv_counterprice.setText("¥" + bean.counterPrice + "");
+            //todo 坑
+            String temp_counterprice=bean.counterPrice.charAt(0)=='¥'?bean.counterPrice:("¥" + bean.counterPrice);
+            util.tv_counterprice.setText(temp_counterprice);
 //            util.tv_retailprice.setText(bean.retailPrice + "");
 //            util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             util.tv_number.setText("x " + bean.number);
