@@ -125,7 +125,7 @@ public class MyDingdanFragment extends BaseFragment {
                 DialogUtil.closeProgress();
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-                        if (message.result.records != null && message.result.records.size() > 0) {
+                        if (message.result.records != null && message.result.records.size() >= 0) {
                             lv_dingdan.setLoading(false);
                             if (PAGE_NO == 1) {
                                 madapter.mData.clear();
