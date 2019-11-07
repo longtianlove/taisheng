@@ -438,7 +438,11 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 
                                 }
                             });
+                            tv_yanse.setVisibility(View.GONE);
+                            yanse_label.setVisibility(View.GONE);
                             if (message.result.goodsSpecificationEntities.size() == 2) {
+                                tv_yanse.setVisibility(View.VISIBLE);
+                                yanse_label.setVisibility(View.VISIBLE);
                                 tv_yanse.setText(message.result.goodsSpecificationEntities.get(1).getName());
                                 yanse_list = new ArrayList<>();
                                 for (int i = 0; i < message.result.goodsSpecificationEntities.get(1).getValueList().size(); i++) {
