@@ -405,7 +405,13 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                             name = message.result.goodsEntity.name;
                             tv_name.setText(message.result.goodsEntity.name);
                             tv_jianjie.setText(message.result.goodsEntity.brief);
-                            wv_shangpinxiangqing.loadData(Html.fromHtml(message.result.goodsEntity.detail).toString(), "text/html", "UTF-8");
+//                            wv_shangpinxiangqing.loadData(Html.fromHtml(message.result.goodsEntity.detail).toString(), "text/html", "UTF-8");
+                            String sHead = "<html><head><meta name=\"viewport\" content=\"width=device-width, " +
+                                        "initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes\" />" +
+                                        "<style>img{max-width:100% !important;height:auto !important;}</style>"
+                                        + "<style>body{max-width:100% !important;}</style>" + "</head><body>";
+                            wv_shangpinxiangqing.loadDataWithBaseURL(null, sHead + message.result.goodsEntity.detail + "</body></html>", "text/html", "utf-8", null);
+
                             scoreGoods = message.result.goodsEntity.scoreGoods;
 
                             Uri uri = Uri.parse(message.result.goodsEntity.picUrl);
