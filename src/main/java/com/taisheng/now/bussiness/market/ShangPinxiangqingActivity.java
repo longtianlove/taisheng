@@ -249,6 +249,11 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                                 ToastUtil.showAtCenter("添加成功");
                                 break;
 
+                            default:
+                                ToastUtil.showAtCenter(message.message);
+
+                                break;
+
                         }
                     }
 
@@ -289,7 +294,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                     DingdanInstance.getInstance().putongshangpindingdanList.add(xbean);
 
                     DingdanInstance.getInstance().zongjia = counterPrice * (Integer.parseInt(number)) + "";
-                }else{
+                } else {
                     DingdanInstance.getInstance().jifenshangpindingdanList.clear();
                     xiadanshangpinBean xbean = new xiadanshangpinBean();
                     xbean.goodsId = goodsid;
@@ -330,6 +335,10 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                                     Intent intent = new Intent(ShangPinxiangqingActivity.this, DizhiBianjiActivity.class);
                                     startActivity(intent);
                                 }
+                                break;
+                            default:
+                                ToastUtil.showAtCenter(message.message);
+
                                 break;
                         }
                     }
@@ -407,9 +416,9 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                             tv_jianjie.setText(message.result.goodsEntity.brief);
 //                            wv_shangpinxiangqing.loadData(Html.fromHtml(message.result.goodsEntity.detail).toString(), "text/html", "UTF-8");
                             String sHead = "<html><head><meta name=\"viewport\" content=\"width=device-width, " +
-                                        "initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes\" />" +
-                                        "<style>img{max-width:100% !important;height:auto !important;}</style>"
-                                        + "<style>body{max-width:100% !important;}</style>" + "</head><body>";
+                                    "initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes\" />" +
+                                    "<style>img{max-width:100% !important;height:auto !important;}</style>"
+                                    + "<style>body{max-width:100% !important;}</style>" + "</head><body>";
                             wv_shangpinxiangqing.loadDataWithBaseURL(null, sHead + message.result.goodsEntity.detail + "</body></html>", "text/html", "utf-8", null);
 
                             scoreGoods = message.result.goodsEntity.scoreGoods;
@@ -466,8 +475,6 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                                 });
                                 yanse_label.selectString = yanse_list.get(0);
                                 tv_yixuan.setText("已选" + guige_label.selectString + " " + yanse_list.get(0));
-
-
 
 
                             }
