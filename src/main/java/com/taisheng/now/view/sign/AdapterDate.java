@@ -155,9 +155,9 @@ public class AdapterDate extends BaseAdapter {
         if (days.get(i) == 0) {
             viewHolder.rlItem.setVisibility(View.GONE);
         }
+        //这里有个坑
         if(days.get(i)==1){
             viewHolder.rlItem.setVisibility(View.VISIBLE);
-
         }
         if (status.get(i)) {
             viewHolder.tv.setTextColor(Color.parseColor("#FD0000"));
