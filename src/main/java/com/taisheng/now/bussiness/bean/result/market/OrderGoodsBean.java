@@ -7,5 +7,6 @@ public class OrderGoodsBean {
     public int price;
     public String name;
     public String id;
+    public String goodsId;
 
 }

@@ -461,7 +461,7 @@ public class MyDingdanFragment extends BaseFragment {
                     public void onClick(View v) {
 
                         Intent intent = new Intent(getActivity(), ShangPinxiangqingActivity.class);
-                        intent.putExtra("goodsid", bean.id);
+                        intent.putExtra("goodsid", bean.goodsId);
 
                         startActivity(intent);
                     }
