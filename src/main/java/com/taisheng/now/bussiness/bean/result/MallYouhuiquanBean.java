@@ -7,4 +7,8 @@ public class MallYouhuiquanBean {
     public String tag;
     public String useDate;
     public int discount;
+
+    public int min;
+
+
 }

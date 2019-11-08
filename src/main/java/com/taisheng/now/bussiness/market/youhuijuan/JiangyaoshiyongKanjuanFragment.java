@@ -20,10 +20,12 @@ import com.taisheng.now.bussiness.bean.post.KanjuanPostBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanBean;
 import com.taisheng.now.bussiness.bean.result.MallYouhuiquanResultBanner;
 import com.taisheng.now.bussiness.market.DingdanInstance;
+import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
+import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.TaishengListView;
 
 import java.util.ArrayList;
@@ -184,7 +186,7 @@ public class JiangyaoshiyongKanjuanFragment extends BaseFragment {
             if (convertView == null) {
                 util = new YouhuiquanAdapter.Util();
                 LayoutInflater inflater = LayoutInflater.from(mcontext);
-                convertView = inflater.inflate(R.layout.item_youhuijuan, null);
+                convertView = inflater.inflate(R.layout.item_jiangyaoshiyongyouhuijuan, null);
                 util.ll_all = convertView.findViewById(R.id.ll_all);
                 util.tv_discount = convertView.findViewById(R.id.tv_discount);
                 util.tv_name = convertView.findViewById(R.id.tv_name);
@@ -201,6 +203,10 @@ public class JiangyaoshiyongKanjuanFragment extends BaseFragment {
                 public void onClick(View v) {
 
                     if ("1".equals(assessmentType)) {
+                        if(Integer.parseInt(DingdanInstance.getInstance().zongjia)<=bean.min){
+                            ToastUtil.showAtCenter("不可使用");
+                            return;
+                        }
                         Intent intent = new Intent();
                         intent.putExtra("tv_discount", bean.discount);
                         DingdanInstance.getInstance().tv_discount=bean.discount+"";

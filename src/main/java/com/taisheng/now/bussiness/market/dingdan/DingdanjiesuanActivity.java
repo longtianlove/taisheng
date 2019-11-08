@@ -121,7 +121,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
             ll_youhuijuan_all.setVisibility(View.VISIBLE);
         }
         ll_youhuijuan = findViewById(R.id.ll_youhuijuan);
-        ll_youhuijuan.setOnClickListener(new View.OnClickListener() {
+        ll_youhuijuan_all.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
