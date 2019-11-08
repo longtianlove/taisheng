@@ -3,7 +3,6 @@
     android:layout_height="110dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
-    android:background="@drawable/me_kapian_background"
     android:gravity="center"
     android:orientation="horizontal">
 
@@ -13,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:gravity="center"
+        android:background="@drawable/me_kapian_background"
         android:orientation="horizontal" >
 
     <TextView

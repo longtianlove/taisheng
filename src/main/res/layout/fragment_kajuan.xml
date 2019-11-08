@@ -29,7 +29,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#fff"
-                android:scrollbars="none" />
+                android:scrollbars="none"
+                android:divider="#fff"
+                android:dividerHeight="9dp"
+                android:footerDividersEnabled="false"
+                android:headerDividersEnabled="false"
+                android:listSelector="@android:color/transparent"
+
+                />
 
         <!--</com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout>-->
     </LinearLayout>
