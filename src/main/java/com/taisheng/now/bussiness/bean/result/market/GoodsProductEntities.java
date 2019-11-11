@@ -3,6 +3,7 @@ package com.taisheng.now.bussiness.bean.result.market;
  * Copyright 2019 bejson.com
  */
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -13,15 +14,15 @@ import java.util.List;
  */
 public class GoodsProductEntities {
 
-    private String id;
-    private String goodsId;
-    private List<String> specifications;
-    private int price;
-    private int number;
-    private String url;
-    private String createTime;
-    private String updateTime;
-    private int deleted;
+    public String id;
+    public String goodsId;
+    public List<String> specifications;
+    public BigDecimal price;
+    public int number;
+    public String url;
+    public String createTime;
+    public String updateTime;
+    public int deleted;
     public void setId(String id) {
         this.id = id;
     }
@@ -43,12 +44,7 @@ public class GoodsProductEntities {
         return specifications;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-    public int getPrice() {
-        return price;
-    }
+
 
     public void setNumber(int number) {
         this.number = number;

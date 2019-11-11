@@ -1,5 +1,7 @@
 package com.taisheng.now.bussiness.bean.result;
 
+import java.math.BigDecimal;
+
 public class JifenzhuanquBean {
 
     public  String id;
@@ -8,6 +10,6 @@ public class JifenzhuanquBean {
     public  String picUrl;
     public  boolean newGoods;
     public  boolean hotGoods;
-    public  int counterPrice;
-    public  int retailPrice;
+    public BigDecimal counterPrice;
+    public  BigDecimal retailPrice;
 }

@@ -40,6 +40,7 @@ import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.GuigeLabelWrapLayout;
 import com.taisheng.now.view.banner.BannerViewPager;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -203,13 +204,13 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                         if ("".equals(yanse_label.selectString)) {
                             if (bean.getSpecifications().contains(guige_label.selectString)) {
                                 productid = bean.getId();
-                                counterPrice = bean.getPrice();
+                                counterPrice = bean.price;
                                 return;
                             }
                         }
                         if (bean.getSpecifications().contains(guige_label.selectString) && bean.getSpecifications().contains(yanse_label.selectString)) {
                             productid = bean.getId();
-                            counterPrice = bean.getPrice();
+                            counterPrice = bean.price;
                             return;
                         }
                     }
@@ -293,7 +294,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                     xbean.productId = productid;
                     DingdanInstance.getInstance().putongshangpindingdanList.add(xbean);
 
-                    DingdanInstance.getInstance().zongjia = counterPrice * (Integer.parseInt(number)) + "";
+                    DingdanInstance.getInstance().zongjia = counterPrice.multiply(new BigDecimal((Integer.parseInt(number)))) + "";
                 } else {
                     DingdanInstance.getInstance().jifenshangpindingdanList.clear();
                     xiadanshangpinBean xbean = new xiadanshangpinBean();
@@ -306,7 +307,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                     xbean.productId = productid;
                     DingdanInstance.getInstance().jifenshangpindingdanList.add(xbean);
 
-                    DingdanInstance.getInstance().zongjia = counterPrice * (Integer.parseInt(number)) + "";
+                    DingdanInstance.getInstance().zongjia = counterPrice.multiply(new BigDecimal((Integer.parseInt(number))))  + "";
                 }
 
                 //获取地址信息
@@ -363,8 +364,8 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 
 
     public String name;
-    public int counterPrice;
-    public int retailPrice;
+    public BigDecimal counterPrice;
+    public BigDecimal retailPrice;
     public String picUrl;
 
     public String goodsid;
@@ -488,13 +489,13 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                                     if ("".equals(yanse_label.selectString)) {
                                         if (bean.getSpecifications().contains(guige_label.selectString)) {
                                             productid = bean.getId();
-                                            counterPrice = bean.getPrice();
+                                            counterPrice = bean.price;
                                             return;
                                         }
                                     }
                                     if (bean.getSpecifications().contains(guige_label.selectString) && bean.getSpecifications().contains(yanse_label.selectString)) {
                                         productid = bean.getId();
-                                        counterPrice = bean.getPrice();
+                                        counterPrice = bean.price;
                                         return;
                                     }
                                 }
