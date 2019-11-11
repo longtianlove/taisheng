@@ -56,7 +56,7 @@ public class DindanxiangqingYiwanchengActivity extends BaseFragmentActivity {
     TextView tv_fukuanshijian;
     TextView tv_fahuoshijian;
     TextView tv_chengjiaoshijian;
-    View tv_querenshouhuo;
+//    View tv_querenshouhuo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,31 +89,31 @@ public class DindanxiangqingYiwanchengActivity extends BaseFragmentActivity {
         tv_jiangli = findViewById(R.id.tv_jiangli);
         tv_chuangjianshijian = findViewById(R.id.tv_chuangjianshijian);
         tv_fukuanshijian = findViewById(R.id.tv_fukuanshijian);
-        tv_querenshouhuo = findViewById(R.id.tv_querenshouhuo);
-        tv_querenshouhuo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OrderxiangqingPostBean bean = new OrderxiangqingPostBean();
-                bean.userId = UserInstance.getInstance().getUid();
-                bean.token = UserInstance.getInstance().getToken();
-                bean.orderId = orderId;
-                ApiUtils.getApiService().orderConfirmReceiveGoods(bean).enqueue(new TaiShengCallback<BaseBean>() {
-                    @Override
-                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
-                        switch (message.code) {
-                            case Constants.HTTP_SUCCESS:
-
-                                break;
-                        }
-                    }
-
-                    @Override
-                    public void onFail(Call<BaseBean> call, Throwable t) {
-
-                    }
-                });
-            }
-        });
+//        tv_querenshouhuo = findViewById(R.id.tv_querenshouhuo);
+//        tv_querenshouhuo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                OrderxiangqingPostBean bean = new OrderxiangqingPostBean();
+//                bean.userId = UserInstance.getInstance().getUid();
+//                bean.token = UserInstance.getInstance().getToken();
+//                bean.orderId = orderId;
+//                ApiUtils.getApiService().orderConfirmReceiveGoods(bean).enqueue(new TaiShengCallback<BaseBean>() {
+//                    @Override
+//                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
+//                        switch (message.code) {
+//                            case Constants.HTTP_SUCCESS:
+//
+//                                break;
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFail(Call<BaseBean> call, Throwable t) {
+//
+//                    }
+//                });
+//            }
+//        });
         tv_fahuoshijian = findViewById(R.id.tv_fahuoshijian);
         tv_chengjiaoshijian=findViewById(R.id.tv_chengjiaoshijian);
 
@@ -137,8 +137,8 @@ public class DindanxiangqingYiwanchengActivity extends BaseFragmentActivity {
             public void onSuccess(Response<BaseBean<DingdanxiangqingResultBean>> response, BaseBean<DingdanxiangqingResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-                        tv_kuaidi_name.setText(message.result.shipChannel);
-                        tv_kuaidi_bianhao.setText(message.result.shipSn);
+                        tv_kuaidi_name.setText("快递公司:"+message.result.shipChannel);
+                        tv_kuaidi_bianhao.setText("快递单号"+message.result.shipSn);
 
                         tv_dizhiname.setText(message.result.consignee);
                         tv_phone.setText(message.result.phone);

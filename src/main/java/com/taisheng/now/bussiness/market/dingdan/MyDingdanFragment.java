@@ -364,6 +364,7 @@ public class MyDingdanFragment extends BaseFragment {
                         util2 = new Util();
                         LayoutInflater inflater = LayoutInflater.from(mcontext);
                         convertView = inflater.inflate(R.layout.item_dingdandaisouhuo, null);
+                        util2.ll_all=convertView.findViewById(R.id.ll_all);
                         util2.tv_orderid = convertView.findViewById(R.id.tv_orderid);
                         util2.list_goods = convertView.findViewById(R.id.list_goods);
                         util2.tv_gouyou = convertView.findViewById(R.id.tv_gouyou);
@@ -376,6 +377,16 @@ public class MyDingdanFragment extends BaseFragment {
 
 
                     OrderBean bean2 = mData.get(position);
+
+                    util2.ll_all.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), DindanxiangqingDaishouhuoActivity.class);
+                            intent.putExtra("orderId", bean2.orderId);
+
+                            startActivity(intent);
+                        }
+                    });
                     util2.tv_orderid.setText(bean2.orderId);
 
                     DingdanShangpinAdapter adapter2 = new DingdanShangpinAdapter(getActivity());
@@ -385,7 +396,7 @@ public class MyDingdanFragment extends BaseFragment {
                     util2.list_goods.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getActivity(), DindanxiangqingDaifukuanActivity.class);
+                            Intent intent = new Intent(getActivity(), DindanxiangqingDaishouhuoActivity.class);
                             intent.putExtra("orderId", bean2.orderId);
 
                             startActivity(intent);
@@ -433,6 +444,7 @@ public class MyDingdanFragment extends BaseFragment {
                         util3 = new Util();
                         LayoutInflater inflater = LayoutInflater.from(mcontext);
                         convertView = inflater.inflate(R.layout.item_dingdanyiwancheng, null);
+                        util3.ll_all=convertView.findViewById(R.id.ll_all);
                         util3.tv_orderid = convertView.findViewById(R.id.tv_orderid);
                         util3.list_goods = convertView.findViewById(R.id.list_goods);
                         util3.tv_gouyou = convertView.findViewById(R.id.tv_gouyou);
@@ -442,6 +454,16 @@ public class MyDingdanFragment extends BaseFragment {
                         util3 = (Util) convertView.getTag();
                     }
                     OrderBean bean3 = mData.get(position);
+                    util3.ll_all.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), DindanxiangqingYiwanchengActivity.class);
+                            intent.putExtra("orderId", bean3.orderId);
+
+                            startActivity(intent);
+                        }
+                    });
+
                     util3.tv_orderid.setText(bean3.orderId);
 
                     DingdanShangpinAdapter adapter3 = new DingdanShangpinAdapter(getActivity());

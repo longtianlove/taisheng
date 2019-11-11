@@ -52,8 +52,9 @@
 
     <LinearLayout
         android:id="@+id/ll_kuaidi"
+        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="60dp"
         android:layout_margin="10dp"
         android:background="@drawable/me_kapian_background"
         android:gravity="center_vertical"
@@ -185,7 +186,7 @@ android:orientation="vertical">
             android:gravity="center_vertical"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="待发货"
+            android:text="已完成"
             android:textColor="#ff529ffb"
             android:textSize="13sp" />
 
@@ -305,25 +306,6 @@ android:padding="10dp">
 </LinearLayout>
 
 
-<LinearLayout
-android:layout_height="wrap_content"
-android:layout_width="match_parent"
-android:orientation="horizontal"
-android:weightSum="1">
 
-<View
-    android:layout_height="1dp"
-    android:layout_weight="1"
-    android:layout_width="0dp" />
 
-<TextView
-    android:background="@drawable/quxiaodingdan"
-    android:gravity="center"
-    android:id="@+id/tv_querenshouhuo"
-    android:layout_height="25dp"
-    android:layout_marginRight="10dp"
-    android:layout_width="84dp"
-    android:text="确认收货"
-    android:textColor="#ff529ffb"
-    android:textSize="14sp" />
-</LinearLayout></LinearLayout>
+</LinearLayout>

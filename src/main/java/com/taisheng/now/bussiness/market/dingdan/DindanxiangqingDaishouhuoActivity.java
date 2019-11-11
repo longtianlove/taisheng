@@ -136,8 +136,10 @@ public class DindanxiangqingDaishouhuoActivity extends BaseFragmentActivity {
             public void onSuccess(Response<BaseBean<DingdanxiangqingResultBean>> response, BaseBean<DingdanxiangqingResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-                        tv_kuaidi_name.setText(message.result.shipChannel);
-                        tv_kuaidi_bianhao.setText(message.result.shipSn);
+
+                        tv_kuaidi_name.setText("快递公司:"+message.result.shipChannel);
+                        tv_kuaidi_bianhao.setText("快递单号"+message.result.shipSn);
+
 
                         tv_dizhiname.setText(message.result.consignee);
                         tv_phone.setText(message.result.phone);

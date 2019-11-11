@@ -53,10 +53,11 @@
     <LinearLayout
         android:id="@+id/ll_kuaidi"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="60dp"
         android:layout_margin="10dp"
         android:background="@drawable/me_kapian_background"
         android:gravity="center_vertical"
+        android:padding="10dp"
         android:orientation="vertical">
 
         <TextView
@@ -64,12 +65,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#ff666666"
+            android:text="快递公司：圆通速递"
             android:textSize="13sp"></TextView>
         <TextView
             android:id="@+id/tv_kuaidi_bianhao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#ff666666"
+            android:text="快递单号：19378460280759530"
             android:textSize="13sp"></TextView>
 
     </LinearLayout>
@@ -185,7 +188,7 @@ android:orientation="vertical">
             android:gravity="center_vertical"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="待发货"
+            android:text="待收货"
             android:textColor="#ff529ffb"
             android:textSize="13sp" />
 
