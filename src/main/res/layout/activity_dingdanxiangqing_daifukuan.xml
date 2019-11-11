@@ -280,14 +280,7 @@
             android:text="创建时间：2019-10-24 14:20:35"
             android:textColor="#ff666666"
             android:textSize="13sp" />
-        <TextView
-            android:id="@+id/tv_fukuanshijian"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="付款时间：2019-10-24 14:20:35"
-            android:textColor="#ff666666"
-            android:textSize="13sp" />
+
 
     </LinearLayout>
 

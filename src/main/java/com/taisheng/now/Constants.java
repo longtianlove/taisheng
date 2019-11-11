@@ -63,7 +63,7 @@ public class Constants {
 //        public static String File_Host = "http://152.136.26.41:8888/";
 //        public static String WEB_SOCKET_URL = "ws://152.136.26.41:8879";
 
-//
+        //
 //        public static String Host = "http://192.168.1.12:8080/";
 //        public static String File_Host = "http://192.168.1.12:8888/";
 //        public static String WEB_SOCKET_URL = "ws://192.168.1.12:8879";
@@ -325,8 +325,9 @@ public class Constants {
             public static final String weChatPay = "jeecg-boot/app/pay/payment/wxpay/weChatPay";
 
 
-
             public static final String orderDetail = "jeecg-boot/app/mall/order/detail";
+            //            订单信息-【确认收货】
+            public static final String orderConfirmReceiveGoods = "jeecg-boot/app/mall/order/confirmReceiveGoods";
 
 
         }

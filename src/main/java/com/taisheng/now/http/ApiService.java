@@ -396,4 +396,9 @@ public interface ApiService {
     Call<BaseBean<DingdanxiangqingResultBean>> orderDetail(@Body OrderxiangqingPostBean bean);
 
 
+
+    @POST(Constants.Url.ShangCheng.orderConfirmReceiveGoods)
+    Call<BaseBean> orderConfirmReceiveGoods(@Body OrderxiangqingPostBean bean);
+
+
 }

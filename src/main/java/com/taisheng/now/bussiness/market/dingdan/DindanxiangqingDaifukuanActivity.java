@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -202,7 +203,14 @@ public class DindanxiangqingDaifukuanActivity extends BaseFragmentActivity {
                         });
 
 
-                        tv_beizhu.setText("订单备注:"+message.result.message);
+                        if (TextUtils.isEmpty(message.result.message)) {
+                            tv_beizhu.setVisibility(View.GONE);
+
+                        } else {
+                            tv_beizhu.setVisibility(View.VISIBLE);
+                            tv_beizhu.setText("订单备注:" + message.result.message);
+
+                        }
                         tv_jiangli.setText("奖励积分："+message.result.totalPrice*100);
                         tv_chuangjianshijian.setText("创建时间:"+message.result.createTime);
 

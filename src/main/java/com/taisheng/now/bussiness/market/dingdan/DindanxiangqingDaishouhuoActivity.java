@@ -16,22 +16,15 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.base.BaseFragmentActivity;
-import com.taisheng.now.bussiness.bean.post.DeleteOrderPostBean;
 import com.taisheng.now.bussiness.bean.post.OrderxiangqingPostBean;
-import com.taisheng.now.bussiness.bean.post.WexinZhifuPostBean;
 import com.taisheng.now.bussiness.bean.result.market.DingdanxiangqingGoodBean;
 import com.taisheng.now.bussiness.bean.result.market.DingdanxiangqingResultBean;
-import com.taisheng.now.bussiness.market.DingdanInstance;
 import com.taisheng.now.bussiness.market.ShangPinxiangqingActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
-import com.taisheng.now.test.WechatResultBean;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.view.WithScrolleViewListView;
-import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +36,10 @@ import retrofit2.Response;
  * Created by dragon on 2019/6/28.
  */
 
-public class DindanxiangqingDaifahuoActivity extends BaseFragmentActivity {
+public class DindanxiangqingDaishouhuoActivity extends BaseFragmentActivity {
     View iv_back;
-
+    TextView tv_kuaidi_name;
+    TextView tv_kuaidi_bianhao;
 
     TextView tv_dizhiname;
     TextView tv_phone;
@@ -61,12 +55,13 @@ public class DindanxiangqingDaifahuoActivity extends BaseFragmentActivity {
     TextView tv_jiangli;
     TextView tv_chuangjianshijian;
     TextView tv_fukuanshijian;
-    View tv_shenqingtuikuan;
+    TextView tv_fahuoshijian;
+    View tv_querenshouhuo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dingdanxiangqing_daifahuo);
+        setContentView(R.layout.activity_dingdanxiangqing_daishouhuo);
         initView();
     }
 
@@ -78,6 +73,9 @@ public class DindanxiangqingDaifahuoActivity extends BaseFragmentActivity {
                 finish();
             }
         });
+        tv_kuaidi_name = findViewById(R.id.tv_kuaidi_name);
+        tv_kuaidi_bianhao = findViewById(R.id.tv_kuaidi_bianhao);
+
         tv_dizhiname = findViewById(R.id.tv_dizhiname);
         tv_phone = findViewById(R.id.tv_phone);
         tv_address = findViewById(R.id.tv_address);
@@ -91,13 +89,32 @@ public class DindanxiangqingDaifahuoActivity extends BaseFragmentActivity {
         tv_jiangli = findViewById(R.id.tv_jiangli);
         tv_chuangjianshijian = findViewById(R.id.tv_chuangjianshijian);
         tv_fukuanshijian = findViewById(R.id.tv_fukuanshijian);
-        tv_shenqingtuikuan = findViewById(R.id.tv_shenqingtuikuan);
-        tv_shenqingtuikuan.setOnClickListener(new View.OnClickListener() {
+        tv_querenshouhuo = findViewById(R.id.tv_querenshouhuo);
+        tv_querenshouhuo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogUtil.showshenqingfukuuan(DindanxiangqingDaifahuoActivity.this);
+                OrderxiangqingPostBean bean = new OrderxiangqingPostBean();
+                bean.userId = UserInstance.getInstance().getUid();
+                bean.token = UserInstance.getInstance().getToken();
+                bean.orderId = orderId;
+                ApiUtils.getApiService().orderConfirmReceiveGoods(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean> call, Throwable t) {
+
+                    }
+                });
             }
         });
+        tv_fahuoshijian = findViewById(R.id.tv_fahuoshijian);
 
         initData();
 
@@ -119,11 +136,14 @@ public class DindanxiangqingDaifahuoActivity extends BaseFragmentActivity {
             public void onSuccess(Response<BaseBean<DingdanxiangqingResultBean>> response, BaseBean<DingdanxiangqingResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
+                        tv_kuaidi_name.setText(message.result.shipChannel);
+                        tv_kuaidi_bianhao.setText(message.result.shipSn);
+
                         tv_dizhiname.setText(message.result.consignee);
                         tv_phone.setText(message.result.phone);
                         tv_address.setText(message.result.address);
 
-                        DingdanShangpinAdapter adapter3 = new DingdanShangpinAdapter(DindanxiangqingDaifahuoActivity.this);
+                        DingdanShangpinAdapter adapter3 = new DingdanShangpinAdapter(DindanxiangqingDaishouhuoActivity.this);
                         adapter3.mData = message.result.list;
                         list_goods.setAdapter(adapter3);
 
@@ -143,6 +163,7 @@ public class DindanxiangqingDaifahuoActivity extends BaseFragmentActivity {
                         tv_jiangli.setText("奖励积分：" + message.result.totalPrice * 100);
                         tv_chuangjianshijian.setText("创建时间:" + message.result.createTime);
                         tv_fukuanshijian.setText("付款时间：" + message.result.payTime);
+                        tv_fahuoshijian.setText("发货时间" + message.result.shipTime);
 
                         break;
                 }
@@ -208,7 +229,7 @@ public class DindanxiangqingDaifahuoActivity extends BaseFragmentActivity {
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(DindanxiangqingDaifahuoActivity.this, ShangPinxiangqingActivity.class);
+                    Intent intent = new Intent(DindanxiangqingDaishouhuoActivity.this, ShangPinxiangqingActivity.class);
                     intent.putExtra("goodsid", bean.goodsId);
 
                     startActivity(intent);
