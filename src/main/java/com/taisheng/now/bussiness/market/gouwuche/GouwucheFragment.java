@@ -150,6 +150,7 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
             }
         });
 
+
         getDoctors();
 //        shoppingCartAdapter.setShoppingCartBeanList(shoppingCartBeanList);
     }
@@ -208,6 +209,7 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
 
 
                             shoppingCartAdapter.setShoppingCartBeanList(shoppingCartBeanList);
+                            shoppingCartAdapter.isShow(true);
 
                             if (message.result.records.size() < 10) {
                                 list_shopping_cart.setHasLoadMore(false);
@@ -281,7 +283,7 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
                 statistics();
                 break;
             case R.id.bt_header_right:
-                flag = !flag;
+//                flag = !flag;
 //                if (flag) {
 //                    btnEdit.setText("完成");
 //                    shoppingCartAdapter.isShow(false);

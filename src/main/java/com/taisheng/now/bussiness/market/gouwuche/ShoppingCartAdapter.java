@@ -223,17 +223,17 @@ public class ShoppingCartAdapter extends BaseAdapter {
             }
         });
         //判断是否在编辑状态下
-        if (isShow) {
-            holder.tvCommodityName.setVisibility(View.VISIBLE);
-            holder.rlEdit.setVisibility(View.GONE);
-            holder.tvCommodityNum.setVisibility(View.VISIBLE);
-            holder.tvCommodityDelete.setVisibility(View.GONE);
-        } else {
+//        if (isShow) {
+//            holder.tvCommodityName.setVisibility(View.VISIBLE);
+//            holder.rlEdit.setVisibility(View.GONE);
+//            holder.tvCommodityNum.setVisibility(View.VISIBLE);
+//            holder.tvCommodityDelete.setVisibility(View.GONE);
+//        } else {
             holder.tvCommodityName.setVisibility(View.VISIBLE);
             holder.rlEdit.setVisibility(View.VISIBLE);
-            holder.tvCommodityNum.setVisibility(View.GONE);
+            holder.tvCommodityNum.setVisibility(View.VISIBLE);
             holder.tvCommodityDelete.setVisibility(View.VISIBLE);
-        }
+//        }
 
         return convertView;
     }
