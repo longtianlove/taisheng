@@ -44,6 +44,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -211,8 +212,8 @@ public class DindanxiangqingDaifukuanActivity extends BaseFragmentActivity {
                             tv_beizhu.setText("订单备注:" + message.result.message);
 
                         }
-                        tv_jiangli.setText("奖励积分："+message.result.totalPrice*100);
-                        tv_chuangjianshijian.setText("创建时间:"+message.result.createTime);
+                        tv_jiangli.setText("奖励积分：" + message.result.totalPrice .multiply(new BigDecimal(100)));
+                        tv_chuangjianshijian.setText("创建时间："+message.result.createTime);
 
                         break;
                 }
