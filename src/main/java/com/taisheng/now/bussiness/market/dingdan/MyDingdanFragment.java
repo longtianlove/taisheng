@@ -472,7 +472,7 @@ public class MyDingdanFragment extends BaseFragment {
                     util3.list_goods.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getActivity(), DindanxiangqingDaifukuanActivity.class);
+                            Intent intent = new Intent(getActivity(), DindanxiangqingYiwanchengActivity.class);
                             intent.putExtra("orderId", bean3.orderId);
 
                             startActivity(intent);
