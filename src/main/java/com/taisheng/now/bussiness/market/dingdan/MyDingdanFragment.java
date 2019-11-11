@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -198,6 +199,7 @@ public class MyDingdanFragment extends BaseFragment {
                         util = new Util();
                         LayoutInflater inflater = LayoutInflater.from(mcontext);
                         convertView = inflater.inflate(R.layout.item_dingdandaifukuan, null);
+                        util.ll_all=convertView.findViewById(R.id.ll_all);
                         util.tv_orderid = convertView.findViewById(R.id.tv_orderid);
                         util.list_goods = convertView.findViewById(R.id.list_goods);
                         util.tv_gouyou = convertView.findViewById(R.id.tv_gouyou);
@@ -211,12 +213,29 @@ public class MyDingdanFragment extends BaseFragment {
                     }
 
                     OrderBean bean = mData.get(position);
+                    util.ll_all.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), DindanxiangqingDaifukuanActivity.class);
+                            intent.putExtra("orderId", bean.orderId);
+
+                            startActivity(intent);
+                        }
+                    });
                     util.tv_orderid.setText(bean.orderId);
 
                     DingdanShangpinAdapter adapter = new DingdanShangpinAdapter(getActivity());
                     adapter.mData = bean.list;
                     util.list_goods.setAdapter(adapter);
+                    util.list_goods.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getActivity(), DindanxiangqingDaifukuanActivity.class);
+                            intent.putExtra("orderId", bean.orderId);
 
+                            startActivity(intent);
+                        }
+                    });
                     util.tv_gouyou.setText("共有" + bean.goodsNumber + "件商品");
                     util.tv_zongjia.setText("¥" + bean.totalPrice);
 
@@ -297,6 +316,7 @@ public class MyDingdanFragment extends BaseFragment {
                         util1 = new Util();
                         LayoutInflater inflater = LayoutInflater.from(mcontext);
                         convertView = inflater.inflate(R.layout.item_dingdandaifahuo, null);
+                        util1.ll_all=convertView.findViewById(R.id.ll_all);
                         util1.tv_orderid = convertView.findViewById(R.id.tv_orderid);
                         util1.list_goods = convertView.findViewById(R.id.list_goods);
                         util1.tv_gouyou = convertView.findViewById(R.id.tv_gouyou);
@@ -306,11 +326,30 @@ public class MyDingdanFragment extends BaseFragment {
                         util1 = (Util) convertView.getTag();
                     }
                     OrderBean bean1 = mData.get(position);
+                    util1.ll_all.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), DindanxiangqingDaifahuoActivity.class);
+                            intent.putExtra("orderId", bean1.orderId);
+
+                            startActivity(intent);
+                        }
+                    });
+
                     util1.tv_orderid.setText(bean1.orderId);
 
                     DingdanShangpinAdapter adapter1 = new DingdanShangpinAdapter(getActivity());
                     adapter1.mData = bean1.list;
                     util1.list_goods.setAdapter(adapter1);
+                    util1.list_goods.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getActivity(), DindanxiangqingDaifahuoActivity.class);
+                            intent.putExtra("orderId", bean1.orderId);
+
+                            startActivity(intent);
+                        }
+                    });
 
                     util1.tv_gouyou.setText("共有" + bean1.goodsNumber + "件商品");
                     util1.tv_zongjia.setText("¥" + bean1.totalPrice);
@@ -342,6 +381,17 @@ public class MyDingdanFragment extends BaseFragment {
                     DingdanShangpinAdapter adapter2 = new DingdanShangpinAdapter(getActivity());
                     adapter2.mData = bean2.list;
                     util2.list_goods.setAdapter(adapter2);
+
+                    util2.list_goods.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getActivity(), DindanxiangqingDaifukuanActivity.class);
+                            intent.putExtra("orderId", bean2.orderId);
+
+                            startActivity(intent);
+                        }
+                    });
+
 
                     util2.tv_gouyou.setText("共有" + bean2.goodsNumber + "件商品");
                     util2.tv_zongjia.setText("¥" + bean2.totalPrice);
@@ -397,6 +447,15 @@ public class MyDingdanFragment extends BaseFragment {
                     DingdanShangpinAdapter adapter3 = new DingdanShangpinAdapter(getActivity());
                     adapter3.mData = bean3.list;
                     util3.list_goods.setAdapter(adapter3);
+                    util3.list_goods.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getActivity(), DindanxiangqingDaifukuanActivity.class);
+                            intent.putExtra("orderId", bean3.orderId);
+
+                            startActivity(intent);
+                        }
+                    });
 
                     util3.tv_gouyou.setText("共有" + bean3.goodsNumber + "件商品");
                     util3.tv_zongjia.setText("¥" + bean3.totalPrice);
@@ -456,16 +515,16 @@ public class MyDingdanFragment extends BaseFragment {
                     util = (DingdanShangpinAdapter.Util) convertView.getTag();
                 }
                 OrderGoodsBean bean = mData.get(position);
-                util.ll_all.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Intent intent = new Intent(getActivity(), ShangPinxiangqingActivity.class);
-                        intent.putExtra("goodsid", bean.goodsId);
-
-                        startActivity(intent);
-                    }
-                });
+//                util.ll_all.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        Intent intent = new Intent(getActivity(), ShangPinxiangqingActivity.class);
+//                        intent.putExtra("goodsid", bean.goodsId);
+//
+//                        startActivity(intent);
+//                    }
+//                });
 
                 String temp_url = bean.picUrl;
                 if (temp_url == null || "".equals(temp_url)) {

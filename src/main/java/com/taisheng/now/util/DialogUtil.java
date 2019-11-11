@@ -140,19 +140,16 @@ public class DialogUtil {
     }
 
 
-
-
-
-    public static View ll_shipin1, ll_yuyin1, ll_wenzi1,ll_quxiao1;
+    public static View ll_shipin1, ll_yuyin1, ll_wenzi1, ll_quxiao1;
     public static Dialog zixunDialog1;
 
     //咨询弹窗
-    public static void showToChatDialog(Context context, final View.OnClickListener wenziListener,final View.OnClickListener shipinlistener, final View.OnClickListener yunyinlistener, final View.OnClickListener quxiaolistener) {
+    public static void showToChatDialog(Context context, final View.OnClickListener wenziListener, final View.OnClickListener shipinlistener, final View.OnClickListener yunyinlistener, final View.OnClickListener quxiaolistener) {
         if (!canShowDialog(context)) return;
         closeAllDialog();
         if (zixunDialog1 == null) {
             zixunDialog1 = new ToChatDialog(context);
-            ll_wenzi1=zixunDialog1.findViewById(R.id.ll_wenzi);
+            ll_wenzi1 = zixunDialog1.findViewById(R.id.ll_wenzi);
             ll_wenzi1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -231,6 +228,18 @@ public class DialogUtil {
         }
         zixunDialog1 = null;
 
+    }
+
+
+    //申请退款
+    public static void showshenqingfukuuan(final Context context) {
+        if (!canShowDialog(context)) return;
+//        closeAllDialog();
+        final Dialog dialog = new AppDialog(context, R.layout.dialog_shenqingtuikuan, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, R.style.mystyle, Gravity.CENTER);
+        dialog.getWindow().setWindowAnimations(0);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 
 

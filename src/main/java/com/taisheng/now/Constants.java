@@ -325,6 +325,10 @@ public class Constants {
             public static final String weChatPay = "jeecg-boot/app/pay/payment/wxpay/weChatPay";
 
 
+
+            public static final String orderDetail = "jeecg-boot/app/mall/order/detail";
+
+
         }
 
 

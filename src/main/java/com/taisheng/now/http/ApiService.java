@@ -33,6 +33,7 @@ import com.taisheng.now.bussiness.bean.post.MarketPostBean;
 import com.taisheng.now.bussiness.bean.post.MarketTypePostBean;
 import com.taisheng.now.bussiness.bean.post.MoreShipinPostBean;
 import com.taisheng.now.bussiness.bean.post.OrderListPostBean;
+import com.taisheng.now.bussiness.bean.post.OrderxiangqingPostBean;
 import com.taisheng.now.bussiness.bean.post.QuestionPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendDoctorPostBean;
 import com.taisheng.now.bussiness.bean.post.RecommendSharePostBean;
@@ -76,6 +77,7 @@ import com.taisheng.now.bussiness.bean.result.QuestionResultBean;
 import com.taisheng.now.bussiness.bean.result.RecommendSharedResultBean;
 import com.taisheng.now.bussiness.bean.result.ShipinsResultBean;
 import com.taisheng.now.bussiness.bean.result.SignResultBean;
+import com.taisheng.now.bussiness.bean.result.market.DingdanxiangqingResultBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
 import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
 
@@ -354,7 +356,7 @@ public interface ApiService {
     Call<BaseBean> addressAdd(@Body AddDizhiPostBean bean);
 
 
-//    public static final String updateAddressById = "jeecg-boot/app/mall/address/updateAddressById";
+    //    public static final String updateAddressById = "jeecg-boot/app/mall/address/updateAddressById";
     @POST(Constants.Url.ShangCheng.updateAddressById)
     Call<BaseBean> updateAddressById(@Body AddDizhiPostBean bean);
 
@@ -373,7 +375,6 @@ public interface ApiService {
     Call<BaseBean<PostageResultBean>> getPostage(@Body BasePostBean bean);
 
 
-
     @POST(Constants.Url.ShangCheng.createOrder)
     Call<BaseBean<CreateOrderResultBean>> createOrder(@Body CreateOrderPostBean bean);
 
@@ -381,15 +382,18 @@ public interface ApiService {
     @POST(Constants.Url.ShangCheng.deleteOrder)
     Call<BaseBean> deleteOrder(@Body DeleteOrderPostBean bean);
 
-//    public static final String confirmReceiveGoods = "jeecg-boot/app/mall/order/confirmReceiveGoods";
+    //    public static final String confirmReceiveGoods = "jeecg-boot/app/mall/order/confirmReceiveGoods";
     @POST(Constants.Url.ShangCheng.confirmReceiveGoods)
     Call<BaseBean> confirmReceiveGoods(@Body DeleteOrderPostBean bean);
 
 
-
-
     @POST(Constants.Url.ShangCheng.weChatPay)
     Call<BaseBean<WechatResultBean>> weChatPay(@Body WexinZhifuPostBean bean);
+
+
+
+    @POST(Constants.Url.ShangCheng.orderDetail)
+    Call<BaseBean<DingdanxiangqingResultBean>> orderDetail(@Body OrderxiangqingPostBean bean);
 
 
 }
