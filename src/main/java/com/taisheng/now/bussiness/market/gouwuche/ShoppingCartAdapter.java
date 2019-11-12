@@ -216,6 +216,12 @@ public class ShoppingCartAdapter extends BaseAdapter {
         holder.ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+
+
+
                 modifyCountInterface.doIncrease(position, holder.tvCommodityShowNum, holder.ckOneChose.isChecked());//暴露增加接口
             }
         });
@@ -230,7 +236,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
         holder.tvCommodityDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                modifyCountInterface.childDelete(position);//删除 目前只是从item中移除
+                modifyCountInterface.childDelete(position);//删除
 //                AlertDialog alert = new AlertDialog.Builder(context).create();
 //                alert.setTitle("操作提示");
 //                alert.setMessage("您确定要将这些商品从购物车中移除吗？");

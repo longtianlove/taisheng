@@ -5,7 +5,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +23,7 @@ import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.AddgouwuchePostBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.ShangpinxaingqingPostBean;
+import com.taisheng.now.bussiness.bean.post.UpdateCartNumberPostBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
 import com.taisheng.now.bussiness.bean.result.market.GoodsProductEntities;
 import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
@@ -181,9 +181,43 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-                int temp = Integer.parseInt(tv_commodity_show_num.getText().toString());
-                tv_commodity_show_num.setText((temp + 1) + "");
-                number = (temp + 1) + "";
+
+                UpdateCartNumberPostBean updateCartNumberPostBean=new UpdateCartNumberPostBean();
+                updateCartNumberPostBean.userId=UserInstance.getInstance().getUid();
+                updateCartNumberPostBean.token=UserInstance.getInstance().getToken();
+                updateCartNumberPostBean.goodsId=goodsid;
+                updateCartNumberPostBean.number=Integer.parseInt(number);
+                updateCartNumberPostBean.operateType=1;
+                updateCartNumberPostBean.productId=productid;
+                ApiUtils.getApiService().updateCartNumber(updateCartNumberPostBean).enqueue(new TaiShengCallback<BaseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+                                int temp = Integer.parseInt(tv_commodity_show_num.getText().toString());
+                                tv_commodity_show_num.setText((temp + 1) + "");
+                                number = (temp + 1) + "";
+                                break;
+                            case 500:
+                                ToastUtil.showAtCenter(message.message);
+                                break;
+
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean> call, Throwable t) {
+
+                    }
+                });
+
+
+
+
+
+
+
+
             }
         });
         tv_queding = contentView.findViewById(R.id.tv_queding);
@@ -311,47 +345,34 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                         DingdanInstance.getInstance().zongjia = counterPrice.multiply(new BigDecimal((Integer.parseInt(number)))) + "";
                     }
                 }
-
-                //获取地址信息
-
-                BaseListPostBean bean = new BaseListPostBean();
-                bean.userId = UserInstance.getInstance().getUid();
-                bean.token = UserInstance.getInstance().getToken();
-                bean.pageNo = 1;
-                bean.pageSize = 10;
-
-                ApiUtils.getApiService().addressList(bean).enqueue(new TaiShengCallback<BaseBean<DizhilistResultBean>>() {
+                UpdateCartNumberPostBean updateCartNumberPostBean=new UpdateCartNumberPostBean();
+                updateCartNumberPostBean.userId=UserInstance.getInstance().getUid();
+                updateCartNumberPostBean.token=UserInstance.getInstance().getToken();
+                updateCartNumberPostBean.goodsId=goodsid;
+                updateCartNumberPostBean.number=Integer.parseInt(number);
+                updateCartNumberPostBean.operateType=1;
+                updateCartNumberPostBean.productId=productid;
+                ApiUtils.getApiService().updateCartNumber(updateCartNumberPostBean).enqueue(new TaiShengCallback<BaseBean>() {
                     @Override
-                    public void onSuccess(Response<BaseBean<DizhilistResultBean>> response, BaseBean<DizhilistResultBean> message) {
-
-                        DialogUtil.closeProgress();
+                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
-
-
-                                DingdanInstance.getInstance().flag = "N";
-                                if (message.result.records != null && message.result.records.size() > 0) {
-                                    Intent intent = new Intent(ShangPinxiangqingActivity.this, DingdanjiesuanActivity.class);
-                                    startActivity(intent);
-                                } else {
-                                    DingdanInstance.getInstance().fromDizhi = "2";
-                                    Intent intent = new Intent(ShangPinxiangqingActivity.this, DizhiBianjiActivity.class);
-                                    startActivity(intent);
-                                }
+                                next();
                                 break;
-                            default:
+                            case 500:
                                 ToastUtil.showAtCenter(message.message);
-
                                 break;
+
                         }
                     }
 
                     @Override
-                    public void onFail(Call<BaseBean<DizhilistResultBean>> call, Throwable t) {
+                    public void onFail(Call<BaseBean> call, Throwable t) {
 
-                        DialogUtil.closeProgress();
                     }
                 });
+
+
 
 
             }
@@ -362,6 +383,49 @@ public class ShangPinxiangqingActivity extends BaseActivity {
         tv_name = findViewById(R.id.tv_name);
         tv_jianjie = findViewById(R.id.tv_jianjie);
 
+    }
+
+    public void next(){
+        //获取地址信息
+
+        BaseListPostBean bean = new BaseListPostBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.pageNo = 1;
+        bean.pageSize = 10;
+
+        ApiUtils.getApiService().addressList(bean).enqueue(new TaiShengCallback<BaseBean<DizhilistResultBean>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<DizhilistResultBean>> response, BaseBean<DizhilistResultBean> message) {
+
+                DialogUtil.closeProgress();
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+
+
+                        DingdanInstance.getInstance().flag = "N";
+                        if (message.result.records != null && message.result.records.size() > 0) {
+                            Intent intent = new Intent(ShangPinxiangqingActivity.this, DingdanjiesuanActivity.class);
+                            startActivity(intent);
+                        } else {
+                            DingdanInstance.getInstance().fromDizhi = "2";
+                            Intent intent = new Intent(ShangPinxiangqingActivity.this, DizhiBianjiActivity.class);
+                            startActivity(intent);
+                        }
+                        break;
+                    default:
+                        ToastUtil.showAtCenter(message.message);
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<DizhilistResultBean>> call, Throwable t) {
+
+                DialogUtil.closeProgress();
+            }
+        });
     }
 
 

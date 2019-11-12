@@ -19,6 +19,7 @@ import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.CartDetePostBean;
 import com.taisheng.now.bussiness.bean.post.GouwucheListPostBean;
+import com.taisheng.now.bussiness.bean.post.UpdateCartNumberPostBean;
 import com.taisheng.now.bussiness.bean.result.GouwucheResultBean;
 import com.taisheng.now.bussiness.bean.result.market.DizhilistResultBean;
 import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
@@ -443,12 +444,43 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void doIncrease(int position, View showCountView, boolean isChecked) {
         ShoppingCartBean shoppingCartBean = shoppingCartBeanList.get(position);
-        int currentCount = shoppingCartBean.getCount();
-        currentCount++;
-        shoppingCartBean.setCount(currentCount);
-        ((TextView) showCountView).setText(currentCount + "");
-        shoppingCartAdapter.notifyDataSetChanged();
-        statistics();
+
+
+
+        UpdateCartNumberPostBean updateCartNumberPostBean=new UpdateCartNumberPostBean();
+        updateCartNumberPostBean.userId=UserInstance.getInstance().getUid();
+        updateCartNumberPostBean.token=UserInstance.getInstance().getToken();
+        updateCartNumberPostBean.goodsId=shoppingCartBean.goodsId;
+        updateCartNumberPostBean.number=shoppingCartBean.count;
+        updateCartNumberPostBean.operateType=1;
+        updateCartNumberPostBean.productId=shoppingCartBean.productId;
+        ApiUtils.getApiService().updateCartNumber(updateCartNumberPostBean).enqueue(new TaiShengCallback<BaseBean>() {
+            @Override
+            public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        int currentCount = shoppingCartBean.getCount();
+                        currentCount++;
+                        shoppingCartBean.setCount(currentCount);
+                        ((TextView) showCountView).setText(currentCount + "");
+                        shoppingCartAdapter.notifyDataSetChanged();
+                        statistics();
+                        break;
+                    case 500:
+                        ToastUtil.showAtCenter(message.message);
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean> call, Throwable t) {
+
+            }
+        });
+
+
+
     }
 
     /**

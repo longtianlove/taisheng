@@ -43,6 +43,7 @@ import com.taisheng.now.bussiness.bean.post.UpdatePswPostBean;
 import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
 import com.taisheng.now.bussiness.bean.post.VideoOperatePostBean;
 import com.taisheng.now.bussiness.bean.post.WexinZhifuPostBean;
+import com.taisheng.now.bussiness.bean.post.UpdateCartNumberPostBean;
 import com.taisheng.now.bussiness.bean.result.AnswerResultBean;
 import com.taisheng.now.bussiness.bean.result.ArticleContentBean;
 import com.taisheng.now.bussiness.bean.post.ArticleContentPostBean;
@@ -333,6 +334,12 @@ public interface ApiService {
     //    public static final String addgouwuche="jeecg-boot//app/mall/cart/add";
     @POST(Constants.Url.ShangCheng.addgouwuche)
     Call<BaseBean> addgouwuche(@Body AddgouwuchePostBean bean);
+
+//    public static final String updateCartNumber="jeecg-boot/app/mall/cart/updateCartNumber";
+    @POST(Constants.Url.ShangCheng.updateCartNumber)
+    Call<BaseBean>  updateCartNumber(@Body UpdateCartNumberPostBean bean);
+
+
 
 
     @POST(Constants.Url.ShangCheng.cartDelete)

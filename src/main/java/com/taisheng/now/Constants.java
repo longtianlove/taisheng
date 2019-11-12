@@ -291,6 +291,8 @@ public class Constants {
             public static final String cainixihuan = "jeecg-boot/app/mall/goods/hot/like/list";
             //添加到购物车
             public static final String addgouwuche = "jeecg-boot/app/mall/cart/add";
+//            【更改购物车中的数量】
+            public static final String updateCartNumber="jeecg-boot/app/mall/cart/updateCartNumber";
             //从购物车删除
             public static final String cartDelete = "jeecg-boot/app/mall/cart/delete";
 
