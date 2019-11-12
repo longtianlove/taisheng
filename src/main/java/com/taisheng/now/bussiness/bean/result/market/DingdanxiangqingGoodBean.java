@@ -7,6 +7,7 @@ public class DingdanxiangqingGoodBean {
     public String orderGoodsId;
     public String picUrl;
     public String name;
+    public  String brief;
     public BigDecimal price;
     public int number;
 }

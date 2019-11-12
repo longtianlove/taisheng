@@ -223,6 +223,7 @@ public class FenleiMarketTabFragment extends BaseFragment {
                 util.ll_all = convertView.findViewById(R.id.ll_all);
                 util.sdv_article = convertView.findViewById(R.id.sdv_article);
                 util.tv_name = convertView.findViewById(R.id.tv_name);
+                util.tv_jianjie=convertView.findViewById(R.id.tv_jianjie);
                 util.tv_counterprice = convertView.findViewById(R.id.tv_counterprice);
                 util.tv_retailprice = convertView.findViewById(R.id.tv_retailprice);
 
@@ -252,6 +253,7 @@ public class FenleiMarketTabFragment extends BaseFragment {
                 util.sdv_article.setImageURI(uri);
             }
             util.tv_name.setText(bean.name);
+            util.tv_jianjie.setText(bean.brief);
             util.tv_counterprice.setText(bean.counterPrice + "");
             util.tv_retailprice.setText(bean.retailPrice + "");
             util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
@@ -265,6 +267,7 @@ public class FenleiMarketTabFragment extends BaseFragment {
             View ll_all;
             SimpleDraweeView sdv_article;
             TextView tv_name;
+            TextView tv_jianjie;
             TextView tv_counterprice;
             TextView tv_retailprice;
 

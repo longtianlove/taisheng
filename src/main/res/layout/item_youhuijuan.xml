@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="全场通用券"
+            android:textStyle="bold"
             android:textColor="#ff333333"
             android:textSize="13sp" />
 

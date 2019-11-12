@@ -34,19 +34,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="6dp"
             android:ellipsize="end"
             android:gravity="center|left"
             android:lineSpacingMultiplier="1.2"
-            android:maxLines="2"
+            android:maxLines="1"
             android:text="健康美食搭配，助您身心健康助您身心健康助您身心健康助您身心健康"
             android:textColor="#ff333333"
-            android:textSize="14sp" />
-
+            android:textStyle="bold"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/tv_jianjie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:ellipsize="end"
+            android:layout_marginTop="4dp"
+            android:gravity="center|left"
+            android:maxLines="1"
+            android:text="纯天然无污染，野生枸杞，精挑细选，这是一段文字性描述。"
+            android:textColor="#ff666666"
+            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
