@@ -93,7 +93,9 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
 //
 //            }
 //        });
-        DingdanInstance.getInstance().putongshangpindingdanList.clear();
+        synchronized (DingdanInstance.getInstance()) {
+            DingdanInstance.getInstance().putongshangpindingdanList.clear();
+        }
         list_shopping_cart = (com.taisheng.now.view.TaishengListView) findViewById(R.id.list_shopping_cart);
 
         btnEdit.setOnClickListener(this);
@@ -223,27 +225,29 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
             //全选按钮
             case R.id.ck_all:
                 if (shoppingCartBeanList.size() != 0) {
-                    DingdanInstance.getInstance().putongshangpindingdanList.clear();
-                    if (ckAll.isChecked()) {
-                        for (int i = 0; i < shoppingCartBeanList.size(); i++) {
-                            shoppingCartBeanList.get(i).setChoosed(true);
-                            ShoppingCartBean beanA=shoppingCartBeanList.get(i);
-                            xiadanshangpinBean beanB=new xiadanshangpinBean();
-                            beanB.picUrl=beanA.imageUrl;
-                            beanB.number=beanA.count+"";
-                            beanB.counterPrice=beanA.price+"";
-                            beanB.name=beanA.shoppingName;
-                            beanB.goodsId=beanA.goodsId;
-                            beanB.productId=beanA.productId;
+                    synchronized (DingdanInstance.getInstance()) {
+                        DingdanInstance.getInstance().putongshangpindingdanList.clear();
+                        if (ckAll.isChecked()) {
+                            for (int i = 0; i < shoppingCartBeanList.size(); i++) {
+                                shoppingCartBeanList.get(i).setChoosed(true);
+                                ShoppingCartBean beanA = shoppingCartBeanList.get(i);
+                                xiadanshangpinBean beanB = new xiadanshangpinBean();
+                                beanB.picUrl = beanA.imageUrl;
+                                beanB.number = beanA.count + "";
+                                beanB.counterPrice = beanA.price + "";
+                                beanB.name = beanA.shoppingName;
+                                beanB.goodsId = beanA.goodsId;
+                                beanB.productId = beanA.productId;
 
-                            DingdanInstance.getInstance().putongshangpindingdanList.add(beanB);
+                                DingdanInstance.getInstance().putongshangpindingdanList.add(beanB);
+                            }
+                            shoppingCartAdapter.notifyDataSetChanged();
+                        } else {
+                            for (int i = 0; i < shoppingCartBeanList.size(); i++) {
+                                shoppingCartBeanList.get(i).setChoosed(false);
+                            }
+                            shoppingCartAdapter.notifyDataSetChanged();
                         }
-                        shoppingCartAdapter.notifyDataSetChanged();
-                    } else {
-                        for (int i = 0; i < shoppingCartBeanList.size(); i++) {
-                            shoppingCartBeanList.get(i).setChoosed(false);
-                        }
-                        shoppingCartAdapter.notifyDataSetChanged();
                     }
                 }
                 statistics();

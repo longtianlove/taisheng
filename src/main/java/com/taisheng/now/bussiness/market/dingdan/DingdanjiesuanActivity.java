@@ -136,16 +136,18 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
 
         lv_jiesuan = findViewById(R.id.lv_jiesuan);
         madapter = new ArticleAdapter(DingdanjiesuanActivity.this);
-        if (DingdanInstance.getInstance().scoreGoods == 1) {
-            madapter.mData = DingdanInstance.getInstance().putongshangpindingdanList;
-            view_youfei_label.setVisibility(View.VISIBLE);
-            ll_youhuijuan2.setVisibility(View.VISIBLE);
-            view_youhuijuanlabel.setVisibility(View.VISIBLE);
-        } else {
-            madapter.mData = DingdanInstance.getInstance().jifenshangpindingdanList;
-            view_youfei_label.setVisibility(View.GONE);
-            ll_youhuijuan2.setVisibility(View.GONE);
-            view_youhuijuanlabel.setVisibility(View.GONE);
+        synchronized (DingdanInstance.getInstance()) {
+            if (DingdanInstance.getInstance().scoreGoods == 1) {
+                madapter.mData = DingdanInstance.getInstance().putongshangpindingdanList;
+                view_youfei_label.setVisibility(View.VISIBLE);
+                ll_youhuijuan2.setVisibility(View.VISIBLE);
+                view_youhuijuanlabel.setVisibility(View.VISIBLE);
+            } else {
+                madapter.mData = DingdanInstance.getInstance().jifenshangpindingdanList;
+                view_youfei_label.setVisibility(View.GONE);
+                ll_youhuijuan2.setVisibility(View.GONE);
+                view_youhuijuanlabel.setVisibility(View.GONE);
+            }
         }
         lv_jiesuan.setAdapter(madapter);
 

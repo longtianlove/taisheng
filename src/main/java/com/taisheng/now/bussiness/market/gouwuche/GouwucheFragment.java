@@ -99,10 +99,12 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
 //
 //            }
 //        });
-        if (DingdanInstance.getInstance().scoreGoods == 1) {
-            DingdanInstance.getInstance().putongshangpindingdanList.clear();
-        } else {
-            DingdanInstance.getInstance().jifenshangpindingdanList.clear();
+        synchronized (DingdanInstance.getInstance()) {
+            if (DingdanInstance.getInstance().scoreGoods == 1) {
+                DingdanInstance.getInstance().putongshangpindingdanList.clear();
+            } else {
+                DingdanInstance.getInstance().jifenshangpindingdanList.clear();
+            }
         }
 
 
@@ -247,10 +249,12 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
             //全选按钮
             case R.id.ck_all:
                 if (shoppingCartBeanList.size() != 0) {
-                    if (DingdanInstance.getInstance().scoreGoods == 1) {
-                        DingdanInstance.getInstance().putongshangpindingdanList.clear();
-                    } else {
-                        DingdanInstance.getInstance().jifenshangpindingdanList.clear();
+                    synchronized (DingdanInstance.getInstance()) {
+                        if (DingdanInstance.getInstance().scoreGoods == 1) {
+                            DingdanInstance.getInstance().putongshangpindingdanList.clear();
+                        } else {
+                            DingdanInstance.getInstance().jifenshangpindingdanList.clear();
+                        }
                     }
                     if (ckAll.isChecked()) {
                         synchronized (DingdanInstance.getInstance()) {
@@ -265,11 +269,12 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
                                 beanB.goodsId = beanA.goodsId;
                                 beanB.productId = beanA.productId;
 
-
-                                if (DingdanInstance.getInstance().scoreGoods == 1) {
-                                    DingdanInstance.getInstance().putongshangpindingdanList.add(beanB);
-                                } else {
-                                    DingdanInstance.getInstance().jifenshangpindingdanList.add(beanB);
+                                synchronized (DingdanInstance.getInstance()) {
+                                    if (DingdanInstance.getInstance().scoreGoods == 1) {
+                                        DingdanInstance.getInstance().putongshangpindingdanList.add(beanB);
+                                    } else {
+                                        DingdanInstance.getInstance().jifenshangpindingdanList.add(beanB);
+                                    }
                                 }
                             }
                         }

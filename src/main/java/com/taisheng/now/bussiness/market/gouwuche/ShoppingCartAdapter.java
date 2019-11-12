@@ -18,6 +18,7 @@ import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
 import com.taisheng.now.bussiness.market.DingdanInstance;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -144,36 +145,65 @@ public class ShoppingCartAdapter extends BaseAdapter {
                         checkInterface.checkGroup(position, ((CheckBox) v).isChecked());//向外暴露接口
                         if(((CheckBox) v).isChecked()){
                             synchronized (DingdanInstance.getInstance()) {
-                                if (DingdanInstance.getInstance().scoreGoods == 1) {
 
-                                    for (xiadanshangpinBean bean : DingdanInstance.getInstance().putongshangpindingdanList) {
-                                        if (bean.goodsId == xbean.goodsId) {
-                                            DingdanInstance.getInstance().putongshangpindingdanList.remove(bean);
+                                    if (DingdanInstance.getInstance().scoreGoods == 1) {
+
+//                                        for (xiadanshangpinBean bean : DingdanInstance.getInstance().putongshangpindingdanList) {
+//                                            if (bean.goodsId == xbean.goodsId) {
+////                                                DingdanInstance.getInstance().putongshangpindingdanList.remove(bean);
+                                                Iterator<xiadanshangpinBean> it= DingdanInstance.getInstance().putongshangpindingdanList.iterator();
+                                                while(it.hasNext()) {
+                                                    xiadanshangpinBean bean=it.next();
+                                                    if (bean.goodsId == xbean.goodsId) {
+                                                        it.remove();
+                                                    }
                                         }
-                                    }
-                                    DingdanInstance.getInstance().putongshangpindingdanList.add(xbean);
-                                } else {
-                                    for (xiadanshangpinBean bean : DingdanInstance.getInstance().jifenshangpindingdanList) {
-                                        if (bean.goodsId == xbean.goodsId) {
-                                            DingdanInstance.getInstance().jifenshangpindingdanList.remove(bean);
+                                        DingdanInstance.getInstance().putongshangpindingdanList.add(xbean);
+                                    } else {
+//                                        for (xiadanshangpinBean bean : DingdanInstance.getInstance().jifenshangpindingdanList) {
+//                                            if (bean.goodsId == xbean.goodsId) {
+//                                                DingdanInstance.getInstance().jifenshangpindingdanList.remove(bean);
+//                                            }
+//                                        }
+
+                                        Iterator<xiadanshangpinBean> it= DingdanInstance.getInstance().jifenshangpindingdanList.iterator();
+                                        while(it.hasNext()) {
+                                            xiadanshangpinBean bean = it.next();
+                                            if (bean.goodsId == xbean.goodsId) {
+                                                it.remove();
+                                            }
                                         }
+                                        DingdanInstance.getInstance().jifenshangpindingdanList.add(xbean);
                                     }
-                                    DingdanInstance.getInstance().jifenshangpindingdanList.add(xbean);
-                                }
+
                             }
 
                         }else{
                             synchronized (DingdanInstance.getInstance()) {
                                 if (DingdanInstance.getInstance().scoreGoods == 1) {
-                                    for (xiadanshangpinBean bean : DingdanInstance.getInstance().putongshangpindingdanList) {
+//                                    for (xiadanshangpinBean bean : DingdanInstance.getInstance().putongshangpindingdanList) {
+//                                        if (bean.goodsId == xbean.goodsId) {
+//                                            DingdanInstance.getInstance().putongshangpindingdanList.remove(bean);
+//                                        }
+//                                    }
+                                    Iterator<xiadanshangpinBean> it= DingdanInstance.getInstance().putongshangpindingdanList.iterator();
+                                    while(it.hasNext()) {
+                                        xiadanshangpinBean bean=it.next();
                                         if (bean.goodsId == xbean.goodsId) {
-                                            DingdanInstance.getInstance().putongshangpindingdanList.remove(bean);
+                                            it.remove();
                                         }
                                     }
                                 } else {
-                                    for (xiadanshangpinBean bean : DingdanInstance.getInstance().jifenshangpindingdanList) {
+//                                    for (xiadanshangpinBean bean : DingdanInstance.getInstance().jifenshangpindingdanList) {
+//                                        if (bean.goodsId == xbean.goodsId) {
+//                                            DingdanInstance.getInstance().jifenshangpindingdanList.remove(bean);
+//                                        }
+//                                    }
+                                    Iterator<xiadanshangpinBean> it= DingdanInstance.getInstance().jifenshangpindingdanList.iterator();
+                                    while(it.hasNext()) {
+                                        xiadanshangpinBean bean=it.next();
                                         if (bean.goodsId == xbean.goodsId) {
-                                            DingdanInstance.getInstance().jifenshangpindingdanList.remove(bean);
+                                            it.remove();
                                         }
                                     }
                                 }

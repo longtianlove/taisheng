@@ -281,33 +281,35 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 
 
                 DingdanInstance.getInstance().scoreGoods = scoreGoods;
+                synchronized (DingdanInstance.getInstance()) {
 
-                if (DingdanInstance.getInstance().scoreGoods == 1) {
-                    DingdanInstance.getInstance().putongshangpindingdanList.clear();
-                    xiadanshangpinBean xbean = new xiadanshangpinBean();
-                    xbean.goodsId = goodsid;
-                    xbean.name = name;
-                    xbean.counterPrice = counterPrice + "";
+                    if (DingdanInstance.getInstance().scoreGoods == 1) {
+                        DingdanInstance.getInstance().putongshangpindingdanList.clear();
+                        xiadanshangpinBean xbean = new xiadanshangpinBean();
+                        xbean.goodsId = goodsid;
+                        xbean.name = name;
+                        xbean.counterPrice = counterPrice + "";
 //                xbean.retailPrice=retailPrice;
-                    xbean.number = number;
-                    xbean.picUrl = picUrl;
-                    xbean.productId = productid;
-                    DingdanInstance.getInstance().putongshangpindingdanList.add(xbean);
+                        xbean.number = number;
+                        xbean.picUrl = picUrl;
+                        xbean.productId = productid;
+                        DingdanInstance.getInstance().putongshangpindingdanList.add(xbean);
 
-                    DingdanInstance.getInstance().zongjia = counterPrice.multiply(new BigDecimal((Integer.parseInt(number)))) + "";
-                } else {
-                    DingdanInstance.getInstance().jifenshangpindingdanList.clear();
-                    xiadanshangpinBean xbean = new xiadanshangpinBean();
-                    xbean.goodsId = goodsid;
-                    xbean.name = name;
-                    xbean.counterPrice = counterPrice + "";
+                        DingdanInstance.getInstance().zongjia = counterPrice.multiply(new BigDecimal((Integer.parseInt(number)))) + "";
+                    } else {
+                        DingdanInstance.getInstance().jifenshangpindingdanList.clear();
+                        xiadanshangpinBean xbean = new xiadanshangpinBean();
+                        xbean.goodsId = goodsid;
+                        xbean.name = name;
+                        xbean.counterPrice = counterPrice + "";
 //                xbean.retailPrice=retailPrice;
-                    xbean.number = number;
-                    xbean.picUrl = picUrl;
-                    xbean.productId = productid;
-                    DingdanInstance.getInstance().jifenshangpindingdanList.add(xbean);
+                        xbean.number = number;
+                        xbean.picUrl = picUrl;
+                        xbean.productId = productid;
+                        DingdanInstance.getInstance().jifenshangpindingdanList.add(xbean);
 
-                    DingdanInstance.getInstance().zongjia = counterPrice.multiply(new BigDecimal((Integer.parseInt(number))))  + "";
+                        DingdanInstance.getInstance().zongjia = counterPrice.multiply(new BigDecimal((Integer.parseInt(number)))) + "";
+                    }
                 }
 
                 //获取地址信息
