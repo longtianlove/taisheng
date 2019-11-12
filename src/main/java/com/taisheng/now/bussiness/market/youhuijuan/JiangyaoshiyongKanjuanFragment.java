@@ -28,6 +28,7 @@ import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.TaishengListView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -203,7 +204,8 @@ public class JiangyaoshiyongKanjuanFragment extends BaseFragment {
                 public void onClick(View v) {
 
                     if ("1".equals(assessmentType)) {
-                        if(Integer.parseInt(DingdanInstance.getInstance().zongjia)<=bean.min){
+
+                        if(bean.min.compareTo(new BigDecimal(DingdanInstance.getInstance().zongjia))==1){
                             ToastUtil.showAtCenter("不可使用");
                             return;
                         }

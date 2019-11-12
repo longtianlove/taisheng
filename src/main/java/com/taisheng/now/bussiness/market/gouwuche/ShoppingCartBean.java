@@ -1,5 +1,7 @@
 package com.taisheng.now.bussiness.market.gouwuche;
 
+import java.math.BigDecimal;
+
 /**
  * Created by AYD on 2016/11/22.
  * <p>
@@ -16,7 +18,7 @@ public class ShoppingCartBean {
     public  int dressSize;
     public  String attribute;
 
-    public  double price;
+    public BigDecimal price;
 
     public boolean isChoosed;
     public boolean isCheck = false;
@@ -38,7 +40,7 @@ public class ShoppingCartBean {
     }
 
     public ShoppingCartBean(String id, String shoppingName, String attribute, int dressSize,
-                            double price, int count) {
+                            BigDecimal price, int count) {
         this.id = id;
         this.shoppingName = shoppingName;
         this.attribute = attribute;
@@ -98,11 +100,11 @@ public class ShoppingCartBean {
     }
 
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

@@ -1,5 +1,7 @@
 package com.taisheng.now.bussiness.bean.result;
 
+import java.math.BigDecimal;
+
 public class MallYouhuiquanBean {
 
     public String id;
@@ -8,7 +10,7 @@ public class MallYouhuiquanBean {
     public String useDate;
     public int discount;
 
-    public int min;
+    public BigDecimal min;
 
 
 }

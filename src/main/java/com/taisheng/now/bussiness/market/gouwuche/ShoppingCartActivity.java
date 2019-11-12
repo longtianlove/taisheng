@@ -29,6 +29,7 @@ import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.chenjinshi.StatusBarUtil;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
     private boolean flag = false;
     private List<ShoppingCartBean> shoppingCartBeanList = new ArrayList<>();
     private boolean mSelect;
-    private double totalPrice = 0.00;// 购买的商品总价
+    private BigDecimal totalPrice = new BigDecimal(0.00);// 购买的商品总价
     private int totalCount = 0;// 购买的商品总数量
 
     @Override
@@ -281,7 +282,7 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
             if (choosed) {
                 String shoppingName = bean.getShoppingName();
                 int count = bean.getCount();
-                double price = bean.getPrice();
+                BigDecimal price = bean.getPrice();
                 int size = bean.getDressSize();
                 String attribute = bean.getAttribute();
                 String id = bean.getId();
@@ -369,12 +370,12 @@ public class ShoppingCartActivity extends Activity implements View.OnClickListen
      */
     public void statistics() {
         totalCount = 0;
-        totalPrice = 0.00;
+        totalPrice =new BigDecimal(0.00);
         for (int i = 0; i < shoppingCartBeanList.size(); i++) {
             ShoppingCartBean shoppingCartBean = shoppingCartBeanList.get(i);
             if (shoppingCartBean.isChoosed()) {
                 totalCount++;
-                totalPrice += shoppingCartBean.getPrice() * shoppingCartBean.getCount();
+                totalPrice = totalPrice.add(shoppingCartBean.price.multiply(new BigDecimal(shoppingCartBean.getCount())));
             }
         }
         tvShowPrice.setText("合计:" + totalPrice);

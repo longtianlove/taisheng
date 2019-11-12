@@ -10,6 +10,8 @@ package com.taisheng.now.bussiness.market.gouwuche;
  */
 
 
+import java.math.BigDecimal;
+
 /**
  * Auto-generated: 2019-10-24 11:15:10
  *
@@ -28,7 +30,7 @@ public class NewShoppingCartBean {
     public String picUrl;
     public int deleted;
     public String createTime;
-    public int price;
+    public BigDecimal price;
     public String checked;
     public String id;
     public String goodsName;
@@ -102,12 +104,7 @@ public class NewShoppingCartBean {
         return createTime;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-    public int getPrice() {
-        return price;
-    }
+
 
     public void setChecked(String checked) {
         this.checked = checked;
