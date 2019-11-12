@@ -302,6 +302,8 @@ public class Constants {
             public static final String addressList = "jeecg-boot/app/mall/address/list";
             //添加地址
             public static final String addressAdd = "jeecg-boot/app/mall/address/add";
+//            删除用户收货地址
+            public static final String addressDelete="jeecg-boot/app/mall/address/delete";
             //            用户收货地址接口-编辑收货地址
             public static final String updateAddressById = "jeecg-boot/app/mall/address/updateAddressById";
 

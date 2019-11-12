@@ -16,6 +16,7 @@ import com.taisheng.now.bussiness.bean.post.CollectListPostBean;
 import com.taisheng.now.bussiness.bean.post.BaseListPostBean;
 import com.taisheng.now.bussiness.bean.post.ConnectDoctorPostBean;
 import com.taisheng.now.bussiness.bean.post.CreateOrderPostBean;
+import com.taisheng.now.bussiness.bean.post.DeleteDizhiPostBean;
 import com.taisheng.now.bussiness.bean.post.DeleteOrderPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorCommentPostBean;
 import com.taisheng.now.bussiness.bean.post.DoctorDetailPostBean;
@@ -361,6 +362,12 @@ public interface ApiService {
     //    public static final String addressAdd="jeecg-boot/app/mall/address/add";
     @POST(Constants.Url.ShangCheng.addressAdd)
     Call<BaseBean> addressAdd(@Body AddDizhiPostBean bean);
+
+
+    public static final String addressDelete="jeecg-boot/app/mall/address/delete";
+    @POST(Constants.Url.ShangCheng.addressDelete)
+    Call<BaseBean> addressDelete(@Body DeleteDizhiPostBean bean);
+
 
 
     //    public static final String updateAddressById = "jeecg-boot/app/mall/address/updateAddressById";

@@ -258,5 +258,19 @@
             android:textSize="14sp"></TextView>
 
 
+        <TextView
+            android:id="@+id/btn_delete"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/dizhibianji_delete"
+            android:gravity="center"
+            android:text="删除"
+            android:textColor="#ff999999"
+            android:textSize="15sp"></TextView>
+
+
     </LinearLayout>
 </LinearLayout>

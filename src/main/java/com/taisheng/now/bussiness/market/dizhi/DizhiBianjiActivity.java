@@ -26,6 +26,7 @@ import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.article.ArticleContentActivity;
 import com.taisheng.now.bussiness.bean.post.AddDizhiPostBean;
+import com.taisheng.now.bussiness.bean.post.DeleteDizhiPostBean;
 import com.taisheng.now.bussiness.bean.result.ArticleBean;
 import com.taisheng.now.bussiness.market.DingdanInstance;
 import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
@@ -59,6 +60,7 @@ public class DizhiBianjiActivity extends BaseActivity {
     View ll_dizhidefault;
     ImageView iv_dizhidefault;
     View btn_save;
+    View btn_delete;
 
     public String dizhiid;
 
@@ -121,7 +123,7 @@ public class DizhiBianjiActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-                if(StringUtil.isEmpty(dizhiid)) {
+                if (StringUtil.isEmpty(dizhiid)) {
 
 
                     AddDizhiPostBean bean = new AddDizhiPostBean();
@@ -143,13 +145,13 @@ public class DizhiBianjiActivity extends BaseActivity {
                                 case Constants.HTTP_SUCCESS:
                                     ToastUtil.showAtCenter("添加成功");
                                     DingdanInstance.getInstance().addressId = message.message;
-                                    DingdanInstance.getInstance().name=bean.name;
-                                    DingdanInstance.getInstance().phone=bean.phone;
-                                    DingdanInstance.getInstance().address=bean.province + bean.city + bean.county + bean.addressDetail;
-                                    if( "1".equals(DingdanInstance.getInstance().fromDizhi)){
+                                    DingdanInstance.getInstance().name = bean.name;
+                                    DingdanInstance.getInstance().phone = bean.phone;
+                                    DingdanInstance.getInstance().address = bean.province + bean.city + bean.county + bean.addressDetail;
+                                    if ("1".equals(DingdanInstance.getInstance().fromDizhi)) {
                                         finish();
-                                    }else{
-                                        Intent intent=new Intent(DizhiBianjiActivity.this,DingdanjiesuanActivity.class);
+                                    } else {
+                                        Intent intent = new Intent(DizhiBianjiActivity.this, DingdanjiesuanActivity.class);
                                         startActivity(intent);
                                         finish();
                                     }
@@ -164,11 +166,11 @@ public class DizhiBianjiActivity extends BaseActivity {
                         }
                     });
 
-                }else{
+                } else {
 
 
                     AddDizhiPostBean bean = new AddDizhiPostBean();
-                    bean.id=dizhiid;
+                    bean.id = dizhiid;
                     bean.userId = UserInstance.getInstance().getUid();
                     bean.token = UserInstance.getInstance().getToken();
                     bean.addressDetail = et_xiangxidizhi.getText().toString();
@@ -186,7 +188,7 @@ public class DizhiBianjiActivity extends BaseActivity {
                             switch (message.code) {
                                 case Constants.HTTP_SUCCESS:
                                     ToastUtil.showAtCenter("更新成功");
-                                    DingdanInstance.getInstance().addressId =dizhiid;
+                                    DingdanInstance.getInstance().addressId = dizhiid;
                                     finish();
                                     break;
                             }
@@ -200,19 +202,56 @@ public class DizhiBianjiActivity extends BaseActivity {
                 }
             }
         });
+
+
+        btn_delete = findViewById(R.id.btn_delete);
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                DeleteDizhiPostBean bean = new DeleteDizhiPostBean();
+                bean.userId = UserInstance.getInstance().getUid();
+                bean.token = UserInstance.getInstance().getToken();
+                bean.id = dizhiid;
+                ApiUtils.getApiService().addressDelete(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+                                ToastUtil.showAtCenter("删除成功");
+                                finish();
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+
+
     }
 
     void initData() {
-        dizhiid=getIntent().getStringExtra("dizhiid");
+        dizhiid = getIntent().getStringExtra("dizhiid");
+        if (StringUtil.isEmpty(dizhiid)) {
+            btn_delete.setVisibility(View.GONE);
+        } else {
+            btn_delete.setVisibility(View.VISIBLE);
+
+        }
         String name = getIntent().getStringExtra("name");
         String phonne = getIntent().getStringExtra("phone");
         String address = getIntent().getStringExtra("address");
-        String province1=getIntent().getStringExtra("province");
-        province=province1;
-        String city1=getIntent().getStringExtra("city");
-        city=city1;
-        String county1=getIntent().getStringExtra("county");
-        district=county1;
+        String province1 = getIntent().getStringExtra("province");
+        province = province1;
+        String city1 = getIntent().getStringExtra("city");
+        city = city1;
+        String county1 = getIntent().getStringExtra("county");
+        district = county1;
         String xiangxidizhi = getIntent().getStringExtra("xiangxidizhi");
         String isDeafult = getIntent().getStringExtra("defaultAddress");
 
@@ -220,7 +259,7 @@ public class DizhiBianjiActivity extends BaseActivity {
         et_xingming.setSelection(et_xingming.getText().length());
 
         et_phone.setText(phonne);
-        if(!TextUtils.isEmpty(province1)) {
+        if (!TextUtils.isEmpty(province1)) {
             et_dizhi.setText(province1 + " " + city1 + " " + county1);
         }
         et_xiangxidizhi.setText(xiangxidizhi);
