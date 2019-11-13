@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragmentActivity;
+import com.taisheng.now.bussiness.market.DingdanInstance;
 import com.taisheng.now.util.DensityUtil;
 
 import java.lang.reflect.Field;
@@ -63,6 +64,28 @@ public class GouwucheActivity extends BaseFragmentActivity {
         tl_tab.setupWithViewPager(vp_content);
         changeTabIndicatorWidth(tl_tab, 15);
         reflex(tl_tab);
+        tl_tab.setOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                if (position == 0) {
+                    DingdanInstance.getInstance().scoreGoods = 1;
+                } else {
+                    DingdanInstance.getInstance().scoreGoods = 0;
+
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
 

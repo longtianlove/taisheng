@@ -35,6 +35,7 @@ import com.taisheng.now.view.TaishengListView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -100,13 +101,13 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
 //
 //            }
 //        });
-        synchronized (DingdanInstance.getInstance()) {
+
             if (DingdanInstance.getInstance().scoreGoods == 1) {
                 DingdanInstance.getInstance().putongshangpindingdanList.clear();
             } else {
                 DingdanInstance.getInstance().jifenshangpindingdanList.clear();
             }
-        }
+
 
 
         list_shopping_cart = (com.taisheng.now.view.TaishengListView) rootView.findViewById(R.id.list_shopping_cart);
@@ -250,15 +251,15 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
             //全选按钮
             case R.id.ck_all:
                 if (shoppingCartBeanList.size() != 0) {
-                    synchronized (DingdanInstance.getInstance()) {
-                        if (DingdanInstance.getInstance().scoreGoods == 1) {
+
+                        if (scoreGoods == 1) {
                             DingdanInstance.getInstance().putongshangpindingdanList.clear();
                         } else {
                             DingdanInstance.getInstance().jifenshangpindingdanList.clear();
                         }
-                    }
+
                     if (ckAll.isChecked()) {
-                        synchronized (DingdanInstance.getInstance()) {
+
                             for (int i = 0; i < shoppingCartBeanList.size(); i++) {
                                 shoppingCartBeanList.get(i).setChoosed(true);
                                 ShoppingCartBean beanA = shoppingCartBeanList.get(i);
@@ -270,15 +271,18 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
                                 beanB.goodsId = beanA.goodsId;
                                 beanB.productId = beanA.productId;
 
-                                synchronized (DingdanInstance.getInstance()) {
-                                    if (DingdanInstance.getInstance().scoreGoods == 1) {
+
+                                    if (scoreGoods == 1) {
+
                                         DingdanInstance.getInstance().putongshangpindingdanList.add(beanB);
+
                                     } else {
                                         DingdanInstance.getInstance().jifenshangpindingdanList.add(beanB);
+
                                     }
-                                }
+
                             }
-                        }
+
                         shoppingCartAdapter.notifyDataSetChanged();
                     } else {
                         for (int i = 0; i < shoppingCartBeanList.size(); i++) {
@@ -314,7 +318,7 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
      */
     private void lementOnder() {
 
-        if (DingdanInstance.getInstance().scoreGoods == 1) {
+        if (scoreGoods == 1) {
             if (DingdanInstance.getInstance().putongshangpindingdanList.isEmpty()) {
                 ToastUtil.showAtCenter("请选择商品");
                 return;
@@ -343,7 +347,7 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
 //        ToastUtil.showAtCenter("总价：" + totalPrice);
         DingdanInstance.getInstance().zongjia = totalPrice + "";
 
-        DingdanInstance.getInstance().scoreGoods = scoreGoods;
+//        DingdanInstance.getInstance().scoreGoods = scoreGoods;
 
         //跳转到支付界面
         //获取地址信息
@@ -535,5 +539,8 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
         statistics();
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 }

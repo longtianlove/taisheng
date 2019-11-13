@@ -158,7 +158,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
                         shoppingCartBean.setChoosed(((CheckBox) v).isChecked());
                         checkInterface.checkGroup(position, ((CheckBox) v).isChecked());//向外暴露接口
                         if(((CheckBox) v).isChecked()){
-                            synchronized (DingdanInstance.getInstance()) {
+
 
                                     if (DingdanInstance.getInstance().scoreGoods == 1) {
 
@@ -190,10 +190,10 @@ public class ShoppingCartAdapter extends BaseAdapter {
                                         DingdanInstance.getInstance().jifenshangpindingdanList.add(xbean);
                                     }
 
-                            }
+
 
                         }else{
-                            synchronized (DingdanInstance.getInstance()) {
+
                                 if (DingdanInstance.getInstance().scoreGoods == 1) {
 //                                    for (xiadanshangpinBean bean : DingdanInstance.getInstance().putongshangpindingdanList) {
 //                                        if (bean.goodsId == xbean.goodsId) {
@@ -221,7 +221,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
                                         }
                                     }
                                 }
-                            }
+
                         }
                     }
                 }

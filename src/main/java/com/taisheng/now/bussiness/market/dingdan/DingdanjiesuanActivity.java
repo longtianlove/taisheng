@@ -136,7 +136,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
 
         lv_jiesuan = findViewById(R.id.lv_jiesuan);
         madapter = new ArticleAdapter(DingdanjiesuanActivity.this);
-        synchronized (DingdanInstance.getInstance()) {
+
             if (DingdanInstance.getInstance().scoreGoods == 1) {
                 madapter.mData = DingdanInstance.getInstance().putongshangpindingdanList;
                 view_youfei_label.setVisibility(View.VISIBLE);
@@ -148,7 +148,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                 ll_youhuijuan2.setVisibility(View.GONE);
                 view_youhuijuanlabel.setVisibility(View.GONE);
             }
-        }
+
         lv_jiesuan.setAdapter(madapter);
 
 

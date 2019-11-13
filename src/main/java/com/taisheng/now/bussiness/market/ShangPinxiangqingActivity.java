@@ -314,10 +314,10 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                 }
 
 
-                DingdanInstance.getInstance().scoreGoods = scoreGoods;
-                synchronized (DingdanInstance.getInstance()) {
+//                DingdanInstance.getInstance().scoreGoods = scoreGoods;
 
-                    if (DingdanInstance.getInstance().scoreGoods == 1) {
+
+                    if (scoreGoods == 1) {
                         DingdanInstance.getInstance().putongshangpindingdanList.clear();
                         xiadanshangpinBean xbean = new xiadanshangpinBean();
                         xbean.goodsId = goodsid;
@@ -344,7 +344,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
 
                         DingdanInstance.getInstance().zongjia = counterPrice.multiply(new BigDecimal((Integer.parseInt(number)))) + "";
                     }
-                }
+
                 UpdateCartNumberPostBean updateCartNumberPostBean=new UpdateCartNumberPostBean();
                 updateCartNumberPostBean.userId=UserInstance.getInstance().getUid();
                 updateCartNumberPostBean.token=UserInstance.getInstance().getToken();
