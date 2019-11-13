@@ -341,6 +341,10 @@ public interface ApiService {
     Call<BaseBean>  updateCartNumber(@Body UpdateCartNumberPostBean bean);
 
 
+    @POST(Constants.Url.ShangCheng.fastBuyCheckNumbe)
+    Call<BaseBean>  fastBuyCheckNumbe(@Body UpdateCartNumberPostBean bean);
+
+
 
 
     @POST(Constants.Url.ShangCheng.cartDelete)

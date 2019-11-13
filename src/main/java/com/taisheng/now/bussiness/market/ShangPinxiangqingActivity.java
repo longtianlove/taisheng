@@ -189,7 +189,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                 updateCartNumberPostBean.number=Integer.parseInt(number);
                 updateCartNumberPostBean.operateType=1;
                 updateCartNumberPostBean.productId=productid;
-                ApiUtils.getApiService().updateCartNumber(updateCartNumberPostBean).enqueue(new TaiShengCallback<BaseBean>() {
+                ApiUtils.getApiService().fastBuyCheckNumbe(updateCartNumberPostBean).enqueue(new TaiShengCallback<BaseBean>() {
                     @Override
                     public void onSuccess(Response<BaseBean> response, BaseBean message) {
                         switch (message.code) {
@@ -351,7 +351,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                 updateCartNumberPostBean.number=Integer.parseInt(number);
                 updateCartNumberPostBean.operateType=1;
                 updateCartNumberPostBean.productId=productid;
-                ApiUtils.getApiService().updateCartNumber(updateCartNumberPostBean).enqueue(new TaiShengCallback<BaseBean>() {
+                ApiUtils.getApiService().fastBuyCheckNumbe(updateCartNumberPostBean).enqueue(new TaiShengCallback<BaseBean>() {
                     @Override
                     public void onSuccess(Response<BaseBean> response, BaseBean message) {
                         switch (message.code) {
