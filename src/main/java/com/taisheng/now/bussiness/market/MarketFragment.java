@@ -610,8 +610,8 @@ public class MarketFragment extends BaseFragment {
             }
             util.tv_name.setText(bean.name);
             util.tv_jianjie.setText(bean.brief);
-            util.tv_counterprice.setText(bean.counterPrice + "");
-            util.tv_retailprice.setText(bean.retailPrice + "");
+            util.tv_counterprice.setText(bean.retailPrice + "");
+            util.tv_retailprice.setText(bean.counterPrice + "");
             util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
             return convertView;

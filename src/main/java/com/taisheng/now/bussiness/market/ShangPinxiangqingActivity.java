@@ -473,9 +473,9 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                             bannerViewPager.madapter.notifyDataSetChanged();
 
 
-                            tv_counterprice.setText(message.result.goodsEntity.counterPrice + "");
-                            counterPrice = message.result.goodsEntity.counterPrice;
-                            tv_retailprice.setText(message.result.goodsEntity.retailPrice + "");
+                            tv_counterprice.setText(message.result.goodsEntity.retailPrice + "");
+                            counterPrice = message.result.goodsEntity.retailPrice;
+                            tv_retailprice.setText(message.result.goodsEntity.counterPrice + "");
                             tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                             retailPrice = message.result.goodsEntity.retailPrice;
                             name = message.result.goodsEntity.name;
