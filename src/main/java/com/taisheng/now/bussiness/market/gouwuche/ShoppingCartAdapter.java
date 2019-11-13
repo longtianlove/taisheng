@@ -1,6 +1,7 @@
 package com.taisheng.now.bussiness.market.gouwuche;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.taisheng.now.R;
 import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
 import com.taisheng.now.bussiness.market.DingdanInstance;
+import com.taisheng.now.bussiness.market.ShangPinxiangqingActivity;
+import com.taisheng.now.bussiness.market.dingdan.DindanxiangqingYiwanchengActivity;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -98,6 +101,8 @@ public class ShoppingCartAdapter extends BaseAdapter {
         }
         final ShoppingCartBean shoppingCartBean = shoppingCartBeanList.get(position);
         xiadanshangpinBean xbean=new xiadanshangpinBean();
+
+
         xbean.goodsId=shoppingCartBean.goodsId;
         xbean.name=shoppingCartBean.shoppingName;
         xbean.counterPrice="¥"+shoppingCartBean.price+"";
@@ -106,7 +111,16 @@ public class ShoppingCartAdapter extends BaseAdapter {
         xbean.picUrl=shoppingCartBean.imageUrl;
         xbean.productId=shoppingCartBean.productId;
 
+        holder.ll_all.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ShangPinxiangqingActivity.class);
+                intent.putExtra("goodsid", xbean.goodsId);
+
+                context.startActivity(intent);
+            }
+        });
 
         boolean choosed = shoppingCartBean.isChoosed();
         if (choosed){
@@ -275,12 +289,14 @@ public class ShoppingCartAdapter extends BaseAdapter {
     }
     //初始化控件
     class ViewHolder {
+        View ll_all;
         ImageView tvCommodityDelete;
         TextView tvCommodityName, tvCommodityAttr, tvCommodityPrice, tvCommodityNum, tvCommodityShowNum,ivSub, ivAdd;
         CheckBox ckOneChose;
         LinearLayout rlEdit;
         SimpleDraweeView sdv_article;;
         public ViewHolder(View itemView) {
+            ll_all=itemView.findViewById(R.id.ll_all);
             ckOneChose = (CheckBox) itemView.findViewById(R.id.ck_chose);
             ivSub = (TextView) itemView.findViewById(R.id.iv_sub);
             ivAdd = (TextView) itemView.findViewById(R.id.iv_add);
@@ -292,6 +308,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
             tvCommodityDelete = (ImageView) itemView.findViewById(R.id.tv_commodity_delete);
             rlEdit = (LinearLayout) itemView.findViewById(R.id.rl_edit);
             sdv_article=itemView.findViewById(R.id.sdv_article);
+
 
         }
     }
