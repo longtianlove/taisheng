@@ -208,8 +208,10 @@ public class GouwucheActivity extends BaseFragmentActivity {
         tabFragments = new ArrayList<>();
         putongFragment = new GouwucheFragment();
         putongFragment.assessmentType = "1";
+        putongFragment.scoreGoods=1;
         jifenFragment = new GouwucheFragment();
         jifenFragment.assessmentType = "2";
+        jifenFragment.scoreGoods=0;
 
         tabFragments.add(putongFragment);
         tabFragments.add(jifenFragment);

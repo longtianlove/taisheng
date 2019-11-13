@@ -102,7 +102,7 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
 //            }
 //        });
 
-            if (DingdanInstance.getInstance().scoreGoods == 1) {
+            if (scoreGoods == 1) {
                 DingdanInstance.getInstance().putongshangpindingdanList.clear();
             } else {
                 DingdanInstance.getInstance().jifenshangpindingdanList.clear();
@@ -145,6 +145,7 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
 //            shoppingCartBeanList.add(shoppingCartBean);
 //        }
         shoppingCartAdapter = new ShoppingCartAdapter(getActivity());
+        shoppingCartAdapter.scoreGoods=scoreGoods;
         shoppingCartAdapter.setCheckInterface(this);
         shoppingCartAdapter.setModifyCountInterface(this);
         list_shopping_cart.setAdapter(shoppingCartAdapter);
@@ -347,7 +348,7 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
 //        ToastUtil.showAtCenter("总价：" + totalPrice);
         DingdanInstance.getInstance().zongjia = totalPrice + "";
 
-//        DingdanInstance.getInstance().scoreGoods = scoreGoods;
+        DingdanInstance.getInstance().scoreGoods = scoreGoods;
 
         //跳转到支付界面
         //获取地址信息

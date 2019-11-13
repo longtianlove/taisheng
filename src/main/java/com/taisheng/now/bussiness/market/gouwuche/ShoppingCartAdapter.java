@@ -31,6 +31,10 @@ import java.util.List;
  */
 public class ShoppingCartAdapter extends BaseAdapter {
 
+
+
+    public int scoreGoods;
+
     private boolean isShow = true;//是否显示编辑/完成
     public List<ShoppingCartBean> shoppingCartBeanList=new ArrayList<>();
     private CheckInterface checkInterface;
@@ -160,7 +164,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
                         if(((CheckBox) v).isChecked()){
 
 
-                                    if (DingdanInstance.getInstance().scoreGoods == 1) {
+                                    if (scoreGoods == 1) {
 
 //                                        for (xiadanshangpinBean bean : DingdanInstance.getInstance().putongshangpindingdanList) {
 //                                            if (bean.goodsId == xbean.goodsId) {
@@ -194,7 +198,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
 
                         }else{
 
-                                if (DingdanInstance.getInstance().scoreGoods == 1) {
+                                if (scoreGoods == 1) {
 //                                    for (xiadanshangpinBean bean : DingdanInstance.getInstance().putongshangpindingdanList) {
 //                                        if (bean.goodsId == xbean.goodsId) {
 //                                            DingdanInstance.getInstance().putongshangpindingdanList.remove(bean);
