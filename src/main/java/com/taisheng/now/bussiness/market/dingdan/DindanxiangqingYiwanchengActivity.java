@@ -164,9 +164,20 @@ public class DindanxiangqingYiwanchengActivity extends BaseFragmentActivity {
                         }
                         tv_jiangli.setText("奖励积分：" + message.result.totalPrice .multiply(new BigDecimal(100)));
                         tv_chuangjianshijian.setText("创建时间：" + message.result.createTime);
-                        tv_fukuanshijian.setText("付款时间：" + message.result.payTime);
+                        if (TextUtils.isEmpty(message.result.payTime)) {
+                            tv_fukuanshijian.setVisibility(View.GONE);
+                        } else {
+                            tv_fukuanshijian.setVisibility(View.VISIBLE);
+                            tv_fukuanshijian.setText("付款时间：" + message.result.payTime);
+                        }
                         tv_fahuoshijian.setText("发货时间：" + message.result.shipTime);
-                        tv_chengjiaoshijian.setText("成交时间："+message.result.confirmTime);
+
+                        if(TextUtils.isEmpty(message.result.confirmTime)){
+                            tv_chengjiaoshijian.setVisibility(View.GONE);
+                        }else{
+                            tv_chengjiaoshijian.setVisibility(View.VISIBLE);
+                            tv_chengjiaoshijian.setText("成交时间："+message.result.confirmTime);
+                        }
 
                         break;
                 }

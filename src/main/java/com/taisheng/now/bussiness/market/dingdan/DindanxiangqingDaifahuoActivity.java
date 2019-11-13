@@ -141,9 +141,16 @@ public class DindanxiangqingDaifahuoActivity extends BaseFragmentActivity {
                             tv_beizhu.setText("订单备注:" + message.result.message);
 
                         }
-                        tv_jiangli.setText("奖励积分：" + message.result.totalPrice .multiply(new BigDecimal(100)));
+                        tv_jiangli.setText("奖励积分：" + message.result.totalPrice.multiply(new BigDecimal(100)));
                         tv_chuangjianshijian.setText("创建时间：" + message.result.createTime);
-                        tv_fukuanshijian.setText("付款时间：" + message.result.payTime);
+
+
+                        if (TextUtils.isEmpty(message.result.payTime)) {
+                            tv_fukuanshijian.setVisibility(View.GONE);
+                        } else {
+                            tv_fukuanshijian.setVisibility(View.VISIBLE);
+                            tv_fukuanshijian.setText("付款时间：" + message.result.payTime);
+                        }
 
                         break;
                 }
@@ -196,7 +203,7 @@ public class DindanxiangqingDaifahuoActivity extends BaseFragmentActivity {
                 util.ll_all = convertView.findViewById(R.id.ll_all);
                 util.sdv_article = convertView.findViewById(R.id.sdv_article);
                 util.tv_name = convertView.findViewById(R.id.tv_name);
-                util.tv_jianjie=convertView.findViewById(R.id.tv_jianjie);
+                util.tv_jianjie = convertView.findViewById(R.id.tv_jianjie);
                 util.tv_counterprice = convertView.findViewById(R.id.tv_counterprice);
 //                util.tv_retailprice = convertView.findViewById(R.id.tv_retailprice);
                 util.tv_number = convertView.findViewById(R.id.tv_number);
