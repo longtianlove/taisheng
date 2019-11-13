@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="¥378.00"
+                android:text=""
                 android:textColor="#ffff3b30"
                 android:textSize="18sp" />
 
@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:text="¥378.00"
+                android:text=""
                 android:visibility="gone"
                 android:textColor="#ff999999"
                 android:textSize="15sp" />

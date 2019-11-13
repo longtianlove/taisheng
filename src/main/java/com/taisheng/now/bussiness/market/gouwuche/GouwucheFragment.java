@@ -466,6 +466,19 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
                     case Constants.HTTP_SUCCESS:
                         int currentCount = shoppingCartBean.getCount();
                         currentCount++;
+                        if(scoreGoods==1){
+                            for(xiadanshangpinBean bean:DingdanInstance.getInstance().putongshangpindingdanList){
+                                if(bean.goodsId==shoppingCartBean.goodsId){
+                                    bean.number=currentCount+"";
+                                }
+                            }
+                        }else{
+                            for(xiadanshangpinBean bean:DingdanInstance.getInstance().jifenshangpindingdanList){
+                                if(bean.goodsId==shoppingCartBean.goodsId){
+                                    bean.number=currentCount+"";
+                                }
+                            }
+                        }
                         shoppingCartBean.setCount(currentCount);
                         ((TextView) showCountView).setText(currentCount + "");
                         shoppingCartAdapter.notifyDataSetChanged();
@@ -500,11 +513,27 @@ public class GouwucheFragment extends BaseFragment implements View.OnClickListen
         ShoppingCartBean shoppingCartBean = shoppingCartBeanList.get(position);
 
 
+
+
         int currentCount = shoppingCartBean.getCount();
         if (currentCount == 1) {
             return;
         }
         currentCount--;
+        if(scoreGoods==1){
+            for(xiadanshangpinBean bean:DingdanInstance.getInstance().putongshangpindingdanList){
+                if(bean.goodsId==shoppingCartBean.goodsId){
+                    bean.number=currentCount+"";
+                }
+            }
+        }else{
+            for(xiadanshangpinBean bean:DingdanInstance.getInstance().jifenshangpindingdanList){
+                if(bean.goodsId==shoppingCartBean.goodsId){
+                    bean.number=currentCount+"";
+                }
+            }
+        }
+
         shoppingCartBean.setCount(currentCount);
         ((TextView) showCountView).setText(currentCount + "");
         shoppingCartAdapter.notifyDataSetChanged();

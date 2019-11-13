@@ -314,8 +314,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                 }
 
 
-//                DingdanInstance.getInstance().scoreGoods = scoreGoods;
-
+                DingdanInstance.getInstance().scoreGoods = scoreGoods;
 
                     if (scoreGoods == 1) {
                         DingdanInstance.getInstance().putongshangpindingdanList.clear();
