@@ -293,6 +293,8 @@ public class Constants {
             public static final String addgouwuche = "jeecg-boot/app/mall/cart/add";
 //            【更改购物车中的数量】
             public static final String updateCartNumber="jeecg-boot/app/mall/cart/updateCartNumber";
+            //            【立即购买中的数量】
+            public static final String fastBuyCheckNumbe="jeecg-boot/app/mall/cart/fastBuyCheckNumber";
             //从购物车删除
             public static final String cartDelete = "jeecg-boot/app/mall/cart/delete";
 
