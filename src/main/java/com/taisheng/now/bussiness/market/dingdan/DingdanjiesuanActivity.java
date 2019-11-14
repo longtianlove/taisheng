@@ -44,6 +44,7 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -165,7 +166,7 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
         }
 
         tv_zongjia = findViewById(R.id.tv_zongjia);
-        tv_zongjia.setText(DingdanInstance.getInstance().zongjia);
+
 
         et_beizhu = findViewById(R.id.et_beizhu);
         btn_qujiesuan = findViewById(R.id.btn_qujiesuan);
@@ -337,7 +338,8 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                 }
             });
         } else {
-//            tv_zongjia.setText(DingdanInstance.getInstance().zongjia);
+            BigDecimal temp=new BigDecimal(DingdanInstance.getInstance().zongjia);
+            tv_zongjia.setText(temp.multiply(new BigDecimal(100))+"");
         }
     }
 
@@ -466,9 +468,16 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                 util.sdv_article.setImageURI(uri);
             }
             util.tv_name.setText(bean.name);
-            //todo 坑
-            String temp_counterprice=bean.counterPrice.charAt(0)=='¥'?bean.counterPrice:("¥" + bean.counterPrice);
-            util.tv_counterprice.setText(temp_counterprice);
+
+            if(DingdanInstance.getInstance().scoreGoods == 1) {
+                String temp_counterprice = bean.counterPrice.charAt(0) == '¥' ? bean.counterPrice : ("¥" + bean.counterPrice);
+                util.tv_counterprice.setText(temp_counterprice);
+            }else{
+                String temp_counterprice = bean.counterPrice.charAt(0) == '¥' ? bean.counterPrice : ("¥" + bean.counterPrice);
+                temp_counterprice=temp_counterprice.substring(1);
+                BigDecimal temp=new BigDecimal(temp_counterprice);
+                util.tv_counterprice.setText(temp.multiply(new BigDecimal(100))+"");
+            }
 //            util.tv_retailprice.setText(bean.retailPrice + "");
 //            util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             util.tv_number.setText("x " + bean.number);

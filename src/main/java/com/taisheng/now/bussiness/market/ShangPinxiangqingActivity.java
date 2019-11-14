@@ -471,10 +471,15 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                             });
                             bannerViewPager.madapter.notifyDataSetChanged();
 
-
-                            tv_counterprice.setText(message.result.goodsEntity.retailPrice + "");
+                            scoreGoods = message.result.goodsEntity.scoreGoods;
+                            if(scoreGoods==1){
+                                tv_counterprice.setText("¥"+message.result.goodsEntity.retailPrice + "");
+                                tv_retailprice.setText(message.result.goodsEntity.counterPrice + "");
+                            }else{
+                                tv_counterprice.setText(message.result.goodsEntity.retailPrice.multiply(new BigDecimal(100)) + "");
+                                tv_retailprice.setText(message.result.goodsEntity.counterPrice .multiply(new BigDecimal(100))+ "");
+                            }
                             counterPrice = message.result.goodsEntity.retailPrice;
-                            tv_retailprice.setText(message.result.goodsEntity.counterPrice + "");
                             tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                             retailPrice = message.result.goodsEntity.retailPrice;
                             name = message.result.goodsEntity.name;
@@ -487,7 +492,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                                     + "<style>body{max-width:100% !important;}</style>" + "</head><body>";
                             wv_shangpinxiangqing.loadDataWithBaseURL(null, sHead + message.result.goodsEntity.detail + "</body></html>", "text/html", "utf-8", null);
 
-                            scoreGoods = message.result.goodsEntity.scoreGoods;
+
 
                             Uri uri = Uri.parse(message.result.goodsEntity.picUrl);
                             picUrl = message.result.goodsEntity.picUrl;

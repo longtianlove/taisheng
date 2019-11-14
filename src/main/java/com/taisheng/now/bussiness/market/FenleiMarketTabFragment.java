@@ -39,6 +39,7 @@ import com.taisheng.now.view.ScoreStar;
 import com.taisheng.now.view.TaishengListView;
 import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,6 +132,7 @@ public class FenleiMarketTabFragment extends BaseFragment {
                 bean.type = "aae5e9deb8fdec69b6e4982b9ee27214";
                 break;
             case "积分兑换":
+                //下面还有一个
                 bean.type = "ad63e761d074716cd76202f78dacec55";
                 break;
 
@@ -254,8 +256,15 @@ public class FenleiMarketTabFragment extends BaseFragment {
             }
             util.tv_name.setText(bean.name);
             util.tv_jianjie.setText(bean.brief);
-            util.tv_counterprice.setText(bean.retailPrice + "");
-            util.tv_retailprice.setText(bean.counterPrice + "");
+            //上面还有一个
+            if("ad63e761d074716cd76202f78dacec55".equals(typeName)){
+                util.tv_counterprice.setText(bean.retailPrice.multiply(new BigDecimal(100)) + "");
+                util.tv_retailprice.setText(bean.counterPrice .multiply(new BigDecimal(100))+ "");
+            }else{
+                util.tv_counterprice.setText(bean.retailPrice + "");
+                util.tv_retailprice.setText(bean.counterPrice + "");
+            }
+
             util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
 

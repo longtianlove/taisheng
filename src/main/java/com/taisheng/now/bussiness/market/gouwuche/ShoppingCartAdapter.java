@@ -20,6 +20,7 @@ import com.taisheng.now.bussiness.market.DingdanInstance;
 import com.taisheng.now.bussiness.market.ShangPinxiangqingActivity;
 import com.taisheng.now.bussiness.market.dingdan.DindanxiangqingYiwanchengActivity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -150,7 +151,12 @@ public class ShoppingCartAdapter extends BaseAdapter {
             holder.tvCommodityAttr.setText(shoppingCartBean.getDressSize()+"");
         }
         holder.tvCommodityName.setText(shoppingCartBean.getShoppingName());
-        holder.tvCommodityPrice.setText(shoppingCartBean.getPrice()+"");
+        if (scoreGoods == 1) {
+            holder.tvCommodityPrice.setText(shoppingCartBean.getPrice() + "");
+        }else{
+            holder.tvCommodityPrice.setText(shoppingCartBean.getPrice().multiply(new BigDecimal(100)) + "");
+
+        }
         holder.tvCommodityNum.setText(" X"+shoppingCartBean.getCount()+"");
         holder.tvCommodityShowNum.setText(shoppingCartBean.getCount()+"");
 //        ImageLoader.getInstance().displayImage(shoppingCartBean.getImageUrl(),holder.ivShowPic);

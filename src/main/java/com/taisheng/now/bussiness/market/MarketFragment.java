@@ -48,6 +48,7 @@ import com.taisheng.now.view.WithScrolleViewListView;
 import com.taisheng.now.view.banner.BannerViewPager;
 import com.taisheng.now.view.refresh.MaterialDesignPtrFrameLayout;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -495,7 +496,7 @@ public class MarketFragment extends BaseFragment {
                 Uri uri = Uri.parse(hotGoodsBean.picUrl);
                 holder2.sdv_header.setImageURI(uri);
                 holder2.tv_goods_name.setText(hotGoodsBean.name);
-                holder2.tv_goods_jiage.setText("¥" + hotGoodsBean.counterPrice + "");
+                holder2.tv_goods_jiage.setText("¥" + hotGoodsBean.retailPrice + "");
                 holder2.ll_all.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -610,8 +611,9 @@ public class MarketFragment extends BaseFragment {
             }
             util.tv_name.setText(bean.name);
             util.tv_jianjie.setText(bean.brief);
-            util.tv_counterprice.setText(bean.retailPrice + "");
-            util.tv_retailprice.setText(bean.counterPrice + "");
+            util.tv_counterprice.setText(bean.retailPrice.multiply(new BigDecimal(100)) + "");
+            util.tv_retailprice.setText(bean.counterPrice .multiply(new BigDecimal(100))+ "");
+
             util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
             return convertView;
