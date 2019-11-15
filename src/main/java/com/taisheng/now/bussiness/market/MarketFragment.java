@@ -576,7 +576,7 @@ public class MarketFragment extends BaseFragment {
             if (convertView == null) {
                 util = new ArticleAdapter.Util();
                 LayoutInflater inflater = LayoutInflater.from(mcontext);
-                convertView = inflater.inflate(R.layout.item_jifenduihuan, null);
+                convertView = inflater.inflate(R.layout.item_jifenduihuanshouye, null);
                 util.ll_all = convertView.findViewById(R.id.ll_all);
                 util.sdv_article = convertView.findViewById(R.id.sdv_article);
                 util.tv_name = convertView.findViewById(R.id.tv_name);

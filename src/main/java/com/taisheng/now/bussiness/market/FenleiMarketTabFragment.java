@@ -227,6 +227,7 @@ public class FenleiMarketTabFragment extends BaseFragment {
                 util.tv_name = convertView.findViewById(R.id.tv_name);
                 util.tv_jianjie=convertView.findViewById(R.id.tv_jianjie);
                 util.tv_counterprice = convertView.findViewById(R.id.tv_counterprice);
+                util.tv_jifenlabel=convertView.findViewById(R.id.tv_jifenlabel);
                 util.tv_retailprice = convertView.findViewById(R.id.tv_retailprice);
 
                 convertView.setTag(util);
@@ -257,12 +258,17 @@ public class FenleiMarketTabFragment extends BaseFragment {
             util.tv_name.setText(bean.name);
             util.tv_jianjie.setText(bean.brief);
             //上面还有一个
-            if("ad63e761d074716cd76202f78dacec55".equals(typeName)){
+            if("积分兑换".equals(typeName)){
                 util.tv_counterprice.setText(bean.retailPrice.multiply(new BigDecimal(100)) + "");
-                util.tv_retailprice.setText(bean.counterPrice .multiply(new BigDecimal(100))+ "");
+                util.tv_jifenlabel.setVisibility(View.VISIBLE);
+                util.tv_retailprice.setVisibility(View.GONE);
+//                util.tv_retailprice.setText(bean.counterPrice .multiply(new BigDecimal(100))+ "");
             }else{
-                util.tv_counterprice.setText(bean.retailPrice + "");
-                util.tv_retailprice.setText(bean.counterPrice + "");
+                util.tv_jifenlabel.setVisibility(View.GONE);
+                util.tv_retailprice.setVisibility(View.VISIBLE);
+                util.tv_counterprice.setText("¥"+bean.retailPrice + "");
+                util.tv_retailprice.setText("¥"+bean.counterPrice + "");
+
             }
 
             util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
@@ -278,6 +284,7 @@ public class FenleiMarketTabFragment extends BaseFragment {
             TextView tv_name;
             TextView tv_jianjie;
             TextView tv_counterprice;
+            TextView tv_jifenlabel;
             TextView tv_retailprice;
 
         }
