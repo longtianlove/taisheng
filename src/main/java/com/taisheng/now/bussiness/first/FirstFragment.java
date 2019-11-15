@@ -156,7 +156,8 @@ public class FirstFragment extends BaseFragment {
         ll_shishizixun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).showFragment(1);
+//                ((MainActivity) getActivity()).showFragment(1);
+                //todo 跳转到医师药师页面
             }
         });
         ll_sushenhufu = rootView.findViewById(R.id.ll_sushenhufu);
@@ -164,12 +165,13 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
 //                ((MainActivity) getActivity()).showFragment(2);
-                SecretActivity.selectTab = 0;
-                if (SecretActivity.tl_tab != null) {
-                    (SecretActivity.tl_tab.getTabAt(0)).select();
-                }
-                Intent intent=new Intent(getActivity(), SecretActivity.class);
-                startActivity(intent);
+//                SecretActivity.selectTab = 0;
+//                if (SecretActivity.tl_tab != null) {
+//                    (SecretActivity.tl_tab.getTabAt(0)).select();
+//                }
+//                Intent intent=new Intent(getActivity(), SecretActivity.class);
+//                startActivity(intent);
+                //todo 跳转到医师药师页面
             }
         });
         ll_yiliaoyangsheng = rootView.findViewById(R.id.ll_yiliaoyangsheng);
@@ -185,12 +187,13 @@ public class FirstFragment extends BaseFragment {
 //                }
 
 
-                SecretActivity.selectTab = 2;
-                if (SecretActivity.tl_tab != null) {
-                    (SecretActivity.tl_tab.getTabAt(2)).select();
-                }
-                Intent intent=new Intent(getActivity(), SecretActivity.class);
-                startActivity(intent);
+//                SecretActivity.selectTab = 2;
+//                if (SecretActivity.tl_tab != null) {
+//                    (SecretActivity.tl_tab.getTabAt(2)).select();
+//                }
+//                Intent intent=new Intent(getActivity(), SecretActivity.class);
+//                startActivity(intent);
+                //todo 跳转到医师药师页面
             }
         });
         ll_muyingyunyu = rootView.findViewById(R.id.ll_muyingyunyu);
@@ -204,19 +207,25 @@ public class FirstFragment extends BaseFragment {
 //                }
 
 
-                SecretActivity.selectTab = 4;
-                if (SecretActivity.tl_tab != null) {
-                    (SecretActivity.tl_tab.getTabAt(4)).select();
-                }
-                Intent intent=new Intent(getActivity(), SecretActivity.class);
-                startActivity(intent);
+//                SecretActivity.selectTab = 4;
+//                if (SecretActivity.tl_tab != null) {
+//                    (SecretActivity.tl_tab.getTabAt(4)).select();
+//                }
+//                Intent intent=new Intent(getActivity(), SecretActivity.class);
+//                startActivity(intent);
+                //跳转到商城
+                ((MainActivity) getActivity()).showFragment(2);
+
             }
         });
         ll_yingjizixun = rootView.findViewById(R.id.ll_yingjizixun);
         ll_yingjizixun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).showFragment(1);
+//                ((MainActivity) getActivity()).showFragment(1);
+
+                Intent intent = new Intent(getActivity(), MoreShipinActivity.class);
+                startActivity(intent);
             }
         });
         ll_jianshenyundong = rootView.findViewById(R.id.ll_jianshenyundong);
@@ -231,15 +240,16 @@ public class FirstFragment extends BaseFragment {
 
 
 
-                SecretActivity.selectTab = 1;
-                if (SecretActivity.tl_tab != null) {
-                    (SecretActivity.tl_tab.getTabAt(1)).select();
-                }
-                Intent intent=new Intent(getActivity(), SecretActivity.class);
-                startActivity(intent);
+//                SecretActivity.selectTab = 1;
+//                if (SecretActivity.tl_tab != null) {
+//                    (SecretActivity.tl_tab.getTabAt(1)).select();
+//                }
+//                Intent intent=new Intent(getActivity(), SecretActivity.class);
+//                startActivity(intent);
+                //todo 跳转到手表
             }
         });
-        ll_yongyaozhidao = rootView.findViewById(R.id.ll_yongyaozhidao);
+        ll_yongyaozhidao = rootView.findViewById(R.id.ll_jiangkangbaodian);
         ll_yongyaozhidao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -248,10 +258,10 @@ public class FirstFragment extends BaseFragment {
 //                    ((MainActivity) getActivity()).marketFragment.tl_tab.getTabAt(3).select();
 //                }
 
-                SecretActivity.selectTab = 3;
-                if (SecretActivity.tl_tab != null) {
-                    (SecretActivity.tl_tab.getTabAt(3)).select();
-                }
+//                SecretActivity.selectTab = 3;
+//                if (SecretActivity.tl_tab != null) {
+//                    (SecretActivity.tl_tab.getTabAt(3)).select();
+//                }
                 Intent intent=new Intent(getActivity(), SecretActivity.class);
                 startActivity(intent);
             }
