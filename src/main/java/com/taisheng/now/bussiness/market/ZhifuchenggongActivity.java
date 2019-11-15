@@ -15,6 +15,7 @@ import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.MainActivity;
 import com.taisheng.now.bussiness.bean.post.WexinZhifuPostBean;
 import com.taisheng.now.bussiness.market.DingdanInstance;
+import com.taisheng.now.bussiness.market.dingdan.DindanxiangqingDaifahuoActivity;
 import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
 import com.taisheng.now.bussiness.me.MyDingdanActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -51,7 +52,7 @@ public class ZhifuchenggongActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pay_result);
+        setContentView(R.layout.pay_resultjifenchenggong);
 //        btn_back = findViewById(R.id.btn_back);
 //        btn_back.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -66,8 +67,10 @@ public class ZhifuchenggongActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ZhifuchenggongActivity.this, MyDingdanActivity.class);
+                Intent intent = new Intent(ZhifuchenggongActivity.this, DindanxiangqingDaifahuoActivity.class);
+                intent.putExtra("orderId", DingdanInstance.getInstance().gangzhifu_orderId);
                 startActivity(intent);
+                finish();
             }
         });
         ll_shibai = findViewById(R.id.ll_shibai);

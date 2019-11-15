@@ -202,6 +202,8 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                                     WexinZhifuPostBean bean1 = new WexinZhifuPostBean();
                                     bean1.orderId = message.result.orderId;
                                     DingdanInstance.getInstance().orderId = message.result.orderId;
+                                    DingdanInstance.getInstance().gangzhifu_orderId=message.result.orderId;
+                                    DingdanInstance.getInstance().gangzhifu_zongjia=new BigDecimal(DingdanInstance.getInstance().zongjia);
                                     bean1.userId = UserInstance.getInstance().getUid();
                                     bean1.token = UserInstance.getInstance().getToken();
                                     ApiUtils.getApiService().weChatPay(bean1).enqueue(new TaiShengCallback<BaseBean<WechatResultBean>>() {

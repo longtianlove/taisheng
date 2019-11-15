@@ -4,6 +4,7 @@ import com.taisheng.now.bussiness.bean.result.JifenzhuanquBean;
 import com.taisheng.now.bussiness.bean.result.xiadanshangpinBean;
 import com.taisheng.now.bussiness.user.UserInstance;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class DingdanInstance {
     public List<xiadanshangpinBean> putongshangpindingdanList = new ArrayList<>();
 
     public List<xiadanshangpinBean> jifenshangpindingdanList = new ArrayList<>();
+
 
 
 
@@ -53,6 +55,10 @@ public class DingdanInstance {
 
     //订单id
     public String orderId;
+
+
+    public String gangzhifu_orderId;
+    public BigDecimal gangzhifu_zongjia;
 
 
     //地址相关

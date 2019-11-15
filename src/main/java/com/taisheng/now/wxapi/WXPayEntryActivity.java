@@ -15,6 +15,8 @@ import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.MainActivity;
 import com.taisheng.now.bussiness.bean.post.WexinZhifuPostBean;
 import com.taisheng.now.bussiness.market.DingdanInstance;
+import com.taisheng.now.bussiness.market.ZhifuchenggongActivity;
+import com.taisheng.now.bussiness.market.dingdan.DindanxiangqingDaifahuoActivity;
 import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
 import com.taisheng.now.bussiness.me.MyDingdanActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -28,6 +30,8 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import java.math.BigDecimal;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -46,6 +50,8 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
     public View btn_chongxinzhifu;
 
     public View btn_fanhuishouye;
+
+    public TextView tv_jifenhuoqu;
 
 
     @Override
@@ -66,7 +72,10 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WXPayEntryActivity.this, MyDingdanActivity.class);
+//                Intent intent = new Intent(WXPayEntryActivity.this, MyDingdanActivity.class);
+//                startActivity(intent);
+                Intent intent = new Intent(WXPayEntryActivity.this, DindanxiangqingDaifahuoActivity.class);
+                intent.putExtra("orderId", DingdanInstance.getInstance().gangzhifu_orderId);
                 startActivity(intent);
             }
         });
@@ -116,8 +125,11 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
             }
         });
 
-        api = WXAPIFactory.createWXAPI(this, "你的appid");
+        api = WXAPIFactory.createWXAPI(this, Constants.WXAPPID);
         api.handleIntent(getIntent(), this);
+
+        tv_jifenhuoqu=findViewById(R.id.tv_jifenhuoqu);
+        tv_jifenhuoqu.setText("恭喜您此次支付获得"+DingdanInstance.getInstance().gangzhifu_zongjia.multiply(new BigDecimal(100))+"积分");
     }
 
     @Override

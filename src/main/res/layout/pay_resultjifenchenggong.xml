@@ -28,9 +28,8 @@
                 android:layout_centerVertical="true"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:visibility="gone"
                 android:src="@drawable/icon_back_new"
-               />
+                android:visibility="gone" />
 
 
             <TextView
@@ -84,14 +83,13 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/tv_jifenhuoqu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="恭喜您此次支付获得50积分"
-
                         android:textColor="#ff666666"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:visibility="gone" />
 
 
                     <TextView

@@ -272,7 +272,8 @@ public class MyDingdanFragment extends BaseFragment {
                             WexinZhifuPostBean bean1 = new WexinZhifuPostBean();
                             bean1.orderId = bean.orderId;
                             DingdanInstance.getInstance().orderId=bean.orderId;
-
+                            DingdanInstance.getInstance().gangzhifu_orderId=bean.orderId;
+                            DingdanInstance.getInstance().gangzhifu_zongjia=bean.totalPrice;
                             bean1.userId = UserInstance.getInstance().getUid();
                             bean1.token = UserInstance.getInstance().getToken();
                             ApiUtils.getApiService().weChatPay(bean1).enqueue(new TaiShengCallback<BaseBean<WechatResultBean>>() {
