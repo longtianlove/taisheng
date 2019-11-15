@@ -542,6 +542,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                                     public void clickMark(int position) {
                                         yanse_label.setData(yanse_list, ShangPinxiangqingActivity.this, 14, 15, 4, 14, 4, 24, 12, 24, 12);
                                         tv_yixuan.setText("已选" + guige_label.selectString + " " + yanse_label.selectString);
+                                        //更新价格kkk
                                     }
                                 });
                                 yanse_label.selectString = yanse_list.get(0);
@@ -560,16 +561,22 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                                         if (bean.getSpecifications().contains(guige_label.selectString)) {
                                             productid = bean.getId();
                                             counterPrice = bean.price;
+                                            tv_price.setText(counterPrice + "");
                                             return;
                                         }
                                     }
                                     if (bean.getSpecifications().contains(guige_label.selectString) && bean.getSpecifications().contains(yanse_label.selectString)) {
                                         productid = bean.getId();
                                         counterPrice = bean.price;
+                                        tv_price.setText(counterPrice + "");
                                         return;
                                     }
                                 }
                             }
+
+                            //解决选择的价格
+
+
 
 
                         }
