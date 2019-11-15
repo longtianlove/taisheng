@@ -326,7 +326,12 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                             youfei = message.result.money + "";
                             DingdanInstance.getInstance().postFeeId = message.result.id;
                             tv_youfei.setText("￥" + youfei);
-                            tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount) + Double.parseDouble(youfei)));
+//                            tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount) + Double.parseDouble(youfei)));
+                            BigDecimal temp=new BigDecimal(DingdanInstance.getInstance().zongjia);
+                            BigDecimal temp1=temp.add(new BigDecimal(youfei));
+                            BigDecimal temp2=temp1.subtract(new BigDecimal(discount));
+
+                            tv_zongjia.setText("¥" + temp2);
 
                             break;
                     }
@@ -373,7 +378,11 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                 discount = DingdanInstance.getInstance().tv_discount;
                 tv_youhuijuan.setText("¥" + discount);
                 tv_jianyouhuijuan.setText("-¥" + discount);
-                tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount) + Double.parseDouble(youfei)));
+//                tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount) + Double.parseDouble(youfei)));
+                BigDecimal temp=new BigDecimal(DingdanInstance.getInstance().zongjia);
+                BigDecimal temp1=temp.add(new BigDecimal(youfei));
+                BigDecimal temp2=temp1.subtract(new BigDecimal(discount));
+                tv_zongjia.setText("¥" + temp2);
                 break;
         }
     }
