@@ -582,7 +582,7 @@ public class MarketFragment extends BaseFragment {
                 util.tv_name = convertView.findViewById(R.id.tv_name);
                 util.tv_jianjie=convertView.findViewById(R.id.tv_jianjie);
                 util.tv_counterprice = convertView.findViewById(R.id.tv_counterprice);
-                util.tv_retailprice = convertView.findViewById(R.id.tv_retailprice);
+//                util.tv_retailprice = convertView.findViewById(R.id.tv_retailprice);
 
                 convertView.setTag(util);
             } else {
@@ -612,9 +612,9 @@ public class MarketFragment extends BaseFragment {
             util.tv_name.setText(bean.name);
             util.tv_jianjie.setText(bean.brief);
             util.tv_counterprice.setText(bean.retailPrice.multiply(new BigDecimal(100)) + "");
-            util.tv_retailprice.setText(bean.counterPrice .multiply(new BigDecimal(100))+ "");
+//            util.tv_retailprice.setText(bean.counterPrice .multiply(new BigDecimal(100))+ "");
 
-            util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+//            util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
             return convertView;
         }
@@ -626,7 +626,7 @@ public class MarketFragment extends BaseFragment {
             TextView tv_name;
             TextView tv_jianjie;
             TextView tv_counterprice;
-            TextView tv_retailprice;
+//            TextView tv_retailprice;
 
         }
     }

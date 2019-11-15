@@ -55,6 +55,17 @@
                         android:textColor="#ffff3b30"
                         android:textSize="18sp" />
 
+
+                    <TextView
+                        android:id="@+id/tv_jifenlabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="积分"
+                        android:layout_gravity="bottom"
+                        android:textColor="#ff999999"
+                        android:textSize="12sp" />
+
                     <TextView
                         android:id="@+id/tv_retailprice"
                         android:layout_width="wrap_content"

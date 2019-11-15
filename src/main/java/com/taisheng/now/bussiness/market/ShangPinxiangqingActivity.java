@@ -59,6 +59,7 @@ public class ShangPinxiangqingActivity extends BaseActivity {
     BannerViewPager bannerViewPager;
     private View bannerView;
     public TextView tv_counterprice;
+    public TextView tv_jifenlabel;
     public TextView tv_retailprice;
     public TextView tv_name;
     public TextView tv_jianjie;
@@ -378,6 +379,8 @@ public class ShangPinxiangqingActivity extends BaseActivity {
         });
 
         tv_counterprice = findViewById(R.id.tv_counterprice);
+        tv_jifenlabel=findViewById(R.id.tv_jifenlabel);
+
         tv_retailprice = findViewById(R.id.tv_retailprice);
         tv_name = findViewById(R.id.tv_name);
         tv_jianjie = findViewById(R.id.tv_jianjie);
@@ -474,9 +477,14 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                             scoreGoods = message.result.goodsEntity.scoreGoods;
                             if(scoreGoods==1){
                                 tv_counterprice.setText("¥"+message.result.goodsEntity.retailPrice + "");
+                                tv_jifenlabel.setVisibility(View.GONE);
+                                tv_retailprice.setVisibility(View.VISIBLE);
+
                                 tv_retailprice.setText(message.result.goodsEntity.counterPrice + "");
                             }else{
                                 tv_counterprice.setText(message.result.goodsEntity.retailPrice.multiply(new BigDecimal(100)) + "");
+                                tv_jifenlabel.setVisibility(View.VISIBLE);
+                                tv_retailprice.setVisibility(View.GONE);
                                 tv_retailprice.setText(message.result.goodsEntity.counterPrice .multiply(new BigDecimal(100))+ "");
                             }
                             counterPrice = message.result.goodsEntity.retailPrice;
