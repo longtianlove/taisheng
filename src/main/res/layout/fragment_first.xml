@@ -322,8 +322,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="47dp"
+                            android:layout_height="47dp"
                             android:src="@drawable/icon_zixun" />
 
                         <TextView
@@ -345,8 +345,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="47dp"
+                            android:layout_height="47dp"
                             android:src="@drawable/icon_yongyaozhidaosouye" />
 
                         <TextView
@@ -368,8 +368,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="47dp"
+                            android:layout_height="47dp"
                             android:src="@drawable/icon_yingyangbaojianshouye" />
 
                         <TextView
@@ -392,8 +392,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="47dp"
+                            android:layout_height="47dp"
                             android:src="@drawable/icon_yanxuanshangchengshouye" />
 
                         <TextView
@@ -425,8 +425,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="47dp"
+                            android:layout_height="47dp"
                             android:src="@drawable/icon_jiankangjiangtangshouye" />
 
                         <TextView
@@ -449,8 +449,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="47dp"
+                            android:layout_height="47dp"
                             android:src="@drawable/icon_zhinengzhongduanshouye" />
 
                         <TextView
@@ -472,8 +472,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="47dp"
+                            android:layout_height="47dp"
                             android:src="@drawable/icon_jiankangbaodianshouye" />
 
                         <TextView
@@ -495,8 +495,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="47dp"
+                            android:layout_height="47dp"
                             android:src="@drawable/icon_jiankangcepingshouye" />
 
                         <TextView
