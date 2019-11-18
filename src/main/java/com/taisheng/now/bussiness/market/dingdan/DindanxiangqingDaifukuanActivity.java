@@ -223,7 +223,8 @@ public class DindanxiangqingDaifukuanActivity extends BaseFragmentActivity {
 //                            tv_jiangli.setVisibility(View.VISIBLE);
 //                            tv_jiangli.setText("奖励积分：" + message.result.totalPrice .multiply(new BigDecimal(100)));
 //
-//                        }                        tv_chuangjianshijian.setText("创建时间："+message.result.createTime);
+//                        }
+                        tv_chuangjianshijian.setText("创建时间："+message.result.createTime);
 
                         break;
                 }
