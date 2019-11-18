@@ -45,6 +45,7 @@ import com.taisheng.now.bussiness.bean.post.UserInfoPostBean;
 import com.taisheng.now.bussiness.bean.post.VideoOperatePostBean;
 import com.taisheng.now.bussiness.bean.post.WexinZhifuPostBean;
 import com.taisheng.now.bussiness.bean.post.UpdateCartNumberPostBean;
+import com.taisheng.now.bussiness.bean.post.getListDoctorTypePostBean;
 import com.taisheng.now.bussiness.bean.result.AnswerResultBean;
 import com.taisheng.now.bussiness.bean.result.ArticleContentBean;
 import com.taisheng.now.bussiness.bean.post.ArticleContentPostBean;
@@ -214,6 +215,11 @@ public interface ApiService {
     //获取所有医生
     @POST(Constants.Url.Doctor.doctorslist)
     Call<BaseBean<DoctorsResultBean>> doctorslist(@Body RecommendDoctorPostBean bean);
+
+
+    //获取所有医生
+    @POST(Constants.Url.Doctor.doctorslist)
+    Call<BaseBean<DoctorsResultBean>> getListDoctor(@Body getListDoctorTypePostBean bean);
 
 
     //文章相关的医生

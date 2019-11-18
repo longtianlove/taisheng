@@ -43,6 +43,7 @@ import com.taisheng.now.bussiness.bean.result.DoctorsResultBean;
 import com.taisheng.now.bussiness.bean.result.ShipinBean;
 import com.taisheng.now.bussiness.bean.result.ShipinsResultBean;
 import com.taisheng.now.bussiness.doctor.DoctorDetailActivity;
+import com.taisheng.now.bussiness.doctor.DoctorsFenleiActivity;
 import com.taisheng.now.bussiness.healthfiles.HealthCheckActivity;
 import com.taisheng.now.bussiness.article.ArticleContentActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -157,7 +158,9 @@ public class FirstFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
 //                ((MainActivity) getActivity()).showFragment(1);
-                //todo 跳转到医师药师页面
+                Intent intent=new Intent(getActivity(), DoctorsFenleiActivity.class);
+                DoctorsFenleiActivity.selectTab=2;
+                startActivity(intent);
 
             }
         });
@@ -172,7 +175,9 @@ public class FirstFragment extends BaseFragment {
 //                }
 //                Intent intent=new Intent(getActivity(), SecretActivity.class);
 //                startActivity(intent);
-                //todo 跳转到医师药师页面
+                Intent intent=new Intent(getActivity(), DoctorsFenleiActivity.class);
+                DoctorsFenleiActivity.selectTab=1;
+                startActivity(intent);
             }
         });
         ll_yiliaoyangsheng = rootView.findViewById(R.id.ll_yiliaoyangsheng);
@@ -194,7 +199,9 @@ public class FirstFragment extends BaseFragment {
 //                }
 //                Intent intent=new Intent(getActivity(), SecretActivity.class);
 //                startActivity(intent);
-                //todo 跳转到医师药师页面
+                Intent intent=new Intent(getActivity(), DoctorsFenleiActivity.class);
+                DoctorsFenleiActivity.selectTab=0;
+                startActivity(intent);
             }
         });
         ll_muyingyunyu = rootView.findViewById(R.id.ll_muyingyunyu);
