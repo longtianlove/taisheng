@@ -218,7 +218,7 @@ public interface ApiService {
 
 
     //获取所有医生
-    @POST(Constants.Url.Doctor.doctorslist)
+    @POST(Constants.Url.Doctor.getListDoctor)
     Call<BaseBean<DoctorsResultBean>> getListDoctor(@Body getListDoctorTypePostBean bean);
 
 
