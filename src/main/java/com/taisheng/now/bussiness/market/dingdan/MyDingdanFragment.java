@@ -65,7 +65,7 @@ public class MyDingdanFragment extends BaseFragment {
 
 
         initView(rootView);
-
+        initData();
         return rootView;
     }
 
@@ -87,10 +87,11 @@ public class MyDingdanFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        initData();
+
     }
 
     void initData() {
+        PAGE_NO=1;
         getDoctors();
     }
 
@@ -117,6 +118,8 @@ public class MyDingdanFragment extends BaseFragment {
                 break;
 
         }
+        bean.pageNo=PAGE_NO;
+        bean.pageSize=PAGE_SIZE;
         DialogUtil.showProgress(getActivity(), "");
 
         ApiUtils.getApiService().orderList(bean).enqueue(new TaiShengCallback<BaseBean<OrderListResultBean>>() {
@@ -132,7 +135,7 @@ public class MyDingdanFragment extends BaseFragment {
                                 madapter.mData.clear();
                             }
                             //有消息
-//                            PAGE_NO++;
+                            PAGE_NO++;
                             madapter.mData.addAll(message.result.records);
                             if (message.result.records.size() < 10) {
                                 lv_dingdan.setHasLoadMore(false);
