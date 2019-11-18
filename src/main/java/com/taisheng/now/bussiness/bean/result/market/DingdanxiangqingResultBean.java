@@ -23,4 +23,5 @@ public class DingdanxiangqingResultBean {
         public String consignee;
         public String address;
         public int score;
+        public int scoreGoods;
 }

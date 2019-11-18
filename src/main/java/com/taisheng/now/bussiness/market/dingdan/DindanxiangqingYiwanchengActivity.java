@@ -156,14 +156,21 @@ public class DindanxiangqingYiwanchengActivity extends BaseFragmentActivity {
 
                         if (TextUtils.isEmpty(message.result.message)) {
                             tv_beizhu.setVisibility(View.VISIBLE);
-                            tv_beizhu.setText("订单备注:无");
+                            tv_beizhu.setText("订单备注：无");
 
                         } else {
                             tv_beizhu.setVisibility(View.VISIBLE);
-                            tv_beizhu.setText("订单备注:" + message.result.message);
+                            tv_beizhu.setText("订单备注：" + message.result.message);
 
                         }
-                        tv_jiangli.setText("奖励积分：" + message.result.totalPrice .multiply(new BigDecimal(100)));
+
+                        if(message.result.scoreGoods==0){
+                            tv_jiangli.setVisibility(View.GONE);
+                        }else{
+                            tv_jiangli.setVisibility(View.VISIBLE);
+                            tv_jiangli.setText("奖励积分：" + message.result.totalPrice .multiply(new BigDecimal(100)));
+
+                        }
                         tv_chuangjianshijian.setText("创建时间：" + message.result.createTime);
                         if (TextUtils.isEmpty(message.result.payTime)) {
                             tv_fukuanshijian.setVisibility(View.GONE);
