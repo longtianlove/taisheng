@@ -158,6 +158,7 @@ public class FirstFragment extends BaseFragment {
             public void onClick(View v) {
 //                ((MainActivity) getActivity()).showFragment(1);
                 //todo 跳转到医师药师页面
+
             }
         });
         ll_sushenhufu = rootView.findViewById(R.id.ll_sushenhufu);

@@ -505,8 +505,13 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                             Uri uri = Uri.parse(message.result.goodsEntity.picUrl);
                             picUrl = message.result.goodsEntity.picUrl;
                             sdv_shangpin.setImageURI(uri);
-                            tv_price.setText(message.result.goodsEntity.counterPrice + "");
+                            if(scoreGoods==1){
+                                tv_price.setText("￥"+message.result.goodsEntity.counterPrice + "");
 
+                            }else{
+                                tv_price.setText(""+message.result.goodsEntity.counterPrice.multiply(new BigDecimal(100)) + "");
+
+                            }
 
                         }
                         //todo 规格个数
@@ -569,14 +574,28 @@ public class ShangPinxiangqingActivity extends BaseActivity {
                                         if (bean.getSpecifications().contains(guige_label.selectString)) {
                                             productid = bean.getId();
                                             counterPrice = bean.price;
-                                            tv_price.setText(counterPrice + "");
+//                                            tv_price.setText(counterPrice + "");
+                                            if(scoreGoods==1){
+                                                tv_price.setText("￥"+counterPrice + "");
+
+                                            }else{
+                                                tv_price.setText(""+counterPrice.multiply(new BigDecimal(100)) + "");
+
+                                            }
                                             return;
                                         }
                                     }
                                     if (bean.getSpecifications().contains(guige_label.selectString) && bean.getSpecifications().contains(yanse_label.selectString)) {
                                         productid = bean.getId();
                                         counterPrice = bean.price;
-                                        tv_price.setText(counterPrice + "");
+//                                        tv_price.setText(counterPrice + "");
+                                        if(scoreGoods==1){
+                                            tv_price.setText("￥"+counterPrice + "");
+
+                                        }else{
+                                            tv_price.setText(""+counterPrice.multiply(new BigDecimal(100)) + "");
+
+                                        }
                                         return;
                                     }
                                 }

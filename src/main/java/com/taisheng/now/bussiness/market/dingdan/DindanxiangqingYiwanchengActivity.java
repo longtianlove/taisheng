@@ -155,7 +155,8 @@ public class DindanxiangqingYiwanchengActivity extends BaseFragmentActivity {
 
 
                         if (TextUtils.isEmpty(message.result.message)) {
-                            tv_beizhu.setVisibility(View.GONE);
+                            tv_beizhu.setVisibility(View.VISIBLE);
+                            tv_beizhu.setText("订单备注:无");
 
                         } else {
                             tv_beizhu.setVisibility(View.VISIBLE);
