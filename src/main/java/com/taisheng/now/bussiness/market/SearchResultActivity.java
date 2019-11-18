@@ -33,6 +33,7 @@ import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.view.TaishengListView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -189,6 +190,7 @@ public class SearchResultActivity extends BaseActivity {
                 util.sdv_article = convertView.findViewById(R.id.sdv_article);
                 util.tv_name = convertView.findViewById(R.id.tv_name);
                 util.tv_counterprice = convertView.findViewById(R.id.tv_counterprice);
+                util.tv_jifenlabel=convertView.findViewById(R.id.tv_jifenlabel);
                 util.tv_retailprice = convertView.findViewById(R.id.tv_retailprice);
 
                 convertView.setTag(util);
@@ -217,8 +219,18 @@ public class SearchResultActivity extends BaseActivity {
                 util.sdv_article.setImageURI(uri);
             }
             util.tv_name.setText(bean.name);
-            util.tv_counterprice.setText(bean.counterPrice + "");
-            util.tv_retailprice.setText(bean.retailPrice + "");
+            if(bean.scoreGoods==0){
+                util.tv_counterprice.setText(bean.retailPrice.multiply(new BigDecimal(100)) + "");
+                util.tv_jifenlabel.setVisibility(View.VISIBLE);
+                util.tv_retailprice.setVisibility(View.GONE);
+//                util.tv_retailprice.setText(bean.counterPrice .multiply(new BigDecimal(100))+ "");
+            }else{
+                util.tv_jifenlabel.setVisibility(View.GONE);
+                util.tv_retailprice.setVisibility(View.VISIBLE);
+                util.tv_counterprice.setText("¥"+bean.retailPrice + "");
+                util.tv_retailprice.setText("¥"+bean.counterPrice + "");
+
+            }
             util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
 
@@ -231,6 +243,7 @@ public class SearchResultActivity extends BaseActivity {
             SimpleDraweeView sdv_article;
             TextView tv_name;
             TextView tv_counterprice;
+            TextView tv_jifenlabel;
             TextView tv_retailprice;
 
         }

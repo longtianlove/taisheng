@@ -12,4 +12,5 @@ public class ShangpinBean {
     public boolean hotGoods;
     public BigDecimal counterPrice;
     public BigDecimal retailPrice;
+    public int scoreGoods;
 }
