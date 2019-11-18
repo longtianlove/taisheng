@@ -63,6 +63,9 @@ public class DindanxiangqingDaifukuanActivity extends BaseFragmentActivity {
     TextView tv_phone;
     TextView tv_address;
 
+
+    TextView tv_orderno;
+
     WithScrolleViewListView list_goods;
 
     TextView tv_gouyou;
@@ -93,15 +96,17 @@ public class DindanxiangqingDaifukuanActivity extends BaseFragmentActivity {
         tv_phone = findViewById(R.id.tv_phone);
         tv_address = findViewById(R.id.tv_address);
 
-        list_goods=findViewById(R.id.list_goods);
-        tv_gouyou=findViewById(R.id.tv_gouyou);
-        tv_zongjia=findViewById(R.id.tv_zongjia);
-        tv_quxiaodingdan=findViewById(R.id.tv_quxiaodingdan);
-        tv_quzhifu=findViewById(R.id.tv_quzhifu);
+        tv_orderno = findViewById(R.id.tv_orderno);
 
-        tv_beizhu=findViewById(R.id.tv_beizhu);
-        tv_jiangli=findViewById(R.id.tv_jiangli);
-        tv_chuangjianshijian=findViewById(R.id.tv_chuangjianshijian);
+        list_goods = findViewById(R.id.list_goods);
+        tv_gouyou = findViewById(R.id.tv_gouyou);
+        tv_zongjia = findViewById(R.id.tv_zongjia);
+        tv_quxiaodingdan = findViewById(R.id.tv_quxiaodingdan);
+        tv_quzhifu = findViewById(R.id.tv_quzhifu);
+
+        tv_beizhu = findViewById(R.id.tv_beizhu);
+        tv_jiangli = findViewById(R.id.tv_jiangli);
+        tv_chuangjianshijian = findViewById(R.id.tv_chuangjianshijian);
 
         initData();
 
@@ -126,15 +131,15 @@ public class DindanxiangqingDaifukuanActivity extends BaseFragmentActivity {
                         tv_dizhiname.setText(message.result.consignee);
                         tv_phone.setText(message.result.phone);
                         tv_address.setText(message.result.address);
+                        tv_orderno.setText(message.result.orderId);
 
                         DingdanShangpinAdapter adapter3 = new DingdanShangpinAdapter(DindanxiangqingDaifukuanActivity.this);
                         adapter3.mData = message.result.list;
-                       list_goods.setAdapter(adapter3);
+                        list_goods.setAdapter(adapter3);
 
 
                         tv_gouyou.setText("共有" + message.result.goodsNumber + "件商品");
                         tv_zongjia.setText("¥" + message.result.totalPrice);
-
 
 
                         tv_quxiaodingdan.setOnClickListener(new View.OnClickListener() {
@@ -170,7 +175,7 @@ public class DindanxiangqingDaifukuanActivity extends BaseFragmentActivity {
                             public void onClick(View v) {
                                 WexinZhifuPostBean bean1 = new WexinZhifuPostBean();
                                 bean1.orderId = bean.orderId;
-                                DingdanInstance.getInstance().orderId=bean.orderId;
+                                DingdanInstance.getInstance().orderId = bean.orderId;
 
                                 bean1.userId = UserInstance.getInstance().getUid();
                                 bean1.token = UserInstance.getInstance().getToken();
@@ -213,7 +218,7 @@ public class DindanxiangqingDaifukuanActivity extends BaseFragmentActivity {
 
                         }
 //                        if(message.result.scoreGoods==0){
-                            tv_jiangli.setVisibility(View.GONE);
+                        tv_jiangli.setVisibility(View.GONE);
 //                        }else{
 //                            tv_jiangli.setVisibility(View.VISIBLE);
 //                            tv_jiangli.setText("奖励积分：" + message.result.totalPrice .multiply(new BigDecimal(100)));
@@ -231,9 +236,6 @@ public class DindanxiangqingDaifukuanActivity extends BaseFragmentActivity {
         });
 
     }
-
-
-
 
 
     class DingdanShangpinAdapter extends BaseAdapter {
@@ -274,7 +276,7 @@ public class DindanxiangqingDaifukuanActivity extends BaseFragmentActivity {
                 util.ll_all = convertView.findViewById(R.id.ll_all);
                 util.sdv_article = convertView.findViewById(R.id.sdv_article);
                 util.tv_name = convertView.findViewById(R.id.tv_name);
-                util.tv_jianjie=convertView.findViewById(R.id.tv_jianjie);
+                util.tv_jianjie = convertView.findViewById(R.id.tv_jianjie);
                 util.tv_counterprice = convertView.findViewById(R.id.tv_counterprice);
 //                util.tv_retailprice = convertView.findViewById(R.id.tv_retailprice);
                 util.tv_number = convertView.findViewById(R.id.tv_number);
@@ -284,16 +286,16 @@ public class DindanxiangqingDaifukuanActivity extends BaseFragmentActivity {
                 util = (Util) convertView.getTag();
             }
             DingdanxiangqingGoodBean bean = mData.get(position);
-                util.ll_all.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            util.ll_all.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                        Intent intent = new Intent(DindanxiangqingDaifukuanActivity.this, ShangPinxiangqingActivity.class);
-                        intent.putExtra("goodsid", bean.goodsId);
+                    Intent intent = new Intent(DindanxiangqingDaifukuanActivity.this, ShangPinxiangqingActivity.class);
+                    intent.putExtra("goodsid", bean.goodsId);
 
-                        startActivity(intent);
-                    }
-                });
+                    startActivity(intent);
+                }
+            });
 
             String temp_url = bean.picUrl;
             if (temp_url == null || "".equals(temp_url)) {

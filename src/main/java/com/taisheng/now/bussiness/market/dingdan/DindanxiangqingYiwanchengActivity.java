@@ -45,6 +45,8 @@ public class DindanxiangqingYiwanchengActivity extends BaseFragmentActivity {
     TextView tv_phone;
     TextView tv_address;
 
+    TextView tv_orderid;
+
     WithScrolleViewListView list_goods;
 
     TextView tv_gouyou;
@@ -80,6 +82,8 @@ public class DindanxiangqingYiwanchengActivity extends BaseFragmentActivity {
         tv_dizhiname = findViewById(R.id.tv_dizhiname);
         tv_phone = findViewById(R.id.tv_phone);
         tv_address = findViewById(R.id.tv_address);
+
+        tv_orderid=findViewById(R.id.tv_orderid);
 
         list_goods = findViewById(R.id.list_goods);
         tv_gouyou = findViewById(R.id.tv_gouyou);
@@ -144,6 +148,8 @@ public class DindanxiangqingYiwanchengActivity extends BaseFragmentActivity {
                         tv_dizhiname.setText(message.result.consignee);
                         tv_phone.setText(message.result.phone);
                         tv_address.setText(message.result.address);
+
+                        tv_orderid.setText(message.result.orderId);
 
                         DingdanShangpinAdapter adapter3 = new DingdanShangpinAdapter(DindanxiangqingYiwanchengActivity.this);
                         adapter3.mData = message.result.list;
