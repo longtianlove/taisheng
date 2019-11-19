@@ -41,6 +41,7 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -276,7 +277,7 @@ public class MyDingdanFragment extends BaseFragment {
                             bean1.orderId = bean.orderId;
                             DingdanInstance.getInstance().orderId=bean.orderId;
                             DingdanInstance.getInstance().gangzhifu_orderId=bean.orderId;
-                            DingdanInstance.getInstance().gangzhifu_zongjia=bean.totalPrice;
+                            DingdanInstance.getInstance().gangzhifu_zongjia=bean.totalPrice.subtract(new BigDecimal(DingdanInstance.getInstance().youfei));
                             bean1.userId = UserInstance.getInstance().getUid();
                             bean1.token = UserInstance.getInstance().getToken();
                             ApiUtils.getApiService().weChatPay(bean1).enqueue(new TaiShengCallback<BaseBean<WechatResultBean>>() {

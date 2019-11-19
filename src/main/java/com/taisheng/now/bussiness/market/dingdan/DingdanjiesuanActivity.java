@@ -138,17 +138,17 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
         lv_jiesuan = findViewById(R.id.lv_jiesuan);
         madapter = new ArticleAdapter(DingdanjiesuanActivity.this);
 
-            if (DingdanInstance.getInstance().scoreGoods == 1) {
-                madapter.mData = DingdanInstance.getInstance().putongshangpindingdanList;
-                view_youfei_label.setVisibility(View.VISIBLE);
-                ll_youhuijuan2.setVisibility(View.VISIBLE);
-                view_youhuijuanlabel.setVisibility(View.VISIBLE);
-            } else {
-                madapter.mData = DingdanInstance.getInstance().jifenshangpindingdanList;
-                view_youfei_label.setVisibility(View.GONE);
-                ll_youhuijuan2.setVisibility(View.GONE);
-                view_youhuijuanlabel.setVisibility(View.GONE);
-            }
+        if (DingdanInstance.getInstance().scoreGoods == 1) {
+            madapter.mData = DingdanInstance.getInstance().putongshangpindingdanList;
+            view_youfei_label.setVisibility(View.VISIBLE);
+            ll_youhuijuan2.setVisibility(View.VISIBLE);
+            view_youhuijuanlabel.setVisibility(View.VISIBLE);
+        } else {
+            madapter.mData = DingdanInstance.getInstance().jifenshangpindingdanList;
+            view_youfei_label.setVisibility(View.GONE);
+            ll_youhuijuan2.setVisibility(View.GONE);
+            view_youhuijuanlabel.setVisibility(View.GONE);
+        }
 
         lv_jiesuan.setAdapter(madapter);
 
@@ -202,8 +202,12 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                                     WexinZhifuPostBean bean1 = new WexinZhifuPostBean();
                                     bean1.orderId = message.result.orderId;
                                     DingdanInstance.getInstance().orderId = message.result.orderId;
-                                    DingdanInstance.getInstance().gangzhifu_orderId=message.result.orderId;
-                                    DingdanInstance.getInstance().gangzhifu_zongjia=new BigDecimal(DingdanInstance.getInstance().zongjia);
+                                    DingdanInstance.getInstance().gangzhifu_orderId = message.result.orderId;
+
+                                    BigDecimal temp = new BigDecimal(DingdanInstance.getInstance().zongjia);
+//                                    BigDecimal temp1=temp.subtract(new BigDecimal(youfei));
+                                    DingdanInstance.getInstance().gangzhifu_zongjia = temp.subtract(new BigDecimal(discount));
+
                                     bean1.userId = UserInstance.getInstance().getUid();
                                     bean1.token = UserInstance.getInstance().getToken();
                                     ApiUtils.getApiService().weChatPay(bean1).enqueue(new TaiShengCallback<BaseBean<WechatResultBean>>() {
@@ -326,12 +330,13 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                     switch (message.code) {
                         case Constants.HTTP_SUCCESS:
                             youfei = message.result.money + "";
+                            DingdanInstance.getInstance().youfei=message.result.money;
                             DingdanInstance.getInstance().postFeeId = message.result.id;
                             tv_youfei.setText("￥" + youfei);
 //                            tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount) + Double.parseDouble(youfei)));
-                            BigDecimal temp=new BigDecimal(DingdanInstance.getInstance().zongjia);
-                            BigDecimal temp1=temp.add(new BigDecimal(youfei));
-                            BigDecimal temp2=temp1.subtract(new BigDecimal(discount));
+                            BigDecimal temp = new BigDecimal(DingdanInstance.getInstance().zongjia);
+                            BigDecimal temp1 = temp.add(new BigDecimal(youfei));
+                            BigDecimal temp2 = temp1.subtract(new BigDecimal(discount));
 
                             tv_zongjia.setText("¥" + temp2);
 
@@ -345,8 +350,8 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                 }
             });
         } else {
-            BigDecimal temp=new BigDecimal(DingdanInstance.getInstance().zongjia);
-            tv_zongjia.setText(temp.multiply(new BigDecimal(100))+"");
+            BigDecimal temp = new BigDecimal(DingdanInstance.getInstance().zongjia);
+            tv_zongjia.setText(temp.multiply(new BigDecimal(100)) + "");
         }
     }
 
@@ -381,9 +386,9 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
                 tv_youhuijuan.setText("¥" + discount);
                 tv_jianyouhuijuan.setText("-¥" + discount);
 //                tv_zongjia.setText("¥" + (Double.parseDouble(DingdanInstance.getInstance().zongjia) - Double.parseDouble(discount) + Double.parseDouble(youfei)));
-                BigDecimal temp=new BigDecimal(DingdanInstance.getInstance().zongjia);
-                BigDecimal temp1=temp.add(new BigDecimal(youfei));
-                BigDecimal temp2=temp1.subtract(new BigDecimal(discount));
+                BigDecimal temp = new BigDecimal(DingdanInstance.getInstance().zongjia);
+                BigDecimal temp1 = temp.add(new BigDecimal(youfei));
+                BigDecimal temp2 = temp1.subtract(new BigDecimal(discount));
                 tv_zongjia.setText("¥" + temp2);
                 break;
         }
@@ -480,14 +485,14 @@ public class DingdanjiesuanActivity extends Activity implements View.OnClickList
             }
             util.tv_name.setText(bean.name);
 
-            if(DingdanInstance.getInstance().scoreGoods == 1) {
+            if (DingdanInstance.getInstance().scoreGoods == 1) {
                 String temp_counterprice = bean.counterPrice.charAt(0) == '¥' ? bean.counterPrice : ("¥" + bean.counterPrice);
                 util.tv_counterprice.setText(temp_counterprice);
-            }else{
+            } else {
                 String temp_counterprice = bean.counterPrice.charAt(0) == '¥' ? bean.counterPrice : ("¥" + bean.counterPrice);
-                temp_counterprice=temp_counterprice.substring(1);
-                BigDecimal temp=new BigDecimal(temp_counterprice);
-                util.tv_counterprice.setText(temp.multiply(new BigDecimal(100))+"");
+                temp_counterprice = temp_counterprice.substring(1);
+                BigDecimal temp = new BigDecimal(temp_counterprice);
+                util.tv_counterprice.setText(temp.multiply(new BigDecimal(100)) + "");
             }
 //            util.tv_retailprice.setText(bean.retailPrice + "");
 //            util.tv_retailprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);

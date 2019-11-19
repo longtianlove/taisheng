@@ -71,4 +71,8 @@ public class DingdanInstance {
 //    public String defaultAddress="0";
 
 
+
+
+    public int youfei=10;
+
 }
