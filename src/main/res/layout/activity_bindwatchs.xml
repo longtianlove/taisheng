@@ -16,11 +16,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/background_shangchengtitle"
         android:gravity="center_vertical"
         android:paddingLeft="12dp"
         android:paddingTop="10dp"
         android:paddingRight="12dp"
-        android:background="@drawable/background_shangchengtitle"
         android:paddingBottom="10dp">
 
         <ImageView
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:paddingRight="10dp"
-            android:src="@drawable/icon_back" />
+            android:src="@drawable/icon_back_new" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,5 +49,41 @@
         android:layout_height="1dp"
         android:background="#f8f8f8" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="170dp"
+            android:layout_height="195dp"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/icon_shouhuan"></ImageView>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="#fff"
+            >
+            <TextView
+                android:id="@+id/tv_adddevice"
+                android:layout_width="351dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                android:background="@drawable/xinzhengdizhi_button"
+                android:gravity="center"
+                android:text="+ 绑定设备"
+                android:textColor="#ffffffff"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

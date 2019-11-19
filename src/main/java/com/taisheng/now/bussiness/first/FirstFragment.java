@@ -47,6 +47,7 @@ import com.taisheng.now.bussiness.doctor.DoctorsFenleiActivity;
 import com.taisheng.now.bussiness.healthfiles.HealthCheckActivity;
 import com.taisheng.now.bussiness.article.ArticleContentActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.bussiness.watch.BindWatchsActivity;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
@@ -159,7 +160,7 @@ public class FirstFragment extends BaseFragment {
             public void onClick(View v) {
 //                ((MainActivity) getActivity()).showFragment(1);
                 Intent intent=new Intent(getActivity(), DoctorsFenleiActivity.class);
-                DoctorsFenleiActivity.selectTab=2;
+                DoctorsFenleiActivity.selectTab=0;
                 startActivity(intent);
 
             }
@@ -200,7 +201,7 @@ public class FirstFragment extends BaseFragment {
 //                Intent intent=new Intent(getActivity(), SecretActivity.class);
 //                startActivity(intent);
                 Intent intent=new Intent(getActivity(), DoctorsFenleiActivity.class);
-                DoctorsFenleiActivity.selectTab=0;
+                DoctorsFenleiActivity.selectTab=2;
                 startActivity(intent);
             }
         });
@@ -255,6 +256,8 @@ public class FirstFragment extends BaseFragment {
 //                Intent intent=new Intent(getActivity(), SecretActivity.class);
 //                startActivity(intent);
                 //todo 跳转到手表
+                Intent intent=new Intent(getActivity(), BindWatchsActivity.class);
+                startActivity(intent);
 
             }
         });
