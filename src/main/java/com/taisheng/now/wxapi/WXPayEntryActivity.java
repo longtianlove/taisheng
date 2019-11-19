@@ -129,7 +129,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
         api.handleIntent(getIntent(), this);
 
         tv_jifenhuoqu=findViewById(R.id.tv_jifenhuoqu);
-        tv_jifenhuoqu.setText("恭喜您此次支付获得"+DingdanInstance.getInstance().gangzhifu_zongjia.multiply(new BigDecimal(100))+"积分");
+        tv_jifenhuoqu.setText("恭喜您此次支付获得"+DingdanInstance.getInstance().gangzhifu_zongjia+"积分");
     }
 
     @Override
