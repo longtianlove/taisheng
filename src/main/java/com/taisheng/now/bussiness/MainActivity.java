@@ -180,6 +180,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message,tv_tab_secret,tv_tab_
                     transaction.add(R.id.fragment_container, firstFragment, FirstFragment.class.getName());
                 }
                 transaction.show(firstFragment).commit();
+
                 iv_tab_first.setSelected(true);
                 tv_tab_first.setTextColor(getResources().getColor(R.color.tv_tab_color_select));
 //                firstFragment.videoPlayer.onVideoResume();
@@ -201,6 +202,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message,tv_tab_secret,tv_tab_
 
                 transaction
                         .show(doctorFragment).commit();
+                toolBar.setVisibility(View.GONE);
                 iv_tab_doctor.setSelected(true);
                 tv_tab_doctor.setTextColor(getResources().getColor(R.color.tv_tab_color_select));
                 firstFragment.videoPlayer.onVideoPause();
@@ -241,7 +243,9 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message,tv_tab_secret,tv_tab_
                 select_index = 4;
                 transaction
                         .show(messageFragment).commit();
+                toolBar.setVisibility(View.GONE);
                 iv_tab_message.setSelected(true);
+
                 tv_tab_message.setTextColor(getResources().getColor(R.color.tv_tab_color_select));
                 firstFragment.videoPlayer.onVideoPause();
                 break;

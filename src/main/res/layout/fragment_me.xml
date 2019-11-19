@@ -18,21 +18,35 @@
             android:background="@drawable/fragment_me_background"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="72dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:gravity="center"
-                android:text="个人中心"
-                android:textColor="#ffffffff"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="30dp"
+                android:weightSum="1">
 
-                android:textSize="18sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:text="个人中心"
+
+                    android:textColor="#ffffffff"
+
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:weightSum="1">
@@ -89,13 +103,13 @@
                     android:id="@+id/tv_qiandao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="・去签到"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/quqiandao_background"
+                    android:padding="5dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:padding="5dp"
-                    android:background="@drawable/quqiandao_background"
+                    android:text="・去签到"
                     android:textColor="#fff"
-                    android:layout_marginRight="10dp"
 
                     />
 
@@ -262,7 +276,6 @@
             android:layout_height="1dp"
             android:layout_margin="11dp"
             android:background="#EEEEEE" />
-
 
 
         <LinearLayout
@@ -478,9 +491,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
+            android:layout_marginBottom="11dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:layout_marginBottom="11dp"
             android:weightSum="1">
 
             <ImageView

@@ -153,22 +153,25 @@ public class DoctorsFenleiActivity extends BaseFragmentActivity {
     //    SecretTabFragment piweiganshen;
     private void initContent() {
         tabIndicators = new ArrayList<>();
-        tabIndicators.add("食疗养生");
-        tabIndicators.add("用药指导");
-        tabIndicators.add("医师");
+
+        tabIndicators.add("职业医师");
+        tabIndicators.add("职业药师");
+        tabIndicators.add("营养保健");
 
 
         tabFragments = new ArrayList<>();
-        zhongyitizhiFragment1 = new DoctorsFenleiFragment();
-        zhongyitizhiFragment1.type = "3";
+
         jichudaixieFragment = new DoctorsFenleiFragment();
         jichudaixieFragment.type = "4";
         fukejiankangFragment = new DoctorsFenleiFragment();
         fukejiankangFragment.type = "99";
+        zhongyitizhiFragment1 = new DoctorsFenleiFragment();
+        zhongyitizhiFragment1.type = "3";
 
-        tabFragments.add(zhongyitizhiFragment1);
+
         tabFragments.add(jichudaixieFragment);
         tabFragments.add(fukejiankangFragment);
+        tabFragments.add(zhongyitizhiFragment1);
 
 
         contentAdapter = new ContentPagerAdapter((this).getSupportFragmentManager());

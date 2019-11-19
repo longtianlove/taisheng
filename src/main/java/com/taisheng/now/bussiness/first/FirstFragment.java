@@ -255,6 +255,7 @@ public class FirstFragment extends BaseFragment {
 //                Intent intent=new Intent(getActivity(), SecretActivity.class);
 //                startActivity(intent);
                 //todo 跳转到手表
+
             }
         });
         ll_yongyaozhidao = rootView.findViewById(R.id.ll_jiangkangbaodian);
