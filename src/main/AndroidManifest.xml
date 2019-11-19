@@ -678,17 +678,12 @@
         <activity
             android:name="com.taisheng.now.bussiness.article.SecretActivity"
             android:configChanges="orientation|smallestScreenSize|screenSize|screenLayout"
-            android:launchMode="singleInstance"
-            android:screenOrientation="fullUser"
 
             />
 
         <activity
             android:name="com.taisheng.now.bussiness.market.youhuijuan.MoreYouhuijuanActivity"
             android:configChanges="orientation|smallestScreenSize|screenSize|screenLayout"
-            android:launchMode="singleInstance"
-            android:screenOrientation="fullUser"
-
             />
 
         <provider

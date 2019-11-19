@@ -256,6 +256,7 @@ public class MyDingdanFragment extends BaseFragment {
                                 public void onSuccess(Response<BaseBean> response, BaseBean message) {
                                     switch (message.code) {
                                         case Constants.HTTP_SUCCESS:
+                                            PAGE_NO = 1;
                                             getDoctors();
                                             break;
                                     }
