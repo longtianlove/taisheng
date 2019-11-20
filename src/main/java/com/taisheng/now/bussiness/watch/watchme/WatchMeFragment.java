@@ -73,7 +73,7 @@ public class WatchMeFragment extends BaseFragment {
     View.OnClickListener toMeMessageActivityListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getActivity(), MeMessageActivity.class);
+            Intent intent = new Intent(getActivity(), WatchMeMessageActivity.class);
             startActivity(intent);
         }
     };
