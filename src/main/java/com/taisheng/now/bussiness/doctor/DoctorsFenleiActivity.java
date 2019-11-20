@@ -38,6 +38,8 @@ import java.util.List;
 @SuppressLint("WrongConstant")
 public class DoctorsFenleiActivity extends BaseFragmentActivity {
 
+
+    View iv_back;
     public static TabLayout tl_tab;
     ViewPager vp_content;
     private List<String> tabIndicators;
@@ -59,7 +61,13 @@ public class DoctorsFenleiActivity extends BaseFragmentActivity {
     }
 
     void initView() {
-
+        iv_back=findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         tl_tab = (TabLayout) findViewById(R.id.tl_tab);
         vp_content = (ViewPager) findViewById(R.id.vp_content);
         initContent();
