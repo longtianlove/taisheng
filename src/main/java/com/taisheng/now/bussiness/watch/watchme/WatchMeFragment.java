@@ -46,13 +46,11 @@ import retrofit2.Response;
 @SuppressLint("WrongConstant")
 public class WatchMeFragment extends BaseFragment {
 
-
+    View ll_togerenxinxi;
     SimpleDraweeView sdv_header;
     TextView tv_nickname;
     TextView tv_zhanghao;
-
-
-
+    View tv_qiandao;
 
 
     @Override
@@ -79,12 +77,15 @@ public class WatchMeFragment extends BaseFragment {
     };
 
     void initView(View rootView) {
+        ll_togerenxinxi=rootView.findViewById(R.id.ll_togerenxinxi);
+        ll_togerenxinxi.setOnClickListener(toMeMessageActivityListener);
         sdv_header = (SimpleDraweeView) rootView.findViewById(R.id.sdv_header);
         sdv_header.setOnClickListener(toMeMessageActivityListener);
-        tv_zhanghao=rootView.findViewById(R.id.tv_zhanghao);
+        tv_zhanghao = rootView.findViewById(R.id.tv_zhanghao);
         tv_nickname = (TextView) rootView.findViewById(R.id.tv_nickname);
         tv_nickname.setOnClickListener(toMeMessageActivityListener);
-
+        tv_qiandao = rootView.findViewById(R.id.tv_qiandao);
+        tv_qiandao.setOnClickListener(toMeMessageActivityListener);
 
     }
 

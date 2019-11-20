@@ -110,7 +110,8 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
             @Override
             public void onClick(View v) {
 
-                showGoRecommendDialog();
+//                showGoRecommendDialog();
+                //todo 解除绑定
 
             }
         });
@@ -244,7 +245,6 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
         }
         tv_nickname.setText(UserInstance.getInstance().getNickname());
         tv_zhanghao.setText(UserInstance.getInstance().getZhanghao());
-        tv_phone.setText(UserInstance.getInstance().getPhone());
     }
 
     private void beginCrop(Uri source, Bundle bundle) {
