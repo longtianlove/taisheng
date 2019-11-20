@@ -31,7 +31,7 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="16sp"
-        android:text="将取景框对准条形码，即可自动扫描"/>
+        android:text="扫描手环中的设备二维码，即可完成绑定"/>
 
 
 </RelativeLayout>

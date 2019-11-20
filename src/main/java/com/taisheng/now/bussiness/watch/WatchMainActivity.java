@@ -24,6 +24,7 @@ import com.taisheng.now.bussiness.first.FirstFragment;
 import com.taisheng.now.bussiness.market.MarketFragment;
 import com.taisheng.now.bussiness.me.MeFragment;
 import com.taisheng.now.bussiness.message.MessageFragment;
+import com.taisheng.now.bussiness.watch.watchme.WatchMeFragment;
 import com.taisheng.now.chat.ChatManagerInstance;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.SPUtil;
@@ -46,7 +47,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
 
     private FirstFragment firstFragment;
     private DoctorFragment doctorFragment;
-    private MessageFragment messageFragment;
+    private WatchMeFragment messageFragment;
 
 
     View toolBar;
@@ -65,7 +66,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
         if (savedInstanceState != null) {
             firstFragment = (FirstFragment) getSupportFragmentManager().findFragmentByTag(FirstFragment.class.getName());
             doctorFragment = (DoctorFragment) getSupportFragmentManager().findFragmentByTag(DoctorFragment.class.getName());
-            messageFragment= (MessageFragment) getSupportFragmentManager().findFragmentByTag(MessageFragment.class.getName());
+            messageFragment= (WatchMeFragment) getSupportFragmentManager().findFragmentByTag(WatchMeFragment.class.getName());
 
             if (firstFragment == null) {
                 firstFragment = new FirstFragment();
@@ -74,7 +75,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
                 doctorFragment = new DoctorFragment();
             }
             if(messageFragment==null){
-                messageFragment=new MessageFragment();
+                messageFragment=new WatchMeFragment();
             }
 
             getSupportFragmentManager().beginTransaction()
@@ -159,6 +160,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
                     transaction.add(R.id.fragment_container, firstFragment, FirstFragment.class.getName());
                 }
                 transaction.show(firstFragment).commit();
+                toolBar.setVisibility(View.GONE);
 
                 iv_tab_first.setSelected(true);
                 tv_tab_first.setTextColor(getResources().getColor(R.color.tv_tab_color_select));
@@ -183,7 +185,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
 
             case 4:
                 if (messageFragment == null) {
-                    messageFragment = new MessageFragment();
+                    messageFragment = new WatchMeFragment();
                     transaction.add(R.id.fragment_container, messageFragment, MessageFragment.class.getName());
                 }
 //                getLocationWithOneMinute = false;
