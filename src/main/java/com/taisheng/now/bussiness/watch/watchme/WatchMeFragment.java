@@ -52,6 +52,8 @@ public class WatchMeFragment extends BaseFragment {
     TextView tv_zhanghao;
     View tv_qiandao;
 
+    View ll_naozhong;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,7 +79,7 @@ public class WatchMeFragment extends BaseFragment {
     };
 
     void initView(View rootView) {
-        ll_togerenxinxi=rootView.findViewById(R.id.ll_togerenxinxi);
+        ll_togerenxinxi = rootView.findViewById(R.id.ll_togerenxinxi);
         ll_togerenxinxi.setOnClickListener(toMeMessageActivityListener);
         sdv_header = (SimpleDraweeView) rootView.findViewById(R.id.sdv_header);
         sdv_header.setOnClickListener(toMeMessageActivityListener);
@@ -86,6 +88,16 @@ public class WatchMeFragment extends BaseFragment {
         tv_nickname.setOnClickListener(toMeMessageActivityListener);
         tv_qiandao = rootView.findViewById(R.id.tv_qiandao);
         tv_qiandao.setOnClickListener(toMeMessageActivityListener);
+
+
+        ll_naozhong = rootView.findViewById(R.id.ll_naozhong);
+        ll_naozhong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WatchMeNaozhongActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

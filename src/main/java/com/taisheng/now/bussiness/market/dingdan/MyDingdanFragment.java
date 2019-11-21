@@ -66,7 +66,7 @@ public class MyDingdanFragment extends BaseFragment {
 
 
         initView(rootView);
-        initData();
+//        initData();
         return rootView;
     }
 
@@ -88,7 +88,7 @@ public class MyDingdanFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        initData();
     }
 
     void initData() {
