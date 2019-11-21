@@ -10,6 +10,14 @@
     <!--<color name="gray">#ff999999</color>-->
 
 
+
+    <color name="black_33">#333333</color>
+    <color name="line_and_outline_grey">#d9d9d9</color>
+    <color name="half_transparent_black">#BB000000</color>
+
+    <color name="light_black">#141414</color>
+
+
     <color name="SelectedTabIndicatorColor">#529FFB</color>
     <color name="UnSelectedTextColor">#333333</color>
     <color name="SelectedTextColor">#529FFB</color>

@@ -158,11 +158,7 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/Appwelcome">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
 
@@ -341,6 +337,18 @@
         </activity>
 
         <activity
+            android:name="com.taisheng.now.bussiness.watch.watchme.WatchNaoZhongSettingActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+
+
+        </activity>
+
+
+
+        <activity
             android:name="com.taisheng.now.bussiness.MainActivity"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
@@ -356,7 +364,11 @@
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
 
