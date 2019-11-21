@@ -332,7 +332,7 @@
                             android:layout_marginTop="6dp"
                             android:gravity="center"
                             android:text="实时咨询"
-                            android:textColor="#ff333333"
+                            android:textColor="#666666"
                             android:textSize="13sp" />
                     </LinearLayout>
 
@@ -355,7 +355,7 @@
                             android:layout_marginTop="6dp"
                             android:gravity="center"
                             android:text="用药指导"
-                            android:textColor="#ff333333"
+                            android:textColor="#666666"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -379,7 +379,7 @@
                             android:gravity="center"
 
                             android:text="营养保健"
-                            android:textColor="#ff333333"
+                            android:textColor="#666666"
                             android:textSize="13sp" />
                     </LinearLayout>
 
@@ -402,7 +402,7 @@
                             android:layout_marginTop="6dp"
                             android:gravity="center"
                             android:text="严选商城"
-                            android:textColor="#ff333333"
+                            android:textColor="#666666"
                             android:textSize="13sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -436,7 +436,7 @@
                             android:gravity="center"
 
                             android:text="健康讲堂"
-                            android:textColor="#ff333333"
+                            android:textColor="#666666"
                             android:textSize="13sp" />
                     </LinearLayout>
 
@@ -459,7 +459,7 @@
                             android:layout_marginTop="6dp"
                             android:gravity="center"
                             android:text="智能终端"
-                            android:textColor="#ff333333"
+                            android:textColor="#666666"
                             android:textSize="13sp" />
                     </LinearLayout>
 
@@ -482,7 +482,7 @@
                             android:layout_marginTop="6dp"
                             android:gravity="center"
                             android:text="健康宝典"
-                            android:textColor="#ff333333"
+                            android:textColor="#666666"
                             android:textSize="13sp" />
                     </LinearLayout>
 
@@ -505,7 +505,7 @@
                             android:layout_marginTop="6dp"
                             android:gravity="center"
                             android:text="健康测评"
-                            android:textColor="#ff333333"
+                            android:textColor="#666666"
                             android:textSize="13sp" />
                     </LinearLayout>
                 </LinearLayout>
