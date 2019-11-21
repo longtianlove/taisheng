@@ -22,6 +22,7 @@ import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.test.WechatResultBean;
+import com.taisheng.now.wxapi.WXPayEntryActivity;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -115,7 +116,10 @@ public class ZhifuchenggongActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ZhifuchenggongActivity.this, MainActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
+//                overridePendingTransition( R.anim.slide_left_in,R.anim.slide_right_out);
             }
         });
 

@@ -63,7 +63,7 @@
                     android:gravity="center"
                     android:text="健康监测"
                     android:textColor="#ff999999"
-                    android:textSize="10sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <!--<View-->
@@ -93,7 +93,7 @@
                     android:gravity="center"
                     android:text="预警信息"
                     android:textColor="#ff999999"
-                    android:textSize="10sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
 
@@ -120,7 +120,7 @@
                     android:gravity="center"
                     android:text="个人中心"
                     android:textColor="#ff999999"
-                    android:textSize="10sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
 =

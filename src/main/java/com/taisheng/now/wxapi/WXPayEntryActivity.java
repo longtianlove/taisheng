@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.taisheng.now.Constants;
 import com.taisheng.now.R;
+import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.MainActivity;
@@ -19,6 +20,7 @@ import com.taisheng.now.bussiness.market.ZhifuchenggongActivity;
 import com.taisheng.now.bussiness.market.dingdan.DindanxiangqingDaifahuoActivity;
 import com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity;
 import com.taisheng.now.bussiness.me.MyDingdanActivity;
+import com.taisheng.now.bussiness.user.LoginActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
@@ -77,6 +79,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
                 Intent intent = new Intent(WXPayEntryActivity.this, DindanxiangqingDaifahuoActivity.class);
                 intent.putExtra("orderId", DingdanInstance.getInstance().gangzhifu_orderId);
                 startActivity(intent);
+                finish();
             }
         });
         ll_shibai = findViewById(R.id.ll_shibai);
@@ -120,16 +123,22 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
         btn_fanhuishouye.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Intent intent = new Intent(WXPayEntryActivity.this, MainActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
+//                overridePendingTransition( R.anim.slide_left_in,R.anim.slide_right_out);
+
             }
         });
 
         api = WXAPIFactory.createWXAPI(this, Constants.WXAPPID);
         api.handleIntent(getIntent(), this);
 
-        tv_jifenhuoqu=findViewById(R.id.tv_jifenhuoqu);
-        tv_jifenhuoqu.setText("恭喜您此次支付获得"+DingdanInstance.getInstance().gangzhifu_zongjia.setScale(0, BigDecimal.ROUND_HALF_UP)+"积分");
+        tv_jifenhuoqu = findViewById(R.id.tv_jifenhuoqu);
+        tv_jifenhuoqu.setText("恭喜您此次支付获得" + DingdanInstance.getInstance().gangzhifu_zongjia.setScale(0, BigDecimal.ROUND_HALF_UP) + "积分");
     }
 
     @Override
@@ -169,8 +178,8 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
     }
 
 
+    String LOG_TAG = "TAG";
 
-    String LOG_TAG="TAG";
     @Override
     public void onBackPressed() {
         // super.onBackPressed();//注释掉这行,back键不退出activity

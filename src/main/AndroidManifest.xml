@@ -158,7 +158,11 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/Appwelcome">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 
@@ -270,7 +274,6 @@
         <activity
             android:name="com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
@@ -342,6 +345,7 @@
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat">
 
         </activity>
@@ -352,11 +356,7 @@
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
 
@@ -365,7 +365,6 @@
             android:name="com.taisheng.now.bussiness.first.MoreShipinActivity"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat">
 

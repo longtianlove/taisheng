@@ -63,7 +63,7 @@
                     android:gravity="center"
                     android:text="首页"
                     android:textColor="#ff999999"
-                    android:textSize="10sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <!--<View-->
@@ -93,7 +93,7 @@
                     android:gravity="center"
                     android:text="医师"
                     android:textColor="#ff999999"
-                    android:textSize="10sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
 
@@ -120,7 +120,7 @@
                     android:gravity="center"
                     android:text="消息"
                     android:textColor="#ff999999"
-                    android:textSize="10sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <!--<View-->
@@ -149,7 +149,7 @@
                     android:gravity="center"
                     android:text="商城"
                     android:textColor="#ff999999"
-                    android:textSize="10sp" />
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
@@ -174,7 +174,7 @@
                     android:gravity="center"
                     android:text="我的"
                     android:textColor="#ff999999"
-                    android:textSize="10sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
 

@@ -59,6 +59,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message,tv_tab_secret,tv_tab_
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
         setContentView(R.layout.main);
         ChatManagerInstance.getInstance().init();
         //进入主页
