@@ -24,6 +24,7 @@ import com.taisheng.now.bussiness.first.FirstFragment;
 import com.taisheng.now.bussiness.market.MarketFragment;
 import com.taisheng.now.bussiness.me.MeFragment;
 import com.taisheng.now.bussiness.message.MessageFragment;
+import com.taisheng.now.bussiness.watch.watchfirst.WatchFirstFragment;
 import com.taisheng.now.bussiness.watch.watchme.WatchMeFragment;
 import com.taisheng.now.chat.ChatManagerInstance;
 import com.taisheng.now.util.DialogUtil;
@@ -45,7 +46,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
 
     private View mTabs[] = {null, null,null};
 
-    private FirstFragment firstFragment;
+    private WatchFirstFragment firstFragment;
     private DoctorFragment doctorFragment;
     private WatchMeFragment messageFragment;
 
@@ -64,12 +65,12 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
         SPUtil.putHome(true);
         initView();
         if (savedInstanceState != null) {
-            firstFragment = (FirstFragment) getSupportFragmentManager().findFragmentByTag(FirstFragment.class.getName());
+            firstFragment = (WatchFirstFragment) getSupportFragmentManager().findFragmentByTag(FirstFragment.class.getName());
             doctorFragment = (DoctorFragment) getSupportFragmentManager().findFragmentByTag(DoctorFragment.class.getName());
             messageFragment= (WatchMeFragment) getSupportFragmentManager().findFragmentByTag(WatchMeFragment.class.getName());
 
             if (firstFragment == null) {
-                firstFragment = new FirstFragment();
+                firstFragment = new WatchFirstFragment();
             }
             if (doctorFragment == null) {
                 doctorFragment = new DoctorFragment();
@@ -83,7 +84,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
                     .hide(doctorFragment)
                     .hide(messageFragment).commit();
         } else {
-            firstFragment = new FirstFragment();
+            firstFragment = new WatchFirstFragment();
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, firstFragment, FirstFragment.class.getName())
                     .show(firstFragment).commit();
@@ -156,7 +157,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
             case 0:
 
                 if (firstFragment == null) {
-                    firstFragment = new FirstFragment();
+                    firstFragment = new WatchFirstFragment();
                     transaction.add(R.id.fragment_container, firstFragment, FirstFragment.class.getName());
                 }
                 transaction.show(firstFragment).commit();
@@ -180,7 +181,6 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
                 toolBar.setVisibility(View.GONE);
                 iv_tab_doctor.setSelected(true);
                 tv_tab_doctor.setTextColor(getResources().getColor(R.color.tv_tab_color_select));
-                firstFragment.videoPlayer.onVideoPause();
                 break;
 
             case 4:
@@ -196,7 +196,6 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
                 iv_tab_message.setSelected(true);
 
                 tv_tab_message.setTextColor(getResources().getColor(R.color.tv_tab_color_select));
-                firstFragment.videoPlayer.onVideoPause();
                 break;
         }
     }

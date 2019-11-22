@@ -102,7 +102,7 @@ public class DoctorsFenleiFragment extends BaseFragment {
 
     int PAGE_NO = 1;
     int PAGE_SIZE = 10;
-    String type;
+    public String type;
 
     void getDoctors() {
         getListDoctorTypePostBean bean = new getListDoctorTypePostBean();
