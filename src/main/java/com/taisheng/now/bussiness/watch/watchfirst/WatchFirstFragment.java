@@ -163,7 +163,7 @@ public class WatchFirstFragment extends BaseFragment {
 
     XueyaFragment xueyaFragment;
     XinlvFragment xinlvFragment;
-    DoctorsFenleiFragment fukejiankangFragment;
+    JibuFragment jibuFragment;
 
 
     //    SecretTabFragment piweiganshen;
@@ -179,12 +179,12 @@ public class WatchFirstFragment extends BaseFragment {
 
         xueyaFragment = new XueyaFragment();
         xinlvFragment = new XinlvFragment();
-        fukejiankangFragment = new DoctorsFenleiFragment();
+        jibuFragment = new JibuFragment();
 
 
         tabFragments.add(xueyaFragment);
         tabFragments.add(xinlvFragment);
-        tabFragments.add(fukejiankangFragment);
+        tabFragments.add(jibuFragment);
 
 
 
