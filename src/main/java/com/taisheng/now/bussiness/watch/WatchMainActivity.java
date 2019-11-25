@@ -97,7 +97,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
         }
 
         iv_tab_first.setSelected(true);
-        toolBar.setVisibility(View.VISIBLE);
+        toolBar.setVisibility(View.GONE);
 
 //        EventBus.getDefault().register(this);
 

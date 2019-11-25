@@ -177,14 +177,15 @@ public class WatchFirstFragment extends BaseFragment {
 
         tabFragments = new ArrayList<>();
 
+        xueyaFragment = new XueyaFragment();
         jichudaixieFragment = new DoctorsFenleiFragment();
         fukejiankangFragment = new DoctorsFenleiFragment();
-        xueyaFragment = new XueyaFragment();
 
 
+        tabFragments.add(xueyaFragment);
         tabFragments.add(jichudaixieFragment);
         tabFragments.add(fukejiankangFragment);
-        tabFragments.add(xueyaFragment);
+
 
 
         contentAdapter = new ContentPagerAdapter(getActivity().getSupportFragmentManager());
