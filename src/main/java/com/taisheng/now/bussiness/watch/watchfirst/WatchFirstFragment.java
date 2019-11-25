@@ -98,7 +98,7 @@ public class WatchFirstFragment extends BaseFragment {
 //        tl_tab.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.white));
 //        ViewCompat.setElevation(tl_tab, 10);
         tl_tab.setupWithViewPager(vp_content);
-        changeTabIndicatorWidth(tl_tab, 15);
+        changeTabIndicatorWidth(tl_tab, 40);
 
         tl_tab.getTabAt(selectTab).select();
 
@@ -161,7 +161,7 @@ public class WatchFirstFragment extends BaseFragment {
     }
 
 
-    DoctorsFenleiFragment zhongyitizhiFragment1;
+    XueyaFragment xueyaFragment;
     DoctorsFenleiFragment jichudaixieFragment;
     DoctorsFenleiFragment fukejiankangFragment;
 
@@ -178,16 +178,13 @@ public class WatchFirstFragment extends BaseFragment {
         tabFragments = new ArrayList<>();
 
         jichudaixieFragment = new DoctorsFenleiFragment();
-        jichudaixieFragment.type = "4";
         fukejiankangFragment = new DoctorsFenleiFragment();
-        fukejiankangFragment.type = "99";
-        zhongyitizhiFragment1 = new DoctorsFenleiFragment();
-        zhongyitizhiFragment1.type = "3";
+        xueyaFragment = new XueyaFragment();
 
 
         tabFragments.add(jichudaixieFragment);
         tabFragments.add(fukejiankangFragment);
-        tabFragments.add(zhongyitizhiFragment1);
+        tabFragments.add(xueyaFragment);
 
 
         contentAdapter = new ContentPagerAdapter(getActivity().getSupportFragmentManager());
