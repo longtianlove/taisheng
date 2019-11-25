@@ -57,16 +57,7 @@ public class WatchFirstFragment extends BaseFragment {
     }
 
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.fragment_watchfirst);
-//        initView();
-//
-//
-////        EventBus.getDefault().register(this);
-//        initData();
-//    }
+
 
     void initView(View rootView) {
         iv_back=rootView.findViewById(R.id.iv_back);

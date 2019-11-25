@@ -16,10 +16,11 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:weightSum="1">
 
             <ImageView
+                android:id="@+id/iv_back"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="10dp"
@@ -33,7 +34,7 @@
                 android:gravity="center"
                 android:text="个人中心"
                 android:textColor="#ff333333"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
 
             <TextView
