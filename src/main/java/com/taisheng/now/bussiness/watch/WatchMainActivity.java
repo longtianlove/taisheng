@@ -26,6 +26,7 @@ import com.taisheng.now.bussiness.me.MeFragment;
 import com.taisheng.now.bussiness.message.MessageFragment;
 import com.taisheng.now.bussiness.watch.watchfirst.WatchFirstFragment;
 import com.taisheng.now.bussiness.watch.watchme.WatchMeFragment;
+import com.taisheng.now.bussiness.watch.watchyujing.WatchYujingFragment;
 import com.taisheng.now.chat.ChatManagerInstance;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.SPUtil;
@@ -47,7 +48,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
     private View mTabs[] = {null, null,null};
 
     private WatchFirstFragment firstFragment;
-    private DoctorFragment doctorFragment;
+    private WatchYujingFragment watchYujingFragment;
     private WatchMeFragment messageFragment;
 
 
@@ -66,14 +67,14 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
         initView();
         if (savedInstanceState != null) {
             firstFragment = (WatchFirstFragment) getSupportFragmentManager().findFragmentByTag(FirstFragment.class.getName());
-            doctorFragment = (DoctorFragment) getSupportFragmentManager().findFragmentByTag(DoctorFragment.class.getName());
+            watchYujingFragment = (WatchYujingFragment) getSupportFragmentManager().findFragmentByTag(DoctorFragment.class.getName());
             messageFragment= (WatchMeFragment) getSupportFragmentManager().findFragmentByTag(WatchMeFragment.class.getName());
 
             if (firstFragment == null) {
                 firstFragment = new WatchFirstFragment();
             }
-            if (doctorFragment == null) {
-                doctorFragment = new DoctorFragment();
+            if (watchYujingFragment == null) {
+                watchYujingFragment = new WatchYujingFragment();
             }
             if(messageFragment==null){
                 messageFragment=new WatchMeFragment();
@@ -81,7 +82,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
 
             getSupportFragmentManager().beginTransaction()
                     .show(firstFragment)
-                    .hide(doctorFragment)
+                    .hide(watchYujingFragment)
                     .hide(messageFragment).commit();
         } else {
             firstFragment = new WatchFirstFragment();
@@ -125,8 +126,8 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
         if (null != firstFragment) {
             transaction.hide(firstFragment);
         }
-        if (null != doctorFragment) {
-            transaction.hide(doctorFragment);
+        if (null != watchYujingFragment) {
+            transaction.hide(watchYujingFragment);
         }
         if(null!=messageFragment){
             transaction.hide(messageFragment);
@@ -169,15 +170,15 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
                 select_index = 0;
                 break;
             case 1:
-                if (doctorFragment == null) {
-                    doctorFragment = new DoctorFragment();
-                    transaction.add(R.id.fragment_container, doctorFragment, DoctorFragment.class.getName());
+                if (watchYujingFragment == null) {
+                    watchYujingFragment = new WatchYujingFragment();
+                    transaction.add(R.id.fragment_container, watchYujingFragment, DoctorFragment.class.getName());
                 }
                 select_index = 1;
 
 
                 transaction
-                        .show(doctorFragment).commit();
+                        .show(watchYujingFragment).commit();
                 toolBar.setVisibility(View.GONE);
                 iv_tab_doctor.setSelected(true);
                 tv_tab_doctor.setTextColor(getResources().getColor(R.color.tv_tab_color_select));

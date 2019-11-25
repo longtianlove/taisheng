@@ -60,6 +60,7 @@ public class JibuFragment extends BaseFragment {
         if(lineChartBeanList ==null){
             lineChartBeanList = new ArrayList<>();
         }
+        lineChartBeanList.clear();
         lineChartView.setDefaultTextSize(24);
         Random random = new Random();
         for(int i=0;i<7;i++){
