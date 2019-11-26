@@ -134,4 +134,8 @@ dependencies {
     implementation project(':lib-zxing')
 
     implementation 'com.veken:chart_view:1.0.2'
+
+
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 }

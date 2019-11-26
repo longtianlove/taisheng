@@ -5,6 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragment;
 import com.veken.chartview.bean.ChartBean;
@@ -32,44 +35,36 @@ public class XueyaFragment extends BaseFragment {
     }
 
 
-    LineChartView lineChartView;
+    private ArrayList<Entry> list = new ArrayList<>();  //数据集合
+    private ArrayList<Entry> list1 = new ArrayList<>();  //数据集合
+
+
+    private LineChart mChart;
+    private LineDataSet set;
+    private LineDataSet set1;
     void initView(View rootView) {
-        lineChartView = rootView.findViewById(R.id.chart_view_week);
-        lineChartView.setyLableText("折线图");
-//设置点击背景（可以为图片，也可以为一个颜色背景，大小根据textAndClickBgMargin设置）
-        lineChartView.setDrawBgType(DrawBgType.DrawBitmap);
-//设置图片资源
-        lineChartView.setShowPicResource(R.mipmap.click_icon);
-//连接线为虚线（也可以为实现）
-        lineChartView.setDrawConnectLineType(DrawConnectLineType.DrawDottedLine);
-        lineChartView.setClickable(true);
-//是否需要画连接线
-        lineChartView.setNeedDrawConnectYDataLine(true);
-//连接线的颜色
-        lineChartView.setConnectLineColor(getResources().getColor(R.color.default_color));
-//是否需要背景
-        lineChartView.setNeedBg(true);
-//画曲线图（也可以为折线图）
-        lineChartView.setDrawLineType(DrawLineType.Draw_Curve);
+
+        this.mChart = (LineChart) rootView.findViewById(R.id.chart);
+
+        for (int i = 0; i < 10; i++) {
+            list.add(new Entry(i, (float) (Math.random() * 80)));
+        }
+        for (int i = 0; i < 10; i++) {
+            list1.add(new Entry(i, (float) (Math.random() * 40)));
+        }
+
+
+        //直接调用即可
+//        LineChartUtils lineChartUtils=new LineChartUtils(list,list1,mChart);
+
     }
 
 
-    private ArrayList<ChartBean> lineChartBeanList;
+
+
     void initData(){
 
-        if(lineChartBeanList ==null){
-            lineChartBeanList = new ArrayList<>();
-        }
-        lineChartBeanList.clear();
-        lineChartView.setDefaultTextSize(24);
-        Random random = new Random();
-        for(int i=0;i<7;i++){
-            ChartBean lineChartBean = new ChartBean();
-            lineChartBean.setValue(String.valueOf(random.nextInt(10000)));
-            lineChartBean.setDate(String.valueOf(i));
-            lineChartBeanList.add(lineChartBean);
-        }
-        lineChartView.setData(lineChartBeanList);
+
     }
 
 

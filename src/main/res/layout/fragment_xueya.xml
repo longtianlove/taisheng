@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:background="@drawable/xueya_background_title"></LinearLayout>
 
     <ScrollView
@@ -15,19 +15,26 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_marginTop="-115dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#fff">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="142dp"
+                android:background="@drawable/icon_xueya_background"></ImageView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="135dp"
                 android:layout_marginLeft="10dp"
-
+                android:layout_marginTop="-115dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/me_kapian_background"
                 android:orientation="vertical">
@@ -177,21 +184,25 @@
 
                 </LinearLayout>
 
-                <com.veken.chartview.view.LineChartView
-                    android:id="@+id/chart_view_week"
+                <!--                <com.veken.chartview.view.LineChartView-->
+                <!--                    android:id="@+id/chart_view_week"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="300dp"-->
+                <!--                    android:layout_marginLeft="10dp"-->
+                <!--                    android:layout_marginRight="10dp"-->
+                <!--                    app:clickable="true"-->
+                <!--                    app:defaultStrokeWidth="0.5dp"-->
+                <!--                    app:defaultTextSize="16sp"-->
+                <!--                    app:endColor="@color/endColor"-->
+                <!--                    app:isNeedBg="true"-->
+                <!--                    app:pointClickRadius="3dp"-->
+                <!--                    app:pointDefaultRadius="2dp"-->
+                <!--                    app:showPicResource="@mipmap/ic_launcher"-->
+                <!--                    app:startColor="@color/startColor" />-->
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chart"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    app:clickable="true"
-                    app:defaultStrokeWidth="0.5dp"
-                    app:defaultTextSize="16sp"
-                    app:endColor="@color/endColor"
-                    app:isNeedBg="true"
-                    app:pointClickRadius="3dp"
-                    app:pointDefaultRadius="2dp"
-                    app:showPicResource="@mipmap/ic_launcher"
-                    app:startColor="@color/startColor" />
+                    android:layout_height="400dp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
