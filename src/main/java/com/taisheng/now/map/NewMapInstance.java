@@ -153,7 +153,7 @@ public class NewMapInstance extends BDAbstractLocationListener {
         MapStatusUpdate u = MapStatusUpdateFactory.newLatLngZoom(latLng, f - 2);
         mBaiduMap.animateMapStatus(u);
         setCenter(latLng, 300);
-//        stopLocListener();
+        stopLocListener();
     }
 
 
