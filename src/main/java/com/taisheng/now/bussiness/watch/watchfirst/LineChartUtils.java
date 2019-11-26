@@ -57,7 +57,7 @@ public class LineChartUtils {
         //创建一个数据集
         ArrayList<ILineDataSet> dataSets=new ArrayList<>();
         dataSets.add(set);
-        dataSets.add(set1);
+//        dataSets.add(set1);
 //        dataSets.add(set2);
 
         LineData data = new LineData(dataSets);

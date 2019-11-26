@@ -44,7 +44,7 @@ public class XinlvFragment extends BaseFragment {
 
     void initView(View rootView) {
         this.mChart = (LineChart) rootView.findViewById(R.id.chart);
-
+        list.clear();
         for (int i = 0; i < 10; i++) {
             list.add(new Entry(i, (float) (Math.random() * 80)));
         }
