@@ -72,6 +72,12 @@
     <!--小米推送相关^结束-->
 
 
+    <!--百度地图-->
+    <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <!-- 这个权限用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+
     <application
         android:name="com.taisheng.now.SampleApplication"
         android:allowBackup="true"
@@ -83,6 +89,17 @@
         android:theme="@style/AppTheme"
 
         >
+
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="Zk2Bjz21kg9zykDGWl4BY69Lp03KZvuZ"></meta-data>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
+
 
         <service
             android:name="com.xiaomi.push.service.XMPushService"
@@ -347,7 +364,6 @@
         </activity>
 
 
-
         <activity
             android:name="com.taisheng.now.bussiness.watch.watchfirst.WatchFirstGuijiActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -363,8 +379,8 @@
             android:name="com.taisheng.now.bussiness.MainActivity"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat">
 
         </activity>
@@ -381,7 +397,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
 
         <activity
@@ -731,8 +746,7 @@
 
         <activity
             android:name="com.taisheng.now.bussiness.market.youhuijuan.MoreYouhuijuanActivity"
-            android:configChanges="orientation|smallestScreenSize|screenSize|screenLayout"
-            />
+            android:configChanges="orientation|smallestScreenSize|screenSize|screenLayout" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

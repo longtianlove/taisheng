@@ -48,22 +48,35 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
     private int times = 0;
     private final int REQUEST_PHONE_PERMISSIONS = 0;
 
-    private void checkPermission(){
+    private void checkPermission() {
         times++;
         final List<String> permissionsList = new ArrayList<>();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if ((checkSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE)!= PackageManager.PERMISSION_GRANTED)) permissionsList.add(Manifest.permission.ACCESS_NETWORK_STATE);
-            if ((checkSelfPermission(Manifest.permission.READ_PHONE_STATE)!= PackageManager.PERMISSION_GRANTED)) permissionsList.add(Manifest.permission.READ_PHONE_STATE);
-            if ((checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)) permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            if ((checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)) permissionsList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-            if ((checkSelfPermission(Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED)) permissionsList.add(Manifest.permission.CAMERA);
-            if ((checkSelfPermission(Manifest.permission.BLUETOOTH)!= PackageManager.PERMISSION_GRANTED)) permissionsList.add(Manifest.permission.BLUETOOTH);
-            if ((checkSelfPermission(Manifest.permission.RECORD_AUDIO)!= PackageManager.PERMISSION_GRANTED)) permissionsList.add(Manifest.permission.RECORD_AUDIO);
-            if (permissionsList.size() != 0){
-                if(times==1){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if ((checkSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED))
+                permissionsList.add(Manifest.permission.ACCESS_NETWORK_STATE);
+            if ((checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED))
+                permissionsList.add(Manifest.permission.READ_PHONE_STATE);
+            if ((checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED))
+                permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if ((checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED))
+                permissionsList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+            if ((checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED))
+                permissionsList.add(Manifest.permission.CAMERA);
+            if ((checkSelfPermission(Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED))
+                permissionsList.add(Manifest.permission.BLUETOOTH);
+            if ((checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED))
+                permissionsList.add(Manifest.permission.RECORD_AUDIO);
+            if ((checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED))
+                permissionsList.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+            if ((checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED))
+                permissionsList.add(Manifest.permission.ACCESS_FINE_LOCATION);
+
+
+            if (permissionsList.size() != 0) {
+                if (times == 1) {
                     requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
                             REQUEST_PHONE_PERMISSIONS);
-                }else{
+                } else {
                     new AlertDialog.Builder(this)
                             .setCancelable(true)
                             .setTitle("提示")
@@ -83,10 +96,10 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
                         }
                     }).show();
                 }
-            }else{
+            } else {
                 toWhere();
             }
-        }else{
+        } else {
             toWhere();
         }
     }
@@ -159,12 +172,6 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
     }
 
 
-
-
-
-
-
-
 //    //网络获取用户信息成功
 //    @Subscribe(threadMode = ThreadMode.MAIN, priority = 0)
 //    public void next(EventManage.getUserInfoEvent event) {
@@ -183,11 +190,8 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
 //    }
 
 
-
-
-
     @Override
-    public void onRequestPermissionsResult(int requestCode,  final String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, final String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         checkPermission();
     }
