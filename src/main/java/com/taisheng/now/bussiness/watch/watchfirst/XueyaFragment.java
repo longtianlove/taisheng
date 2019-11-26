@@ -55,7 +55,7 @@ public class XueyaFragment extends BaseFragment {
 
 
         //直接调用即可
-//        LineChartUtils lineChartUtils=new LineChartUtils(list,list1,mChart);
+        LineChartUtils lineChartUtils=new LineChartUtils(list,list1,mChart);
 
     }
 

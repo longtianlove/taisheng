@@ -30,6 +30,73 @@ public class LineChartUtils {
         this.lineChart=lineChart;
         setData(list1,list2,list3);
     }
+    public LineChartUtils(ArrayList<Entry> list1, ArrayList<Entry> list2 ,LineChart lineChart) {
+        this.list1=list1;
+        this.list2=list2;
+//        this.list3=list3;
+        this.lineChart=lineChart;
+        setData(list1,list2);
+    }
+
+    public LineChartUtils(ArrayList<Entry> list1 ,LineChart lineChart) {
+        this.list1=list1;
+//        this.list2=list2;
+//        this.list3=list3;
+        this.lineChart=lineChart;
+        setData(list1);
+    }
+    private void setData(ArrayList<Entry> list1) {
+        XwangGe();
+        set = new LineDataSet(list1, "瞬时流量");
+        setLine(set);
+//        set1 = new LineDataSet(list2, "功率");
+//        setLine2(set1);
+//        set2 = new LineDataSet(list3, "过程点折水系数");
+//        setLine3(set2);
+
+        //创建一个数据集
+        ArrayList<ILineDataSet> dataSets=new ArrayList<>();
+        dataSets.add(set);
+        dataSets.add(set1);
+//        dataSets.add(set2);
+
+        LineData data = new LineData(dataSets);
+        //设置数据
+        lineChart.setData(data);
+        //隐藏图表右下角显示内容
+        Description description = new Description();
+        description.setEnabled(false);
+        lineChart.setDescription(description);
+
+
+    }
+
+
+    private void setData(ArrayList<Entry> list1,ArrayList<Entry> list2) {
+        XwangGe();
+        set = new LineDataSet(list1, "瞬时流量");
+        setLine(set);
+        set1 = new LineDataSet(list2, "功率");
+        setLine2(set1);
+//        set2 = new LineDataSet(list3, "过程点折水系数");
+//        setLine3(set2);
+
+        //创建一个数据集
+        ArrayList<ILineDataSet> dataSets=new ArrayList<>();
+        dataSets.add(set);
+        dataSets.add(set1);
+//        dataSets.add(set2);
+
+        LineData data = new LineData(dataSets);
+        //设置数据
+        lineChart.setData(data);
+        //隐藏图表右下角显示内容
+        Description description = new Description();
+        description.setEnabled(false);
+        lineChart.setDescription(description);
+
+
+    }
     private void setData(ArrayList<Entry> list1,ArrayList<Entry> list2,ArrayList<Entry> list3) {
         XwangGe();
         set = new LineDataSet(list1, "瞬时流量");
@@ -83,7 +150,7 @@ public class LineChartUtils {
         set.setValueTextSize(10f);
         set.setFillColor(Color.parseColor("#D4716E"));
         //设置是否填充
-        set.setDrawFilled(true);
+        set.setDrawFilled(false);
 
 
     }
@@ -112,7 +179,7 @@ public class LineChartUtils {
         //设置字体大小
         set.setValueTextSize(10f);
         //设置是否填充
-        set.setDrawFilled(true);
+        set.setDrawFilled(false);
 
     }
     private void setLine3(LineDataSet set) {
@@ -140,7 +207,7 @@ public class LineChartUtils {
         //设置字体大小
         set.setValueTextSize(10f);
         //设置是否填充
-        set.setDrawFilled(true);
+        set.setDrawFilled(false);
 
     }
     private void XwangGe(){
