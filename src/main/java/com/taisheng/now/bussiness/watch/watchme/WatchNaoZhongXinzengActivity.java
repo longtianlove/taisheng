@@ -27,7 +27,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class WatchNaoZhongSettingActivity extends BaseActivity implements View.OnClickListener {
+public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.OnClickListener {
+    public View iv_back;
     private TextView date_tv;
     //    private TimePickerView pvTime;
     private TimePickerDialog timePickerDialog;
@@ -50,6 +51,13 @@ public class WatchNaoZhongSettingActivity extends BaseActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_watchnaozhong);
+        iv_back=findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 //        mAlarm = (Alarm) getIntent().getSerializableExtra("Alarm");
 
         allLayout = (RelativeLayout) findViewById(R.id.all_layout);

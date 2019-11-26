@@ -14,7 +14,7 @@ import com.taisheng.now.base.BaseActivity;
  * Created by dragon on 2019/6/29.
  */
 
-public class WatchMeNaozhongActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+public class WatchMeNaozhongListActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     ImageView iv_back;
 
     View iv_addnaozhong;
@@ -41,7 +41,7 @@ public class WatchMeNaozhongActivity extends BaseActivity implements ActivityCom
         iv_addnaozhong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WatchMeNaozhongActivity.this, WatchNaoZhongSettingActivity.class);
+                Intent intent = new Intent(WatchMeNaozhongListActivity.this, WatchNaoZhongXinzengActivity.class);
                 startActivity(intent);
             }
         });

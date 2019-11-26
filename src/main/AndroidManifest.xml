@@ -337,7 +337,7 @@
         </activity>
 
         <activity
-            android:name="com.taisheng.now.bussiness.watch.watchme.WatchNaoZhongSettingActivity"
+            android:name="com.taisheng.now.bussiness.watch.watchme.WatchNaoZhongXinzengActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
@@ -346,6 +346,17 @@
 
         </activity>
 
+
+
+        <activity
+            android:name="com.taisheng.now.bussiness.watch.watchfirst.WatchFirstGuijiActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+
+
+        </activity>
 
 
         <activity
@@ -403,7 +414,7 @@
 
         </activity>
         <activity
-            android:name=".bussiness.watch.watchme.WatchMeNaozhongActivity"
+            android:name=".bussiness.watch.watchme.WatchMeNaozhongListActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
