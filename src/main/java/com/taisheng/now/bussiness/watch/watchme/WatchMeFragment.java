@@ -33,6 +33,9 @@ public class WatchMeFragment extends BaseFragment {
     View ll_naozhong;
 
 
+    View ll_kaiguan;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,6 +84,15 @@ public class WatchMeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), WatchMeNaozhongListActivity.class);
+                startActivity(intent);
+            }
+        });
+        ll_kaiguan = rootView.findViewById(R.id.ll_kaiguan);
+        ll_kaiguan.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WatchMeKaiGuanActivity.class);
                 startActivity(intent);
             }
         });
