@@ -1,6 +1,5 @@
 package com.taisheng.now.bussiness.watch.watchfirst;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,16 +9,14 @@ import androidx.core.app.ActivityCompat;
 import com.baidu.mapapi.map.MapView;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
-import com.taisheng.now.bussiness.watch.watchme.WatchNaoZhongXinzengActivity;
 import com.taisheng.now.map.NewMapInstance;
 
 /**
  * Created by dragon on 2019/6/29.
  */
 
-public class WatchFirstGuijiActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     ImageView iv_back;
-    View iv_shezhi;
     View iv_dingwei;
 
     private MapView mMapView = null;
@@ -27,7 +24,7 @@ public class WatchFirstGuijiActivity extends BaseActivity implements ActivityCom
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_watchfirstguiji);
+        setContentView(R.layout.activity_watchfirstanquanweilan);
         initView();
 
     }
@@ -40,14 +37,13 @@ public class WatchFirstGuijiActivity extends BaseActivity implements ActivityCom
                 finish();
             }
         });
-        iv_shezhi = findViewById(R.id.iv_shezhi);
-        iv_shezhi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WatchFirstGuijiActivity.this, WatchFirstAnQuanWeiLanActivity.class);
-                startActivity(intent);
-            }
-        });
+
+
+
+
+
+
+
 
 
         //获取地图控件引用
