@@ -380,11 +380,11 @@
                 android:layout_height="1dp"
                 android:layout_weight="1" />
 
-            <ImageView
-                android:layout_width="8dp"
-                android:layout_height="12dp"
-                android:layout_marginRight="12dp"
-                android:src="@drawable/jiantou_hui" />
+<!--            <ImageView-->
+<!--                android:layout_width="8dp"-->
+<!--                android:layout_height="12dp"-->
+<!--                android:layout_marginRight="12dp"-->
+<!--                android:src="@drawable/jiantou_hui" />-->
         </LinearLayout>
 
         <View
@@ -424,11 +424,11 @@
                 android:layout_height="1dp"
                 android:layout_weight="1" />
 
-            <ImageView
-                android:layout_width="8dp"
-                android:layout_height="12dp"
-                android:layout_marginRight="12dp"
-                android:src="@drawable/jiantou_hui" />
+<!--            <ImageView-->
+<!--                android:layout_width="8dp"-->
+<!--                android:layout_height="12dp"-->
+<!--                android:layout_marginRight="12dp"-->
+<!--                android:src="@drawable/jiantou_hui" />-->
         </LinearLayout>
 
         <View

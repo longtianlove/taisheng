@@ -5,10 +5,14 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.taisheng.now.SampleAppLike;
@@ -41,6 +45,7 @@ public class NewMapInstance extends BDAbstractLocationListener {
     public void init(MapView mapView) {
         this.mapView = mapView;
         initMap();
+
     }
 
 
@@ -71,6 +76,56 @@ public class NewMapInstance extends BDAbstractLocationListener {
         UiSettings UiSettings = mBaiduMap.getUiSettings();
         UiSettings.setRotateGesturesEnabled(false);//屏蔽旋转
         initLocation();
+        initPhoneMarker();
+    }
+
+    public static double phoneLatitude;
+    public static double phoneLongitude;
+    LatLng commonphoneLatlng;
+    BitmapDescriptor phonebitmapDescriptor;
+    Marker mPhoneMarker;
+    /**
+     * 初始化手机位置地图标识
+     */
+    private void initPhoneMarker() {
+        commonphoneLatlng = new LatLng(phoneLatitude, phoneLongitude);
+        phonebitmapDescriptor = BitmapDescriptorFactory.fromView(new MapPhoneAvaterView(SampleAppLike.mcontext));
+        OverlayOptions options = new MarkerOptions()
+                .anchor(0.5f, 0.5f)
+                .icon(phonebitmapDescriptor)
+                .draggable(true)
+                .position(commonphoneLatlng)
+                .visible(true);
+        mPhoneMarker = (Marker) (mBaiduMap.addOverlay(options));
+
+    }
+
+    /**
+     * 绘制手机位置
+     */
+    private void setPhonePos() {
+        LatLng postion = new LatLng(phoneLatitude, phoneLongitude);
+        float f = mBaiduMap.getMaxZoomLevel();//19.0
+        MapStatusUpdate u = MapStatusUpdateFactory.newLatLngZoom(postion, f - 2);
+        mBaiduMap.animateMapStatus(u);
+//        if (PetInfoInstance.getInstance().PET_MODE != Constants.PET_STATUS_FIND) {
+//            setCenter(postion, 300);
+//        }
+        refreshMap();
+        try {
+            mPhoneMarker.setPosition(postion);
+        } catch (Exception E) {
+
+        }
+    }
+
+
+    /**
+     * 刷新地图
+     */
+    public void refreshMap() {
+        mBaiduMap.clear();
+        initPhoneMarker();
     }
 
 
@@ -146,7 +201,8 @@ public class NewMapInstance extends BDAbstractLocationListener {
         //获取定位类型、定位错误返回码，具体信息可参照类参考中BDLocation类中的说明
 
 
-
+        phoneLatitude = location.getLatitude();
+        phoneLongitude = location.getLongitude();
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         float f = mBaiduMap.getMaxZoomLevel();//19.0
@@ -154,6 +210,8 @@ public class NewMapInstance extends BDAbstractLocationListener {
         mBaiduMap.animateMapStatus(u);
         setCenter(latLng, 300);
         stopLocListener();
+
+        setPhonePos();
     }
 
 
