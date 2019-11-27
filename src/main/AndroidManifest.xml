@@ -456,6 +456,26 @@
         </activity>
 
         <activity
+            android:name=".bussiness.watch.watchme.WatchMeXueyajingActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+
+        </activity>
+
+        <activity
+            android:name=".bussiness.watch.watchme.WatchMeXueyajingBianjiActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+
+        </activity>
+
+
+
+        <activity
             android:name=".bussiness.watch.watchme.WatchMeKaiGuanActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
