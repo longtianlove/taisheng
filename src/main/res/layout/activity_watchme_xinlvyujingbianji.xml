@@ -74,8 +74,10 @@
 
             <EditText
                 android:id="@+id/tv_xinlvpingjun"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="number"
                 android:text=""
                 android:textColor="#ff666666"
                 android:textSize="14sp" />
@@ -119,9 +121,11 @@
 
             <EditText
                 android:id="@+id/tv_xinlvpingzuidazhi"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:text=""
+                android:inputType="number"
                 android:textColor="#ff666666"
                 android:textSize="14sp" />
 
@@ -164,9 +168,11 @@
 
             <EditText
                 android:id="@+id/tv_xinlvpingzuixiaozhi"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:text=""
+                android:inputType="number"
                 android:textColor="#ff666666"
                 android:textSize="14sp" />
 
