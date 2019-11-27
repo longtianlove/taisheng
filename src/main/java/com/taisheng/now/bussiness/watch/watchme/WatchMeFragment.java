@@ -32,7 +32,7 @@ public class WatchMeFragment extends BaseFragment {
 
     View ll_naozhong;
 
-
+    View ll_xinlv;
     View ll_kaiguan;
 
 
@@ -84,6 +84,14 @@ public class WatchMeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), WatchMeNaozhongListActivity.class);
+                startActivity(intent);
+            }
+        });
+        ll_xinlv=rootView.findViewById(R.id.ll_xinlv);
+        ll_xinlv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WatchMeXinlvyujingActivity.class);
                 startActivity(intent);
             }
         });

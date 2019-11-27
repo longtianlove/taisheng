@@ -21,6 +21,9 @@ public class WatchMeKaiGuanActivity extends BaseActivity implements ActivityComp
     ImageView iv_kaiguan_gps;
 
     View ll_kaiguan_sos;
+    ImageView iv_kaiguan_sos;
+
+    View ll_kaiguan_jinjilianxiren;
 
     View ll_kaiguan_didianduanxin;
     ImageView iv_kaiguan_didianduanxin;
@@ -35,7 +38,6 @@ public class WatchMeKaiGuanActivity extends BaseActivity implements ActivityComp
     ImageView iv_kaiguan_fanzhuan;
 
     View ll_kaiguan_miandarao;
-
 
 
     @Override
@@ -74,11 +76,27 @@ public class WatchMeKaiGuanActivity extends BaseActivity implements ActivityComp
 
             @Override
             public void onClick(View v) {
-                //todo 进入设置sos页面
+                if (iv_kaiguan_sos.isSelected()) {
+                    iv_kaiguan_sos.setSelected(false);
+                } else {
+                    iv_kaiguan_sos.setSelected(true);
+                }
+                //todo 访问网络
             }
         });
 
-        ll_kaiguan_didianduanxin=findViewById(R.id.ll_kaiguan_didianduanxin);
+        ll_kaiguan_jinjilianxiren = findViewById(R.id.ll_kaiguan_jinjilianxiren);
+        ll_kaiguan_jinjilianxiren.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //todo 进入紧急联系人
+            }
+        });
+        iv_kaiguan_sos = findViewById(R.id.iv_kaiguan_sos);
+        iv_kaiguan_sos.setSelected(false);
+
+        ll_kaiguan_didianduanxin = findViewById(R.id.ll_kaiguan_didianduanxin);
         ll_kaiguan_didianduanxin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,10 +108,10 @@ public class WatchMeKaiGuanActivity extends BaseActivity implements ActivityComp
                 //todo 访问网络
             }
         });
-        iv_kaiguan_didianduanxin=findViewById(R.id.iv_kaiguan_didianduanxin);
+        iv_kaiguan_didianduanxin = findViewById(R.id.iv_kaiguan_didianduanxin);
         iv_kaiguan_didianduanxin.setSelected(false);
 
-        ll_kaiguan_quxiashouhuan=findViewById(R.id.ll_kaiguan_quxiashouhuan);
+        ll_kaiguan_quxiashouhuan = findViewById(R.id.ll_kaiguan_quxiashouhuan);
         ll_kaiguan_quxiashouhuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,11 +123,11 @@ public class WatchMeKaiGuanActivity extends BaseActivity implements ActivityComp
                 //todo 访问网络
             }
         });
-        iv_kaiguan_quxiashouhuan=findViewById(R.id.iv_kaiguan_quxiashouhuan);
+        iv_kaiguan_quxiashouhuan = findViewById(R.id.iv_kaiguan_quxiashouhuan);
         iv_kaiguan_quxiashouhuan.setSelected(false);
 
 
-        ll_kaiguan_jibu=findViewById(R.id.ll_kaiguan_jibu);
+        ll_kaiguan_jibu = findViewById(R.id.ll_kaiguan_jibu);
         ll_kaiguan_jibu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,12 +139,12 @@ public class WatchMeKaiGuanActivity extends BaseActivity implements ActivityComp
                 //todo 访问网络
             }
         });
-        iv_kaiguan_jibu=findViewById(R.id.iv_kaiguan_jibu);
+        iv_kaiguan_jibu = findViewById(R.id.iv_kaiguan_jibu);
         iv_kaiguan_jibu.setSelected(false);
 
 
-        ll_kaiguan_fanzhuan=findViewById(R.id.ll_kaiguan_fanzhuan);
-        ll_kaiguan_fanzhuan.setOnClickListener(new View.OnClickListener(){
+        ll_kaiguan_fanzhuan = findViewById(R.id.ll_kaiguan_fanzhuan);
+        ll_kaiguan_fanzhuan.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -138,11 +156,11 @@ public class WatchMeKaiGuanActivity extends BaseActivity implements ActivityComp
                 //todo 访问网络
             }
         });
-        iv_kaiguan_fanzhuan=findViewById(R.id.iv_kaiguan_fanzhuan);
+        iv_kaiguan_fanzhuan = findViewById(R.id.iv_kaiguan_fanzhuan);
         iv_kaiguan_fanzhuan.setSelected(false);
 
 
-        ll_kaiguan_miandarao=findViewById(R.id.ll_kaiguan_miandarao);
+        ll_kaiguan_miandarao = findViewById(R.id.ll_kaiguan_miandarao);
         ll_kaiguan_miandarao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
