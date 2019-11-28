@@ -48,6 +48,7 @@ import com.taisheng.now.map.MapLocationParser;
 import com.taisheng.now.map.NewMapInstance;
 import com.taisheng.now.map.addressParseListener;
 import com.taisheng.now.util.DensityUtil;
+import com.taisheng.now.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -67,8 +68,6 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
     private MapView mMapView = null;
 
 
-
-
     public static boolean isFirst = true;
 
 
@@ -80,7 +79,7 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
 
     EditText et_fanwei;
 
-//    private MapView mMapView;
+    //    private MapView mMapView;
     private RecyclerView rv_addresslist;
     private View ll_noname_address;
     private TextView tv_location;
@@ -105,7 +104,6 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
     PoiCitySearchOption citySearchOption;
     PoiNearbySearchOption nearbySearchOption;
     SuggestionSearch mSuggestionSearch;
-
 
 
     @Override
@@ -164,7 +162,7 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
         });
 
 
-        et_fanwei=findViewById(R.id.et_fanwei);
+        et_fanwei = findViewById(R.id.et_fanwei);
         et_fanwei.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -173,21 +171,24 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                if (Integer.parseInt(s.toString()) > 3000) {
+                    ToastUtil.showAtCenter("不能超过3000米");
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 String fanweiString = et_fanwei.getText().toString();
                 if ("".equals(fanweiString)) {
-                    HomelocationInstance.radius=10;
+                    HomelocationInstance.radius = 10;
                     return;
                 }
-                HomelocationInstance.radius=Integer.parseInt(fanweiString);
+                HomelocationInstance.radius = Integer.parseInt(fanweiString);
+
+                HomelocationInstance.getInstance().refreshMap();
 
             }
         });
-
 
 
         btn_cancel = findViewById(R.id.btn_cancel);
@@ -228,10 +229,11 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
             @Override
             public void OnItemClick(View view, AddressAdapter.StateHolder holder, int position) {
                 HomelocationInstance.getInstance().setCenter(poiInfos.get(position).location, 1000);
+                HomelocationInstance.getInstance().refreshMap();
                 if (position != -1) {
                     iv_selected.setVisibility(View.GONE);
                 }
-                et_search.setText("");
+                et_search.setText(poiInfos.get(position).name);
                 rv_addresslist.setVisibility(View.GONE);
                 adapter.notifyDataSetChanged();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -246,12 +248,10 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
                     longitude = temp[1];
                 }
 
+
             }
         });
         rv_addresslist.setAdapter(adapter);
-
-
-
 
 
         btn_phone_center = findViewById(R.id.btn_phone_center);
@@ -293,7 +293,7 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
 
                 projection = mBaiduMap.getProjection();
                 int indexy = (int) (iv_location.getHeight());
-                Point aimPoint = new Point(mapStatus.targetScreen.x, mapStatus.targetScreen.y + DensityUtil.dip2px(WatchFirstAnQuanWeiLanActivity.this,10));
+                Point aimPoint = new Point(mapStatus.targetScreen.x, mapStatus.targetScreen.y + DensityUtil.dip2px(WatchFirstAnQuanWeiLanActivity.this, 10));
                 final LatLng position = projection.fromScreenLocation(aimPoint);
                 Log.e("longtianlove", "地图" + mapStatus.targetScreen.x + ":" + mapStatus.targetScreen.y);
 
@@ -335,10 +335,11 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
                 });
 
                 Log.e("longtianlove", position.toString());
-                HomelocationInstance.phoneLatitude=position.latitude;
-                HomelocationInstance.phoneLongitude=position.longitude;
+                HomelocationInstance.phoneLatitude = position.latitude;
+                HomelocationInstance.phoneLongitude = position.longitude;
                 touch_latitude = position.latitude;
                 touch_longitude = position.longitude;
+                HomelocationInstance.getInstance().refreshMap();
                 if (iv_selected.getVisibility() == View.VISIBLE) {
                     double[] temp = HomelocationInstance.bd09_To_Gcj02(position.latitude, position.longitude);
                     latitude = temp[0];
@@ -378,7 +379,7 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
 
     public void initData() {
         mPoiSearch = PoiSearch.newInstance();
-        wait_search=0;
+        wait_search = 0;
 
         citySearchOption = new PoiCitySearchOption();
         OnGetPoiSearchResultListener poiListener = new OnGetPoiSearchResultListener() {
@@ -386,14 +387,13 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
                 //获取POI检索结果
                 poiInfos = (ArrayList<PoiInfo>) result.getAllPoi();
                 adapter.mdatas = poiInfos;
-                if(adapter.mdatas!=null&&adapter.mdatas.size()>0) {
+                if (adapter.mdatas != null && adapter.mdatas.size() > 0) {
                     rv_addresslist.setVisibility(View.VISIBLE);
                     adapter.notifyDataSetChanged();
-                }else if(adapter.mdatas!=null&&adapter.mdatas.size()==0){
+                } else if (adapter.mdatas != null && adapter.mdatas.size() == 0) {
                     adapter.notifyDataSetChanged();
                     rv_addresslist.setVisibility(View.GONE);
                 }
-
 
 
 //                if(poiInfos!=null&&poiInfos.size()>1) {
@@ -413,18 +413,17 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
                 if (result.error != SearchResult.ERRORNO.NO_ERROR) {
                     //详情检索失败
                     // result.error请参考SearchResult.ERRORNO
-                }
-                else {
+                } else {
                     //检索成功
                     //获取Place详情页检索结果
-                    PoiInfo poiInfoBean=new PoiInfo();
-                    poiInfoBean.name=result.name;
-                    poiInfoBean.address=result.address;
-                    poiInfoBean.location=result.location;
+                    PoiInfo poiInfoBean = new PoiInfo();
+                    poiInfoBean.name = result.name;
+                    poiInfoBean.address = result.address;
+                    poiInfoBean.location = result.location;
                     poiInfos.add(poiInfoBean);
 
                 }
-                if(wait_search==0){
+                if (wait_search == 0) {
                     adapter.mdatas = poiInfos;
                     adapter.notifyDataSetChanged();
                 }
@@ -452,9 +451,9 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
                     return;
                     //未找到相关结果
                 }
-                List<SuggestionResult.SuggestionInfo> lists= res.getAllSuggestions();
-                for(SuggestionResult.SuggestionInfo bean:lists){
-                    if(bean.pt!=null) {
+                List<SuggestionResult.SuggestionInfo> lists = res.getAllSuggestions();
+                for (SuggestionResult.SuggestionInfo bean : lists) {
+                    if (bean.pt != null) {
                         //uid是POI检索中获取的POI ID信息
                         mPoiSearch.searchPoiDetail((new PoiDetailSearchOption()).poiUid(bean.uid));
                         wait_search++;
@@ -490,7 +489,7 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
 
     }
 
-    public static int wait_search=0;
+    public static int wait_search = 0;
 
 
     //宠物信息更新
@@ -499,7 +498,7 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
         final LatLng position = new LatLng(event.latitude, event.longitude);
         MapLocationParser.queryLocationDesc(position, new addressParseListener() {
             @Override
-            public void onAddressparsed(String address,ReverseGeoCodeResult result) {
+            public void onAddressparsed(String address, ReverseGeoCodeResult result) {
 //                        Log.e("longtianlove","位置"+address);
                 tv_location.setText(address);
                 poiInfos = (ArrayList<PoiInfo>) result.getPoiList();
@@ -542,7 +541,7 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
 //        Log.e("longtianlove-point","width:"+(mMapView.getWidth() / 2)+"height:"+mMapView.getHeight() /2);
         if (isFirst) {
             HomelocationInstance.getInstance().setHomeCenter();
-            isFirst=false;
+            isFirst = false;
         }
     }
 

@@ -204,7 +204,7 @@
                     android:id="@+id/iv_location"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginBottom="60dp"></com.taisheng.now.map.MapPetAtHomeView>
+                    android:layout_marginBottom="10dp"></com.taisheng.now.map.MapPetAtHomeView>
             </LinearLayout>
 
             <!--        <ImageView-->

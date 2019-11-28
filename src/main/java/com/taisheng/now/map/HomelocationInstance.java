@@ -169,8 +169,8 @@ public class HomelocationInstance implements BDLocationListener {
     public void onReceiveLocation(BDLocation bdLocation) {
         city=bdLocation.getCity();
         Log.e("longtianlove海拔",bdLocation.getAltitude()+"");
-//        phoneLatitude = bdLocation.getLatitude();
-//        phoneLongitude = bdLocation.getLongitude();
+        phoneLatitude = bdLocation.getLatitude();
+        phoneLongitude = bdLocation.getLongitude();
         EventManage.bindingLocationChanged event=new EventManage.bindingLocationChanged();
         event.latitude=phoneLatitude;
         event.longitude=phoneLongitude;
@@ -192,6 +192,24 @@ public class HomelocationInstance implements BDLocationListener {
         mBaiduMap.addOverlay(mCircleOptions);
 //        mBaiduMap.addOverlay(mCircleOptions1);
         stopLocListener();
+    }
+
+
+    public void refreshMap(){
+        mBaiduMap.clear();
+        mCircleOptions = new CircleOptions()
+                .center(new LatLng(phoneLatitude,phoneLongitude)) // 圆心坐标
+                .radius((int) radius) // 半径 单位 米
+                .visible(true)
+//                .stroke(new Stroke(2, Color.parseColor("#ffffff"))) // 设置边框 Stroke 参数 宽度单位像素默认5px 颜色
+                .fillColor(Color.parseColor("#1B2e68AA")); // 设置圆的填充颜色
+//        mCircleOptions1 = new CircleOptions()
+//                .center(new LatLng(phoneLatitude,phoneLongitude)) // 圆心坐标
+//                .radius((int) 2) // 半径 单位 米
+//                .visible(true)
+////                .stroke(new Stroke(2, Color.parseColor("#ffffff"))) // 设置边框 Stroke 参数 宽度单位像素默认5px 颜色
+//                .fillColor(Color.parseColor("#4769e7")); // 设置圆的填充颜色
+        mBaiduMap.addOverlay(mCircleOptions);
     }
 
 
