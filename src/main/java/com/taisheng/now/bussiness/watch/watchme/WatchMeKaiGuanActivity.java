@@ -164,7 +164,6 @@ public class WatchMeKaiGuanActivity extends BaseActivity implements ActivityComp
         ll_kaiguan_miandarao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo 设置免打扰时间段
                 Intent intent=new Intent(WatchMeKaiGuanActivity.this,WatchMeMiandaraoActivity.class);
                 startActivity(intent);
             }
