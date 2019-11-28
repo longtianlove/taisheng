@@ -279,10 +279,10 @@ public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.O
 //                    }
 //                }
             }
-            Toast.makeText(this, "Setting Success", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "设置成功", Toast.LENGTH_LONG).show();
             finish();
         } else {
-            Toast.makeText(this, "Please Choose Time", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "请选择时间", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -333,12 +333,12 @@ public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.O
                         fp.dismiss();
                         break;
                     case 8:
-                        tv_repeat_value.setText("Every Day");
+                        tv_repeat_value.setText("每天");
                         cycle = 0;
                         fp.dismiss();
                         break;
                     case 9:
-                        tv_repeat_value.setText("Once");
+                        tv_repeat_value.setText("一次");
                         cycle = -1;
                         fp.dismiss();
                         break;
@@ -389,63 +389,65 @@ public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.O
         String cycle = "";
         String weeks = "";
         if (repeat == 0) {
-            repeat = 127;
+//            repeat = 127;
+            cycle="每天";
+            return cycle;
         }
         if (repeat % 2 == 1) {
-            cycle = "Mon";
+            cycle = "星期一";
             weeks = "1";
         }
         if (repeat % 4 >= 2) {
             if ("".equals(cycle)) {
-                cycle = "Tue";
+                cycle = "星期二";
                 weeks = "2";
             } else {
-                cycle = cycle + "," + "Tue";
+                cycle = cycle + "," + "星期二";
                 weeks = weeks + "," + "2";
             }
         }
         if (repeat % 8 >= 4) {
             if ("".equals(cycle)) {
-                cycle = "Wed";
+                cycle = "星期三";
                 weeks = "3";
             } else {
-                cycle = cycle + "," + "Wed";
+                cycle = cycle + "," + "星期三";
                 weeks = weeks + "," + "3";
             }
         }
         if (repeat % 16 >= 8) {
             if ("".equals(cycle)) {
-                cycle = "Thu";
+                cycle = "星期四";
                 weeks = "4";
             } else {
-                cycle = cycle + "," + "Thu";
+                cycle = cycle + "," + "星期四";
                 weeks = weeks + "," + "4";
             }
         }
         if (repeat % 32 >= 16) {
             if ("".equals(cycle)) {
-                cycle = "Fri";
+                cycle = "星期五";
                 weeks = "5";
             } else {
-                cycle = cycle + "," + "Fri";
+                cycle = cycle + "," + "星期五";
                 weeks = weeks + "," + "5";
             }
         }
         if (repeat % 64 >= 32) {
             if ("".equals(cycle)) {
-                cycle = "Sat";
+                cycle = "星期六";
                 weeks = "6";
             } else {
-                cycle = cycle + "," + "Sat";
+                cycle = cycle + "," + "星期六";
                 weeks = weeks + "," + "6";
             }
         }
         if (repeat / 64 == 1) {
             if ("".equals(cycle)) {
-                cycle = "Sun";
+                cycle = "星期日";
                 weeks = "7";
             } else {
-                cycle = cycle + "," + "Sun";
+                cycle = cycle + "," + "星期日";
                 weeks = weeks + "," + "7";
             }
         }

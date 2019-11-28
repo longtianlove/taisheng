@@ -60,13 +60,13 @@
                 android:id="@+id/date_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/bg_item_alarm"
                 android:gravity="center"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:text="选择时间"
                 android:textColor="#fff"
                 android:textSize="25sp" />
@@ -152,34 +152,34 @@
                 android:layout_height="1dp"
                 android:background="@color/line_and_outline_grey" />
 
+
+            <RelativeLayout
+                android:id="@+id/rl_beizu"
+                style="@style/item_style">
+
+                <TextView
+                    android:id="@+id/tv_beizu"
+                    style="@style/item_text_style"
+                    android:layout_alignParentLeft="true"
+                    android:text="备注" />
+
+                <EditText
+                    android:id="@+id/et_beizu"
+                    style="@style/item_text_style"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/tv_beizu"
+                    android:hint="输入备注"
+                    android:background="@null">
+
+                </EditText>
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_and_outline_grey" />
+
         </LinearLayout>
-
-
-        <!--        <Button-->
-        <!--            android:id="@+id/cancel_btn"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_alignParentBottom="true"-->
-        <!--            android:layout_gravity="center_horizontal"-->
-        <!--            android:layout_marginLeft="10dp"-->
-        <!--            android:layout_marginTop="10dp"-->
-        <!--            android:layout_marginRight="10dp"-->
-        <!--            android:layout_marginBottom="10dp"-->
-        <!--            android:background="@drawable/bg_dialog_btn"-->
-        <!--            android:text="Cancel"-->
-        <!--            android:textColor="@color/white" />-->
-
-        <!--        <Button-->
-        <!--            android:id="@+id/set_btn"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_above="@id/cancel_btn"-->
-        <!--            android:layout_marginLeft="10dp"-->
-        <!--            android:layout_marginTop="20dp"-->
-        <!--            android:layout_marginRight="10dp"-->
-        <!--            android:background="@drawable/bg_confirm_btn"-->
-        <!--            android:text="Save"-->
-        <!--            android:textColor="@color/white" />-->
 
 
         <TextView
