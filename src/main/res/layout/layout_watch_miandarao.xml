@@ -44,8 +44,8 @@
         android:background="#f8f8f8" />
 
 
-    <RelativeLayout
-        android:id="@+id/all_layout"
+    <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#fff"
@@ -88,13 +88,6 @@
                 android:textColor="#fff"
                 android:textSize="25sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/line_and_outline_grey" />
 
 
 
@@ -108,9 +101,9 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="60dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="100dp"
+
 
             android:background="@drawable/xinzhengdizhi_button"
             android:gravity="center"
@@ -127,13 +120,12 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="40dp"
             android:background="@drawable/naozhongcancel_button"
             android:gravity="center"
             android:text="取消"
             android:textColor="#ff999999"
             android:textSize="13sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </LinearLayout>
