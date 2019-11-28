@@ -40,8 +40,6 @@ public class JibuFragment extends BaseFragment {
 
 
     private LineChart mChart;
-    private LineDataSet set;
-    private LineDataSet set1;
 
     void initView(View rootView) {
 

@@ -101,7 +101,27 @@ import retrofit2.http.Part;
  * Created by long
  */
 public interface ApiService {
+    /**
+     * 手表接口
+     */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+    App接口
+     */
     //登录
     @POST(Constants.Url.User.applogin)
     Call<BaseBean<LoginResultBean>> applogin(@Body LoginPostBean loginPostBean);
@@ -342,15 +362,13 @@ public interface ApiService {
     @POST(Constants.Url.ShangCheng.addgouwuche)
     Call<BaseBean> addgouwuche(@Body AddgouwuchePostBean bean);
 
-//    public static final String updateCartNumber="jeecg-boot/app/mall/cart/updateCartNumber";
+    //    public static final String updateCartNumber="jeecg-boot/app/mall/cart/updateCartNumber";
     @POST(Constants.Url.ShangCheng.updateCartNumber)
-    Call<BaseBean>  updateCartNumber(@Body UpdateCartNumberPostBean bean);
+    Call<BaseBean> updateCartNumber(@Body UpdateCartNumberPostBean bean);
 
 
     @POST(Constants.Url.ShangCheng.fastBuyCheckNumbe)
-    Call<BaseBean>  fastBuyCheckNumbe(@Body UpdateCartNumberPostBean bean);
-
-
+    Call<BaseBean> fastBuyCheckNumbe(@Body UpdateCartNumberPostBean bean);
 
 
     @POST(Constants.Url.ShangCheng.cartDelete)
@@ -374,10 +392,10 @@ public interface ApiService {
     Call<BaseBean> addressAdd(@Body AddDizhiPostBean bean);
 
 
-    public static final String addressDelete="jeecg-boot/app/mall/address/delete";
+    public static final String addressDelete = "jeecg-boot/app/mall/address/delete";
+
     @POST(Constants.Url.ShangCheng.addressDelete)
     Call<BaseBean> addressDelete(@Body DeleteDizhiPostBean bean);
-
 
 
     //    public static final String updateAddressById = "jeecg-boot/app/mall/address/updateAddressById";
@@ -415,10 +433,8 @@ public interface ApiService {
     Call<BaseBean<WechatResultBean>> weChatPay(@Body WexinZhifuPostBean bean);
 
 
-
     @POST(Constants.Url.ShangCheng.orderDetail)
     Call<BaseBean<DingdanxiangqingResultBean>> orderDetail(@Body OrderxiangqingPostBean bean);
-
 
 
     @POST(Constants.Url.ShangCheng.orderConfirmReceiveGoods)

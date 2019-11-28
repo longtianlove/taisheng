@@ -39,8 +39,6 @@ public class XinlvFragment extends BaseFragment {
 
 
     private LineChart mChart;
-    private LineDataSet set;
-    private LineDataSet set1;
 
     void initView(View rootView) {
         this.mChart = (LineChart) rootView.findViewById(R.id.chart);
