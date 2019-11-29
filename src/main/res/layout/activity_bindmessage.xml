@@ -223,7 +223,7 @@
             android:background="@drawable/jiechubangding_background"
             android:enabled="true"
             android:gravity="center"
-            android:text="解除绑定"
+            android:text="绑定设备"
             android:textColor="@color/white"
             android:textSize="14sp"></TextView>
         </LinearLayout>
