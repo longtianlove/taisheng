@@ -72,9 +72,7 @@ public class Constants {
 //        public static String WEB_SOCKET_URL = "ws://49.234.71.11:8879";
 
 
-
-
-                public static String Host = "http://192.168.1.18:8080/";
+        public static String Host = "http://192.168.1.18:8080/";
         public static String File_Host = "http://192.168.1.18:8888/";
         public static String WEB_SOCKET_URL = "ws://192.168.1.18:8879";
 
@@ -82,6 +80,14 @@ public class Constants {
 //        public static String Host = "http://192.168.1.17:8080/";
 //        public static String File_Host = "http://192.168.1.17:8080/jeecg-boot/";
 //        public static String WEB_SOCKET_URL = "ws://192.168.1.17:8879";
+
+
+        public static class Watch {
+            //            绑定设备  deviceBinding
+            public static final String deviceBinding = "jeecg-boot/app/watchDevice/deviceBinding";
+
+
+        }
 
 
         //用户相关
@@ -297,10 +303,10 @@ public class Constants {
             public static final String cainixihuan = "jeecg-boot/app/mall/goods/hot/like/list";
             //添加到购物车
             public static final String addgouwuche = "jeecg-boot/app/mall/cart/add";
-//            【更改购物车中的数量】
-            public static final String updateCartNumber="jeecg-boot/app/mall/cart/updateCartNumber";
+            //            【更改购物车中的数量】
+            public static final String updateCartNumber = "jeecg-boot/app/mall/cart/updateCartNumber";
             //            【立即购买中的数量】
-            public static final String fastBuyCheckNumbe="jeecg-boot/app/mall/cart/fastBuyCheckNumber";
+            public static final String fastBuyCheckNumbe = "jeecg-boot/app/mall/cart/fastBuyCheckNumber";
             //从购物车删除
             public static final String cartDelete = "jeecg-boot/app/mall/cart/delete";
 
@@ -310,8 +316,8 @@ public class Constants {
             public static final String addressList = "jeecg-boot/app/mall/address/list";
             //添加地址
             public static final String addressAdd = "jeecg-boot/app/mall/address/add";
-//            删除用户收货地址
-            public static final String addressDelete="jeecg-boot/app/mall/address/delete";
+            //            删除用户收货地址
+            public static final String addressDelete = "jeecg-boot/app/mall/address/delete";
             //            用户收货地址接口-编辑收货地址
             public static final String updateAddressById = "jeecg-boot/app/mall/address/updateAddressById";
 

@@ -14,4 +14,7 @@ public class WatchInstance {
         }
         return watchInstance;
     }
+
+
+    public String preDeviceNumber = "";
 }

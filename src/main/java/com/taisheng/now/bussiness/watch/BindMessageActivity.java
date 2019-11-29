@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,10 +47,11 @@ import java.io.File;
 
 public class BindMessageActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     ImageView iv_back;
+    TextView tv_device_bianhao;
     View ll_nickname;
     View ll_avatar;
 
-    TextView tv_nickname;
+    EditText tv_nickname;
     TextView tv_zhanghao;
     TextView tv_phone;
 
@@ -75,6 +77,10 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
                 finish();
             }
         });
+        tv_device_bianhao=findViewById(R.id.tv_device_bianhao);
+        tv_device_bianhao.setText(WatchInstance.getInstance().preDeviceNumber);
+
+
         ll_avatar = findViewById(R.id.ll_avatar);
         ll_avatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +104,7 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
         });
 
 
-        tv_nickname = (TextView) findViewById(R.id.tv_nickname);
+        tv_nickname = findViewById(R.id.tv_nickname);
 
         tv_zhanghao = (TextView) findViewById(R.id.tv_zhanghao);
 

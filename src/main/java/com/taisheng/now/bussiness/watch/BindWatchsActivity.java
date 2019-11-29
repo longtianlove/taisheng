@@ -42,7 +42,7 @@ public class BindWatchsActivity extends BaseActivity {
             }
         });
 
-        tv_adddevice=findViewById(R.id.tv_adddevice);
+        tv_adddevice = findViewById(R.id.tv_adddevice);
         tv_adddevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +55,6 @@ public class BindWatchsActivity extends BaseActivity {
     }
 
 
-
     public static final int REQUEST_SWEEP_CODE = 0;
 
     @Override
@@ -65,7 +64,6 @@ public class BindWatchsActivity extends BaseActivity {
             parseSweepResult(data);
         }
     }
-
 
 
     private void parseSweepResult(Intent data) {
@@ -85,6 +83,11 @@ public class BindWatchsActivity extends BaseActivity {
 //            } else {
 //                showToast("IMEI码错误，请正确扫码！");
 //            }
+
+
+            WatchInstance.getInstance().preDeviceNumber = Imei;
+            Intent intent = new Intent(BindWatchsActivity.this, BindMessageActivity.class);
+            startActivity(intent);
 
         }
     }

@@ -87,6 +87,7 @@ import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
 import com.taisheng.now.bussiness.bean.result.market.OrderListResultBean;
 import com.taisheng.now.bussiness.bean.result.market.ShangPinResultBeann;
 
+import com.taisheng.now.bussiness.watch.bean.post.BindDevicePostBean;
 import com.taisheng.now.test.WechatResultBean;
 
 
@@ -104,19 +105,9 @@ public interface ApiService {
     /**
      * 手表接口
      */
-
-
-
-
-
-
-
-
-
-
-
-
-
+//  绑定设备  deviceBinding
+    @POST(Constants.Url.Watch.deviceBinding)
+    Call<BaseBean> deviceBinding(@Body BindDevicePostBean bean);
 
 
     /*
