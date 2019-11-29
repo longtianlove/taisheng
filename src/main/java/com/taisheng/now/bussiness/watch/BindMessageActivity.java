@@ -62,7 +62,7 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_watchmemessage);
+        setContentView(R.layout.activity_bindmessage);
         initView();
         EventBus.getDefault().register(this);
     }

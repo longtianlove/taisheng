@@ -29,7 +29,7 @@ public class BindWatchsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bindmessage);
+        setContentView(R.layout.activity_bindwatchs);
         initView();
     }
 
