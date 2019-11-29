@@ -29,7 +29,7 @@ public class BindWatchsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bindwatchs);
+        setContentView(R.layout.activity_bindmessage);
         initView();
     }
 
@@ -85,6 +85,7 @@ public class BindWatchsActivity extends BaseActivity {
 //            } else {
 //                showToast("IMEI码错误，请正确扫码！");
 //            }
+
         }
     }
 
