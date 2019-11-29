@@ -15,6 +15,7 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.utils.CoordinateConverter;
 import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.SampleApplication;
 
@@ -84,6 +85,7 @@ public class NewMapInstance extends BDAbstractLocationListener {
     LatLng commonphoneLatlng;
     BitmapDescriptor phonebitmapDescriptor;
     Marker mPhoneMarker;
+
     /**
      * 初始化手机位置地图标识
      */
@@ -223,5 +225,19 @@ public class NewMapInstance extends BDAbstractLocationListener {
     private void setCenter(LatLng centerPoint, int delayMills) {
         MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newLatLng(centerPoint);
         mBaiduMap.animateMapStatus(mapStatusUpdate, delayMills);
+    }
+
+
+    //    将GPS设备采集的原始GPS坐标转换成百度坐标
+    //初始化坐标转换工具类，指定源坐标类型和坐标数据
+    // sourceLatLng待转换坐标
+    public static LatLng converterLatLng(LatLng sourceLatLng) {
+        CoordinateConverter converter = new CoordinateConverter()
+                .from(CoordinateConverter.CoordType.GPS)
+                .coord(sourceLatLng);
+
+//desLatLng 转换后的坐标
+        LatLng desLatLng = converter.convert();
+        return desLatLng;
     }
 }
