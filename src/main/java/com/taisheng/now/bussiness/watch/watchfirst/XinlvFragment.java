@@ -17,6 +17,7 @@ import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.bussiness.watch.WatchInstance;
 import com.taisheng.now.bussiness.watch.bean.post.ShishiCollectionBean;
 import com.taisheng.now.bussiness.watch.bean.result.ShiShiCollecgtionResultBean;
+import com.taisheng.now.bussiness.watch.bean.result.XinLvResultBean;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.veken.chartview.bean.ChartBean;
@@ -52,16 +53,9 @@ public class XinlvFragment extends BaseFragment {
     private LineChart mChart;
 
     void initView(View rootView) {
-        tv_xinlv=rootView.findViewById(R.id.tv_xinlv);
+        tv_xinlv = rootView.findViewById(R.id.tv_xinlv);
         this.mChart = (LineChart) rootView.findViewById(R.id.chart);
-        list.clear();
-        for (int i = 0; i < 10; i++) {
-            list.add(new Entry(i, (float) (Math.random() * 80)));
-        }
 
-
-        //直接调用即可
-        LineChartUtils lineChartUtils = new LineChartUtils(list, mChart);
     }
 
 
@@ -78,10 +72,6 @@ public class XinlvFragment extends BaseFragment {
             public void onSuccess(Response<BaseBean<ShiShiCollecgtionResultBean>> response, BaseBean<ShiShiCollecgtionResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-//                        public String watchBpxyHigh;
-//                        public String watchBpxyLow;
-//                        public String stepNum;
-//                        public String watchHeart;
                         WatchInstance.getInstance().watchBpxyHigh = message.result.watchBpxyHigh;
                         WatchInstance.getInstance().watchBpxyLow = message.result.watchBpxyLow;
                         WatchInstance.getInstance().stepNum = message.result.stepNum;
@@ -93,6 +83,32 @@ public class XinlvFragment extends BaseFragment {
 
             @Override
             public void onFail(Call<BaseBean<ShiShiCollecgtionResultBean>> call, Throwable t) {
+
+            }
+        });
+
+        ApiUtils.getApiService().querythedayheart(bean).enqueue(new TaiShengCallback<BaseBean<ArrayList<XinLvResultBean>>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<ArrayList<XinLvResultBean>>> response, BaseBean<ArrayList<XinLvResultBean>> message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        if (message.result != null && message.result.size() > 0) {
+                            list.clear();
+                            for (int i = 0; i < message.result.size(); i++) {
+                                list.add(new Entry(i, message.result.get(i).heartNum));
+//直接调用即可
+                                LineChartUtils lineChartUtils = new LineChartUtils(list, mChart, "#FF2C58", "心率");
+
+                            }
+                        }
+
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<ArrayList<XinLvResultBean>>> call, Throwable t) {
 
             }
         });

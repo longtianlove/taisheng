@@ -95,6 +95,11 @@ public class Constants {
             //            APP-获取血压、心率、步数的实时数据
             public static final String getcollection = "jeecg-boot/app/watch/getcollection";
 
+            //            APP-获取血压日统计量
+            public static final String querythedaybpxy = "jeecg-boot/app/watch/querythedaybpxy";
+
+            //获取心率日统计量
+            public static final String querythedayheart = "jeecg-boot/app/watch/querythedayheart";
 
         }
 

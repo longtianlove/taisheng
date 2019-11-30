@@ -38,16 +38,19 @@ public class LineChartUtils {
         setData(list1,list2);
     }
 
-    public LineChartUtils(ArrayList<Entry> list1 ,LineChart lineChart) {
+    public LineChartUtils(ArrayList<Entry> list1 ,LineChart lineChart,String line1Color,String lineString) {
         this.list1=list1;
 //        this.list2=list2;
 //        this.list3=list3;
         this.lineChart=lineChart;
+        this.lineString=lineString;
+        this.line1Color=line1Color;
         setData(list1);
     }
+    String lineString="心率";
     private void setData(ArrayList<Entry> list1) {
         XwangGe();
-        set = new LineDataSet(list1, "瞬时流量");
+        set = new LineDataSet(list1, lineString);
         setLine(set);
 //        set1 = new LineDataSet(list2, "功率");
 //        setLine2(set1);
@@ -74,9 +77,9 @@ public class LineChartUtils {
 
     private void setData(ArrayList<Entry> list1,ArrayList<Entry> list2) {
         XwangGe();
-        set = new LineDataSet(list1, "瞬时流量");
+        set = new LineDataSet(list1, "高压");
         setLine(set);
-        set1 = new LineDataSet(list2, "功率");
+        set1 = new LineDataSet(list2, "低压");
         setLine2(set1);
 //        set2 = new LineDataSet(list3, "过程点折水系数");
 //        setLine3(set2);
@@ -122,17 +125,20 @@ public class LineChartUtils {
 
 
     }
+
+    String line1Color="#44BF4C";
+
     private void setLine(LineDataSet set) {
 
         //设置线条的颜色
-        set.setColor(Color.parseColor("#D4716E"));
+        set.setColor(Color.parseColor(line1Color));
         //虚线模式下绘制直线
         //set.enableDashedLine(20f, 5f, 0f);
         //点击后高亮线的显示颜色
         //set.enableDashedHighlightLine(50f, 15f, 0f);
 
         //设置数据小圆点的颜色
-        set.setCircleColor(Color.parseColor("#D4716E"));
+        set.setCircleColor(Color.parseColor(line1Color));
         //设置圆点是否有空心
         set.setDrawCircles(true);
         //设置线条的宽度，最大10f,最小0.2f
@@ -154,9 +160,10 @@ public class LineChartUtils {
 
 
     }
+    String line2Color="#FF9D3C";
     private void setLine2(LineDataSet set) {
         //设置线条的颜色
-        set.setColor(Color.parseColor("#6D7C87"));
+        set.setColor(Color.parseColor(line2Color));
         //虚线模式下绘制直线
         //set.enableDashedLine(20f, 5f, 0f);
         //点击后高亮线的显示颜色
@@ -165,7 +172,7 @@ public class LineChartUtils {
         //set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 
         //设置数据小圆点的颜色
-        set.setCircleColor(Color.parseColor("#6D7C87"));
+        set.setCircleColor(Color.parseColor(line2Color));
         //设置圆点是否有空心
         set.setDrawCircles(true);
         //设置线条的宽度，最大10f,最小0.2f

@@ -174,7 +174,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
                         android:gravity="center"
-                        android:text="周统计"
+                        android:text="日统计"
                         android:textColor="#ff333333"
                         android:textSize="13sp"
                         android:textStyle="bold" />
@@ -207,6 +207,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="400dp" />
             </LinearLayout>
+
+
+
+
+
         </LinearLayout>
     </ScrollView>
 

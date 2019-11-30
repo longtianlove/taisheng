@@ -17,6 +17,7 @@ import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.bussiness.watch.WatchInstance;
 import com.taisheng.now.bussiness.watch.bean.post.ShishiCollectionBean;
 import com.taisheng.now.bussiness.watch.bean.result.ShiShiCollecgtionResultBean;
+import com.taisheng.now.bussiness.watch.bean.result.XueYaDayResultBean;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.veken.chartview.bean.ChartBean;
@@ -63,18 +64,7 @@ public class XueyaFragment extends BaseFragment {
         tv_diya = rootView.findViewById(R.id.tv_diya);
 
         this.mChart = (LineChart) rootView.findViewById(R.id.chart);
-        list.clear();
-        list1.clear();
-        for (int i = 0; i < 10; i++) {
-            list.add(new Entry(i, (float) (Math.random() * 80)));
-        }
-        for (int i = 0; i < 10; i++) {
-            list1.add(new Entry(i, (float) (Math.random() * 40)));
-        }
 
-
-        //直接调用即可
-        LineChartUtils lineChartUtils = new LineChartUtils(list, list1, mChart);
 
     }
 
@@ -86,7 +76,7 @@ public class XueyaFragment extends BaseFragment {
         bean.token = UserInstance.getInstance().getToken();
         //todo 暂时写死
 //        bean.clientId = WatchInstance.getInstance().deviceId;
-                bean.clientId ="9613050381";
+        bean.clientId = "9613050381";
 
         ApiUtils.getApiService().getcollection(bean).enqueue(new TaiShengCallback<BaseBean<ShiShiCollecgtionResultBean>>() {
             @Override
@@ -111,6 +101,38 @@ public class XueyaFragment extends BaseFragment {
 
             @Override
             public void onFail(Call<BaseBean<ShiShiCollecgtionResultBean>> call, Throwable t) {
+
+            }
+        });
+
+
+        ApiUtils.getApiService().querythedaybpxy(bean).enqueue(new TaiShengCallback<BaseBean<ArrayList<XueYaDayResultBean>>>() {
+            @Override
+            public void onSuccess(Response<BaseBean<ArrayList<XueYaDayResultBean>>> response, BaseBean<ArrayList<XueYaDayResultBean>> message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+                        if (message.result != null && message.result.size() > 0) {
+                            list.clear();
+                            list1.clear();
+                            for (int i = 0; i < message.result.size(); i++) {
+                                list.add(new Entry(i, message.result.get(i).bpxyHigh));
+                                list1.add(new Entry(i, message.result.get(i).bpxyLow));
+
+                            }
+//                            for (int i = 0; i < 10; i++) {
+//                                list1.add(new Entry(i, (float) (Math.random() * 40)));
+//                            }
+
+
+                            //直接调用即可
+                            LineChartUtils lineChartUtils = new LineChartUtils(list, list1, mChart);
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<ArrayList<XueYaDayResultBean>>> call, Throwable t) {
 
             }
         });

@@ -91,6 +91,8 @@ import com.taisheng.now.bussiness.watch.bean.post.BindDevicePostBean;
 import com.taisheng.now.bussiness.watch.bean.post.ShishiCollectionBean;
 import com.taisheng.now.bussiness.watch.bean.result.ShiShiCollecgtionResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.WatchListBean;
+import com.taisheng.now.bussiness.watch.bean.result.XinLvResultBean;
+import com.taisheng.now.bussiness.watch.bean.result.XueYaDayResultBean;
 import com.taisheng.now.test.WechatResultBean;
 
 
@@ -123,6 +125,14 @@ public interface ApiService {
     //            APP-获取血压、心率、步数的实时数据
     @POST(Constants.Url.Watch.getcollection)
     Call<BaseBean<ShiShiCollecgtionResultBean>> getcollection(@Body ShishiCollectionBean bean);
+
+
+    @POST(Constants.Url.Watch.querythedaybpxy)
+    Call<BaseBean<ArrayList<XueYaDayResultBean>>> querythedaybpxy(@Body ShishiCollectionBean bean);
+
+
+    @POST(Constants.Url.Watch.querythedayheart)
+Call<BaseBean<ArrayList<XinLvResultBean>>> querythedayheart(@Body ShishiCollectionBean bean );
 
     /*
     App接口

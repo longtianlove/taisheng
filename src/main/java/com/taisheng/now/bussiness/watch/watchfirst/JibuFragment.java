@@ -71,7 +71,7 @@ public class JibuFragment extends BaseFragment {
 
 
         //直接调用即可
-        LineChartUtils lineChartUtils = new LineChartUtils(list, mChart);
+        LineChartUtils lineChartUtils = new LineChartUtils(list, mChart,"#529FFB","步数");
     }
 
 
