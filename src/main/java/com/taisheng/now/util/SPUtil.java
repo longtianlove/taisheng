@@ -51,6 +51,8 @@ public class SPUtil {
     public static final String ZHANGHAO = "zhanghao";
 
     //头像
+    public static final String WATCH_AVATAR = "watch_avatar";
+    //头像
     public static final String AVATAR = "avatar";
 
     //血型
@@ -158,6 +160,15 @@ public class SPUtil {
 
     public static void putAVATAR(String value) {
         putString(AVATAR, value);
+    }
+
+
+    public static String getWatchAVATAR() {
+        return getString(WATCH_AVATAR);
+    }
+
+    public static void putWatchAVATAR(String value) {
+        putString(WATCH_AVATAR, value);
     }
 
     public static String getBLOODTYPE(){

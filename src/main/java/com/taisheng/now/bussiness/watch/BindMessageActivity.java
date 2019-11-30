@@ -9,6 +9,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -27,10 +30,14 @@ import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
 import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.me.SelectAvatarSourceDialog;
 import com.taisheng.now.bussiness.me.UpdateNickActivity;
 import com.taisheng.now.bussiness.user.LoginActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.bussiness.watch.bean.post.BindDevicePostBean;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.push.XMPushManagerInstance;
 import com.taisheng.now.view.AppDialog;
 import com.taisheng.now.view.crop.Crop;
@@ -41,19 +48,26 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 
+import retrofit2.Call;
+import retrofit2.Response;
+
 /**
  * Created by dragon on 2019/6/29.
  */
 
 public class BindMessageActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     ImageView iv_back;
+
+
+    EditText et_relative;
     TextView tv_device_bianhao;
     View ll_nickname;
     View ll_avatar;
 
-    EditText tv_nickname;
-    TextView tv_zhanghao;
-    TextView tv_phone;
+    EditText et_nickname;
+    EditText et_realname;
+    EditText et_idcard;
+    EditText et_phonenumber;
 
     TextView btn_post;
     SimpleDraweeView sdv_header;
@@ -77,7 +91,30 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
                 finish();
             }
         });
-        tv_device_bianhao=findViewById(R.id.tv_device_bianhao);
+        et_relative = findViewById(R.id.et_relative);
+        et_relative.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (check()) {
+                    btn_post.setEnabled(true);
+                } else {
+                    btn_post.setEnabled(false);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        tv_device_bianhao = findViewById(R.id.tv_device_bianhao);
         tv_device_bianhao.setText(WatchInstance.getInstance().preDeviceNumber);
 
 
@@ -90,42 +127,171 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
         });
         sdv_header = (SimpleDraweeView) findViewById(R.id.sdv_header);
 
-
-
-
-
         ll_nickname = findViewById(R.id.ll_nickname);
-        ll_nickname.setOnClickListener(new View.OnClickListener() {
+//        ll_nickname.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(BindMessageActivity.this, UpdateNickActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+
+
+        et_nickname = findViewById(R.id.et_nickname);
+        et_nickname.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BindMessageActivity.this, UpdateNickActivity.class);
-                startActivity(intent);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (check()) {
+                    btn_post.setEnabled(true);
+                } else {
+                    btn_post.setEnabled(false);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
+        et_realname = findViewById(R.id.et_realname);
+        et_realname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        tv_nickname = findViewById(R.id.tv_nickname);
+            }
 
-        tv_zhanghao = (TextView) findViewById(R.id.tv_zhanghao);
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (check()) {
+                    btn_post.setEnabled(true);
+                } else {
+                    btn_post.setEnabled(false);
 
-        tv_phone = (TextView) findViewById(R.id.tv_phone);
+                }
+            }
 
-        btn_post= (TextView) findViewById(R.id.btn_post);
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        et_idcard = findViewById(R.id.et_idcard);
+
+        et_idcard.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (check()) {
+                    btn_post.setEnabled(true);
+                } else {
+                    btn_post.setEnabled(false);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        et_phonenumber = findViewById(R.id.et_phonenumber);
+
+        et_phonenumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (check()) {
+                    btn_post.setEnabled(true);
+                } else {
+                    btn_post.setEnabled(false);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        btn_post = (TextView) findViewById(R.id.btn_post);
         btn_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 //                showGoRecommendDialog();
-                //todo 解除绑定
+                //todo 绑定设备
+                BindDevicePostBean bean = new BindDevicePostBean();
+                bean.userId = UserInstance.getInstance().getUid();
+                bean.token = UserInstance.getInstance().getToken();
+                bean.deviceType = 1 + "";
+                bean.deviceId = tv_device_bianhao.getText().toString();
+                bean.deviceNickName = et_nickname.getText().toString();
+                bean.relationShip=et_relative.getText().toString();
+                bean.headUrl=WatchInstance.getInstance().headUrl;
+                bean.realName=et_realname.getText().toString();
+                bean.idcard=et_idcard.getText().toString();
+                bean.phoneNumber=et_phonenumber.getText().toString();
+                ApiUtils.getApiService().deviceBinding(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
 
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean> call, Throwable t) {
+
+                    }
+                });
             }
         });
 
     }
 
 
-    public void modifyAvatar() {
+    boolean check() {
+        if (TextUtils.isEmpty(et_relative.getText())) {
+            return false;
+        }
+        if (TextUtils.isEmpty(et_nickname.getText())) {
+            return false;
+        }
+        if (TextUtils.isEmpty(et_realname.getText())) {
+            return false;
+        }
+        if (TextUtils.isEmpty(et_idcard.getText())) {
+            return false;
+        }
+        if (TextUtils.isEmpty(et_phonenumber.getText())) {
+            return false;
+        }
+        return true;
+    }
 
+
+    public void modifyAvatar() {
+        WatchInstance.getInstance().isWtch = true;
 
         Intent intent = new Intent(this, SelectAvatarSourceDialog.class);
         startActivityForResult(intent, REQ_CODE_PHOTO_SOURCE);
@@ -148,7 +314,7 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
             } else {
 
-                 permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
                 if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITEEXTRENAL_STOR);
@@ -156,20 +322,16 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        Uri contentUri=FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
+                        Uri contentUri = FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
                                 .getExternalStorageDirectory(), "temp.jpg"));
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT,contentUri);
-                    }else{
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+                    } else {
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment
                                 .getExternalStorageDirectory(), "temp.jpg")));
                     }
                     startActivityForResult(intent, REQ_CODE_GET_PHOTO_FROM_TAKEPHOTO);
                 }
             }
-
-
-
-
 
 
         }
@@ -179,12 +341,6 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
     public final static int REQUEST_CAMERA = 1;
 
     public final static int REQUEST_WRITEEXTRENAL_STOR = 2;
-
-
-
-
-
-
 
 
     @Override
@@ -203,10 +359,10 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                            Uri contentUri=FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
+                            Uri contentUri = FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
                                     .getExternalStorageDirectory(), "temp.jpg"));
-                            intent.putExtra(MediaStore.EXTRA_OUTPUT,contentUri);
-                        }else{
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+                        } else {
                             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment
                                     .getExternalStorageDirectory(), "temp.jpg")));
                         }
@@ -221,10 +377,10 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        Uri contentUri=FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider",new File(Environment
+                        Uri contentUri = FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
                                 .getExternalStorageDirectory(), "temp.jpg"));
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT,contentUri);
-                    }else{
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+                    } else {
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment
                                 .getExternalStorageDirectory(), "temp.jpg")));
                     }
@@ -239,31 +395,18 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
     }
 
 
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (UserInstance.getInstance().userInfo.avatar != null) {
-            Uri uri = Uri.parse(Constants.Url.File_Host+UserInstance.getInstance().userInfo.avatar);
-            sdv_header.setImageURI(uri);
-        }
-        tv_nickname.setText(UserInstance.getInstance().getNickname());
-        tv_zhanghao.setText(UserInstance.getInstance().getZhanghao());
-    }
-
     private void beginCrop(Uri source, Bundle bundle) {
         Uri destination = Uri.fromFile(new File(getCacheDir(), "Bcropped"));
         Crop.of(source, destination).asSquare().start(this, bundle);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 0)
-    public void uploadImageSuccess(EventManage.uploadImageSuccess event){
+    public void uploadImageSuccess(EventManage.uploadWatchImageSuccess event) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Uri source=FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider",new File(Environment
+            Uri source = FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
                     .getExternalStorageDirectory(), "temp.jpg"));
             getContentResolver().delete(source, null, null);
-        }else{
+        } else {
 
             File picture = new File(Environment.getExternalStorageDirectory()
                     , "temp.jpg");
@@ -298,9 +441,9 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
                 Uri source;
                 Bundle bundle = new Bundle();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                     source=FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider",new File(Environment
+                    source = FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
                             .getExternalStorageDirectory(), "temp.jpg"));
-                }else{
+                } else {
                     // 选择图片后进入裁剪
                     File picture = new File(Environment.getExternalStorageDirectory()
                             , "temp.jpg");
@@ -311,61 +454,20 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
                 }
 
 
-
                 beginCrop(source, bundle);
-
 
 
                 break;
 
             case Crop.REQUEST_CROP:
 //                modifyBean.logo_url = PetInfoInstance.getInstance().getPackBean().logo_url;
-                Uri uri = Uri.parse(Constants.Url.File_Host+UserInstance.getInstance().userInfo.avatar);
+                Uri uri = Uri.parse(Constants.Url.File_Host + UserInstance.getInstance().userInfo.avatar);
                 if (sdv_header == null) {
                     return;
                 }
                 sdv_header.setImageURI(uri);
                 break;
         }
-    }
-
-
-
-    public void showGoRecommendDialog() {
-        final Dialog dialog = new AppDialog(this, R.layout.dialog_logout, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, R.style.mystyle, Gravity.CENTER);
-        dialog.getWindow().setWindowAnimations(0);
-
-        Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
-        Button btn_go_recommend = (Button) dialog.findViewById(R.id.btn_go_recommend);
-
-
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-            }
-        });
-        btn_go_recommend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-
-                //注销小米账号
-                XMPushManagerInstance.getInstance().stop();
-                UserInstance.getInstance().clearUserInfo();
-                Intent intent = new Intent(SampleAppLike.mcontext, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                SampleAppLike.mcontext.startActivity(intent);
-            }
-        });
-
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
     }
 
 

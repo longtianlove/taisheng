@@ -46,6 +46,14 @@ public class EventManage {
         }
     }
 
+    //上传头像成功
+    public static class uploadWatchImageSuccess {
+        public String path;
+
+        public uploadWatchImageSuccess(String path) {
+            this.path = path;
+        }
+    }
 
 
     //收到消息

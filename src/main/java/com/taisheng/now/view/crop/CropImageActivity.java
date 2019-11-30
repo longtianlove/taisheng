@@ -46,6 +46,7 @@ import com.taisheng.now.bussiness.bean.result.UserInfo;
 import com.taisheng.now.bussiness.me.FillInMessageActivity;
 import com.taisheng.now.bussiness.me.FillInMessageSecondActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.bussiness.watch.WatchInstance;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.Apputil;
@@ -411,8 +412,14 @@ public class CropImageActivity extends MonitoredActivity implements CropImageVie
 
 
         DialogUtil.showProgress(this, "");
-        // 上传头像
-        UserInstance.getInstance().uploadImage(clipImagePath);
+
+        if(WatchInstance.getInstance().isWtch){
+            WatchInstance.getInstance().uploadImage(clipImagePath);
+        }else{
+            // 上传头像
+            UserInstance.getInstance().uploadImage(clipImagePath);
+        }
+
 //        if(PetInfoInstance.getInstance().isnewAdd){
 //            NewPetInfoInstance.getInstance().uploadImage(clipImagePath);
 //        }else {
