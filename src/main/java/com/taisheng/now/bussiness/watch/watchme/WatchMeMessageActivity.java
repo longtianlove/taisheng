@@ -31,6 +31,7 @@ import com.taisheng.now.bussiness.me.UpdateNickActivity;
 import com.taisheng.now.bussiness.me.UpdatePasswordFirstActivity;
 import com.taisheng.now.bussiness.user.LoginActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.bussiness.watch.WatchInstance;
 import com.taisheng.now.push.XMPushManagerInstance;
 import com.taisheng.now.view.AppDialog;
 import com.taisheng.now.view.crop.Crop;
@@ -47,18 +48,21 @@ import java.io.File;
 
 public class WatchMeMessageActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     ImageView iv_back;
-    View ll_nickname;
     View ll_avatar;
-
-    TextView tv_nickname;
-    TextView tv_zhanghao;
-    TextView tv_phone;
-
-    TextView btn_post;
     SimpleDraweeView sdv_header;
+    TextView tv_relative;
+    TextView tv_device_bianhao;
+    TextView tv_nickname;
     private final int REQ_CODE_PHOTO_SOURCE = 6;//选择方式
     private final int REQ_CODE_GET_PHOTO_FROM_GALLERY = 10;//从相册获取
     private final int REQ_CODE_GET_PHOTO_FROM_TAKEPHOTO = 11;//拍照完
+
+
+    TextView tv_realname;
+    TextView tv_idcard;
+    TextView tv_phonenumber;
+
+    TextView btn_post;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,10 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
                 finish();
             }
         });
+        tv_relative = findViewById(R.id.tv_relative);
+        tv_relative.setText(WatchInstance.getInstance().relationShip);
+
+
         ll_avatar = findViewById(R.id.ll_avatar);
         ll_avatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,27 +93,30 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
         });
         sdv_header = (SimpleDraweeView) findViewById(R.id.sdv_header);
 
+        tv_device_bianhao = findViewById(R.id.tv_device_bianhao);
+        tv_device_bianhao.setText(WatchInstance.getInstance().deviceId);
 
+//        ll_nickname = findViewById(R.id.ll_nickname);
+//        ll_nickname.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(WatchMeMessageActivity.this, UpdateNickActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+        tv_nickname = findViewById(R.id.tv_nickname);
+        tv_nickname.setText(WatchInstance.getInstance().deviceNickName);
 
+        tv_realname = findViewById(R.id.tv_realname);
+        tv_realname.setText(WatchInstance.getInstance().realName);
 
+        tv_idcard = findViewById(R.id.tv_idcard);
+        tv_idcard.setText(WatchInstance.getInstance().idcard);
+        btn_post = (TextView) findViewById(R.id.btn_post);
 
-        ll_nickname = findViewById(R.id.ll_nickname);
-        ll_nickname.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WatchMeMessageActivity.this, UpdateNickActivity.class);
-                startActivity(intent);
-            }
-        });
+        tv_phonenumber = findViewById(R.id.tv_phonenumber);
+        tv_phonenumber.setText(WatchInstance.getInstance().phoneNumber);
 
-
-        tv_nickname = (TextView) findViewById(R.id.tv_nickname);
-
-        tv_zhanghao = (TextView) findViewById(R.id.tv_zhanghao);
-
-        tv_phone = (TextView) findViewById(R.id.tv_phone);
-
-        btn_post= (TextView) findViewById(R.id.btn_post);
         btn_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +132,7 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
 
     public void modifyAvatar() {
 
+        WatchInstance.getInstance().isWtch = true;
 
         Intent intent = new Intent(this, SelectAvatarSourceDialog.class);
         startActivityForResult(intent, REQ_CODE_PHOTO_SOURCE);
@@ -143,7 +155,7 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
             } else {
 
-                 permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
                 if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITEEXTRENAL_STOR);
@@ -151,20 +163,16 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        Uri contentUri=FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
+                        Uri contentUri = FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
                                 .getExternalStorageDirectory(), "temp.jpg"));
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT,contentUri);
-                    }else{
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+                    } else {
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment
                                 .getExternalStorageDirectory(), "temp.jpg")));
                     }
                     startActivityForResult(intent, REQ_CODE_GET_PHOTO_FROM_TAKEPHOTO);
                 }
             }
-
-
-
-
 
 
         }
@@ -174,12 +182,6 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
     public final static int REQUEST_CAMERA = 1;
 
     public final static int REQUEST_WRITEEXTRENAL_STOR = 2;
-
-
-
-
-
-
 
 
     @Override
@@ -198,10 +200,10 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                            Uri contentUri=FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
+                            Uri contentUri = FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
                                     .getExternalStorageDirectory(), "temp.jpg"));
-                            intent.putExtra(MediaStore.EXTRA_OUTPUT,contentUri);
-                        }else{
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+                        } else {
                             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment
                                     .getExternalStorageDirectory(), "temp.jpg")));
                         }
@@ -216,10 +218,10 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        Uri contentUri=FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider",new File(Environment
+                        Uri contentUri = FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
                                 .getExternalStorageDirectory(), "temp.jpg"));
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT,contentUri);
-                    }else{
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+                    } else {
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment
                                 .getExternalStorageDirectory(), "temp.jpg")));
                     }
@@ -234,17 +236,14 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
     }
 
 
-
-
     @Override
     protected void onStart() {
         super.onStart();
         if (UserInstance.getInstance().userInfo.avatar != null) {
-            Uri uri = Uri.parse(Constants.Url.File_Host+UserInstance.getInstance().userInfo.avatar);
+            Uri uri = Uri.parse(Constants.Url.File_Host + UserInstance.getInstance().userInfo.avatar);
             sdv_header.setImageURI(uri);
         }
-        tv_nickname.setText(UserInstance.getInstance().getNickname());
-        tv_zhanghao.setText(UserInstance.getInstance().getZhanghao());
+
     }
 
     private void beginCrop(Uri source, Bundle bundle) {
@@ -253,12 +252,12 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 0)
-    public void uploadImageSuccess(EventManage.uploadImageSuccess event){
+    public void uploadImageSuccess(EventManage.uploadImageSuccess event) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Uri source=FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider",new File(Environment
+            Uri source = FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
                     .getExternalStorageDirectory(), "temp.jpg"));
             getContentResolver().delete(source, null, null);
-        }else{
+        } else {
 
             File picture = new File(Environment.getExternalStorageDirectory()
                     , "temp.jpg");
@@ -293,9 +292,9 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
                 Uri source;
                 Bundle bundle = new Bundle();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                     source=FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider",new File(Environment
+                    source = FileProvider.getUriForFile(this, "com.taisheng.now.fileprovider", new File(Environment
                             .getExternalStorageDirectory(), "temp.jpg"));
-                }else{
+                } else {
                     // 选择图片后进入裁剪
                     File picture = new File(Environment.getExternalStorageDirectory()
                             , "temp.jpg");
@@ -306,16 +305,14 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
                 }
 
 
-
                 beginCrop(source, bundle);
-
 
 
                 break;
 
             case Crop.REQUEST_CROP:
 //                modifyBean.logo_url = PetInfoInstance.getInstance().getPackBean().logo_url;
-                Uri uri = Uri.parse(Constants.Url.File_Host+UserInstance.getInstance().userInfo.avatar);
+                Uri uri = Uri.parse(Constants.Url.File_Host + UserInstance.getInstance().userInfo.avatar);
                 if (sdv_header == null) {
                     return;
                 }
@@ -323,7 +320,6 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
                 break;
         }
     }
-
 
 
     public void showGoRecommendDialog() {

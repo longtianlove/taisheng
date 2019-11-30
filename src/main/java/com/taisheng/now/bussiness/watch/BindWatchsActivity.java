@@ -88,6 +88,7 @@ public class BindWatchsActivity extends BaseActivity {
             WatchInstance.getInstance().preDeviceNumber = Imei;
             Intent intent = new Intent(BindWatchsActivity.this, BindMessageActivity.class);
             startActivity(intent);
+            finish();
 
         }
     }

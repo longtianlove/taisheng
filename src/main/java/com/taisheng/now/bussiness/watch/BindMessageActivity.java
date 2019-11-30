@@ -244,16 +244,22 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
                 bean.deviceType = 1 + "";
                 bean.deviceId = tv_device_bianhao.getText().toString();
                 bean.deviceNickName = et_nickname.getText().toString();
-                bean.relationShip=et_relative.getText().toString();
-                bean.headUrl=WatchInstance.getInstance().headUrl;
-                bean.realName=et_realname.getText().toString();
-                bean.idcard=et_idcard.getText().toString();
-                bean.phoneNumber=et_phonenumber.getText().toString();
+                bean.relationShip = et_relative.getText().toString();
+                bean.headUrl = WatchInstance.getInstance().headUrl;
+                bean.realName = et_realname.getText().toString();
+                bean.idcard = et_idcard.getText().toString();
+                bean.phoneNumber = et_phonenumber.getText().toString();
                 ApiUtils.getApiService().deviceBinding(bean).enqueue(new TaiShengCallback<BaseBean>() {
                     @Override
                     public void onSuccess(Response<BaseBean> response, BaseBean message) {
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
+                                WatchInstance.getInstance().deviceId = bean.deviceId;
+                                WatchInstance.getInstance().deviceNickName = bean.deviceNickName;
+                                WatchInstance.getInstance().relationShip = bean.relationShip;
+                                WatchInstance.getInstance().realName = bean.realName;
+                                WatchInstance.getInstance().idcard = bean.idcard;
+                                WatchInstance.getInstance().phoneNumber = bean.phoneNumber;
 
                                 break;
                         }

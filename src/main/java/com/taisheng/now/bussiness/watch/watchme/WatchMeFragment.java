@@ -15,6 +15,7 @@ import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.bussiness.watch.WatchInstance;
 
 
 /**
@@ -125,15 +126,15 @@ public class WatchMeFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (UserInstance.getInstance().userInfo.avatar != null) {
-            Uri uri = Uri.parse(Constants.Url.File_Host + UserInstance.getInstance().userInfo.avatar);
+        if (WatchInstance.getInstance().headUrl != null) {
+            Uri uri = Uri.parse(Constants.Url.File_Host + WatchInstance.getInstance().headUrl);
             sdv_header.setImageURI(uri);
         }
-        if (!TextUtils.isEmpty(UserInstance.getInstance().userInfo.nickName)) {
-            tv_nickname.setText(UserInstance.getInstance().userInfo.nickName);
+        if (!TextUtils.isEmpty(WatchInstance.getInstance().deviceNickName)) {
+            tv_nickname.setText(WatchInstance.getInstance().deviceNickName);
         }
-        if (!TextUtils.isEmpty(UserInstance.getInstance().userInfo.userName)) {
-            tv_zhanghao.setText(UserInstance.getInstance().userInfo.userName);
+        if (!TextUtils.isEmpty(WatchInstance.getInstance().realName)) {
+            tv_zhanghao.setText(WatchInstance.getInstance().realName);
         }
     }
 
