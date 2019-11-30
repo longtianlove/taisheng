@@ -287,7 +287,14 @@
 
         </activity>
 
+        <activity
+            android:name="com.taisheng.now.bussiness.watch.WatchsListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
+
+        </activity>
         <activity
             android:name="com.taisheng.now.bussiness.market.dingdan.DingdanjiesuanActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -412,6 +419,7 @@
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat">
 
         </activity>

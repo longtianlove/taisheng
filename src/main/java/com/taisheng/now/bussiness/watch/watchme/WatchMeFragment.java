@@ -16,6 +16,7 @@ import com.taisheng.now.R;
 import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.bussiness.watch.WatchInstance;
+import com.taisheng.now.bussiness.watch.WatchsListActivity;
 
 
 /**
@@ -25,6 +26,7 @@ import com.taisheng.now.bussiness.watch.WatchInstance;
 @SuppressLint("WrongConstant")
 public class WatchMeFragment extends BaseFragment {
     View iv_back;
+    View tv_change_device;
     View ll_togerenxinxi;
     SimpleDraweeView sdv_header;
     TextView tv_nickname;
@@ -68,6 +70,14 @@ public class WatchMeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 getActivity().finish();
+            }
+        });
+        tv_change_device=rootView.findViewById(R.id.tv_change_device);
+        tv_change_device.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WatchsListActivity.class);
+                startActivity(intent);
             }
         });
         ll_togerenxinxi = rootView.findViewById(R.id.ll_togerenxinxi);

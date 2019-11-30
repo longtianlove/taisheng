@@ -88,7 +88,8 @@ public class Constants {
         public static class Watch {
             //            绑定设备  deviceBinding
             public static final String deviceBinding = "jeecg-boot/app/watchDevice/deviceBinding";
-
+            //设备列表
+            public static final String queryDeviceBinding="jeecg-boot/app/watchDevice/queryDeviceBinding";
 
         }
 

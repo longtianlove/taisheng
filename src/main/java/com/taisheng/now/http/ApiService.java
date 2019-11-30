@@ -88,8 +88,11 @@ import com.taisheng.now.bussiness.bean.result.market.OrderListResultBean;
 import com.taisheng.now.bussiness.bean.result.market.ShangPinResultBeann;
 
 import com.taisheng.now.bussiness.watch.bean.post.BindDevicePostBean;
+import com.taisheng.now.bussiness.watch.bean.result.WatchListBean;
 import com.taisheng.now.test.WechatResultBean;
 
+
+import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -108,6 +111,11 @@ public interface ApiService {
 //  绑定设备  deviceBinding
     @POST(Constants.Url.Watch.deviceBinding)
     Call<BaseBean> deviceBinding(@Body BindDevicePostBean bean);
+
+
+    //手表列表
+    @POST(Constants.Url.Watch.queryDeviceBinding)
+    Call<BaseBean<ArrayList<WatchListBean>>> queryDeviceBinding(@Body BaseListPostBean bean);
 
 
     /*

@@ -260,6 +260,9 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
                                 WatchInstance.getInstance().realName = bean.realName;
                                 WatchInstance.getInstance().idcard = bean.idcard;
                                 WatchInstance.getInstance().phoneNumber = bean.phoneNumber;
+                                Intent intent=new Intent(BindMessageActivity.this,WatchMainActivity.class);
+                                startActivity(intent);
+                                finish();
 
                                 break;
                         }
