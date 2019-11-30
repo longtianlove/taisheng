@@ -72,10 +72,10 @@ public class Constants {
 //        public static String WEB_SOCKET_URL = "ws://49.234.71.11:8879";
 
 
-//        public static String Host = "http://192.168.1.18:8080/";
+        //        public static String Host = "http://192.168.1.18:8080/";
 //        public static String File_Host = "http://192.168.1.18:8888/";
 //        public static String WEB_SOCKET_URL = "ws://192.168.1.18:8879";
-                public static String Host = "http://192.168.1.19:8080/";
+        public static String Host = "http://192.168.1.19:8080/";
         public static String File_Host = "http://192.168.1.19:8888/";
         public static String WEB_SOCKET_URL = "ws://192.168.1.19:8879";
 
@@ -89,7 +89,12 @@ public class Constants {
             //            绑定设备  deviceBinding
             public static final String deviceBinding = "jeecg-boot/app/watchDevice/deviceBinding";
             //设备列表
-            public static final String queryDeviceBinding="jeecg-boot/app/watchDevice/queryDeviceBinding";
+            public static final String queryDeviceBinding = "jeecg-boot/app/watchDevice/queryDeviceBinding";
+
+
+            //            APP-获取血压、心率、步数的实时数据
+            public static final String getcollection = "jeecg-boot/app/watch/getcollection";
+
 
         }
 

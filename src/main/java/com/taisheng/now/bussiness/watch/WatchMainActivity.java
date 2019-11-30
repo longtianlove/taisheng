@@ -16,7 +16,9 @@ import android.widget.TextView;
 
 import androidx.fragment.app.FragmentTransaction;
 
+import com.taisheng.now.Constants;
 import com.taisheng.now.R;
+import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.base.BaseFragmentActivity;
 import com.taisheng.now.bussiness.article.SecretFragment;
 import com.taisheng.now.bussiness.doctor.DoctorFragment;
@@ -24,12 +26,20 @@ import com.taisheng.now.bussiness.first.FirstFragment;
 import com.taisheng.now.bussiness.market.MarketFragment;
 import com.taisheng.now.bussiness.me.MeFragment;
 import com.taisheng.now.bussiness.message.MessageFragment;
+import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.bussiness.watch.bean.post.ShishiCollectionBean;
+import com.taisheng.now.bussiness.watch.bean.result.ShiShiCollecgtionResultBean;
 import com.taisheng.now.bussiness.watch.watchfirst.WatchFirstFragment;
 import com.taisheng.now.bussiness.watch.watchme.WatchMeFragment;
 import com.taisheng.now.bussiness.watch.watchyujing.WatchYujingFragment;
 import com.taisheng.now.chat.ChatManagerInstance;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.SPUtil;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 //import android.support.v4.app.FragmentTransaction;
 
@@ -40,12 +50,12 @@ public class WatchMainActivity extends BaseFragmentActivity implements View.OnCl
             R.id.tab_first,
             R.id.tab_doctor,
             R.id.tab_message
-        };
+    };
 
-    private ImageView iv_tab_first, iv_tab_doctor,iv_tab_message;
-private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
+    private ImageView iv_tab_first, iv_tab_doctor, iv_tab_message;
+    private TextView tv_tab_first, tv_tab_doctor, tv_tab_message;
 
-    private View mTabs[] = {null, null,null};
+    private View mTabs[] = {null, null, null};
 
     private WatchFirstFragment firstFragment;
     private WatchYujingFragment watchYujingFragment;
@@ -53,8 +63,6 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
 
 
     View toolBar;
-
-
 
 
     @Override
@@ -68,7 +76,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
         if (savedInstanceState != null) {
             firstFragment = (WatchFirstFragment) getSupportFragmentManager().findFragmentByTag(FirstFragment.class.getName());
             watchYujingFragment = (WatchYujingFragment) getSupportFragmentManager().findFragmentByTag(DoctorFragment.class.getName());
-            messageFragment= (WatchMeFragment) getSupportFragmentManager().findFragmentByTag(WatchMeFragment.class.getName());
+            messageFragment = (WatchMeFragment) getSupportFragmentManager().findFragmentByTag(WatchMeFragment.class.getName());
 
             if (firstFragment == null) {
                 firstFragment = new WatchFirstFragment();
@@ -76,8 +84,8 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
             if (watchYujingFragment == null) {
                 watchYujingFragment = new WatchYujingFragment();
             }
-            if(messageFragment==null){
-                messageFragment=new WatchMeFragment();
+            if (messageFragment == null) {
+                messageFragment = new WatchMeFragment();
             }
 
             getSupportFragmentManager().beginTransaction()
@@ -107,17 +115,14 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initView() {
-        toolBar=findViewById(R.id.toolBar);
-        iv_tab_first= (ImageView) findViewById(R.id.iv_tab_first);
-        iv_tab_doctor= (ImageView) findViewById(R.id.iv_tab_doctor);
-        iv_tab_message=findViewById(R.id.iv_tab_message);
+        toolBar = findViewById(R.id.toolBar);
+        iv_tab_first = (ImageView) findViewById(R.id.iv_tab_first);
+        iv_tab_doctor = (ImageView) findViewById(R.id.iv_tab_doctor);
+        iv_tab_message = findViewById(R.id.iv_tab_message);
 
-        tv_tab_first= (TextView) findViewById(R.id.tv_tab_first);
-        tv_tab_doctor= (TextView) findViewById(R.id.tv_tab_doctor);
-        tv_tab_message=findViewById(R.id.tv_tab_message);
-
-
-
+        tv_tab_first = (TextView) findViewById(R.id.tv_tab_first);
+        tv_tab_doctor = (TextView) findViewById(R.id.tv_tab_doctor);
+        tv_tab_message = findViewById(R.id.tv_tab_message);
 
 
     }
@@ -129,7 +134,7 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
         if (null != watchYujingFragment) {
             transaction.hide(watchYujingFragment);
         }
-        if(null!=messageFragment){
+        if (null != messageFragment) {
             transaction.hide(messageFragment);
         }
 
@@ -140,8 +145,6 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
 
         iv_tab_message.setSelected(false);
         tv_tab_message.setTextColor(getResources().getColor(R.color.tv_tab_color_normal));
-
-
 
 
     }
@@ -219,19 +222,10 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
     }
 
 
-
-
-
-
-
-
-
-
-
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if("HealthCheckResultActivity".equals(intent.getStringExtra("fromwhere"))){
+        if ("HealthCheckResultActivity".equals(intent.getStringExtra("fromwhere"))) {
             showFragment(1);
         }
     }
@@ -240,7 +234,35 @@ private TextView tv_tab_first,tv_tab_doctor,tv_tab_message;
     protected void onResume() {
         super.onResume();
 
-
+//        ShishiCollectionBean bean = new ShishiCollectionBean();
+//        bean.userId = UserInstance.getInstance().getUid();
+//        bean.token = UserInstance.getInstance().getToken();
+//        bean.clientId = WatchInstance.getInstance().deviceId;
+//        ApiUtils.getApiService().getcollection(bean).enqueue(new TaiShengCallback<BaseBean<ShiShiCollecgtionResultBean>>() {
+//            @Override
+//            public void onSuccess(Response<BaseBean<ShiShiCollecgtionResultBean>> response, BaseBean<ShiShiCollecgtionResultBean> message) {
+//                switch (message.code) {
+//                    case Constants.HTTP_SUCCESS:
+////                        public String watchBpxyHigh;
+////                        public String watchBpxyLow;
+////                        public String stepNum;
+////                        public String watchHeart;
+//                        WatchInstance.getInstance().watchBpxyHigh=message.result.watchBpxyHigh;
+//                        WatchInstance.getInstance().watchBpxyLow=message.result.watchBpxyLow;
+//                        WatchInstance.getInstance().stepNum=message.result.stepNum;
+//                        WatchInstance.getInstance().watchHeart=message.result.watchHeart;
+//
+//
+//
+//                        break;
+//                }
+//            }
+//
+//            @Override
+//            public void onFail(Call<BaseBean<ShiShiCollecgtionResultBean>> call, Throwable t) {
+//
+//            }
+//        });
 
     }
 

@@ -262,6 +262,8 @@ public class FirstFragment extends BaseFragment {
                 BaseListPostBean bean = new BaseListPostBean();
                 bean.userId = UserInstance.getInstance().getUid();
                 bean.token = UserInstance.getInstance().getToken();
+                bean.pageNo=1;
+                bean.pageSize=10;
                 ApiUtils.getApiService().queryDeviceBinding(bean).enqueue(new TaiShengCallback<BaseBean<ArrayList<WatchListBean>>>() {
                     @Override
                     public void onSuccess(Response<BaseBean<ArrayList<WatchListBean>>> response, BaseBean<ArrayList<WatchListBean>> message) {

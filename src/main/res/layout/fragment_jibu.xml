@@ -73,9 +73,10 @@
                 android:background="@drawable/icon_jibu_label2"></View>
 
             <TextView
+                android:id="@+id/tv_bushu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10000"
+                android:text=""
                 android:textColor="#ffff9d3c"
                 android:textSize="23sp" />
 

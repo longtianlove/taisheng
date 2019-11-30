@@ -88,4 +88,13 @@ public class WatchInstance {
         }
 
     }
+
+
+
+
+
+    public String watchBpxyHigh;
+    public String watchBpxyLow;
+    public String stepNum;
+    public String watchHeart;
 }

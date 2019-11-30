@@ -45,12 +45,13 @@
                         android:background="@drawable/icon_xinlv_label"></View>
 
                     <TextView
+                        android:id="@+id/tv_xinlv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:shadowColor="#80ffffff"
 
                         android:shadowRadius="3.0"
-                        android:text="87"
+                        android:text=""
                         android:textColor="#ffffffff"
                         android:textSize="23sp" />
 
