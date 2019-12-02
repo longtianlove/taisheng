@@ -90,6 +90,7 @@ import com.taisheng.now.bussiness.bean.result.market.ShangPinResultBeann;
 import com.taisheng.now.bussiness.watch.bean.post.BindDevicePostBean;
 import com.taisheng.now.bussiness.watch.bean.post.GuijiPostBean;
 import com.taisheng.now.bussiness.watch.bean.post.ShishiCollectionBean;
+import com.taisheng.now.bussiness.watch.bean.post.UnbindPostBean;
 import com.taisheng.now.bussiness.watch.bean.result.BushuResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.ShiShiCollecgtionResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.WatchListBean;
@@ -119,6 +120,10 @@ public interface ApiService {
     @POST(Constants.Url.Watch.deviceBinding)
     Call<BaseBean> deviceBinding(@Body BindDevicePostBean bean);
 
+
+    //解除绑定
+    @POST(Constants.Url.Watch.unbind)
+    Call<BaseBean> unbind(@Body UnbindPostBean UnbindPostBean);
 
     //手表列表
     @POST(Constants.Url.Watch.queryDeviceBinding)

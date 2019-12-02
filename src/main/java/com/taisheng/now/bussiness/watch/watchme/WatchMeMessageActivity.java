@@ -26,11 +26,16 @@ import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
 import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.MainActivity;
 import com.taisheng.now.bussiness.me.SelectAvatarSourceDialog;
 import com.taisheng.now.bussiness.me.UpdatePasswordFirstActivity;
 import com.taisheng.now.bussiness.user.LoginActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.bussiness.watch.WatchInstance;
+import com.taisheng.now.bussiness.watch.bean.post.UnbindPostBean;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.push.XMPushManagerInstance;
 import com.taisheng.now.view.AppDialog;
 import com.taisheng.now.view.crop.Crop;
@@ -40,6 +45,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by dragon on 2019/6/29.
@@ -122,7 +130,28 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
             public void onClick(View v) {
 
 //                showGoRecommendDialog();
-                //todo 解除绑定
+                // 解除绑定
+
+                UnbindPostBean bean = new UnbindPostBean();
+                bean.userId = UserInstance.getInstance().getUid();
+                bean.token = UserInstance.getInstance().getToken();
+                bean.deviceId = WatchInstance.getInstance().deviceId;
+                ApiUtils.getApiService().unbind(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+                                Intent intent = new Intent(WatchMeMessageActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean> call, Throwable t) {
+
+                    }
+                });
 
             }
         });

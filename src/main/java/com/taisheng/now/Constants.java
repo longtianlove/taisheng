@@ -90,6 +90,8 @@ public class Constants {
             public static final String deviceBinding = "jeecg-boot/app/watchDevice/deviceBinding";
             //设备列表
             public static final String queryDeviceBinding = "jeecg-boot/app/watchDevice/queryDeviceBinding";
+            //解除绑定
+            public static final String unbind="jeecg-boot/app/watchDevice/unbind";
 
 
             //            APP-获取血压、心率、步数的实时数据
