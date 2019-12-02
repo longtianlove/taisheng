@@ -101,6 +101,12 @@ public class Constants {
             //获取心率日统计量
             public static final String querythedayheart = "jeecg-boot/app/watch/querythedayheart";
 
+            //            APP-获取步数周统计量
+            public static final String querythisweekwalk = "jeecg-boot/app/watch/querythisweekwalk";
+
+            //            APP-获取步数月统计量
+            public static final String querythismonthwalk = "jeecg-boot/app/watch/querythismonthwalk";
+
         }
 
 

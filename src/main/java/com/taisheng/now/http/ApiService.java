@@ -89,6 +89,7 @@ import com.taisheng.now.bussiness.bean.result.market.ShangPinResultBeann;
 
 import com.taisheng.now.bussiness.watch.bean.post.BindDevicePostBean;
 import com.taisheng.now.bussiness.watch.bean.post.ShishiCollectionBean;
+import com.taisheng.now.bussiness.watch.bean.result.BushuResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.ShiShiCollecgtionResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.WatchListBean;
 import com.taisheng.now.bussiness.watch.bean.result.XinLvResultBean;
@@ -132,7 +133,18 @@ public interface ApiService {
 
 
     @POST(Constants.Url.Watch.querythedayheart)
-Call<BaseBean<ArrayList<XinLvResultBean>>> querythedayheart(@Body ShishiCollectionBean bean );
+    Call<BaseBean<ArrayList<XinLvResultBean>>> querythedayheart(@Body ShishiCollectionBean bean);
+
+    //    public static final String querythisweekwalk = "jeecg-boot/app/watch/querythisweekwalk";
+    @POST(Constants.Url.Watch.querythisweekwalk)
+    Call<BaseBean<ArrayList<BushuResultBean>>> querythisweekwalk(@Body ShishiCollectionBean bean);
+
+
+    public static final String querythismonthwalk = "jeecg-boot/app/watch/querythismonthwalk";
+    @POST(Constants.Url.Watch.querythismonthwalk)
+    Call<BaseBean<ArrayList<BushuResultBean>>> querythismonthwalk(@Body ShishiCollectionBean bean);
+
+
 
     /*
     App接口

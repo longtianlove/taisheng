@@ -17,6 +17,7 @@ import com.taisheng.now.base.BaseFragment;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.bussiness.watch.WatchInstance;
 import com.taisheng.now.bussiness.watch.bean.post.ShishiCollectionBean;
+import com.taisheng.now.bussiness.watch.bean.result.BushuResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.ShiShiCollecgtionResultBean;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
@@ -49,9 +50,11 @@ public class JibuFragment extends BaseFragment {
 
     View ll_guijiditu;
     private ArrayList<Entry> list = new ArrayList<>();  //数据集合
+    private ArrayList<Entry> list_month=new ArrayList<>();
 
     TextView tv_bushu;
     private LineChart mChart;
+    LineChart chart_month;
 
     void initView(View rootView) {
         tv_bushu=rootView.findViewById(R.id.tv_bushu);
@@ -63,15 +66,16 @@ public class JibuFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-        this.mChart = (LineChart) rootView.findViewById(R.id.chart);
-        list.clear();
-        for (int i = 0; i < 10; i++) {
-            list.add(new Entry(i, (float) (Math.random() * 80)));
-        }
-
-
-        //直接调用即可
-        LineChartUtils lineChartUtils = new LineChartUtils(list, mChart,"#529FFB","步数");
+        mChart = (LineChart) rootView.findViewById(R.id.chart);
+        chart_month=rootView.findViewById(R.id.chart_month);
+//        list.clear();
+//        for (int i = 0; i < 10; i++) {
+//            list.add(new Entry(i, (float) (Math.random() * 80)));
+//        }
+//
+//
+//        //直接调用即可
+//        LineChartUtils lineChartUtils = new LineChartUtils(list, mChart,"#529FFB","步数");
     }
 
 
@@ -106,7 +110,70 @@ public class JibuFragment extends BaseFragment {
 
             }
         });
+        ApiUtils.getApiService().querythisweekwalk(bean).enqueue(new TaiShengCallback<BaseBean<ArrayList<BushuResultBean>>>() {
+
+            @Override
+            public void onSuccess(Response<BaseBean<ArrayList<BushuResultBean>>> response, BaseBean<ArrayList<BushuResultBean>> message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+
+                        if (message.result != null && message.result.size() > 0) {
+
+                            list.clear();
+                            for (int i = 0; i < message.result.size(); i++) {
+                                list.add(new Entry(i, Integer.parseInt(message.result.get(i).stepNum)));
+//直接调用即可
+                                LineChartUtils lineChartUtils = new LineChartUtils(list, mChart,"#529FFB","步数");
+
+                            }
+                        }
+
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<ArrayList<BushuResultBean>>> call, Throwable t) {
+
+            }
+        });
+
+
+
+
+
+        ApiUtils.getApiService().querythismonthwalk(bean).enqueue(new TaiShengCallback<BaseBean<ArrayList<BushuResultBean>>>() {
+
+            @Override
+            public void onSuccess(Response<BaseBean<ArrayList<BushuResultBean>>> response, BaseBean<ArrayList<BushuResultBean>> message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+
+                        if (message.result != null && message.result.size() > 0) {
+
+                            list_month.clear();
+                            for (int i = 0; i < message.result.size(); i++) {
+                                list_month.add(new Entry(i, Integer.parseInt(message.result.get(i).stepNum)));
+//直接调用即可
+                                LineChartUtils lineChartUtils = new LineChartUtils(list_month, chart_month,"#529FFB","步数");
+
+                            }
+                        }
+
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean<ArrayList<BushuResultBean>>> call, Throwable t) {
+
+            }
+        });
+
     }
+
 
 
 }
