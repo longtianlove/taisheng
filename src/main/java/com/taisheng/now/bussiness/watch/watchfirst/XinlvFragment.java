@@ -64,9 +64,8 @@ public class XinlvFragment extends BaseFragment {
         ShishiCollectionBean bean = new ShishiCollectionBean();
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
-        //todo 暂时写死
-//        bean.clientId = WatchInstance.getInstance().deviceId;
-        bean.clientId = "9613050381";
+        bean.clientId = WatchInstance.getInstance().deviceId;
+//        bean.clientId = "9613050381";
 
         ApiUtils.getApiService().getcollection(bean).enqueue(new TaiShengCallback<BaseBean<ShiShiCollecgtionResultBean>>() {
             @Override
