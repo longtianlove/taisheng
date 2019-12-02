@@ -118,7 +118,8 @@ public class XueyaFragment extends BaseFragment {
                             for (int i = 0; i < message.result.size(); i++) {
                                 list.add(new Entry(i, message.result.get(i).bpxyHigh));
                                 list1.add(new Entry(i, message.result.get(i).bpxyLow));
-                                days.add(message.result.get(i).createTime);
+                                String[] temp=message.result.get(i).createTime.split(" ");
+                                days.add(temp[1]);
 
                             }
 

@@ -15,8 +15,9 @@ public class MyXFormatter implements IAxisValueFormatter {
         if(value<0||value>=days.size()){
             return "0";
         }else {
-            String[] temp=days.get((int) value).split(" ");
-            return temp[1];
+//            String[] temp=days.get((int) value).split(" ");
+//            return temp[1];
+            return days.get((int)value);
         }
     }
 }

@@ -97,7 +97,8 @@ public class XinlvFragment extends BaseFragment {
                             ArrayList<String> days = new ArrayList<>();
                             for (int i = 0; i < message.result.size(); i++) {
                                 list.add(new Entry(i, message.result.get(i).heartNum));
-                              days.add(message.result.get(i).createTime);
+                                String[] temp=message.result.get(i).createTime.split(" ");
+                                days.add(temp[1]);
 
                             }
                             //自定义x轴显示

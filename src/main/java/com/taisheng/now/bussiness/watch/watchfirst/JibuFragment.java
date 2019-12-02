@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.taisheng.now.Constants;
@@ -50,14 +51,14 @@ public class JibuFragment extends BaseFragment {
 
     View ll_guijiditu;
     private ArrayList<Entry> list = new ArrayList<>();  //数据集合
-    private ArrayList<Entry> list_month=new ArrayList<>();
+    private ArrayList<Entry> list_month = new ArrayList<>();
 
     TextView tv_bushu;
     private LineChart mChart;
     LineChart chart_month;
 
     void initView(View rootView) {
-        tv_bushu=rootView.findViewById(R.id.tv_bushu);
+        tv_bushu = rootView.findViewById(R.id.tv_bushu);
         ll_guijiditu = rootView.findViewById(R.id.ll_guijiditu);
         ll_guijiditu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +68,7 @@ public class JibuFragment extends BaseFragment {
             }
         });
         mChart = (LineChart) rootView.findViewById(R.id.chart);
-        chart_month=rootView.findViewById(R.id.chart_month);
+        chart_month = rootView.findViewById(R.id.chart_month);
 //        list.clear();
 //        for (int i = 0; i < 10; i++) {
 //            list.add(new Entry(i, (float) (Math.random() * 80)));
@@ -119,10 +120,24 @@ public class JibuFragment extends BaseFragment {
                         if (message.result != null && message.result.size() > 0) {
 
                             list.clear();
+                            ArrayList<String> days = new ArrayList<>();
                             for (int i = 0; i < message.result.size(); i++) {
                                 list.add(new Entry(i, Integer.parseInt(message.result.get(i).stepNum)));
+                                String[] temp = message.result.get(i).createTime.split(" ");
+                                days.add(temp[0]);
+
                             }
-                            LineChartUtils lineChartUtils = new LineChartUtils(list, mChart,"#529FFB","步数");
+                            //自定义x轴显示
+                            MyXFormatter formatter = new MyXFormatter();
+                            formatter.days = days;
+                            XAxis xAxis = mChart.getXAxis();
+                            xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+                            xAxis.setDrawAxisLine(false);
+                            xAxis.setDrawGridLines(false);
+                            //显示个数
+//                            xAxis.setLabelCount(days.size());
+                            xAxis.setValueFormatter(formatter);
+                            LineChartUtils lineChartUtils = new LineChartUtils(list, mChart, "#529FFB", "步数");
 
                         }
 
@@ -138,9 +153,17 @@ public class JibuFragment extends BaseFragment {
         });
 
 
+        getMonth();
 
 
+    }
 
+
+    void getMonth() {
+        ShishiCollectionBean bean = new ShishiCollectionBean();
+        bean.userId = UserInstance.getInstance().getUid();
+        bean.token = UserInstance.getInstance().getToken();
+        bean.clientId = WatchInstance.getInstance().deviceId;
         ApiUtils.getApiService().querythismonthwalk(bean).enqueue(new TaiShengCallback<BaseBean<ArrayList<BushuResultBean>>>() {
 
             @Override
@@ -151,14 +174,25 @@ public class JibuFragment extends BaseFragment {
                         if (message.result != null && message.result.size() > 0) {
 
                             list_month.clear();
+                            ArrayList<String> days = new ArrayList<>();
                             for (int i = 0; i < message.result.size(); i++) {
                                 list_month.add(new Entry(i, Integer.parseInt(message.result.get(i).stepNum)));
-//直接调用即可
+                                String[] temp = message.result.get(i).createTime.split(" ");
+                                days.add(temp[0]);
 
                             }
 
-
-                            LineChartUtils lineChartUtils = new LineChartUtils(list_month, chart_month,"#529FFB","步数");
+                            //自定义x轴显示
+                            MyXFormatter formatter = new MyXFormatter();
+                            formatter.days = days;
+                            XAxis xAxis = chart_month.getXAxis();
+                            xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+                            xAxis.setDrawAxisLine(false);
+                            xAxis.setDrawGridLines(false);
+                            //显示个数
+//                            xAxis.setLabelCount(days.size());
+                            xAxis.setValueFormatter(formatter);
+                            LineChartUtils lineChartUtils = new LineChartUtils(list_month, chart_month, "#529FFB", "步数");
 
                         }
 
@@ -174,7 +208,6 @@ public class JibuFragment extends BaseFragment {
         });
 
     }
-
 
 
 }
