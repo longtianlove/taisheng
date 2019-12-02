@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -47,7 +48,7 @@ import retrofit2.Response;
 public class WatchsListActivity extends BaseActivity {
     View iv_back;
 
-    TaishengListView lv_watchslist;
+    com.taisheng.now.view.WithScrolleViewListView lv_watchslist;
     MyPingjiaAdapter madapter;
     View tv_adddevice;
 
@@ -69,12 +70,12 @@ public class WatchsListActivity extends BaseActivity {
         lv_watchslist = findViewById(R.id.lv_watchslist);
         madapter = new MyPingjiaAdapter(this);
         lv_watchslist.setAdapter(madapter);
-        lv_watchslist.setOnUpLoadListener(new TaishengListView.OnUpLoadListener() {
-            @Override
-            public void onUpLoad() {
-                getMyPingjias();
-            }
-        });
+//        lv_watchslist.setOnUpLoadListener(new TaishengListView.OnUpLoadListener() {
+//            @Override
+//            public void onUpLoad() {
+//                getMyPingjias();
+//            }
+//        });
         tv_adddevice = findViewById(R.id.tv_adddevice);
         tv_adddevice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,26 +110,26 @@ public class WatchsListActivity extends BaseActivity {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
                         if (message.result != null && message.result.size() > 0) {
-                            lv_watchslist.setLoading(false);
+//                            lv_watchslist.setLoading(false);
                             if (PAGE_NO == 1) {
                                 madapter.mData.clear();
                             }
                             //有消息
                             PAGE_NO++;
                             madapter.mData.addAll(message.result);
-                            if (message.result.size() < 10) {
-                                lv_watchslist.setHasLoadMore(false);
-                                lv_watchslist.setLoadAllViewText("暂时只有这么多手表");
-                                lv_watchslist.setLoadAllFooterVisible(true);
-                            } else {
-                                lv_watchslist.setHasLoadMore(true);
-                            }
+//                            if (message.result.size() < 10) {
+//                                lv_watchslist.setHasLoadMore(false);
+//                                lv_watchslist.setLoadAllViewText("暂时只有这么多手表");
+//                                lv_watchslist.setLoadAllFooterVisible(true);
+//                            } else {
+//                                lv_watchslist.setHasLoadMore(true);
+//                            }
                             madapter.notifyDataSetChanged();
                         } else {
                             //没有消息
-                            lv_watchslist.setHasLoadMore(false);
-                            lv_watchslist.setLoadAllViewText("暂时只有这么多手表");
-                            lv_watchslist.setLoadAllFooterVisible(true);
+//                            lv_watchslist.setHasLoadMore(false);
+//                            lv_watchslist.setLoadAllViewText("暂时只有这么多手表");
+//                            lv_watchslist.setLoadAllFooterVisible(true);
                         }
 
 
