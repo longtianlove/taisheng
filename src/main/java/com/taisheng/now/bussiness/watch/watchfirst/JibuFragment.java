@@ -122,10 +122,9 @@ public class JibuFragment extends BaseFragment {
                             list.clear();
                             for (int i = 0; i < message.result.size(); i++) {
                                 list.add(new Entry(i, Integer.parseInt(message.result.get(i).stepNum)));
-//直接调用即可
-                                LineChartUtils lineChartUtils = new LineChartUtils(list, mChart,"#529FFB","步数");
-
                             }
+                            LineChartUtils lineChartUtils = new LineChartUtils(list, mChart,"#529FFB","步数");
+
                         }
 
 
@@ -156,9 +155,12 @@ public class JibuFragment extends BaseFragment {
                             for (int i = 0; i < message.result.size(); i++) {
                                 list_month.add(new Entry(i, Integer.parseInt(message.result.get(i).stepNum)));
 //直接调用即可
-                                LineChartUtils lineChartUtils = new LineChartUtils(list_month, chart_month,"#529FFB","步数");
 
                             }
+
+
+                            LineChartUtils lineChartUtils = new LineChartUtils(list_month, chart_month,"#529FFB","步数");
+
                         }
 
 

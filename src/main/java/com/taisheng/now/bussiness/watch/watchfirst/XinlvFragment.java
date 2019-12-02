@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.taisheng.now.Constants;
@@ -94,12 +95,25 @@ public class XinlvFragment extends BaseFragment {
                     case Constants.HTTP_SUCCESS:
                         if (message.result != null && message.result.size() > 0) {
                             list.clear();
+                            ArrayList<String> days = new ArrayList<>();
                             for (int i = 0; i < message.result.size(); i++) {
                                 list.add(new Entry(i, message.result.get(i).heartNum));
-//直接调用即可
-                                LineChartUtils lineChartUtils = new LineChartUtils(list, mChart, "#FF2C58", "心率");
+                              days.add(message.result.get(i).createTime);
 
                             }
+                            //自定义x轴显示
+                            MyXFormatter formatter = new MyXFormatter();
+                            formatter.days=days;
+                            XAxis xAxis = mChart.getXAxis();
+                            xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+                            xAxis.setDrawAxisLine(false);
+                            xAxis.setDrawGridLines(false);
+                            //显示个数
+//                            xAxis.setLabelCount(days.size());
+                            xAxis.setValueFormatter(formatter);
+
+                            LineChartUtils lineChartUtils = new LineChartUtils(list, mChart, "#FF2C58", "心率");
+
                         }
 
 

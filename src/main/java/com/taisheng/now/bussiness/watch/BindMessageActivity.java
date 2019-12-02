@@ -254,8 +254,9 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
                     public void onSuccess(Response<BaseBean> response, BaseBean message) {
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
-                                //todo deviceid到底是哪个
-                                WatchInstance.getInstance().deviceId = bean.deviceId;
+//                                todo deviceid到底是哪个
+                                String deviceId=bean.deviceId;
+                                WatchInstance.getInstance().deviceId = deviceId.substring(1,3)+deviceId.substring(4,6)+deviceId.substring(7,10)+deviceId.substring(11,14);;
                                 WatchInstance.getInstance().deviceNickName = bean.deviceNickName;
                                 WatchInstance.getInstance().relationShip = bean.relationShip;
                                 WatchInstance.getInstance().realName = bean.realName;
