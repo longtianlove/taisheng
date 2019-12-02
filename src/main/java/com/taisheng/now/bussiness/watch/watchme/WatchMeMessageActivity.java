@@ -27,7 +27,6 @@ import com.taisheng.now.R;
 import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.base.BaseActivity;
 import com.taisheng.now.bussiness.me.SelectAvatarSourceDialog;
-import com.taisheng.now.bussiness.me.UpdateNickActivity;
 import com.taisheng.now.bussiness.me.UpdatePasswordFirstActivity;
 import com.taisheng.now.bussiness.user.LoginActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
@@ -48,6 +47,7 @@ import java.io.File;
 
 public class WatchMeMessageActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     ImageView iv_back;
+    View ll_nickname;
     View ll_avatar;
     SimpleDraweeView sdv_header;
     TextView tv_relative;
@@ -96,14 +96,14 @@ public class WatchMeMessageActivity extends BaseActivity implements ActivityComp
         tv_device_bianhao = findViewById(R.id.tv_device_bianhao);
         tv_device_bianhao.setText(WatchInstance.getInstance().deviceId);
 
-//        ll_nickname = findViewById(R.id.ll_nickname);
-//        ll_nickname.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(WatchMeMessageActivity.this, UpdateNickActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        ll_nickname = findViewById(R.id.ll_nickname);
+        ll_nickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WatchMeMessageActivity.this, UpdateNickActivity.class);
+                startActivity(intent);
+            }
+        });
         tv_nickname = findViewById(R.id.tv_nickname);
         tv_nickname.setText(WatchInstance.getInstance().deviceNickName);
 
