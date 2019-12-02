@@ -10,8 +10,17 @@ import androidx.core.app.ActivityCompat;
 import com.baidu.mapapi.map.MapView;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.bussiness.watch.WatchInstance;
+import com.taisheng.now.bussiness.watch.bean.post.GuijiPostBean;
 import com.taisheng.now.bussiness.watch.watchme.WatchNaoZhongXinzengActivity;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.map.NewMapInstance;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by dragon on 2019/6/29.
@@ -72,6 +81,25 @@ public class WatchFirstGuijiActivity extends BaseActivity implements ActivityCom
         //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
         mMapView.onResume();
         NewMapInstance.getInstance().startLoc();
+
+        GuijiPostBean bean=new GuijiPostBean();
+        bean.userId= UserInstance.getInstance().getUid();
+        bean.token=UserInstance.getInstance().getToken();
+        bean.clientId= WatchInstance.getInstance().deviceId;
+        ApiUtils.getApiService().getWatchUdList(bean).enqueue(new TaiShengCallback<BaseBean>() {
+            @Override
+            public void onSuccess(Response<BaseBean> response, BaseBean message) {
+
+            }
+
+            @Override
+            public void onFail(Call<BaseBean> call, Throwable t) {
+
+            }
+        });
+
+
+
     }
 
     @Override

@@ -88,6 +88,7 @@ import com.taisheng.now.bussiness.bean.result.market.OrderListResultBean;
 import com.taisheng.now.bussiness.bean.result.market.ShangPinResultBeann;
 
 import com.taisheng.now.bussiness.watch.bean.post.BindDevicePostBean;
+import com.taisheng.now.bussiness.watch.bean.post.GuijiPostBean;
 import com.taisheng.now.bussiness.watch.bean.post.ShishiCollectionBean;
 import com.taisheng.now.bussiness.watch.bean.result.BushuResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.ShiShiCollecgtionResultBean;
@@ -139,12 +140,12 @@ public interface ApiService {
     @POST(Constants.Url.Watch.querythisweekwalk)
     Call<BaseBean<ArrayList<BushuResultBean>>> querythisweekwalk(@Body ShishiCollectionBean bean);
 
-
-    public static final String querythismonthwalk = "jeecg-boot/app/watch/querythismonthwalk";
     @POST(Constants.Url.Watch.querythismonthwalk)
     Call<BaseBean<ArrayList<BushuResultBean>>> querythismonthwalk(@Body ShishiCollectionBean bean);
 
-
+    //            获取手表定位轨迹-批量获取
+    @POST(Constants.Url.Watch.getWatchUdList)
+    Call<BaseBean> getWatchUdList(@Body GuijiPostBean bean);
 
     /*
     App接口

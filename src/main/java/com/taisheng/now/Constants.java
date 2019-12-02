@@ -107,6 +107,9 @@ public class Constants {
             //            APP-获取步数月统计量
             public static final String querythismonthwalk = "jeecg-boot/app/watch/querythismonthwalk";
 
+
+            //            获取手表定位轨迹-批量获取
+            public static final String getWatchUdList = "jeecg-boot/app/watchUd/getWatchUdList";
         }
 
 
