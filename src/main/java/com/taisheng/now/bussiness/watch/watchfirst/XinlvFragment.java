@@ -55,7 +55,7 @@ public class XinlvFragment extends BaseFragment {
 
     void initView(View rootView) {
         tv_xinlv = rootView.findViewById(R.id.tv_xinlv);
-        this.mChart = (LineChart) rootView.findViewById(R.id.chart);
+       mChart = (LineChart) rootView.findViewById(R.id.chart);
 
     }
 
@@ -113,6 +113,7 @@ public class XinlvFragment extends BaseFragment {
                             xAxis.setValueFormatter(formatter);
 
                             LineChartUtils lineChartUtils = new LineChartUtils(list, mChart, "#FF2C58", "心率");
+
 
                         }
 

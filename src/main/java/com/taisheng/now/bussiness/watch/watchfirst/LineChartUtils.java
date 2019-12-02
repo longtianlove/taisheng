@@ -36,6 +36,7 @@ public class LineChartUtils {
 //        this.list3=list3;
         this.lineChart=lineChart;
         setData(list1,list2);
+        this.lineChart.invalidate();
     }
 
     public LineChartUtils(ArrayList<Entry> list1 ,LineChart lineChart,String line1Color,String lineString) {
@@ -46,6 +47,7 @@ public class LineChartUtils {
         this.lineString=lineString;
         this.line1Color=line1Color;
         setData(list1);
+        this.lineChart.invalidate();
     }
     String lineString="心率";
     private void setData(ArrayList<Entry> list1) {
