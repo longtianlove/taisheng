@@ -85,11 +85,19 @@ public class WatchsListActivity extends BaseActivity {
             }
         });
 
+
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         initData();
     }
 
     int PAGE_NO = 1;
     int PAGE_SIZE = 10;
+
 
     void initData() {
         PAGE_NO = 1;
