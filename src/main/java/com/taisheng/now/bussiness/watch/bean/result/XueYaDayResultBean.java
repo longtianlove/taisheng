@@ -1,13 +1,15 @@
 package com.taisheng.now.bussiness.watch.bean.result;
 
+import com.taisheng.now.bussiness.bean.result.ArticleBean;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class XueYaDayResultBean {
-    public String bpxyAge;
-    public String bpxyHeight;
-    public int bpxyHigh;
-    public int bpxyLow;
-    public String bpxySex;
-    public String bpxyWeight;
-    public String clientId;
-    public String createTime;
-    public String id;
+    public List<XueYaDayBean> records=new ArrayList<>();
+    public int total;
+    public int size;
+    public int current;
+    public boolean searchCount;
+    public int pages;
 }

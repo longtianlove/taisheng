@@ -51,6 +51,7 @@ import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.bussiness.watch.BindWatchsActivity;
 import com.taisheng.now.bussiness.watch.WatchsListActivity;
 import com.taisheng.now.bussiness.watch.bean.result.WatchListBean;
+import com.taisheng.now.bussiness.watch.bean.result.WatchListResultBean;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
@@ -264,12 +265,12 @@ public class FirstFragment extends BaseFragment {
                 bean.token = UserInstance.getInstance().getToken();
                 bean.pageNo=1;
                 bean.pageSize=10;
-                ApiUtils.getApiService().queryDeviceBinding(bean).enqueue(new TaiShengCallback<BaseBean<ArrayList<WatchListBean>>>() {
+                ApiUtils.getApiService().queryDeviceBinding(bean).enqueue(new TaiShengCallback<BaseBean<WatchListResultBean>>() {
                     @Override
-                    public void onSuccess(Response<BaseBean<ArrayList<WatchListBean>>> response, BaseBean<ArrayList<WatchListBean>> message) {
+                    public void onSuccess(Response<BaseBean<WatchListResultBean>> response, BaseBean<WatchListResultBean> message) {
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
-                                if (message == null || message.result == null || message.result.size() == 0) {
+                                if (message == null || message.result.records == null || message.result.records.size() == 0) {
                                     //跳转到绑定手表页
                                     Intent intent = new Intent(getActivity(), BindWatchsActivity.class);
                                     startActivity(intent);
@@ -282,7 +283,7 @@ public class FirstFragment extends BaseFragment {
                     }
 
                     @Override
-                    public void onFail(Call<BaseBean<ArrayList<WatchListBean>>> call, Throwable t) {
+                    public void onFail(Call<BaseBean<WatchListResultBean>> call, Throwable t) {
 
                     }
                 });

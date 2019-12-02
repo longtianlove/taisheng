@@ -25,6 +25,7 @@ import com.taisheng.now.bussiness.doctor.DoctorDetailActivity;
 import com.taisheng.now.bussiness.me.MyPingjiaActivity;
 import com.taisheng.now.bussiness.user.UserInstance;
 import com.taisheng.now.bussiness.watch.bean.result.WatchListBean;
+import com.taisheng.now.bussiness.watch.bean.result.WatchListResultBean;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.view.DoctorLabelWrapLayout;
@@ -112,19 +113,19 @@ public class WatchsListActivity extends BaseActivity {
         bean.token = UserInstance.getInstance().getToken();
         bean.pageNo = PAGE_NO;
         bean.pageSize = PAGE_SIZE;
-        ApiUtils.getApiService().queryDeviceBinding(bean).enqueue(new TaiShengCallback<BaseBean<ArrayList<WatchListBean>>>() {
+        ApiUtils.getApiService().queryDeviceBinding(bean).enqueue(new TaiShengCallback<BaseBean<WatchListResultBean>>() {
             @Override
-            public void onSuccess(Response<BaseBean<ArrayList<WatchListBean>>> response, BaseBean<ArrayList<WatchListBean>> message) {
+            public void onSuccess(Response<BaseBean<WatchListResultBean>> response, BaseBean<WatchListResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-                        if (message.result != null && message.result.size() > 0) {
+                        if (message.result.records != null && message.result.records.size() > 0) {
 //                            lv_watchslist.setLoading(false);
                             if (PAGE_NO == 1) {
                                 madapter.mData.clear();
                             }
                             //有消息
                             PAGE_NO++;
-                            madapter.mData.addAll(message.result);
+                            madapter.mData.addAll(message.result.records);
 //                            if (message.result.size() < 10) {
 //                                lv_watchslist.setHasLoadMore(false);
 //                                lv_watchslist.setLoadAllViewText("暂时只有这么多手表");
@@ -146,7 +147,7 @@ public class WatchsListActivity extends BaseActivity {
             }
 
             @Override
-            public void onFail(Call<BaseBean<ArrayList<WatchListBean>>> call, Throwable t) {
+            public void onFail(Call<BaseBean<WatchListResultBean>> call, Throwable t) {
 
             }
         });

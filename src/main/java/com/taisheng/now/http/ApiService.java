@@ -93,6 +93,7 @@ import com.taisheng.now.bussiness.watch.bean.post.ShishiCollectionBean;
 import com.taisheng.now.bussiness.watch.bean.result.BushuResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.ShiShiCollecgtionResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.WatchListBean;
+import com.taisheng.now.bussiness.watch.bean.result.WatchListResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.XinLvResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.XueYaDayResultBean;
 import com.taisheng.now.test.WechatResultBean;
@@ -121,7 +122,7 @@ public interface ApiService {
 
     //手表列表
     @POST(Constants.Url.Watch.queryDeviceBinding)
-    Call<BaseBean<ArrayList<WatchListBean>>> queryDeviceBinding(@Body BaseListPostBean bean);
+    Call<BaseBean<WatchListResultBean>> queryDeviceBinding(@Body BaseListPostBean bean);
 
 
     //            APP-获取血压、心率、步数的实时数据
@@ -130,18 +131,18 @@ public interface ApiService {
 
 
     @POST(Constants.Url.Watch.querythedaybpxy)
-    Call<BaseBean<ArrayList<XueYaDayResultBean>>> querythedaybpxy(@Body ShishiCollectionBean bean);
+    Call<BaseBean<XueYaDayResultBean>> querythedaybpxy(@Body ShishiCollectionBean bean);
 
 
     @POST(Constants.Url.Watch.querythedayheart)
-    Call<BaseBean<ArrayList<XinLvResultBean>>> querythedayheart(@Body ShishiCollectionBean bean);
+    Call<BaseBean<XinLvResultBean>> querythedayheart(@Body ShishiCollectionBean bean);
 
     //    public static final String querythisweekwalk = "jeecg-boot/app/watch/querythisweekwalk";
     @POST(Constants.Url.Watch.querythisweekwalk)
-    Call<BaseBean<ArrayList<BushuResultBean>>> querythisweekwalk(@Body ShishiCollectionBean bean);
+    Call<BaseBean<BushuResultBean>> querythisweekwalk(@Body ShishiCollectionBean bean);
 
     @POST(Constants.Url.Watch.querythismonthwalk)
-    Call<BaseBean<ArrayList<BushuResultBean>>> querythismonthwalk(@Body ShishiCollectionBean bean);
+    Call<BaseBean<BushuResultBean>> querythismonthwalk(@Body ShishiCollectionBean bean);
 
     //            获取手表定位轨迹-批量获取
     @POST(Constants.Url.Watch.getWatchUdList)

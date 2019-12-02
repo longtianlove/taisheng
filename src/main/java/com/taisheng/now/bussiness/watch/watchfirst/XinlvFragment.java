@@ -87,17 +87,17 @@ public class XinlvFragment extends BaseFragment {
             }
         });
 
-        ApiUtils.getApiService().querythedayheart(bean).enqueue(new TaiShengCallback<BaseBean<ArrayList<XinLvResultBean>>>() {
+        ApiUtils.getApiService().querythedayheart(bean).enqueue(new TaiShengCallback<BaseBean<XinLvResultBean>>() {
             @Override
-            public void onSuccess(Response<BaseBean<ArrayList<XinLvResultBean>>> response, BaseBean<ArrayList<XinLvResultBean>> message) {
+            public void onSuccess(Response<BaseBean<XinLvResultBean>> response, BaseBean<XinLvResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-                        if (message.result != null && message.result.size() > 0) {
+                        if (message.result .records!= null && message.result.records.size() > 0) {
                             list.clear();
                             ArrayList<String> days = new ArrayList<>();
-                            for (int i = 0; i < message.result.size(); i++) {
-                                list.add(new Entry(i, message.result.get(i).heartNum));
-                                String[] temp=message.result.get(i).createTime.split(" ");
+                            for (int i = 0; i < message.result.records.size(); i++) {
+                                list.add(new Entry(i, message.result.records.get(i).heartNum));
+                                String[] temp=message.result.records.get(i).createTime.split(" ");
                                 days.add(temp[1]);
 
                             }
@@ -123,7 +123,7 @@ public class XinlvFragment extends BaseFragment {
             }
 
             @Override
-            public void onFail(Call<BaseBean<ArrayList<XinLvResultBean>>> call, Throwable t) {
+            public void onFail(Call<BaseBean<XinLvResultBean>> call, Throwable t) {
 
             }
         });

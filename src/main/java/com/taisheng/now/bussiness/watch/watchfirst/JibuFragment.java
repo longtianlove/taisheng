@@ -110,20 +110,20 @@ public class JibuFragment extends BaseFragment {
 
             }
         });
-        ApiUtils.getApiService().querythisweekwalk(bean).enqueue(new TaiShengCallback<BaseBean<ArrayList<BushuResultBean>>>() {
+        ApiUtils.getApiService().querythisweekwalk(bean).enqueue(new TaiShengCallback<BaseBean<BushuResultBean>>() {
 
             @Override
-            public void onSuccess(Response<BaseBean<ArrayList<BushuResultBean>>> response, BaseBean<ArrayList<BushuResultBean>> message) {
+            public void onSuccess(Response<BaseBean<BushuResultBean>> response, BaseBean<BushuResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
 
-                        if (message.result != null && message.result.size() > 0) {
+                        if (message.result.records != null && message.result.records.size() > 0) {
 
                             list.clear();
                             ArrayList<String> days = new ArrayList<>();
-                            for (int i = 0; i < message.result.size(); i++) {
-                                list.add(new Entry(i, Integer.parseInt(message.result.get(i).stepNum)));
-                                String[] temp = message.result.get(i).createTime.split(" ");
+                            for (int i = 0; i < message.result.records.size(); i++) {
+                                list.add(new Entry(i, Integer.parseInt(message.result.records.get(i).stepNum)));
+                                String[] temp = message.result.records.get(i).createTime.split(" ");
                                 days.add(temp[0]);
 
                             }
@@ -147,7 +147,7 @@ public class JibuFragment extends BaseFragment {
             }
 
             @Override
-            public void onFail(Call<BaseBean<ArrayList<BushuResultBean>>> call, Throwable t) {
+            public void onFail(Call<BaseBean<BushuResultBean>> call, Throwable t) {
 
             }
         });
@@ -164,20 +164,20 @@ public class JibuFragment extends BaseFragment {
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
         bean.clientId = WatchInstance.getInstance().deviceId;
-        ApiUtils.getApiService().querythismonthwalk(bean).enqueue(new TaiShengCallback<BaseBean<ArrayList<BushuResultBean>>>() {
+        ApiUtils.getApiService().querythismonthwalk(bean).enqueue(new TaiShengCallback<BaseBean<BushuResultBean>>() {
 
             @Override
-            public void onSuccess(Response<BaseBean<ArrayList<BushuResultBean>>> response, BaseBean<ArrayList<BushuResultBean>> message) {
+            public void onSuccess(Response<BaseBean<BushuResultBean>> response, BaseBean<BushuResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
 
-                        if (message.result != null && message.result.size() > 0) {
+                        if (message.result.records != null && message.result.records.size() > 0) {
 
                             list_month.clear();
                             ArrayList<String> days = new ArrayList<>();
-                            for (int i = 0; i < message.result.size(); i++) {
-                                list_month.add(new Entry(i, Integer.parseInt(message.result.get(i).stepNum)));
-                                String[] temp = message.result.get(i).createTime.split(" ");
+                            for (int i = 0; i < message.result.records.size(); i++) {
+                                list_month.add(new Entry(i, Integer.parseInt(message.result.records.get(i).stepNum)));
+                                String[] temp = message.result.records.get(i).createTime.split(" ");
                                 days.add(temp[0]);
 
                             }
@@ -202,7 +202,7 @@ public class JibuFragment extends BaseFragment {
             }
 
             @Override
-            public void onFail(Call<BaseBean<ArrayList<BushuResultBean>>> call, Throwable t) {
+            public void onFail(Call<BaseBean<BushuResultBean>> call, Throwable t) {
 
             }
         });

@@ -106,19 +106,19 @@ public class XueyaFragment extends BaseFragment {
         });
 
 
-        ApiUtils.getApiService().querythedaybpxy(bean).enqueue(new TaiShengCallback<BaseBean<ArrayList<XueYaDayResultBean>>>() {
+        ApiUtils.getApiService().querythedaybpxy(bean).enqueue(new TaiShengCallback<BaseBean<XueYaDayResultBean>>() {
             @Override
-            public void onSuccess(Response<BaseBean<ArrayList<XueYaDayResultBean>>> response, BaseBean<ArrayList<XueYaDayResultBean>> message) {
+            public void onSuccess(Response<BaseBean<XueYaDayResultBean>> response, BaseBean<XueYaDayResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-                        if (message.result != null && message.result.size() > 0) {
+                        if (message.result != null && message.result.records.size() > 0) {
                             list.clear();
                             list1.clear();
                             ArrayList<String> days = new ArrayList<>();
-                            for (int i = 0; i < message.result.size(); i++) {
-                                list.add(new Entry(i, message.result.get(i).bpxyHigh));
-                                list1.add(new Entry(i, message.result.get(i).bpxyLow));
-                                String[] temp=message.result.get(i).createTime.split(" ");
+                            for (int i = 0; i < message.result.records.size(); i++) {
+                                list.add(new Entry(i, message.result.records.get(i).bpxyHigh));
+                                list1.add(new Entry(i, message.result.records.get(i).bpxyLow));
+                                String[] temp=message.result.records.get(i).createTime.split(" ");
                                 days.add(temp[1]);
 
                             }
@@ -145,7 +145,7 @@ public class XueyaFragment extends BaseFragment {
             }
 
             @Override
-            public void onFail(Call<BaseBean<ArrayList<XueYaDayResultBean>>> call, Throwable t) {
+            public void onFail(Call<BaseBean<XueYaDayResultBean>> call, Throwable t) {
 
             }
         });
