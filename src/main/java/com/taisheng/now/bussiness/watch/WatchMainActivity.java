@@ -225,9 +225,9 @@ public class WatchMainActivity extends BaseFragmentActivity implements View.OnCl
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if ("HealthCheckResultActivity".equals(intent.getStringExtra("fromwhere"))) {
-            showFragment(1);
-        }
+//        if ("HealthCheckResultActivity".equals(intent.getStringExtra("fromwhere"))) {
+            showFragment(0);
+//        }
     }
 
     @Override
