@@ -39,6 +39,7 @@ import com.taisheng.now.bussiness.watch.bean.post.BindDevicePostBean;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.push.XMPushManagerInstance;
+import com.taisheng.now.util.IDCardUtil;
 import com.taisheng.now.view.AppDialog;
 import com.taisheng.now.view.crop.Crop;
 
@@ -255,14 +256,15 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
                         switch (message.code) {
                             case Constants.HTTP_SUCCESS:
 //                                todo deviceid到底是哪个
-                                String deviceId=bean.deviceId;
-                                WatchInstance.getInstance().deviceId = deviceId.substring(1,3)+deviceId.substring(4,6)+deviceId.substring(7,10)+deviceId.substring(11,14);;
+                                String deviceId = bean.deviceId;
+                                WatchInstance.getInstance().deviceId = deviceId.substring(1, 3) + deviceId.substring(4, 6) + deviceId.substring(7, 10) + deviceId.substring(11, 14);
+                                ;
                                 WatchInstance.getInstance().deviceNickName = bean.deviceNickName;
                                 WatchInstance.getInstance().relationShip = bean.relationShip;
                                 WatchInstance.getInstance().realName = bean.realName;
                                 WatchInstance.getInstance().idcard = bean.idcard;
                                 WatchInstance.getInstance().phoneNumber = bean.phoneNumber;
-                                Intent intent=new Intent(BindMessageActivity.this,WatchMainActivity.class);
+                                Intent intent = new Intent(BindMessageActivity.this, WatchMainActivity.class);
                                 startActivity(intent);
                                 finish();
 
@@ -294,9 +296,14 @@ public class BindMessageActivity extends BaseActivity implements ActivityCompat.
         if (TextUtils.isEmpty(et_idcard.getText())) {
             return false;
         }
+
+        if (!IDCardUtil.isValidatedAllIdcard(et_idcard.getText().toString())) {
+            return false;
+        }
         if (TextUtils.isEmpty(et_phonenumber.getText())) {
             return false;
         }
+
         return true;
     }
 

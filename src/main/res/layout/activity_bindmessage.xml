@@ -344,6 +344,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:gravity="center"
+                android:inputType="phone"
                 android:text=""
                 android:textColor="#ff333333"
                 android:textSize="14sp" />
