@@ -13,11 +13,17 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.CoordinateConverter;
 import com.taisheng.now.SampleAppLike;
 import com.taisheng.now.SampleApplication;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.List;
 
 public class NewMapInstance extends BDAbstractLocationListener {
 
@@ -86,6 +92,12 @@ public class NewMapInstance extends BDAbstractLocationListener {
     BitmapDescriptor phonebitmapDescriptor;
     Marker mPhoneMarker;
 
+    Marker startMarker;
+    BitmapDescriptor startbitmapDescriptor;
+
+    Marker endMarker;
+    BitmapDescriptor endbitmapDescriptor;
+
     /**
      * 初始化手机位置地图标识
      */
@@ -100,6 +112,28 @@ public class NewMapInstance extends BDAbstractLocationListener {
                 .visible(true);
         mPhoneMarker = (Marker) (mBaiduMap.addOverlay(options));
 
+    }
+
+    public void initStartMarker(LatLng latLng) {
+        startbitmapDescriptor = BitmapDescriptorFactory.fromView(new StartLineAvaterView(SampleAppLike.mcontext));
+        OverlayOptions options = new MarkerOptions()
+                .anchor(0.5f, 0.5f)
+                .icon(startbitmapDescriptor)
+                .draggable(true)
+                .position(latLng)
+                .visible(true);
+        startMarker = (Marker) (mBaiduMap.addOverlay(options));
+    }
+
+    public void initendMarker(LatLng latLng) {
+        endbitmapDescriptor = BitmapDescriptorFactory.fromView(new EndLineAvaterView(SampleAppLike.mcontext));
+        OverlayOptions options = new MarkerOptions()
+                .anchor(0.5f, 0.5f)
+                .icon(endbitmapDescriptor)
+                .draggable(true)
+                .position(latLng)
+                .visible(true);
+        endMarker = (Marker) (mBaiduMap.addOverlay(options));
     }
 
     /**
@@ -127,7 +161,14 @@ public class NewMapInstance extends BDAbstractLocationListener {
      */
     public void refreshMap() {
         mBaiduMap.clear();
+
+
+        addRouteLine(routeList);
+        initStartMarker(routeList.get(0));
+        initendMarker(routeList.get(routeList.size() - 1));
         initPhoneMarker();
+
+
     }
 
 
@@ -154,7 +195,7 @@ public class NewMapInstance extends BDAbstractLocationListener {
         mLocationClient.setLocOption(option);
 
 
-        startLoc();
+//        startLoc();
     }
 
 
@@ -214,6 +255,8 @@ public class NewMapInstance extends BDAbstractLocationListener {
         stopLocListener();
 
         setPhonePos();
+
+
     }
 
 
@@ -222,22 +265,133 @@ public class NewMapInstance extends BDAbstractLocationListener {
      *
      * @param centerPoint
      */
-    private void setCenter(LatLng centerPoint, int delayMills) {
+    public void setCenter(LatLng centerPoint, int delayMills) {
         MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newLatLng(centerPoint);
         mBaiduMap.animateMapStatus(mapStatusUpdate, delayMills);
     }
 
 
-    //    将GPS设备采集的原始GPS坐标转换成百度坐标
-    //初始化坐标转换工具类，指定源坐标类型和坐标数据
-    // sourceLatLng待转换坐标
-    public static LatLng converterLatLng(LatLng sourceLatLng) {
-        CoordinateConverter converter = new CoordinateConverter()
-                .from(CoordinateConverter.CoordType.GPS)
-                .coord(sourceLatLng);
+//    //纠偏
+//    public LatLng jiupian(){
+//        String url = "http://api.map.baidu.com/ag/coord/convert?from=0&to=4&x=113.540124&y=23.517846";
+//        JSONObject json = getAllEmployee(url);
+//        //将经纬度解码后进行打印
+//        String latitude = decode(json.getString("x"));
+//        String longitude = decode(json.getString("y"));
+//
+//    }
 
-//desLatLng 转换后的坐标
+
+//    /**
+//     * Java后台访问url链接，返回JSON格式的数据
+//     * @return
+//     */
+//    public static JSONObject getAllEmployee(String url) {
+//        try {
+//            CloseableHttpClient httpclient = HttpClients.createDefault();
+//            HttpPost httpPost = new HttpPost(url);
+//            ResponseHandler<JSONObject> responseHandler = new ResponseHandler<JSONObject>() {
+//                // 成功调用连接后，对返回数据进行的操作
+//                public JSONObject handleResponse(final HttpResponse response)
+//                        throws ClientProtocolException, IOException {
+//                    int status = response.getStatusLine().getStatusCode();
+//                    if (status >= 200 && status < 300) {
+//                        // 获得调用成功后 返回的数据
+//                        HttpEntity entity = response.getEntity();
+//                        if (null != entity) {
+//                            String result = EntityUtils.toString(entity);
+//                            // 根据字符串生成JSON对象
+//                            JSONObject resultObj = JSONObject.fromObject(result);
+//                            return resultObj;
+//                        } else {
+//                            return null;
+//                        }
+//                    } else {
+//                        throw new ClientProtocolException("Unexpected response status: " + status);
+//                    }
+//                }
+//            };
+//            // 返回的json对象
+//            JSONObject responseBody = httpclient.execute(httpPost, responseHandler);
+//            return responseBody;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+
+//    /**
+//     * Base64解码
+//     * @param str
+//     * @return
+//     */
+//    public static String decode(String str) {
+//        byte[] bt = null;
+//        String s= "";
+//        try {
+//            sun.misc.BASE64Decoder decoder = new sun.misc.BASE64Decoder();
+//            bt = decoder.decodeBuffer(str);
+//            s = new String(bt, "GB2312");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return s;
+//    }
+
+
+//    //    将GPS设备采集的原始GPS坐标转换成百度坐标
+//    //初始化坐标转换工具类，指定源坐标类型和坐标数据
+//    // sourceLatLng待转换坐标
+//    public static LatLng converterLatLng(LatLng sourceLatLng) {
+//        CoordinateConverter converter = new CoordinateConverter()
+//                .from(CoordinateConverter.CoordType.GPS)
+//                .coord(sourceLatLng);
+//
+////desLatLng 转换后的坐标
+//        LatLng desLatLng = converter.convert();
+//        return desLatLng;
+//    }
+
+
+    //将google地图、soso地图、aliyun地图、mapabc地图和amap地图// 所用坐标转换成百度坐标
+    public static LatLng converterLatLng(LatLng sourceLatLng) {
+        CoordinateConverter converter = new CoordinateConverter();
+        converter.from(CoordinateConverter.CoordType.COMMON);
+        // sourceLatLng待转换坐标
+        converter.coord(sourceLatLng);
         LatLng desLatLng = converter.convert();
         return desLatLng;
     }
+
+    public List<LatLng> routeList;
+
+    public void addRouteLine(List<LatLng> routeList) {
+        this.routeList = routeList;
+//        mBaiduMap.clear();
+        // 百度最多支持10000个点连线
+        if (routeList.size() > 10000) {
+            routeList = routeList.subList(0, 10000);
+        }
+        mBaiduMap.addOverlay(new PolylineOptions().width(5).color(0x529FFB)
+                .points(routeList));
+        moveToLocation(routeList.get(routeList.size() / 2), true);
+
+    }
+
+
+    /**
+     * 移动到指定位置 并缩放
+     *
+     * @param latlng
+     */
+    private void moveToLocation(LatLng latlng, boolean flag) {
+//        MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(latlng);// 设置新的中心点
+//        mBaiduMap.animateMapStatus(u);
+
+
+        float f = mBaiduMap.getMaxZoomLevel();//19.0
+        MapStatusUpdate u = MapStatusUpdateFactory.newLatLngZoom(latlng, f - 2);
+        mBaiduMap.animateMapStatus(u);
+    }
+
 }

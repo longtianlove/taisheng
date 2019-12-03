@@ -1,6 +1,7 @@
 package com.taisheng.now.http;
 
 
+import com.google.gson.JsonObject;
 import com.taisheng.now.Constants;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.post.AddDizhiPostBean;
@@ -92,6 +93,7 @@ import com.taisheng.now.bussiness.watch.bean.post.GuijiPostBean;
 import com.taisheng.now.bussiness.watch.bean.post.ShishiCollectionBean;
 import com.taisheng.now.bussiness.watch.bean.post.UnbindPostBean;
 import com.taisheng.now.bussiness.watch.bean.result.BushuResultBean;
+import com.taisheng.now.bussiness.watch.bean.result.GuijiResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.ShiShiCollecgtionResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.WatchListBean;
 import com.taisheng.now.bussiness.watch.bean.result.WatchListResultBean;
@@ -151,7 +153,7 @@ public interface ApiService {
 
     //            获取手表定位轨迹-批量获取
     @POST(Constants.Url.Watch.getWatchUdList)
-    Call<BaseBean> getWatchUdList(@Body GuijiPostBean bean);
+    Call<BaseBean<GuijiResultBean>> getWatchUdList(@Body GuijiPostBean bean);
 
     /*
     App接口
