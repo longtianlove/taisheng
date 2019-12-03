@@ -88,6 +88,7 @@ import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
 import com.taisheng.now.bussiness.bean.result.market.OrderListResultBean;
 import com.taisheng.now.bussiness.bean.result.market.ShangPinResultBeann;
 
+import com.taisheng.now.bussiness.watch.bean.post.AnquanweiilanPostBean;
 import com.taisheng.now.bussiness.watch.bean.post.BindDevicePostBean;
 import com.taisheng.now.bussiness.watch.bean.post.GuijiPostBean;
 import com.taisheng.now.bussiness.watch.bean.post.ShishiCollectionBean;
@@ -154,6 +155,11 @@ public interface ApiService {
     //            获取手表定位轨迹-批量获取
     @POST(Constants.Url.Watch.getWatchUdList)
     Call<BaseBean<GuijiResultBean>> getWatchUdList(@Body GuijiPostBean bean);
+
+
+    @POST(Constants.Url.Watch.addwatchElectronicFence)
+    Call<BaseBean> addwatchElectronicFence(@Body AnquanweiilanPostBean bean);
+
 
     /*
     App接口

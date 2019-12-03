@@ -39,9 +39,16 @@ import com.baidu.mapapi.search.poi.PoiSearch;
 import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
 import com.baidu.mapapi.search.sug.SuggestionResult;
 import com.baidu.mapapi.search.sug.SuggestionSearch;
+import com.taisheng.now.Constants;
 import com.taisheng.now.EventManage;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.bussiness.watch.WatchInstance;
+import com.taisheng.now.bussiness.watch.bean.post.AnquanweiilanPostBean;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.map.AddressAdapter;
 import com.taisheng.now.map.HomelocationInstance;
 import com.taisheng.now.map.MapLocationParser;
@@ -57,12 +64,16 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Response;
+
 /**
  * Created by dragon on 2019/6/29.
  */
 
 public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     ImageView iv_back;
+    View tv_queding;
     View iv_dingwei;
 
     private MapView mMapView = null;
@@ -122,7 +133,45 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
                 finish();
             }
         });
+        tv_queding = findViewById(R.id.tv_queding);
+        tv_queding.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                if (!(latitude > 0)) {
+                    ToastUtil.showTost("请设置位置中心");
+                    return;
+                }
+                AnquanweiilanPostBean bean = new AnquanweiilanPostBean();
+                bean.userId = UserInstance.getInstance().getUid();
+                bean.token = UserInstance.getInstance().getToken();
+                bean.clientId = WatchInstance.getInstance().deviceId;
+                bean.fenceRadius = HomelocationInstance.radius;
+                bean.latitude = latitude + "";
+                bean.latitudeSign = "N";
+                bean.longitude = longitude + "";
+                bean.longitudeSign = "E";
+                bean.status = "1";
+                ApiUtils.getApiService().addwatchElectronicFence(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+                                ToastUtil.showAtCenter("设置成功");
+                                finish();
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean> call, Throwable t) {
+
+                    }
+                });
+
+
+            }
+        });
         et_search = (EditText) findViewById(R.id.et_search);
         et_search.addTextChangedListener(new TextWatcher() {
             @Override

@@ -116,6 +116,11 @@ public class Constants {
 
             //            获取手表定位轨迹-批量获取
             public static final String getWatchUdList = "jeecg-boot/app/watchUd/getWatchUdList";
+
+//            手表电子围栏-添加
+
+            public static final String addwatchElectronicFence = "jeecg-boot/app/watchUd/WatchUdSetting";
+
         }
 
 
