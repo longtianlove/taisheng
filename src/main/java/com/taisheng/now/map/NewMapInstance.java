@@ -147,7 +147,7 @@ public class NewMapInstance extends BDAbstractLocationListener {
 //        if (PetInfoInstance.getInstance().PET_MODE != Constants.PET_STATUS_FIND) {
 //            setCenter(postion, 300);
 //        }
-        refreshMap();
+//        refreshMap();
         try {
             mPhoneMarker.setPosition(postion);
         } catch (Exception E) {
@@ -247,11 +247,11 @@ public class NewMapInstance extends BDAbstractLocationListener {
         phoneLatitude = location.getLatitude();
         phoneLongitude = location.getLongitude();
 
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        float f = mBaiduMap.getMaxZoomLevel();//19.0
-        MapStatusUpdate u = MapStatusUpdateFactory.newLatLngZoom(latLng, f - 2);
-        mBaiduMap.animateMapStatus(u);
-        setCenter(latLng, 300);
+//        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+//        float f = mBaiduMap.getMaxZoomLevel();//19.0
+//        MapStatusUpdate u = MapStatusUpdateFactory.newLatLngZoom(latLng, f - 2);
+//        mBaiduMap.animateMapStatus(u);
+//        setCenter(latLng, 300);
         stopLocListener();
 
         setPhonePos();
@@ -372,7 +372,7 @@ public class NewMapInstance extends BDAbstractLocationListener {
         if (routeList.size() > 10000) {
             routeList = routeList.subList(0, 10000);
         }
-        mBaiduMap.addOverlay(new PolylineOptions().width(5).color(0x529FFB)
+        mBaiduMap.addOverlay(new PolylineOptions().width(5).color(0xFF1694FF)
                 .points(routeList));
         moveToLocation(routeList.get(routeList.size() / 2), true);
 

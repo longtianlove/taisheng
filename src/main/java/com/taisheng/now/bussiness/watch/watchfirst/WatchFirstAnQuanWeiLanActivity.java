@@ -343,6 +343,9 @@ public class WatchFirstAnQuanWeiLanActivity extends BaseActivity implements Acti
                 projection = mBaiduMap.getProjection();
                 int indexy = (int) (iv_location.getHeight());
                 Point aimPoint = new Point(mapStatus.targetScreen.x, mapStatus.targetScreen.y + DensityUtil.dip2px(WatchFirstAnQuanWeiLanActivity.this, 10));
+                if(projection==null){
+                    return;
+                }
                 final LatLng position = projection.fromScreenLocation(aimPoint);
                 Log.e("longtianlove", "地图" + mapStatus.targetScreen.x + ":" + mapStatus.targetScreen.y);
 
