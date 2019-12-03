@@ -117,7 +117,7 @@ public class NewMapInstance extends BDAbstractLocationListener {
     public void initStartMarker(LatLng latLng) {
         startbitmapDescriptor = BitmapDescriptorFactory.fromView(new StartLineAvaterView(SampleAppLike.mcontext));
         OverlayOptions options = new MarkerOptions()
-                .anchor(0.5f, 0.5f)
+                .anchor(0.5f, 1f)
                 .icon(startbitmapDescriptor)
                 .draggable(true)
                 .position(latLng)
@@ -128,7 +128,7 @@ public class NewMapInstance extends BDAbstractLocationListener {
     public void initendMarker(LatLng latLng) {
         endbitmapDescriptor = BitmapDescriptorFactory.fromView(new EndLineAvaterView(SampleAppLike.mcontext));
         OverlayOptions options = new MarkerOptions()
-                .anchor(0.5f, 0.5f)
+                .anchor(0.5f, 1f)
                 .icon(endbitmapDescriptor)
                 .draggable(true)
                 .position(latLng)
@@ -372,7 +372,7 @@ public class NewMapInstance extends BDAbstractLocationListener {
         if (routeList.size() > 10000) {
             routeList = routeList.subList(0, 10000);
         }
-        mBaiduMap.addOverlay(new PolylineOptions().width(5).color(0xFF1694FF)
+        mBaiduMap.addOverlay(new PolylineOptions().width(10).color(0xFF1694FF)
                 .points(routeList));
         moveToLocation(routeList.get(routeList.size() / 2), true);
 
