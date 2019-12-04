@@ -59,9 +59,9 @@ public class Constants {
 
 //        public static String WEB_SOCKET_URL="ws://192.168.1.18:8879";
 
-//        public static String Host = "http://152.136.26.41:8080/";
-//        public static String File_Host = "http://152.136.26.41:8888/";
-//        public static String WEB_SOCKET_URL = "ws://152.136.26.41:8879";
+        public static String Host = "http://152.136.26.41:8080/";
+        public static String File_Host = "http://152.136.26.41:8888/";
+        public static String WEB_SOCKET_URL = "ws://152.136.26.41:8879";
 
         //
 //        public static String Host = "http://192.168.1.12:8080/";
@@ -75,9 +75,9 @@ public class Constants {
         //        public static String Host = "http://192.168.1.18:8080/";
 //        public static String File_Host = "http://192.168.1.18:8888/";
 //        public static String WEB_SOCKET_URL = "ws://192.168.1.18:8879";
-        public static String Host = "http://192.168.1.19:8080/";
-        public static String File_Host = "http://192.168.1.19:8888/";
-        public static String WEB_SOCKET_URL = "ws://192.168.1.19:8879";
+//        public static String Host = "http://192.168.1.19:8080/";
+//        public static String File_Host = "http://192.168.1.19:8888/";
+//        public static String WEB_SOCKET_URL = "ws://192.168.1.19:8879";
 
 //        public static String Host = "http://192.168.1.15:8080/";
 //        public static String File_Host = "http://192.168.1.15:8888/";

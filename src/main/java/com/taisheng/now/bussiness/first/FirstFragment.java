@@ -56,6 +56,7 @@ import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.DialogUtil;
 import com.taisheng.now.util.SPUtil;
+import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.DoctorLabelWrapLayout;
 import com.taisheng.now.view.GuideView;
 import com.taisheng.now.view.ScoreStar;
@@ -258,35 +259,35 @@ public class FirstFragment extends BaseFragment {
 //                }
 //                Intent intent=new Intent(getActivity(), SecretActivity.class);
 //                startActivity(intent);
+                ToastUtil.showAtCenter("功能正在开发中，敬请期待");
 
-
-                BaseListPostBean bean = new BaseListPostBean();
-                bean.userId = UserInstance.getInstance().getUid();
-                bean.token = UserInstance.getInstance().getToken();
-                bean.pageNo=1;
-                bean.pageSize=10;
-                ApiUtils.getApiService().queryDeviceBinding(bean).enqueue(new TaiShengCallback<BaseBean<WatchListResultBean>>() {
-                    @Override
-                    public void onSuccess(Response<BaseBean<WatchListResultBean>> response, BaseBean<WatchListResultBean> message) {
-                        switch (message.code) {
-                            case Constants.HTTP_SUCCESS:
-                                if (message == null || message.result.records == null || message.result.records.size() == 0) {
-                                    //跳转到绑定手表页
-                                    Intent intent = new Intent(getActivity(), BindWatchsActivity.class);
-                                    startActivity(intent);
-                                } else {
-                                    Intent intent = new Intent(getActivity(), WatchsListActivity.class);
-                                    startActivity(intent);
-                                }
-                                break;
-                        }
-                    }
-
-                    @Override
-                    public void onFail(Call<BaseBean<WatchListResultBean>> call, Throwable t) {
-
-                    }
-                });
+//                BaseListPostBean bean = new BaseListPostBean();
+//                bean.userId = UserInstance.getInstance().getUid();
+//                bean.token = UserInstance.getInstance().getToken();
+//                bean.pageNo=1;
+//                bean.pageSize=10;
+//                ApiUtils.getApiService().queryDeviceBinding(bean).enqueue(new TaiShengCallback<BaseBean<WatchListResultBean>>() {
+//                    @Override
+//                    public void onSuccess(Response<BaseBean<WatchListResultBean>> response, BaseBean<WatchListResultBean> message) {
+//                        switch (message.code) {
+//                            case Constants.HTTP_SUCCESS:
+//                                if (message == null || message.result.records == null || message.result.records.size() == 0) {
+//                                    //跳转到绑定手表页
+//                                    Intent intent = new Intent(getActivity(), BindWatchsActivity.class);
+//                                    startActivity(intent);
+//                                } else {
+//                                    Intent intent = new Intent(getActivity(), WatchsListActivity.class);
+//                                    startActivity(intent);
+//                                }
+//                                break;
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFail(Call<BaseBean<WatchListResultBean>> call, Throwable t) {
+//
+//                    }
+//                });
 
 
             }
