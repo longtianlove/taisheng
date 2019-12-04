@@ -69,7 +69,7 @@ public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.O
                 finish();
             }
         });
-//        mAlarm = (Alarm) getIntent().getSerializableExtra("Alarm");
+
 
         allLayout = (RelativeLayout) findViewById(R.id.all_layout);
         tv_save = findViewById(R.id.tv_save);
