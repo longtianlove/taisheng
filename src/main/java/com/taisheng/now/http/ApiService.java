@@ -198,6 +198,14 @@ public interface ApiService {
     @POST(Constants.Url.Watch.stepCountingSetting)
     Call<BaseBean> stepCountingSetting(@Body KaiGuanPostBean bean);
 
+
+    //免打扰开关
+    @POST(Constants.Url.Watch.notDisturbSwitchSetting)
+    Call<BaseBean> notDisturbSwitchSetting(@Body KaiGuanPostBean bean);
+
+
+
+
     @POST(Constants.Url.Watch.getWatchWarning)
     Call<BaseBean<XinlvXueyaYujingBean>> getWatchWarning(@Body XinlvXueyaYujingPostBean bean);
 

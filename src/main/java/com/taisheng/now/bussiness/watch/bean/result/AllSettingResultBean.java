@@ -8,6 +8,6 @@ public class AllSettingResultBean {
     public String watchRemovesms;
     public String watchPedo;
     public String watchSleeptimeSwitch;
-    public String watchSilencetimeSwitch;
+    public String watchSliencetimeSwitch;
     public String watchHrtstartSwitch;
 }

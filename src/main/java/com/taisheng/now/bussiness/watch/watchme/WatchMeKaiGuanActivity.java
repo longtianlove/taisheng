@@ -79,7 +79,7 @@ public class WatchMeKaiGuanActivity extends BaseActivity implements ActivityComp
                 bean.token = UserInstance.getInstance().getToken();
                 bean.deviceId = WatchInstance.getInstance().deviceId;
                 bean.value = iv_kaiguan_gps.isSelected() ? "0" : "1";
-                ApiUtils.getApiService().flipCheckSetting(bean).enqueue(new TaiShengCallback<BaseBean>() {
+                ApiUtils.getApiService().gpsSetting(bean).enqueue(new TaiShengCallback<BaseBean>() {
                     @Override
                     public void onSuccess(Response<BaseBean> response, BaseBean message) {
                         switch (message.code) {
@@ -342,7 +342,7 @@ public class WatchMeKaiGuanActivity extends BaseActivity implements ActivityComp
                         }
 
                         // 免打扰
-                        WatchInstance.getInstance().watchSilencetimeSwitch = message.result.watchSilencetimeSwitch;
+                        WatchInstance.getInstance().watchSilencetimeSwitch = message.result.watchSliencetimeSwitch;
                         break;
                 }
             }
