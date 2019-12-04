@@ -5,6 +5,7 @@ import com.taisheng.now.EventManage;
 import com.taisheng.now.base.BaseBean;
 import com.taisheng.now.bussiness.bean.result.PictureBean;
 import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.bussiness.watch.bean.result.NaozhongLIstBean;
 import com.taisheng.now.http.ApiUtils;
 import com.taisheng.now.http.TaiShengCallback;
 import com.taisheng.now.util.SPUtil;
@@ -12,6 +13,8 @@ import com.taisheng.now.util.SPUtil;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -52,6 +55,9 @@ public class WatchInstance {
     public String phoneNumber;//手机号 必传 设备使用人手机号
 
 
+    public List<NaozhongLIstBean> mDataNaoZhong=new ArrayList<>();
+
+
     //上传头像信息
     public void uploadImage(final String path) {
         try {
@@ -88,9 +94,6 @@ public class WatchInstance {
         }
 
     }
-
-
-
 
 
     public String watchBpxyHigh;

@@ -95,7 +95,7 @@ public class Constants {
             //设备列表
             public static final String queryDeviceBinding = "jeecg-boot/app/watchDevice/queryDeviceBinding";
             //解除绑定
-            public static final String unbind="jeecg-boot/app/watchDevice/unbind";
+            public static final String unbind = "jeecg-boot/app/watchDevice/unbind";
 
 
             //            APP-获取血压、心率、步数的实时数据
@@ -121,6 +121,11 @@ public class Constants {
 
             public static final String addwatchElectronicFence = "jeecg-boot/app/watchUd/WatchUdSetting";
 
+
+            //            闹钟设置-批量获取
+            public static final String getWatchREMINDList = "jeecg-boot/app/watchRemind/getWatchREMINDList";
+            //            闹钟设置-闹钟参数设置
+            public static final String setWatchREMIND = "jeecg-boot/app/watchRemind/setWatchREMIND";
         }
 
 

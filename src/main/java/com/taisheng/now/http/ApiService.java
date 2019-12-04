@@ -89,12 +89,15 @@ import com.taisheng.now.bussiness.bean.result.market.OrderListResultBean;
 import com.taisheng.now.bussiness.bean.result.market.ShangPinResultBeann;
 
 import com.taisheng.now.bussiness.watch.bean.post.AnquanweiilanPostBean;
+import com.taisheng.now.bussiness.watch.bean.post.BaseWatchBean;
 import com.taisheng.now.bussiness.watch.bean.post.BindDevicePostBean;
 import com.taisheng.now.bussiness.watch.bean.post.GuijiPostBean;
+import com.taisheng.now.bussiness.watch.bean.post.SetNaozhongPostBean;
 import com.taisheng.now.bussiness.watch.bean.post.ShishiCollectionBean;
 import com.taisheng.now.bussiness.watch.bean.post.UnbindPostBean;
 import com.taisheng.now.bussiness.watch.bean.result.BushuResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.GuijiResultBean;
+import com.taisheng.now.bussiness.watch.bean.result.NaozhongListResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.ShiShiCollecgtionResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.WatchListBean;
 import com.taisheng.now.bussiness.watch.bean.result.WatchListResultBean;
@@ -160,6 +163,11 @@ public interface ApiService {
     @POST(Constants.Url.Watch.addwatchElectronicFence)
     Call<BaseBean> addwatchElectronicFence(@Body AnquanweiilanPostBean bean);
 
+    @POST(Constants.Url.Watch.getWatchREMINDList)
+    Call<BaseBean<NaozhongListResultBean>> getWatchREMINDList(@Body BaseWatchBean bean);
+
+    @POST(Constants.Url.Watch.setWatchREMIND)
+    Call<BaseBean> setWatchREMIND(@Body SetNaozhongPostBean bean);
 
     /*
     App接口
