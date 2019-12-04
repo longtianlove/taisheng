@@ -75,13 +75,13 @@ public class Constants {
         //        public static String Host = "http://192.168.1.18:8080/";
 //        public static String File_Host = "http://192.168.1.18:8888/";
 //        public static String WEB_SOCKET_URL = "ws://192.168.1.18:8879";
-//        public static String Host = "http://192.168.1.19:8080/";
-//        public static String File_Host = "http://192.168.1.19:8888/";
-//        public static String WEB_SOCKET_URL = "ws://192.168.1.19:8879";
+        public static String Host = "http://192.168.1.19:8080/";
+        public static String File_Host = "http://192.168.1.19:8888/";
+        public static String WEB_SOCKET_URL = "ws://192.168.1.19:8879";
 
-        public static String Host = "http://192.168.1.15:8080/";
-        public static String File_Host = "http://192.168.1.15:8888/";
-        public static String WEB_SOCKET_URL = "ws://192.168.1.15:8879";
+//        public static String Host = "http://192.168.1.15:8080/";
+//        public static String File_Host = "http://192.168.1.15:8888/";
+//        public static String WEB_SOCKET_URL = "ws://192.168.1.15:8879";
 
 
 //        public static String Host = "http://192.168.1.17:8080/";
@@ -126,6 +126,31 @@ public class Constants {
             public static final String getWatchREMINDList = "jeecg-boot/app/watchRemind/getWatchREMINDList";
             //            闹钟设置-闹钟参数设置
             public static final String setWatchREMIND = "jeecg-boot/app/watchRemind/setWatchREMIND";
+
+            //所有的开关状态
+            public static final String allSetting = "jeecg-boot/app/watch/setting/allSetting";
+
+            //            Watch-翻转检测开关设置
+            public static final String flipCheckSetting = "jeecg-boot/app/watch/setting/flipCheckSetting";
+
+            //            Watch-GPS开关设置接口
+            public static final String gpsSetting = "jeecg-boot/app/watch/setting/gpsSetting";
+
+
+            //            Watch-SOS报警开关设置
+            public static final String sosAlarmSetting = "jeecg-boot/app/watch/setting/sosAlarmSetting";
+
+
+            //            Watch-GPS低电短信报警设置
+            public static final String lowElectSmsSetting = "jeecg-boot/app/watch/setting/lowElectSmsSetting";
+
+            //            Watch-取下手环报警开关设置接口
+            public static final String takeOffWristbandSetting = "jeecg-boot/app/watch/setting/takeOffWristbandSetting";
+
+            //            Watch-计步开关设置
+            public static final String stepCountingSetting = "jeecg-boot/app/watch/setting/stepCountingSetting";
+
+
         }
 
 

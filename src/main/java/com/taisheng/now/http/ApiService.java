@@ -88,13 +88,16 @@ import com.taisheng.now.bussiness.bean.result.market.JsonRootBean;
 import com.taisheng.now.bussiness.bean.result.market.OrderListResultBean;
 import com.taisheng.now.bussiness.bean.result.market.ShangPinResultBeann;
 
+import com.taisheng.now.bussiness.watch.bean.post.AllSettingPostBean;
 import com.taisheng.now.bussiness.watch.bean.post.AnquanweiilanPostBean;
 import com.taisheng.now.bussiness.watch.bean.post.BaseWatchBean;
 import com.taisheng.now.bussiness.watch.bean.post.BindDevicePostBean;
 import com.taisheng.now.bussiness.watch.bean.post.GuijiPostBean;
+import com.taisheng.now.bussiness.watch.bean.post.KaiGuanPostBean;
 import com.taisheng.now.bussiness.watch.bean.post.SetNaozhongPostBean;
 import com.taisheng.now.bussiness.watch.bean.post.ShishiCollectionBean;
 import com.taisheng.now.bussiness.watch.bean.post.UnbindPostBean;
+import com.taisheng.now.bussiness.watch.bean.result.AllSettingResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.BushuResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.GuijiResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.NaozhongListResultBean;
@@ -168,6 +171,32 @@ public interface ApiService {
 
     @POST(Constants.Url.Watch.setWatchREMIND)
     Call<BaseBean> setWatchREMIND(@Body SetNaozhongPostBean bean);
+
+    @POST(Constants.Url.Watch.allSetting)
+    Call<BaseBean<AllSettingResultBean>> allSetting(@Body AllSettingPostBean bean);
+
+
+    @POST(Constants.Url.Watch.gpsSetting)
+    Call<BaseBean> gpsSetting(@Body KaiGuanPostBean bean);
+
+
+    @POST(Constants.Url.Watch.flipCheckSetting)
+    Call<BaseBean> flipCheckSetting(@Body KaiGuanPostBean bean);
+
+    @POST(Constants.Url.Watch.sosAlarmSetting)
+    Call<BaseBean> sosAlarmSetting(@Body KaiGuanPostBean bean);
+
+    @POST(Constants.Url.Watch.lowElectSmsSetting)
+    Call<BaseBean> lowElectSmsSetting(@Body KaiGuanPostBean bean);
+
+
+    @POST(Constants.Url.Watch.takeOffWristbandSetting)
+    Call<BaseBean> takeOffWristbandSetting(@Body KaiGuanPostBean bean);
+
+    @POST(Constants.Url.Watch.stepCountingSetting)
+    Call<BaseBean> stepCountingSetting(@Body KaiGuanPostBean bean);
+
+
 
     /*
     App接口
