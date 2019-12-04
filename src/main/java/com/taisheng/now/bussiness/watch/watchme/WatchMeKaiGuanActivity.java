@@ -303,12 +303,17 @@ public class WatchMeKaiGuanActivity extends BaseActivity implements ActivityComp
         AllSettingPostBean bean = new AllSettingPostBean();
         bean.userId = UserInstance.getInstance().getUid();
         bean.token = UserInstance.getInstance().getToken();
-        bean.deviceId = WatchInstance.getInstance().deviceId;
+        bean.clientId = WatchInstance.getInstance().deviceId;
         ApiUtils.getApiService().allSetting(bean).enqueue(new TaiShengCallback<BaseBean<AllSettingResultBean>>() {
             @Override
             public void onSuccess(Response<BaseBean<AllSettingResultBean>> response, BaseBean<AllSettingResultBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
+                        if ("1".equals(message.result.watchGpsSwitch)) {
+                            iv_kaiguan_gps.setSelected(true);
+                        } else {
+                            iv_kaiguan_gps.setSelected(false);
+                        }
                         if ("1".equals(message.result.watchSossms)) {
                             iv_kaiguan_sos.setSelected(true);
                         } else {
@@ -319,12 +324,25 @@ public class WatchMeKaiGuanActivity extends BaseActivity implements ActivityComp
                         } else {
                             iv_kaiguan_didianduanxin.setSelected(false);
                         }
+                        if ("1".equals(message.result.watchRemove)) {
+                            iv_kaiguan_quxiashouhuan.setSelected(true);
+                        } else {
+                            iv_kaiguan_quxiashouhuan.setSelected(false);
+                        }
                         if ("1".equals(message.result.watchPedo)) {
                             iv_kaiguan_jibu.setSelected(true);
                         } else {
                             iv_kaiguan_jibu.setSelected(false);
                         }
-                        //todo 免打扰
+
+                        if("1".equals(message.result.watchSleeptimeSwitch)){
+                            iv_kaiguan_fanzhuan.setSelected(true);
+                        }else{
+                            iv_kaiguan_fanzhuan.setSelected(false);
+                        }
+
+                        // 免打扰
+                        WatchInstance.getInstance().watchSilencetimeSwitch = message.result.watchSilencetimeSwitch;
                         break;
                 }
             }

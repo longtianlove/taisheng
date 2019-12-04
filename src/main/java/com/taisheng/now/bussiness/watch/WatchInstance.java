@@ -101,4 +101,16 @@ public class WatchInstance {
     public String watchBpxyLow;
     public String stepNum;
     public String watchHeart;
+
+
+
+    public String watchSilencetimeSwitch;
+
+
+    //todo 平均心率
+    public int temp_bpxyHigh;
+    public int temp_bpxyLow;
+    public int temp_heartNumMax;
+    public int temp_heartNumMin;
+
 }

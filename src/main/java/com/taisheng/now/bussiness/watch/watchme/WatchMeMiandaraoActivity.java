@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.bussiness.watch.WatchInstance;
 
 /**
  * Created by dragon on 2019/6/29.
@@ -53,7 +54,12 @@ public class WatchMeMiandaraoActivity extends BaseActivity implements ActivityCo
             }
         });
         iv_kaiguan_gps = findViewById(R.id.iv_kaiguan_gps);
-        iv_kaiguan_gps.setSelected(false);
+        if("1".equals(WatchInstance.getInstance().watchSilencetimeSwitch)){
+            iv_kaiguan_gps.setSelected(true);
+        }else{
+            iv_kaiguan_gps.setSelected(false);
+        }
+
 
 
         ll_kaiguan_miandarao = findViewById(R.id.ll_kaiguan_miandarao);

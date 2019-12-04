@@ -106,6 +106,7 @@ import com.taisheng.now.bussiness.watch.bean.result.ShiShiCollecgtionResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.WatchListBean;
 import com.taisheng.now.bussiness.watch.bean.result.WatchListResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.XinLvResultBean;
+import com.taisheng.now.bussiness.watch.bean.result.XinlvXueyaYujingBean;
 import com.taisheng.now.bussiness.watch.bean.result.XueYaDayResultBean;
 import com.taisheng.now.test.WechatResultBean;
 
@@ -198,7 +199,7 @@ public interface ApiService {
     Call<BaseBean> stepCountingSetting(@Body KaiGuanPostBean bean);
 
     @POST(Constants.Url.Watch.getWatchWarning)
-    Call<BaseBean> getWatchWarning(@Body XinlvXueyaYujingPostBean bean);
+    Call<BaseBean<XinlvXueyaYujingBean>> getWatchWarning(@Body XinlvXueyaYujingPostBean bean);
 
 
     /*

@@ -306,7 +306,6 @@
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:visibility="gone"
                 android:weightSum="1">
 
                 <TextView
@@ -340,7 +339,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:background="#EEEEEE"
-                android:visibility="gone"></View>
+                ></View>
 
 
             <LinearLayout
