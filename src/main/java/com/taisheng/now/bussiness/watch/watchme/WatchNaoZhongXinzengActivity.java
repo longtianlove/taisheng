@@ -16,15 +16,28 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 
+import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.bussiness.watch.WatchInstance;
+import com.taisheng.now.bussiness.watch.bean.post.SetNaozhongPostBean;
+import com.taisheng.now.bussiness.watch.bean.result.NaozhongLIstBean;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
+import com.taisheng.now.util.ToastUtil;
 import com.taisheng.now.view.naozhong.SelectRemindCyclePopup;
 import com.taisheng.now.view.naozhong.SelectRemindWayPopup;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 
 public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.OnClickListener {
@@ -35,23 +48,21 @@ public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.O
     private RelativeLayout repeat_rl, ring_rl;
     private TextView tv_repeat_value, tv_ring_value;
     private RelativeLayout allLayout;
-    private Button set_btn, cancel_btn;
+    public View tv_save;
+    public View tv_cancel;
+
 
     private String time;
     private int cycle;
     private int ring;
     private JobScheduler mJobScheduler;
-//    private MyConn myConn;
-//    private IMyBinder myBinder;
-//
-//    private Alarm mAlarm;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_watchnaozhong);
-        iv_back=findViewById(R.id.iv_back);
+        iv_back = findViewById(R.id.iv_back);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,10 +72,52 @@ public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.O
 //        mAlarm = (Alarm) getIntent().getSerializableExtra("Alarm");
 
         allLayout = (RelativeLayout) findViewById(R.id.all_layout);
-//        set_btn = (Button) findViewById(R.id.set_btn);
-//        set_btn.setOnClickListener(this);
-//        cancel_btn = (Button) findViewById(R.id.cancel_btn);
-//        cancel_btn.setOnClickListener(this);
+        tv_save = findViewById(R.id.tv_save);
+        tv_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ("选择时间".equals(date_tv.getText())) {
+                    ToastUtil.showAtCenter("请选择时间");
+                    return;
+                }
+                //TODO 设置时间
+                SetNaozhongPostBean setNaozhongPostBean = new SetNaozhongPostBean();
+                setNaozhongPostBean.userId = UserInstance.getInstance().getUid();
+                setNaozhongPostBean.token = UserInstance.getInstance().getToken();
+                setNaozhongPostBean.clientId = WatchInstance.getInstance().deviceId;
+//                setNaozhongPostBean.startTime=date_tv.getText().toString();
+                WatchInstance.getInstance().naozhongLIstBean.isOpen = "1";
+                WatchInstance.getInstance().naozhongLIstBean.startTime=date_tv.getText().toString();
+                WatchInstance.getInstance().mDataNaoZhong.add(WatchInstance.getInstance().naozhongLIstBean);
+
+                setNaozhongPostBean.watchRemindList = WatchInstance.getInstance().mDataNaoZhong;
+                ApiUtils.getApiService().setWatchREMIND(setNaozhongPostBean).enqueue(new TaiShengCallback<BaseBean>() {
+                    @Override
+                    public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                        switch (message.code) {
+                            case Constants.HTTP_SUCCESS:
+
+                                ToastUtil.showAtCenter("闹钟设置成功");
+                                finish();
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Call<BaseBean> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+        WatchInstance.getInstance().naozhongLIstBean = new NaozhongLIstBean();
+        tv_cancel = findViewById(R.id.tv_cancel);
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         date_tv = (TextView) findViewById(R.id.date_tv);
         repeat_rl = (RelativeLayout) findViewById(R.id.repeat_rl);
@@ -198,96 +251,6 @@ public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.O
 //    }
 
 
-    private void setClock() {
-                if (time != null && time.length() > 0) {
-
-//        if (time != null && time.length() > 0 || mAlarm != null) {
-//            String[] times = time.split(":");
-//            Calendar calendar = Calendar.getInstance();
-//            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get
-//                    (Calendar.DAY_OF_MONTH), Integer.parseInt(times[0]), Integer.parseInt
-//                    (times[1]), 5);
-//            Alarm alarm = new Alarm();
-//            if (mAlarm == null) {
-//                alarm.setAlarmTime(time);
-//                alarm.setAlarmType(ring);
-//                alarm.setIsOpen(true);
-//                switch (cycle) {
-//                    case 0:
-//                        alarm.setAlarmTypeName("EveryDay");
-//                        break;
-//                    case -1:
-//                        alarm.setAlarmTypeName("Once");
-//                        break;
-//                    default:
-//                        alarm.setAlarmTypeName(parseRepeat(cycle, 0));
-//                }
-//                alarm.setCycle(cycle);
-//                alarm.setTimeInMillis(AlarmManagerUtil.calMethod(0, calendar.getTimeInMillis()));
-//
-//                MyApp.instances.getDaoSession().getAlarmDao().insert(alarm);
-//            } else {
-////                time = mAlarm.getAlarmTime();
-//                mAlarm.setAlarmTime(time);
-//                mAlarm.setAlarmType(ring);
-//                mAlarm.setIsOpen(true);
-//                mAlarm.setCycle(cycle);
-//                switch (cycle) {
-//                    case 0:
-//                        mAlarm.setAlarmTypeName("EveryDay");
-//                        break;
-//                    case -1:
-//                        mAlarm.setAlarmTypeName("Once");
-//                        break;
-//                    default:
-//                        mAlarm.setAlarmTypeName(parseRepeat(cycle, 0));
-//                }
-//                mAlarm.setTimeInMillis(AlarmManagerUtil.calMethod(0, calendar.getTimeInMillis()));
-//                MyApp.instances.getDaoSession().getAlarmDao().update(mAlarm);
-//            }
-
-            if (cycle == 0) {//是每天的闹钟
-//                AlarmManagerUtil.setAlarm(this, 0, Integer.parseInt(times[0]), Integer.parseInt
-//                        (times[1]), getAlarmId(), 0, "Alarming", ring);
-            } else if (cycle == -1) {//是只响一次的闹钟
-//                AlarmManagerUtil.setAlarm(this, 1, Integer.parseInt(times[0]), Integer.parseInt
-//                        (times[1]), getAlarmId(), 0, "Alarming", ring);
-            } else {//多选，周几的闹钟
-//                String weeksStr = parseRepeat(cycle, 1);
-//                String[] weeks = weeksStr.split(",");
-//                if (mAlarm != null) {
-//                    for (int i = 1; i <= mAlarm.getWeekLengths(); i++) {
-//                        MyApp.instances.getDaoSession().getAlarmDao().deleteByKey(mAlarm.getId() + i);
-//                    }
-//                    mAlarm.setWeekLengths(mAlarm.getWeekLengths() + weeks.length);
-//                    mAlarm.setTimeInMillis(AlarmManagerUtil.calMethod(Integer.parseInt(weeks[0]), calendar.getTimeInMillis()));
-//                    MyApp.instances.getDaoSession().getAlarmDao().update(mAlarm);
-//                } else {
-//                    alarm.setWeekLengths(weeks.length);
-//                    alarm.setTimeInMillis(AlarmManagerUtil.calMethod(Integer.parseInt(weeks[0]), calendar.getTimeInMillis()));
-//                    MyApp.instances.getDaoSession().getAlarmDao().update(alarm);
-//                }
-//                AlarmManagerUtil.setAlarm(this, 2, Integer.parseInt(times[0]), Integer
-//                        .parseInt(times[1]), getAlarmId(), 0, "Alarming", ring);
-//                for (int i = 1; i < weeks.length; i++) {
-//                    AlarmManagerUtil.setAlarm(this, 2, Integer.parseInt(times[0]), Integer
-//                            .parseInt(times[1]), getAlarmId() + 1, Integer.parseInt(weeks[i]), "Alarming", ring);
-//                    if (i > 0) {
-//                        Alarm temp = new Alarm();
-//                        temp.setTimeInMillis(calMethod(Integer.parseInt(weeks[i]), calendar.getTimeInMillis()));
-//                        MyApp.instances.getDaoSession().getAlarmDao().insert(temp);
-//                    }
-//                }
-            }
-            Toast.makeText(this, "设置成功", Toast.LENGTH_LONG).show();
-            finish();
-        } else {
-            Toast.makeText(this, "请选择时间", Toast.LENGTH_LONG).show();
-        }
-
-    }
-
-
     public void selectRemindCycle() {
         final SelectRemindCyclePopup fp = new SelectRemindCyclePopup(this);
         fp.showPopup(allLayout);
@@ -334,11 +297,13 @@ public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.O
                         break;
                     case 8:
                         tv_repeat_value.setText("每天");
+                        WatchInstance.getInstance().naozhongLIstBean.frequency = "2";
                         cycle = 0;
                         fp.dismiss();
                         break;
                     case 9:
                         tv_repeat_value.setText("一次");
+                        WatchInstance.getInstance().naozhongLIstBean.frequency = "1";
                         cycle = -1;
                         fp.dismiss();
                         break;
@@ -390,12 +355,24 @@ public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.O
         String weeks = "";
         if (repeat == 0) {
 //            repeat = 127;
-            cycle="每天";
+            cycle = "每天";
+            WatchInstance.getInstance().naozhongLIstBean.frequency = "2";
             return cycle;
         }
+        WatchInstance.getInstance().naozhongLIstBean.frequency = "3";
         if (repeat % 2 == 1) {
             cycle = "星期一";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek1 = "1";
             weeks = "1";
+        }else{
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek1 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek2 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek3 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek4 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek5 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek6 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek7 = "0";
+
         }
         if (repeat % 4 >= 2) {
             if ("".equals(cycle)) {
@@ -405,6 +382,15 @@ public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.O
                 cycle = cycle + "," + "星期二";
                 weeks = weeks + "," + "2";
             }
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek2 = "1";
+
+        }else{
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek2 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek3 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek4 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek5 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek6 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek7 = "0";
         }
         if (repeat % 8 >= 4) {
             if ("".equals(cycle)) {
@@ -414,6 +400,15 @@ public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.O
                 cycle = cycle + "," + "星期三";
                 weeks = weeks + "," + "3";
             }
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek3 = "1";
+
+        }else{
+
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek3 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek4 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek5 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek6 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek7 = "0";
         }
         if (repeat % 16 >= 8) {
             if ("".equals(cycle)) {
@@ -423,6 +418,13 @@ public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.O
                 cycle = cycle + "," + "星期四";
                 weeks = weeks + "," + "4";
             }
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek4 = "1";
+
+        }else{
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek4 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek5 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek6 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek7 = "0";
         }
         if (repeat % 32 >= 16) {
             if ("".equals(cycle)) {
@@ -432,6 +434,12 @@ public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.O
                 cycle = cycle + "," + "星期五";
                 weeks = weeks + "," + "5";
             }
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek5 = "1";
+
+        }else{
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek5 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek6 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek7 = "0";
         }
         if (repeat % 64 >= 32) {
             if ("".equals(cycle)) {
@@ -441,6 +449,11 @@ public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.O
                 cycle = cycle + "," + "星期六";
                 weeks = weeks + "," + "6";
             }
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek6 = "1";
+
+        }else{
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek6 = "0";
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek7 = "0";
         }
         if (repeat / 64 == 1) {
             if ("".equals(cycle)) {
@@ -450,6 +463,10 @@ public class WatchNaoZhongXinzengActivity extends BaseActivity implements View.O
                 cycle = cycle + "," + "星期日";
                 weeks = weeks + "," + "7";
             }
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek7 = "1";
+
+        }else{
+            WatchInstance.getInstance().naozhongLIstBean.isOpenWeek7 = "0";
         }
 
         return flag == 0 ? cycle : weeks;

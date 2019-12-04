@@ -55,7 +55,7 @@ public class WatchMeNaozhongListActivity extends BaseActivity implements Activit
         setContentView(R.layout.activity_watchme_naozhong);
         initView();
 //        EventBus.getDefault().register(this);
-        initData();
+
     }
 
     void initView() {
@@ -81,6 +81,12 @@ public class WatchMeNaozhongListActivity extends BaseActivity implements Activit
         lv_articles.setAdapter(madapter);
 
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initData();
     }
 
     void initData() {
@@ -207,8 +213,6 @@ public class WatchMeNaozhongListActivity extends BaseActivity implements Activit
                     });
 
 
-
-                    //todo 网络访问
                 }
             });
             util.tv_time.setText(bean.startTime);
@@ -219,7 +223,53 @@ public class WatchMeNaozhongListActivity extends BaseActivity implements Activit
                 util.tv_pinlv.setText("每天");
 
             }else{
-                //todo 自定义频率
+                String temp=new String();
+                if("1".equals(bean.isOpenWeek1)){
+                    temp+="一";
+                }
+                if("1".equals(bean.isOpenWeek2)){
+                    if("".equals(temp)){
+                        temp+="二";
+                    }else{
+                        temp+=",二";
+                    }
+                }
+                if("1".equals(bean.isOpenWeek3)){
+                    if("".equals(temp)){
+                        temp+="三";
+                    }else{
+                        temp+=",三";
+                    }
+                }
+                if("1".equals(bean.isOpenWeek4)){
+                    if("".equals(temp)){
+                        temp+="四";
+                    }else{
+                        temp+=",四";
+                    }
+                }
+                if("1".equals(bean.isOpenWeek5)){
+                    if("".equals(temp)){
+                        temp+="五";
+                    }else{
+                        temp+=",五";
+                    }
+                }
+                if("1".equals(bean.isOpenWeek6)){
+                    if("".equals(temp)){
+                        temp+="六";
+                    }else{
+                        temp+=",六";
+                    }
+                }
+                if("1".equals(bean.isOpenWeek7)){
+                    if("".equals(temp)){
+                        temp+="日";
+                    }else{
+                        temp+=",日";
+                    }
+                }
+                util.tv_pinlv.setText("星期"+temp);
 
             }
 

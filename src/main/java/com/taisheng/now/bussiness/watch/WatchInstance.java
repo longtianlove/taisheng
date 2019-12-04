@@ -55,7 +55,8 @@ public class WatchInstance {
     public String phoneNumber;//手机号 必传 设备使用人手机号
 
 
-    public List<NaozhongLIstBean> mDataNaoZhong=new ArrayList<>();
+    public ArrayList<NaozhongLIstBean> mDataNaoZhong=new ArrayList<>();
+    public NaozhongLIstBean naozhongLIstBean=new NaozhongLIstBean();
 
 
     //上传头像信息
