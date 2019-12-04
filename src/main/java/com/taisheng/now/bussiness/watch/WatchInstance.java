@@ -107,9 +107,13 @@ public class WatchInstance {
     public String watchSilencetimeSwitch;
 
 
-    //todo 平均心率
-    public int temp_bpxyHigh;
-    public int temp_bpxyLow;
+
+    public int temp_bpxyHighMax;//血压
+    public int temp_bpxyHighMin;
+    public int temp_bpxyLowMax;
+    public int temp_bpxyLowMin;
+    public int temp_bpxyPressureDifferenceMax;//脉压差
+    public int temp_bpxyPressureDifferenceMin;
     public int temp_heartNumMax;
     public int temp_heartNumMin;
 

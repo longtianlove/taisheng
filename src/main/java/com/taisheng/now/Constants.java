@@ -157,6 +157,9 @@ public class Constants {
             //            心率血压预警设置-查询
             public static final String getWatchWarning = "jeecg-boot/app/watchWarning/getWatchWarning";
 
+//            心率血压预警设置-修改
+
+            public static final String setWatchWarning = "jeecg-boot/app/watchWarning/setWatchWarning";
 
         }
 

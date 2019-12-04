@@ -209,6 +209,11 @@ public interface ApiService {
     @POST(Constants.Url.Watch.getWatchWarning)
     Call<BaseBean<XinlvXueyaYujingBean>> getWatchWarning(@Body XinlvXueyaYujingPostBean bean);
 
+    @POST(Constants.Url.Watch.setWatchWarning)
+    Call<BaseBean> setWatchWarning(@Body XinlvXueyaYujingBean bean);
+
+
+
 
     /*
     App接口

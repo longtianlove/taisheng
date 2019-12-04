@@ -76,13 +76,20 @@ public class WatchMeXinlvyujingActivity extends BaseActivity implements Activity
             public void onSuccess(Response<BaseBean<XinlvXueyaYujingBean>> response, BaseBean<XinlvXueyaYujingBean> message) {
                 switch (message.code) {
                     case Constants.HTTP_SUCCESS:
-                        WatchInstance.getInstance().temp_bpxyHigh=message.result.bpxyHigh;
-                        WatchInstance.getInstance().temp_bpxyLow=message.result.bpxyLow;
+                        WatchInstance.getInstance().temp_bpxyHighMax=message.result.bpxyHighMax;
+                        WatchInstance.getInstance().temp_bpxyHighMin=message.result.bpxyHighMin;
+
+                        WatchInstance.getInstance().temp_bpxyLowMax=message.result.bpxyLowMax;
+                        WatchInstance.getInstance().temp_bpxyLowMin=message.result.bpxyLowMin;
+
+                        WatchInstance.getInstance().temp_bpxyPressureDifferenceMax=message.result.bpxyPressureDifferenceMax;
+                        WatchInstance.getInstance().temp_bpxyPressureDifferenceMin=message.result.bpxyPressureDifferenceMin;
+
                         WatchInstance.getInstance().temp_heartNumMax=message.result.heartNumMax;
                         WatchInstance.getInstance().temp_heartNumMin=message.result.heartNumMin;
 
-                        tv_xinlvpingzuidazhi.setText(message.result.bpxyHigh);
-                        tv_xinlvpingzuixiaozhi.setText(message.result.bpxyLow);
+                        tv_xinlvpingzuidazhi.setText(message.result.heartNumMax+"");
+                        tv_xinlvpingzuixiaozhi.setText(message.result.heartNumMin+"");
                         break;
                 }
             }
