@@ -97,6 +97,7 @@ import com.taisheng.now.bussiness.watch.bean.post.KaiGuanPostBean;
 import com.taisheng.now.bussiness.watch.bean.post.SetNaozhongPostBean;
 import com.taisheng.now.bussiness.watch.bean.post.ShishiCollectionBean;
 import com.taisheng.now.bussiness.watch.bean.post.UnbindPostBean;
+import com.taisheng.now.bussiness.watch.bean.post.XinlvXueyaYujingPostBean;
 import com.taisheng.now.bussiness.watch.bean.result.AllSettingResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.BushuResultBean;
 import com.taisheng.now.bussiness.watch.bean.result.GuijiResultBean;
@@ -196,6 +197,8 @@ public interface ApiService {
     @POST(Constants.Url.Watch.stepCountingSetting)
     Call<BaseBean> stepCountingSetting(@Body KaiGuanPostBean bean);
 
+    @POST(Constants.Url.Watch.getWatchWarning)
+    Call<BaseBean> getWatchWarning(@Body XinlvXueyaYujingPostBean bean);
 
 
     /*

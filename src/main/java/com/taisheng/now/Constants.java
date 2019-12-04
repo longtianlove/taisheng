@@ -149,7 +149,8 @@ public class Constants {
 
             //            Watch-计步开关设置
             public static final String stepCountingSetting = "jeecg-boot/app/watch/setting/stepCountingSetting";
-
+            //            心率血压预警设置-查询
+            public static final String getWatchWarning = "jeecg-boot/app/watchWarning/getWatchWarning";
 
         }
 

@@ -7,8 +7,18 @@ import android.widget.ImageView;
 
 import androidx.core.app.ActivityCompat;
 
+import com.taisheng.now.Constants;
 import com.taisheng.now.R;
 import com.taisheng.now.base.BaseActivity;
+import com.taisheng.now.base.BaseBean;
+import com.taisheng.now.bussiness.user.UserInstance;
+import com.taisheng.now.bussiness.watch.WatchInstance;
+import com.taisheng.now.bussiness.watch.bean.post.XinlvXueyaYujingPostBean;
+import com.taisheng.now.http.ApiUtils;
+import com.taisheng.now.http.TaiShengCallback;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by dragon on 2019/6/29.
@@ -25,6 +35,7 @@ public class WatchMeXinlvyujingActivity extends BaseActivity implements Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watchme_xinlvyujing);
         initView();
+        initData();
     }
 
     void initView() {
@@ -45,6 +56,28 @@ public class WatchMeXinlvyujingActivity extends BaseActivity implements Activity
             }
         });
 
+    }
+
+    void initData(){
+        XinlvXueyaYujingPostBean bean=new XinlvXueyaYujingPostBean();
+        bean.userId= UserInstance.getInstance().getUid();
+        bean.token=UserInstance.getInstance().getToken();
+        bean.clientId= WatchInstance.getInstance().deviceId;
+        ApiUtils.getApiService().getWatchWarning(bean).enqueue(new TaiShengCallback<BaseBean>() {
+            @Override
+            public void onSuccess(Response<BaseBean> response, BaseBean message) {
+                switch (message.code) {
+                    case Constants.HTTP_SUCCESS:
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onFail(Call<BaseBean> call, Throwable t) {
+
+            }
+        });
     }
 
 
