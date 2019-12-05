@@ -44,7 +44,6 @@ public class WatchMeXueyajingActivity extends BaseActivity implements ActivityCo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watchme_xueyayujing);
         initView();
-        initData();
     }
 
     void initView() {
@@ -71,6 +70,12 @@ public class WatchMeXueyajingActivity extends BaseActivity implements ActivityCo
         tv_diyazuixiao=findViewById(R.id.tv_diyazuixiao);
         tv_maiyaca=findViewById(R.id.tv_maiyaca);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initData();
     }
 
     void initData() {

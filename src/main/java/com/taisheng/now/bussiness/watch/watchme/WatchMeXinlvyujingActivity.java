@@ -40,7 +40,6 @@ public class WatchMeXinlvyujingActivity extends BaseActivity implements Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watchme_xinlvyujing);
         initView();
-        initData();
     }
 
     void initView() {
@@ -64,6 +63,12 @@ public class WatchMeXinlvyujingActivity extends BaseActivity implements Activity
         tv_xinlvpingzuidazhi=findViewById(R.id.tv_xinlvpingzuidazhi);
         tv_xinlvpingzuixiaozhi=findViewById(R.id.tv_xinlvpingzuixiaozhi);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initData();
     }
 
     void initData(){
